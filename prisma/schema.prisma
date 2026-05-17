@@ -1,0 +1,60 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Lead {
+  id        String   @id @default(uuid())
+  type      String   // contact | tour | apply | sell
+  name      String
+  email     String?
+  phone     String?
+  property  String?
+  message   String?
+  metadata  String?  // JSON string for extra fields
+  createdAt DateTime @default(now())
+}
+
+model Tour {
+  id        String   @id @default(uuid())
+  property  String
+  date      String
+  time      String
+  name      String
+  email     String?
+  phone     String?
+  moveBy    String?
+  notes     String?
+  createdAt DateTime @default(now())
+}
+
+model Application {
+  id            String   @id @default(uuid())
+  firstName     String
+  lastName      String
+  email         String
+  phone         String
+  dob           String?
+  currentAddress String?
+  coApplicants  String?
+  pets          String?
+  petDesc       String?
+  vehicles      String?
+  employer      String?
+  jobTitle      String?
+  income        String?
+  employedSince String?
+  prevLandlord  String?
+  prevLandlordPhone String?
+  reasonLeaving String?
+  property      String?
+  unitType      String?
+  moveIn        String?
+  budget        String?
+  notes         String?
+  createdAt     DateTime @default(now())
+}

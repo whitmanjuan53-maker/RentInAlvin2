@@ -1,0 +1,563 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Yellowstone Asset Management — Alvin, TX</title>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+
+    :root {
+      --bg: #F4EEE4;
+      --paper: #FBF7F0;
+      --ink: #1A1815;
+      --inkSoft: #5C5750;
+      --primary: #1F3A2E;
+      --primarySoft: #2A4A3C;
+      --accent: #B5703D;
+      --line: rgba(26,24,21,0.18);
+    }
+
+    body {
+      font-family: 'Inter', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      font-size: 11pt;
+      line-height: 1.45;
+    }
+    em { font-style: italic; }
+    a { color: inherit; text-decoration: none; }
+
+    .serif { font-family: 'Instrument Serif', Georgia, serif; font-weight: 400; }
+    .eyebrow {
+      font-size: 8pt; letter-spacing: 0.18em; text-transform: uppercase;
+      color: var(--accent); font-weight: 600;
+    }
+
+    /* Page setup */
+    @page { size: letter; margin: 0.5in; }
+
+    .page {
+      width: 100%;
+      max-width: 7.5in;
+      margin: 0 auto;
+      padding: 0.4in 0;
+      break-after: page;
+      page-break-after: always;
+    }
+    .page:last-child { break-after: auto; page-break-after: auto; }
+
+    /* === Cover === */
+    .cover {
+      min-height: 9.5in;
+      display: flex; flex-direction: column; justify-content: space-between;
+      padding: 0.6in 0;
+    }
+    .cover .brand {
+      display: flex; align-items: center; gap: 12px;
+    }
+    .cover .brand-mark {
+      width: 44px; height: 44px; background: var(--primary); color: var(--paper);
+      display: grid; place-items: center;
+      font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 28pt;
+      line-height: 1;
+    }
+    .cover .brand-name {
+      font-family: 'Instrument Serif', Georgia, serif; font-size: 22pt;
+    }
+    .cover h1 {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 64pt; line-height: 0.98;
+      letter-spacing: -0.01em;
+      margin: 0;
+      font-weight: 400;
+      max-width: 13ch;
+    }
+    .cover h1 em { color: var(--primary); }
+    .cover .lede {
+      font-size: 13pt; line-height: 1.5; color: var(--inkSoft);
+      max-width: 50ch; margin-top: 28px;
+    }
+    .cover .lede strong { color: var(--ink); font-weight: 600; }
+    .cover .stats {
+      display: grid; grid-template-columns: repeat(4, 1fr);
+      border-top: 1px solid var(--line);
+      padding-top: 18px;
+      margin-top: 36px;
+    }
+    .cover .stats > div {
+      padding: 0 16px; border-left: 1px solid var(--line);
+    }
+    .cover .stats > div:first-child { border-left: none; padding-left: 0; }
+    .cover .stats .num {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 32pt; line-height: 1; color: var(--primary);
+    }
+    .cover .stats .lab {
+      font-size: 8pt; color: var(--inkSoft); letter-spacing: 0.05em;
+      margin-top: 6px; text-transform: uppercase;
+    }
+    .cover .meta {
+      display: flex; justify-content: space-between; align-items: flex-end;
+      font-size: 9pt; color: var(--inkSoft); padding-top: 24px;
+      border-top: 1px solid var(--line); margin-top: 24px;
+    }
+
+    /* === Section heads === */
+    .section-head {
+      display: grid; grid-template-columns: 1fr 2fr; gap: 40px;
+      margin-bottom: 28px; align-items: end;
+      break-inside: avoid; page-break-inside: avoid;
+    }
+    .section-head h2 {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 32pt; line-height: 1.05;
+      font-weight: 400; margin: 8px 0 0; letter-spacing: -0.005em;
+    }
+    .section-head h2 em { color: var(--primary); }
+    .section-head p { color: var(--inkSoft); margin: 0; max-width: 60ch; font-size: 10pt; }
+
+    /* === Properties grid === */
+    .props {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 18px;
+    }
+    .prop {
+      background: var(--paper); border: 1px solid var(--line);
+      padding: 22px;
+      break-inside: avoid; page-break-inside: avoid;
+      display: flex; flex-direction: column; gap: 8px;
+      min-height: 2.4in;
+    }
+    .prop .num {
+      color: var(--accent); font-size: 8pt; letter-spacing: 0.15em; text-transform: uppercase;
+      font-weight: 600;
+    }
+    .prop h3 {
+      font-family: 'Instrument Serif', Georgia, serif; font-size: 22pt; font-weight: 400;
+      margin: 4px 0 0; line-height: 1.1;
+    }
+    .prop .addr { color: var(--inkSoft); font-size: 9pt; }
+    .prop .units { font-size: 10pt; }
+    .prop .note { color: var(--inkSoft); font-size: 9pt; line-height: 1.5; }
+    .prop .price {
+      color: var(--primary); font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 14pt; font-style: italic; margin-top: auto; padding-top: 8px;
+    }
+
+    /* === Availability === */
+    .avail {
+      background: var(--paper); border: 1px solid var(--line);
+      break-inside: avoid; page-break-inside: avoid;
+    }
+    .avail .row {
+      display: grid; grid-template-columns: 2fr 1.5fr 1fr 1fr 1.4fr;
+      padding: 14px 18px;
+      align-items: baseline; gap: 8px;
+      border-bottom: 1px solid var(--line);
+    }
+    .avail .row:last-child { border-bottom: none; }
+    .avail .row.head {
+      font-size: 8pt; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--inkSoft); padding: 12px 18px;
+    }
+    .avail .name {
+      font-family: 'Instrument Serif', Georgia, serif; font-size: 13pt;
+    }
+    .avail .addr-sub { color: var(--inkSoft); font-size: 8pt; }
+    .avail .price-cell {
+      font-family: 'Instrument Serif', Georgia, serif; font-size: 13pt;
+      color: var(--primary);
+    }
+    .avail .ready { color: var(--inkSoft); font-size: 9pt; }
+    .avail .ready .dot {
+      display: inline-block; width: 6px; height: 6px; background: #22c55e;
+      border-radius: 999px; margin-right: 6px; vertical-align: middle;
+    }
+
+    /* === Why us === */
+    .why {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px;
+    }
+    .why .col {
+      background: var(--paper); border: 1px solid var(--line); padding: 22px;
+      break-inside: avoid; page-break-inside: avoid;
+    }
+    .why .n {
+      font-family: 'Instrument Serif', Georgia, serif; font-style: italic;
+      font-size: 22pt; color: var(--accent); line-height: 1;
+    }
+    .why h4 {
+      font-family: 'Instrument Serif', Georgia, serif; font-size: 16pt;
+      font-weight: 400; margin: 6px 0 8px; line-height: 1.2;
+    }
+    .why p { color: var(--inkSoft); font-size: 9.5pt; margin: 0; line-height: 1.55; }
+
+    /* === Floor plans === */
+    .floors {
+      display: grid; grid-template-columns: repeat(3, 1fr); gap: 0;
+      border: 1px solid var(--line);
+    }
+    .floors > div {
+      padding: 18px 20px; border-right: 1px solid var(--line);
+      background: var(--paper);
+      break-inside: avoid; page-break-inside: avoid;
+    }
+    .floors > div:last-child { border-right: none; }
+    .floors .type-label {
+      font-size: 8pt; letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--accent); font-weight: 600;
+    }
+    .floors h4 {
+      font-family: 'Instrument Serif', Georgia, serif; font-size: 18pt;
+      font-weight: 400; margin: 6px 0 4px; line-height: 1.15;
+    }
+    .floors .sqft { color: var(--inkSoft); font-size: 9pt; }
+    .floors .price-line {
+      font-family: 'Instrument Serif', Georgia, serif; font-size: 16pt;
+      color: var(--primary); margin-top: 12px;
+    }
+
+    /* === Contact === */
+    .contact {
+      background: var(--primary); color: var(--paper);
+      padding: 0.5in 0.5in;
+      margin-top: 24px;
+      break-inside: avoid; page-break-inside: avoid;
+    }
+    .contact h2 {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 36pt; font-weight: 400;
+      margin: 0 0 14px; line-height: 1.05;
+      max-width: 18ch;
+    }
+    .contact h2 em { color: var(--accent); }
+    .contact p { color: rgba(251,247,240,0.8); max-width: 50ch; line-height: 1.55; margin: 0 0 24px; font-size: 10pt; }
+    .contact .grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 14px;
+    }
+    .contact .ch {
+      padding: 16px 18px;
+      background: rgba(251,247,240,0.08);
+      display: grid; grid-template-columns: 1fr; gap: 4px;
+    }
+    .contact .ch .lab { font-size: 8pt; letter-spacing: 0.15em; color: rgba(251,247,240,0.6); text-transform: uppercase; }
+    .contact .ch .val { font-family: 'Instrument Serif', Georgia, serif; font-size: 14pt; }
+
+    /* === Footer === */
+    .footer-meta {
+      padding-top: 24px; border-top: 1px solid var(--line);
+      display: flex; justify-content: space-between; align-items: center;
+      color: var(--inkSoft); font-size: 8pt;
+    }
+
+    /* === Print === */
+    @media print {
+      body {
+        background: var(--bg) !important;
+        -webkit-print-color-adjust: exact;
+        print-color-adjust: exact;
+      }
+      .page { padding: 0; max-width: 100%; }
+      .cover { min-height: 10in; }
+      .prop, .why .col, .floors > div, .avail, .contact, .section-head {
+        break-inside: avoid; page-break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ========== Page 1: Cover ========== -->
+  <div class="page cover">
+    <div class="brand">
+      <div class="brand-mark">Y</div>
+      <div class="brand-name">Yellowstone</div>
+    </div>
+
+    <div>
+      <div class="eyebrow">Property Management · Alvin, Texas</div>
+      <h1 style="margin-top: 18px;">A home in <em>Alvin</em><br/>made simple.</h1>
+      <p class="lede">
+        Yellowstone Management cares for over <strong>160 units across six properties</strong> in the city of Alvin — apartments and townhomes priced from $899 to $1,650, leased and maintained by a local team that picks up the phone.
+      </p>
+
+      <div class="stats">
+        <div>
+          <div class="num">150+</div>
+          <div class="lab">units under management</div>
+        </div>
+        <div>
+          <div class="num">6</div>
+          <div class="lab">properties in Alvin</div>
+        </div>
+        <div>
+          <div class="num">$899</div>
+          <div class="lab">starting rent</div>
+        </div>
+        <div>
+          <div class="num">Local</div>
+          <div class="lab">team, family-run</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="meta">
+      <div>410 S 2nd St, Alvin, TX 77511</div>
+      <div>(832) 210-3968 · office@yellowstone-am.com</div>
+    </div>
+  </div>
+
+  <!-- ========== Page 2: Properties ========== -->
+  <div class="page">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Six communities</div>
+        <h2>Six buildings, <em>one neighborhood.</em></h2>
+      </div>
+      <p>
+        Every Yellowstone property is inside the city limits of Alvin — all within a ten-minute drive of our flagship office at 410 S 2nd St. That means fast turnarounds, maintenance teams who know each unit, and a single number to call.
+      </p>
+    </div>
+
+    <div class="props">
+      <div class="prop">
+        <div class="num">01 · Flagship · Office on-site</div>
+        <h3>Kings Haven Apartments</h3>
+        <div class="addr">410 S 2nd St, Alvin, TX 77511</div>
+        <div class="units">2 BR · 1 BA · 850 sq ft</div>
+        <div class="note">Headquarters of Yellowstone Management. Walkable to downtown Alvin.</div>
+        <div class="price">from $899</div>
+      </div>
+      <div class="prop">
+        <div class="num">02 · Townhome</div>
+        <h3>Kings Manor Townhomes</h3>
+        <div class="addr">328 S 2nd St, Alvin, TX 77511</div>
+        <div class="units">2 BR · 2.5 BA · 3 BR · 2.5 BA · 1,250 sq ft</div>
+        <div class="note">Two-story townhomes with private two-car garages. Family-friendly.</div>
+        <div class="price">from $1,250</div>
+      </div>
+      <div class="prop">
+        <div class="num">03 · Apartments</div>
+        <h3>Kings Haven 100</h3>
+        <div class="addr">100 S 2nd St, Alvin, TX 77511</div>
+        <div class="units">1 BR · 1 BA · 600 sq ft / 2 BR · 1 BA · 850 sq ft</div>
+        <div class="note">Sister property to Kings Haven, two blocks north. Quieter, residential.</div>
+        <div class="price">from $850</div>
+      </div>
+      <div class="prop">
+        <div class="num">04 · Apartments</div>
+        <h3>French Quarter Residency</h3>
+        <div class="addr">2550 S Bypass 35, Alvin, TX 77511</div>
+        <div class="units">2 BR · 1 BA · 850 sq ft</div>
+        <div class="note">Frontage on Bypass 35 — easy access to HEB and Hwy 6.</div>
+        <div class="price">from $950</div>
+      </div>
+      <div class="prop">
+        <div class="num">05 · Townhome</div>
+        <h3>The Royal Oaks Townhomes</h3>
+        <div class="addr">418 S Jackson St, Alvin, TX 77511</div>
+        <div class="units">2 BR · 2 BA · 1,150 sq ft</div>
+        <div class="note">Two-story townhomes with private driveways and rear patios.</div>
+        <div class="price">from $1,350</div>
+      </div>
+      <div class="prop">
+        <div class="num">06 · Apartments</div>
+        <h3>The White House Apartments</h3>
+        <div class="addr">1606 W Sealy St, Alvin, TX 77511</div>
+        <div class="units">2 BR · 1 BA · 850 sq ft</div>
+        <div class="note">Classic white-clad apartments on a quiet residential street.</div>
+        <div class="price">from $925</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== Page 3: Availability + Why ========== -->
+  <div class="page">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Live availability</div>
+        <h2>What's <em>open this week.</em></h2>
+      </div>
+      <p>
+        Inventory updated weekly. If you see something, call or text (832) 210-3968 — most tours can be scheduled same day. All six properties currently have at least one unit available now.
+      </p>
+    </div>
+
+    <div class="avail">
+      <div class="row head">
+        <div>Property</div>
+        <div>Type</div>
+        <div>Size</div>
+        <div>Rent</div>
+        <div>Status</div>
+      </div>
+      <div class="row">
+        <div><div class="name">Kings Haven</div><div class="addr-sub">410 S 2nd</div></div>
+        <div>2 Bed · 1 Bath</div>
+        <div>850 sq ft</div>
+        <div class="price-cell">$925/mo</div>
+        <div class="ready"><span class="dot"></span>Available now</div>
+      </div>
+      <div class="row">
+        <div><div class="name">French Quarter</div><div class="addr-sub">2550 S Bypass 35</div></div>
+        <div>2 Bed · 1 Bath</div>
+        <div>850 sq ft</div>
+        <div class="price-cell">$950/mo</div>
+        <div class="ready"><span class="dot"></span>Available now</div>
+      </div>
+      <div class="row">
+        <div><div class="name">Royal Oaks</div><div class="addr-sub">418 S Jackson</div></div>
+        <div>2 Bed · 2 Bath</div>
+        <div>1,150 sq ft</div>
+        <div class="price-cell">$1,395/mo</div>
+        <div class="ready"><span class="dot"></span>Available now</div>
+      </div>
+      <div class="row">
+        <div><div class="name">White House</div><div class="addr-sub">1606 W Sealy</div></div>
+        <div>2 Bed · 1 Bath</div>
+        <div>850 sq ft</div>
+        <div class="price-cell">$925/mo</div>
+        <div class="ready"><span class="dot"></span>Available now</div>
+      </div>
+      <div class="row">
+        <div><div class="name">Kings Manor</div><div class="addr-sub">328 S 2nd</div></div>
+        <div>3 Bed · 2.5 Bath</div>
+        <div>1,250 sq ft</div>
+        <div class="price-cell">$1,595/mo</div>
+        <div class="ready"><span class="dot"></span>Available now</div>
+      </div>
+      <div class="row">
+        <div><div class="name">Kings Haven 100</div><div class="addr-sub">100 S 2nd</div></div>
+        <div>1 Bed · 1 Bath</div>
+        <div>600 sq ft</div>
+        <div class="price-cell">$850/mo</div>
+        <div class="ready"><span class="dot"></span>Available now</div>
+      </div>
+    </div>
+
+    <div class="section-head" style="margin-top: 36px;">
+      <div>
+        <div class="eyebrow">Why Yellowstone</div>
+        <h2>Local, <em>always.</em></h2>
+      </div>
+      <p>
+        We're not a corporate landlord with a portfolio scattered across five states. Every property we manage is within ten minutes of our office, and that proximity is the whole point.
+      </p>
+    </div>
+
+    <div class="why">
+      <div class="col">
+        <div class="n">i.</div>
+        <h4>Same-day response</h4>
+        <p>Call before noon and a tech is on-site that day for emergencies. Standard requests within 48 hours during business days.</p>
+      </div>
+      <div class="col">
+        <div class="n">ii.</div>
+        <h4>Bilingual office</h4>
+        <p>Our office and maintenance team is bilingual. Leases, forms, and communications available in English and Spanish.</p>
+      </div>
+      <div class="col">
+        <div class="n">iii.</div>
+        <h4>No surprises</h4>
+        <p>Fixed rent for the lease term. Water and trash arrangements clearly stated. Assigned parking included. Online application with 24-hour decision.</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- ========== Page 4: Floor plans + Contact ========== -->
+  <div class="page" style="break-after: auto;">
+    <div class="section-head">
+      <div>
+        <div class="eyebrow">Floor plans</div>
+        <h2>Pick your <em>footprint.</em></h2>
+      </div>
+      <p>
+        Five layouts across our six properties, from a 600 sq ft 1-bedroom to a 1,250 sq ft 3-bedroom townhome. All include assigned parking, central HVAC, and in-unit appliances.
+      </p>
+    </div>
+
+    <div class="floors">
+      <div>
+        <div class="type-label">1 Bed · 1 Bath</div>
+        <h4>Compact</h4>
+        <div class="sqft">600 sq ft</div>
+        <div class="price-line">$850/mo</div>
+      </div>
+      <div>
+        <div class="type-label">2 Bed · 1 Bath</div>
+        <h4>Classic</h4>
+        <div class="sqft">850 sq ft</div>
+        <div class="price-line">$899 – $975</div>
+      </div>
+      <div>
+        <div class="type-label">2 Bed · 2 Bath</div>
+        <h4>Spacious</h4>
+        <div class="sqft">1,150 sq ft</div>
+        <div class="price-line">$1,250 – $1,395</div>
+      </div>
+    </div>
+    <div class="floors" style="margin-top: 14px; grid-template-columns: 1fr 1fr;">
+      <div>
+        <div class="type-label">2 Bed · 2.5 Bath · Townhome</div>
+        <h4>Two-story Townhome</h4>
+        <div class="sqft">1,250 sq ft · private garage</div>
+        <div class="price-line">$1,295 – $1,450</div>
+      </div>
+      <div>
+        <div class="type-label">3 Bed · 2.5 Bath · Townhome</div>
+        <h4>Family Townhome</h4>
+        <div class="sqft">1,250 sq ft · private garage</div>
+        <div class="price-line">$1,495 – $1,650</div>
+      </div>
+    </div>
+
+    <!-- Contact -->
+    <div class="contact">
+      <div class="eyebrow" style="color: var(--accent);">Talk to us</div>
+      <h2>Schedule a tour, <em>today.</em></h2>
+      <p>
+        The flagship office is at 410 S 2nd St, downtown Alvin. We're open Monday–Friday 9am–5pm, Saturdays by appointment. We speak English and Spanish.
+      </p>
+      <div class="grid">
+        <div class="ch">
+          <div class="lab">Phone</div>
+          <div class="val">(832) 210-3968</div>
+        </div>
+        <div class="ch">
+          <div class="lab">Email</div>
+          <div class="val">office@yellowstone-am.com</div>
+        </div>
+        <div class="ch">
+          <div class="lab">Office</div>
+          <div class="val">410 S 2nd St, Alvin, TX 77511</div>
+        </div>
+        <div class="ch">
+          <div class="lab">Hours</div>
+          <div class="val">Mon–Fri 9–5 · Sat by appt</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="footer-meta">
+      <div>© Yellowstone Asset Management · Alvin, TX</div>
+      <div>Equal Housing Opportunity</div>
+    </div>
+  </div>
+
+  <script>
+    (async function () {
+      try {
+        if (document.fonts && document.fonts.ready) await document.fonts.ready;
+      } catch (e) { /* noop */ }
+      setTimeout(function () { window.print(); }, 500);
+    })();
+  </script>
+</body>
+</html>
