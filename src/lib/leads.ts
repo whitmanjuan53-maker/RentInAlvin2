@@ -1,5 +1,5 @@
 import { prisma, isDbReady } from './db';
-import { sendLeadEmail, GENERAL_RECIPIENTS, TOUR_RECIPIENTS } from './email';
+import { sendLeadEmail, sendUserConfirmationEmail } from './email';
 import { appendLeadToSheet, createTourEvent, checkDoubleBooking } from './google';
 
 export type LeadType = 'tour' | 'apply' | 'sell' | 'contact';
@@ -63,9 +63,17 @@ export interface ContactLead {
   email?: string;
   property?: string;
   message?: string;
+  moveBy?: string;
+  bedrooms?: string;
 }
 
 export type LeadPayload = TourLead | ApplyLead | SellLead | ContactLead;
+
+export interface LeadMeta {
+  source?: string;
+  ip?: string;
+  honeypot?: string;
+}
 
 function generateLeadId() {
   return `YS-${Date.now().toString(36).toUpperCase()}-${Math.random().toString(36).slice(2, 6).toUpperCase()}`;
@@ -75,37 +83,89 @@ function nowCentral() {
   return new Date().toLocaleString('en-US', { timeZone: 'America/Chicago' });
 }
 
-function validate(payload: LeadPayload): string | null {
+function validate(payload: LeadPayload, meta?: LeadMeta): string | null {
+  // Honeypot check
+  if (meta?.honeypot && meta.honeypot.trim().length > 0) {
+    console.log('[LEADS] Honeypot triggered, rejecting submission');
+    return 'Invalid submission.';
+  }
+
   switch (payload.type) {
-    case 'tour':
-      if (!payload.property || !payload.date || !payload.time || !payload.name) {
-        return 'Property, date, time, and name are required.';
+    case 'tour': {
+      if (!payload.name?.trim()) {
+        return 'Full name is required.';
       }
-      if (!payload.phone && !payload.email) {
-        return 'Please provide at least a phone number or email.';
+      if (!payload.phone?.trim()) {
+        return 'Phone number is required.';
+      }
+      if (!payload.email?.trim()) {
+        return 'Email address is required.';
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email.trim())) {
+        return 'Please enter a valid email address.';
+      }
+      if (!payload.property) {
+        return 'Property is required.';
+      }
+      if (!payload.date) {
+        return 'Preferred tour date is required.';
+      }
+      if (!payload.time) {
+        return 'Preferred tour time is required.';
       }
       return null;
-    case 'apply':
-      if (!payload.firstName || !payload.lastName || !payload.email || !payload.phone) {
-        return 'First name, last name, email, and phone are required.';
+    }
+    case 'apply': {
+      if (!payload.firstName?.trim() || !payload.lastName?.trim()) {
+        return 'First name and last name are required.';
+      }
+      if (!payload.email?.trim()) {
+        return 'Email address is required.';
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email.trim())) {
+        return 'Please enter a valid email address.';
+      }
+      if (!payload.phone?.trim()) {
+        return 'Phone number is required.';
       }
       return null;
-    case 'sell':
-      if (!payload.name || !payload.addr) {
-        return 'Name and property address are required.';
-      }
-      if (!payload.phone && !payload.email) {
-        return 'Please provide at least a phone number or email.';
-      }
-      return null;
-    case 'contact':
-      if (!payload.name) {
+    }
+    case 'sell': {
+      if (!payload.name?.trim()) {
         return 'Name is required.';
       }
-      if (!payload.phone && !payload.email) {
-        return 'Please provide at least a phone number or email.';
+      if (!payload.phone?.trim()) {
+        return 'Phone number is required.';
+      }
+      if (!payload.email?.trim()) {
+        return 'Email address is required.';
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email.trim())) {
+        return 'Please enter a valid email address.';
+      }
+      if (!payload.addr?.trim()) {
+        return 'Property address is required.';
       }
       return null;
+    }
+    case 'contact': {
+      if (!payload.name?.trim()) {
+        return 'Full name is required.';
+      }
+      if (!payload.phone?.trim()) {
+        return 'Phone number is required.';
+      }
+      if (!payload.email?.trim()) {
+        return 'Email address is required.';
+      }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(payload.email.trim())) {
+        return 'Please enter a valid email address.';
+      }
+      if (!payload.message?.trim()) {
+        return 'Message is required.';
+      }
+      return null;
+    }
     default:
       return 'Unknown lead type.';
   }
@@ -129,6 +189,7 @@ function getProperty(payload: LeadPayload): string | null {
 function getMoveInDate(payload: LeadPayload): string | null {
   if (payload.type === 'tour') return payload.moveBy || null;
   if (payload.type === 'apply') return payload.moveIn || null;
+  if (payload.type === 'contact') return payload.moveBy || null;
   return null;
 }
 
@@ -158,7 +219,6 @@ function getExtraNotes(payload: LeadPayload): string | null {
       unitType: payload.unitType,
       budget: payload.budget,
     };
-    // Remove undefined/null values
     Object.keys(extra).forEach((k) => {
       if (extra[k] == null || extra[k] === '') delete extra[k];
     });
@@ -171,6 +231,15 @@ function getExtraNotes(payload: LeadPayload): string | null {
       baths: payload.baths,
       sqft: payload.sqft,
       timeline: payload.timeline,
+    };
+    Object.keys(extra).forEach((k) => {
+      if (extra[k] == null || extra[k] === '') delete extra[k];
+    });
+    return Object.keys(extra).length > 0 ? JSON.stringify(extra) : null;
+  }
+  if (payload.type === 'contact') {
+    const extra: Record<string, unknown> = {
+      bedrooms: payload.bedrooms,
     };
     Object.keys(extra).forEach((k) => {
       if (extra[k] == null || extra[k] === '') delete extra[k];
@@ -251,6 +320,11 @@ async function saveToDb(payload: LeadPayload, leadId: string) {
                     sqft: payload.sqft,
                     timeline: payload.timeline,
                   })
+                : payload.type === 'contact'
+                ? JSON.stringify({
+                    moveBy: payload.moveBy,
+                    bedrooms: payload.bedrooms,
+                  })
                 : null,
           },
         });
@@ -320,15 +394,16 @@ async function createCalendarEventIfNeeded(payload: LeadPayload, leadId: string,
 
 function buildEmailSubject(payload: LeadPayload): string {
   const property = getProperty(payload);
+  const name = getFullName(payload);
   switch (payload.type) {
     case 'tour':
-      return `New Website Tour Request - ${property || 'Unknown Property'}`;
+      return `[Tour Request] ${name} — ${property || 'Unknown Property'}`;
     case 'apply':
-      return `New Website Application - ${property || 'No Property Selected'}`;
+      return `[Application] ${name} — ${property || 'No Property Selected'}`;
     case 'sell':
-      return `New Website Property Sale Inquiry - ${payload.addr}`;
+      return `[Property Sale Inquiry] ${name} — ${payload.addr}`;
     case 'contact':
-      return `New Website Contact Lead - ${property || 'General Inquiry'}`;
+      return `[Lead] ${name} — ${property || 'General Inquiry'}`;
   }
 }
 
@@ -372,6 +447,8 @@ function buildEmailBody(payload: LeadPayload, leadId: string, source: string): s
   }
 
   if (payload.type === 'contact') {
+    lines.push(`Move-In Timeframe: ${payload.moveBy || 'N/A'}`);
+    lines.push(`Bedrooms Needed: ${payload.bedrooms || 'N/A'}`);
     lines.push(`Message: ${payload.message || 'N/A'}`);
   }
 
@@ -381,6 +458,8 @@ function buildEmailBody(payload: LeadPayload, leadId: string, source: string): s
   lines.push('');
   lines.push('Actions Needed:');
   lines.push('Please contact this lead as soon as possible.');
+  lines.push('');
+  lines.push('Replying to this email will reply directly to the customer.');
 
   return lines.join('\n');
 }
@@ -389,10 +468,42 @@ async function sendNotification(payload: LeadPayload, leadId: string, source: st
   try {
     const subject = buildEmailSubject(payload);
     const body = buildEmailBody(payload, leadId, source);
-    const to = payload.type === 'tour' ? TOUR_RECIPIENTS : GENERAL_RECIPIENTS;
-    return await sendLeadEmail(subject, body, to);
+    const replyTo = payload.email || undefined;
+    return await sendLeadEmail(subject, body, { replyTo });
   } catch (err) {
     console.error('[LEADS] Email notification failed:', err);
+    return null;
+  }
+}
+
+async function sendUserConfirmation(payload: LeadPayload) {
+  try {
+    const email = payload.email;
+    if (!email || !email.includes('@')) return null;
+
+    if (payload.type === 'tour') {
+      return await sendUserConfirmationEmail({
+        to: email,
+        type: 'tour',
+        name: payload.name,
+        property: payload.property,
+        date: payload.date,
+        time: payload.time,
+      });
+    }
+
+    if (payload.type === 'contact') {
+      return await sendUserConfirmationEmail({
+        to: email,
+        type: 'contact',
+        name: payload.name,
+        property: payload.property,
+      });
+    }
+
+    return null;
+  } catch (err) {
+    console.error('[LEADS] User confirmation email failed:', err);
     return null;
   }
 }
@@ -409,27 +520,44 @@ export interface ProcessLeadResult {
 
 export async function processLead(
   payload: LeadPayload,
-  meta: { source?: string; ip?: string }
+  meta: LeadMeta
 ): Promise<ProcessLeadResult> {
-  const validationError = validate(payload);
+  console.log('[LEADS] Processing lead:', payload.type);
+
+  const validationError = validate(payload, meta);
   if (validationError) {
+    console.warn('[LEADS] Validation failed:', validationError);
     return { success: false, leadId: '', dbId: null, sheetRange: null, calendarEventId: null, emailSent: false, error: validationError };
   }
 
   const leadId = generateLeadId();
   const source = meta.source || 'Website';
 
+  console.log('[LEADS] Generated lead ID:', leadId);
+
   // 1. Save to DB
+  console.log('[LEADS] Saving to database...');
   const dbId = await saveToDb(payload, leadId);
+  console.log('[LEADS] DB save result:', dbId || 'skipped/failed');
 
   // 2. Create calendar event if tour
+  console.log('[LEADS] Checking calendar event...');
   const calendarEventId = await createCalendarEventIfNeeded(payload, leadId, source);
+  console.log('[LEADS] Calendar event result:', calendarEventId || 'skipped/failed');
 
   // 3. Write to Google Sheets
+  console.log('[LEADS] Writing to Google Sheets...');
   const sheetRange = await writeToSheets(payload, leadId, calendarEventId, source);
+  console.log('[LEADS] Sheets write result:', sheetRange || 'skipped/failed');
 
-  // 4. Send email notification
+  // 4. Send email notification to team
+  console.log('[LEADS] Sending team notification...');
   const emailResult = await sendNotification(payload, leadId, source);
+  console.log('[LEADS] Team notification result:', emailResult ? 'sent' : 'failed');
+
+  // 5. Send user confirmation email (best-effort)
+  console.log('[LEADS] Sending user confirmation...');
+  await sendUserConfirmation(payload);
 
   return {
     success: true,

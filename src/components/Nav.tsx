@@ -16,7 +16,7 @@ export default function Nav({ p, locale = 'en' }: { p: typeof import('@/lib/data
     locale === 'es'
       ? [
           ['Disponibilidad', '#disponibilidad'],
-          ['Propiedades', '#propiedades'],
+          ['Comunidades', '#comunidades'],
           ['Mapa', '#mapa'],
           ['Planes', '#planes'],
           ['Aplicar', '#aplicar'],
@@ -26,7 +26,7 @@ export default function Nav({ p, locale = 'en' }: { p: typeof import('@/lib/data
         ]
       : [
           ['Available', '#availability'],
-          ['Properties', '#properties'],
+          ['Communities', '#communities'],
           ['Map', '#map'],
           ['Plans', '#floorplans'],
           ['Apply', '#apply'],

@@ -22,7 +22,7 @@ export default function LivingInAlvinPage() {
         <div style={{ textAlign: 'center', maxWidth: 600 }}>
           <h1 style={{ fontFamily: "'Instrument Serif', serif", fontSize: 'clamp(36px, 5vw, 56px)', margin: 0, color: '#1A1815' }}>Living in Alvin</h1>
           <p style={{ color: '#5C5750', marginTop: 16, fontSize: 17, lineHeight: 1.6 }}>
-            This page is coming soon. In the meantime, explore our properties on the{' '}
+            This page is coming soon. In the meantime, explore our communities on the{' '}
             <a href="/" style={{ color: '#1F3A2E', fontWeight: 600, textDecoration: 'none' }}>homepage</a>.
           </p>
         </div>

@@ -13,7 +13,7 @@ export const PALETTES = {
 
 export type Palette = typeof PALETTES.forest;
 
-export const PROPERTIES = [
+export const COMMUNITIES = [
   {
     name: 'Kings Haven Apartments',
     addr: '410 S 2nd St',
@@ -51,15 +51,6 @@ export const PROPERTIES = [
     img: 'apartamentos con patio · hierro forjado',
   },
   {
-    name: 'The Royal Oaks Townhomes',
-    addr: '418 S Jackson St',
-    tag: 'Townhome',
-    units: '2 Rec · 2 Baño · 1,150 ft²',
-    price: 'desde $1,350',
-    note: 'Townhomes espaciosos bajo dosel de robles maduros.',
-    img: 'townhomes · dosel de roble',
-  },
-  {
     name: 'The White House Apartments',
     addr: '1606 W Sealy St',
     tag: 'Apartamentos',
@@ -67,6 +58,16 @@ export const PROPERTIES = [
     price: 'desde $900',
     note: 'Apartamentos clásicos de revestimiento blanco en una calle residencial tranquila.',
     img: 'apartamentos de revestimiento blanco',
+  },
+  {
+    name: 'The Royal Oaks Townhomes',
+    addr: '418 S Jackson St',
+    tag: 'Townhome',
+    units: '2 Rec · 2 Baño · 1,150 ft²',
+    price: 'desde $1,350',
+    note: 'Townhomes espaciosos bajo dosel de robles maduros.',
+    img: 'townhomes · dosel de roble',
+    comingSoon: true,
   },
 ];
 
@@ -79,12 +80,12 @@ export const FLOORPLANS = [
 ];
 
 export const MAP_PROPS = [
-  { id: 0, name: 'Kings Haven', addr: '410 S 2nd St, Alvin, TX 77511', lat: 29.4245, lng: -95.2415, office: true },
-  { id: 1, name: 'Kings Manor', addr: '328 S 2nd St, Alvin, TX 77511', lat: 29.425, lng: -95.241 },
-  { id: 2, name: 'Kings Haven (100)', addr: '100 S 2nd St, Alvin, TX 77511', lat: 29.4265, lng: -95.2405 },
-  { id: 3, name: 'French Quarter', addr: '2550 S Bypass 35, Alvin, TX 77511', lat: 29.418, lng: -95.235 },
-  { id: 4, name: 'Royal Oaks', addr: '418 S Jackson St, Alvin, TX 77511', lat: 29.423, lng: -95.245 },
-  { id: 5, name: 'White House', addr: '1606 W Sealy St, Alvin, TX 77511', lat: 29.427, lng: -95.25 },
+  { id: 0, name: 'Kings Haven', addr: '410 S 2nd St, Alvin, TX 77511', lat: 29.4208044, lng: -95.2554917, office: true },
+  { id: 1, name: 'Kings Manor', addr: '328 S 2nd St, Alvin, TX 77511', lat: 29.4213292, lng: -95.2556986, office: false },
+  { id: 2, name: 'Kings Haven (100)', addr: '100 S 2nd St, Alvin, TX 77511', lat: 29.4233620, lng: -95.2557670, office: false },
+  { id: 3, name: 'French Quarter', addr: '2550 S Bypass 35, Alvin, TX 77511', lat: 29.40315, lng: -95.23971, office: false },
+  { id: 4, name: 'White House', addr: '1606 W Sealy St, Alvin, TX 77511', lat: 29.4234731, lng: -95.2600658, office: false },
+  { id: 5, name: 'Royal Oaks', addr: '418 S Jackson St, Alvin, TX 77511', lat: 29.4208186, lng: -95.2497543, office: false, comingSoon: true },
 ];
 
 export const FAQS = [
@@ -94,11 +95,11 @@ export const FAQS = [
   },
   {
     q: '¿Se permiten mascotas?',
-    a: 'Sí, la mayoría de las propiedades aceptan gatos y perros hasta 50 lbs con un depósito de mascota de $300 (único) y $25/mes de renta por mascota. Aplican restricciones de raza en algunos edificios. Pregunte cuando haga el tour.',
+    a: 'Sí, la mayoría de las comunidades aceptan gatos y perros hasta 50 lbs con un depósito de mascota de $300 (único) y $25/mes de renta por mascota. Aplican restricciones de raza en algunos edificios. Pregunte cuando haga el tour.',
   },
   {
     q: '¿Qué está incluido en la renta?',
-    a: 'El agua y la basura NO están incluidas en las seis propiedades. La electricidad e internet son pagados directamente por el residente.',
+    a: 'El agua y la basura NO están incluidas en las seis comunidades. La electricidad e internet son pagados directamente por el residente.',
   },
   {
     q: '¿Cómo envío una solicitud de mantenimiento?',
@@ -117,10 +118,10 @@ export const FAQS = [
 export const AVAILABILITY = [
   { property: 'Kings Haven', addr: '410 S 2nd', type: '2 Rec · 1 Baño', sqft: 850, price: 925, ready: 'Disponible ahora', featured: true },
   { property: 'French Quarter', addr: '2550 S Bypass 35', type: '2 Rec · 1 Baño', sqft: 850, price: 950, ready: 'Disponible ahora', featured: true },
-  { property: 'Royal Oaks', addr: '418 S Jackson', type: '2 Rec · 2 Baños', sqft: 1150, price: 1395, ready: 'Disponible ahora', featured: false },
   { property: 'White House', addr: '1606 W Sealy', type: '2 Rec · 1 Baño', sqft: 850, price: 925, ready: 'Disponible ahora', featured: true },
   { property: 'Kings Manor', addr: '328 S 2nd', type: '3 Rec · 2.5 Baños', sqft: 1250, price: 1595, ready: 'Disponible ahora', featured: false },
   { property: 'Kings Haven (100)', addr: '100 S 2nd', type: '1 Rec · 1 Baño', sqft: 600, price: 850, ready: 'Disponible ahora', featured: false },
+  { property: 'Royal Oaks', addr: '418 S Jackson', type: '2 Rec · 2 Baños', sqft: 1150, price: 1395, ready: 'Próximamente', featured: false },
 ];
 
 export const BOOKING_PROPERTIES = [
@@ -128,7 +129,7 @@ export const BOOKING_PROPERTIES = [
   { id: 'kings-manor', name: 'Kings Manor', addr: '328 S 2nd St', bed: '3 Rec · 2.5 Baños', price: '$1,595' },
   { id: 'kings-haven-100', name: 'Kings Haven (100)', addr: '100 S 2nd St', bed: '1 Rec · 1 Baño', price: '$850' },
   { id: 'french-quarter', name: 'French Quarter', addr: '2550 S Bypass 35', bed: '2 Rec · 1 Baño', price: '$950' },
-  { id: 'royal-oaks', name: 'Royal Oaks', addr: '418 S Jackson', bed: '2 Rec · 2 Baños', price: '$1,395' },
   { id: 'white-house', name: 'White House', addr: '1606 W Sealy', bed: '2 Rec · 1 Baño', price: '$925' },
+  { id: 'royal-oaks', name: 'Royal Oaks', addr: '418 S Jackson', bed: '2 Rec · 2 Baños', price: '$1,395' },
   { id: 'any', name: 'No estoy seguro todavía', addr: 'Le mostraremos algunas opciones', bed: 'Mixto', price: '—' },
 ];

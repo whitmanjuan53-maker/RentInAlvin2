@@ -1,17 +1,17 @@
 'use client';
 
 import { useState, useEffect } from 'react';
-import { MapContainer, TileLayer, Marker, Popup } from 'react-leaflet';
+import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
 
 const MAP_PROPS = [
-  { id: 0, name: 'Kings Haven', addr: '410 S 2nd St, Alvin, TX 77511', lat: 29.4245, lng: -95.2415, office: true },
-  { id: 1, name: 'Kings Manor', addr: '328 S 2nd St, Alvin, TX 77511', lat: 29.425, lng: -95.241, office: false },
-  { id: 2, name: 'Kings Haven (100)', addr: '100 S 2nd St, Alvin, TX 77511', lat: 29.4265, lng: -95.2405, office: false },
-  { id: 3, name: 'French Quarter', addr: '2550 S Bypass 35, Alvin, TX 77511', lat: 29.418, lng: -95.235, office: false },
-  { id: 4, name: 'Royal Oaks', addr: '418 S Jackson St, Alvin, TX 77511', lat: 29.423, lng: -95.245, office: false },
-  { id: 5, name: 'White House', addr: '1606 W Sealy St, Alvin, TX 77511', lat: 29.427, lng: -95.25, office: false },
+  { id: 0, name: 'Kings Haven', addr: '410 S 2nd St, Alvin, TX 77511', lat: 29.4208044, lng: -95.2554917, office: true },
+  { id: 1, name: 'Kings Manor', addr: '328 S 2nd St, Alvin, TX 77511', lat: 29.4213292, lng: -95.2556986, office: false },
+  { id: 2, name: 'Kings Haven (100)', addr: '100 S 2nd St, Alvin, TX 77511', lat: 29.4233620, lng: -95.2557670, office: false },
+  { id: 3, name: 'French Quarter', addr: '2550 S Bypass 35, Alvin, TX 77511', lat: 29.40315, lng: -95.23971, office: false },
+  { id: 4, name: 'White House', addr: '1606 W Sealy St, Alvin, TX 77511', lat: 29.4234731, lng: -95.2600658, office: false },
+  { id: 5, name: 'Royal Oaks', addr: '418 S Jackson St, Alvin, TX 77511', lat: 29.4208186, lng: -95.2497543, office: false, comingSoon: true },
 ];
 
 function createPinIcon(color: string, label: string, isActive: boolean) {
@@ -43,6 +43,18 @@ function createPinIcon(color: string, label: string, isActive: boolean) {
     iconAnchor: [size / 2, size],
     popupAnchor: [0, -size],
   });
+}
+
+function BoundsFitter() {
+  const map = useMap();
+  useEffect(() => {
+    if (MAP_PROPS.length > 0) {
+      const bounds = L.latLngBounds(MAP_PROPS.map((m) => [m.lat, m.lng]));
+      map.fitBounds(bounds, { padding: [40, 40], maxZoom: 14 });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  return null;
 }
 
 export default function AlvinMap({
@@ -115,7 +127,7 @@ export default function AlvinMap({
                 marginTop: 24,
               }}
             >
-              The furthest property is a seven-minute drive from our office. Tap any pin for the address and
+              The furthest community is a seven-minute drive from our office. Tap any pin for the address and
               directions.
             </p>
           </div>
@@ -157,7 +169,7 @@ export default function AlvinMap({
                     width: 28,
                     height: 28,
                     borderRadius: '50%',
-                    background: m.office ? p.accent : p.primary,
+                    background: m.office ? p.accent : m.comingSoon ? p.inkSoft : p.primary,
                     color: p.paper,
                     display: 'grid',
                     placeItems: 'center',
@@ -183,6 +195,7 @@ export default function AlvinMap({
                   <div style={{ fontSize: 12, color: p.inkSoft, marginTop: 2 }}>
                     {m.addr}
                     {m.office ? ' · Leasing office' : ''}
+                    {m.comingSoon ? ' · Coming soon' : ''}
                   </div>
                 </div>
               </button>
@@ -202,11 +215,12 @@ export default function AlvinMap({
           >
             {mapReady ? (
               <MapContainer
-                center={[29.424, -95.242]}
+                center={[29.417, -95.252]}
                 zoom={14}
                 scrollWheelZoom={false}
                 style={{ width: '100%', height: '100%' }}
               >
+                <BoundsFitter />
                 <TileLayer
                   attribution='&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>'
                   url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
@@ -217,7 +231,7 @@ export default function AlvinMap({
                     <Marker
                       key={m.id}
                       position={[m.lat, m.lng]}
-                      icon={createPinIcon(m.office ? p.accent : p.primary, m.office ? '★' : String(m.id), isActive)}
+                      icon={createPinIcon(m.office ? p.accent : m.comingSoon ? p.inkSoft : p.primary, m.office ? '★' : String(m.id), isActive)}
                       eventHandlers={{
                         mouseover: () => setActive(m.id),
                         click: () => setActive(m.id),
@@ -227,6 +241,11 @@ export default function AlvinMap({
                         <div style={{ fontFamily: "'Inter', sans-serif", minWidth: 180 }}>
                           <div style={{ fontWeight: 600, fontSize: 15, marginBottom: 4 }}>{m.name}</div>
                           <div style={{ fontSize: 13, color: '#5C5750', marginBottom: 10 }}>{m.addr}</div>
+                          {m.comingSoon && (
+                            <div style={{ fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: p.accent, fontWeight: 600, marginBottom: 10 }}>
+                              Coming Soon
+                            </div>
+                          )}
                           <a
                             href={`https://maps.google.com/?q=${encodeURIComponent(m.addr)}`}
                             target="_blank"

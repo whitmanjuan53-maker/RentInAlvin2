@@ -4,9 +4,10 @@ import { useState, useEffect } from 'react';
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
 import TourBooking from '@/components/TourBooking';
+import LeadForm from '@/components/LeadForm';
 import dynamic from 'next/dynamic';
 const AlvinMap = dynamic(() => import('@/components/AlvinMap'), { ssr: false });
-import { PALETTES, PROPERTIES, FLOORPLANS, FAQS, AVAILABILITY } from '@/lib/data.es';
+import { PALETTES, COMMUNITIES, FLOORPLANS, FAQS, AVAILABILITY } from '@/lib/data.es';
 
 const p = PALETTES.forest;
 const displayFont = 'Instrument Serif';
@@ -50,19 +51,19 @@ function Hero() {
         </h1>
         <div className="ys-hero-row" style={{ display: 'grid', gridTemplateColumns: '1.1fr 1fr', gap: 80, marginTop: 72, alignItems: 'end' }}>
           <p style={{ fontSize: 19, lineHeight: 1.55, color: p.inkSoft, maxWidth: '44ch', margin: 0 }}>
-            Yellowstone Management cuida más de <strong style={{ color: p.ink }}>160 unidades en seis propiedades</strong> en la ciudad de Alvin, apartamentos y townhomes con precios desde $800 hasta $1,650, arrendados y mantenidos por un equipo local que contesta el teléfono.
+            Yellowstone Management cuida más de <strong style={{ color: p.ink }}>160 unidades en seis comunidades</strong> en la ciudad de Alvin, apartamentos y townhomes con precios desde $800 hasta $1,650, arrendados y mantenidos por un equipo local que contesta el teléfono.
           </p>
           <div style={{ display: 'flex', gap: 14, justifyContent: 'flex-end', flexWrap: 'wrap' }}>
             <button onClick={() => { if (typeof window !== 'undefined' && (window as any).__openBooking) (window as any).__openBooking(); }} style={{ padding: '16px 28px', background: p.primary, color: p.paper, textDecoration: 'none', fontSize: 15, fontWeight: 600, borderRadius: 4, letterSpacing: '0.01em', display: 'inline-flex', alignItems: 'center', gap: 10, transition: 'transform 180ms ease, background 180ms ease', cursor: 'pointer', border: 'none', fontFamily: 'inherit' }} onMouseOver={(e) => { const el = e.currentTarget as HTMLElement; el.style.background = p.primarySoft; el.style.transform = 'translateY(-1px)'; }} onMouseOut={(e) => { const el = e.currentTarget as HTMLElement; el.style.background = p.primary; el.style.transform = 'translateY(0)'; }}>
               Reservar un tour
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8m0 0L7.5 3.5M11 7l-3.5 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
             </button>
-            <a href="#propiedades" style={{ padding: '16px 28px', background: 'transparent', color: p.ink, textDecoration: 'none', fontSize: 15, fontWeight: 600, borderRadius: 4, border: `1px solid ${p.ink}` }}>Ver propiedades</a>
+            <a href="#comunidades" style={{ padding: '16px 28px', background: 'transparent', color: p.ink, textDecoration: 'none', fontSize: 15, fontWeight: 600, borderRadius: 4, border: `1px solid ${p.ink}` }}>Ver comunidades</a>
           </div>
         </div>
       </div>
       <div style={{ maxWidth: 1400, margin: '0 auto', width: '100%', marginTop: 80, display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', borderTop: `1px solid ${p.line}`, paddingTop: 28 }} className="ys-hero-stats">
-        {[['150+', 'unidades administradas'], ['6', 'propiedades en Alvin'], ['$899', 'renta inicial'], ['Local', 'equipo familiar']].map(([n, label], i) => (
+        {[['150+', 'unidades administradas'], ['6', 'comunidades en Alvin'], ['$899', 'renta inicial'], ['Local', 'equipo familiar']].map(([n, label], i) => (
           <div key={i} style={{ borderLeft: i === 0 ? 'none' : `1px solid ${p.line}`, paddingLeft: i === 0 ? 0 : 28 }}>
             <div style={{ fontFamily: `'${displayFont}', serif`, fontSize: 56, lineHeight: 1, color: p.ink, letterSpacing: '-0.02em' }}>{n}</div>
             <div style={{ fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', color: p.inkSoft, marginTop: 10, fontWeight: 500 }}>{label}</div>
@@ -73,7 +74,7 @@ function Hero() {
   );
 }
 
-function PropertyCard({ prop, idx }: { prop: (typeof PROPERTIES)[0]; idx: number }) {
+function CommunityCard({ prop, idx }: { prop: (typeof COMMUNITIES)[0]; idx: number }) {
   const [hover, setHover] = useState(false);
   return (
     <article onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} style={{ background: p.paper, border: `1px solid ${p.line}`, overflow: 'hidden', display: 'flex', flexDirection: 'column', transition: 'transform 240ms ease, box-shadow 240ms ease', transform: hover ? 'translateY(-4px)' : 'translateY(0)', boxShadow: hover ? `0 24px 48px -24px color-mix(in oklab, ${p.ink} 30%, transparent)` : 'none' }}>
@@ -82,6 +83,11 @@ function PropertyCard({ prop, idx }: { prop: (typeof PROPERTIES)[0]; idx: number
         <div style={{ position: 'absolute', top: 14, left: 14, background: p.paper, padding: '5px 10px', fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.primary, fontWeight: 600, border: `1px solid ${p.line}` }}>
           {String(idx + 1).padStart(2, '0')} · {prop.tag}
         </div>
+        {prop.comingSoon && (
+          <div style={{ position: 'absolute', top: 14, right: 14, background: p.accent, color: p.paper, padding: '5px 10px', fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase', fontWeight: 600, border: `1px solid ${p.accent}` }}>
+            Próximamente
+          </div>
+        )}
       </div>
       <div style={{ padding: 24, display: 'flex', flexDirection: 'column', gap: 14, flex: 1 }}>
         <div>
@@ -94,23 +100,27 @@ function PropertyCard({ prop, idx }: { prop: (typeof PROPERTIES)[0]; idx: number
             <div style={{ fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 500 }}>{prop.units}</div>
             <div style={{ fontFamily: "'Instrument Serif', serif", fontSize: 22, color: p.primary, marginTop: 2 }}>{prop.price}</div>
           </div>
-          <a href="#contacto" style={{ fontSize: 13, fontWeight: 600, color: p.ink, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
-            Consultar
-            <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6h7m0 0L6.5 3m3 3-3 3" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" /></svg>
-          </a>
+          {prop.comingSoon ? (
+            <span style={{ fontSize: 13, fontWeight: 600, color: p.inkSoft }}>Próximamente</span>
+          ) : (
+            <a href="#contacto" style={{ fontSize: 13, fontWeight: 600, color: p.ink, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+              Consultar
+              <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6h7m0 0L6.5 3m3 3-3 3" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" /></svg>
+            </a>
+          )}
         </div>
       </div>
     </article>
   );
 }
 
-function Properties() {
+function Communities() {
   return (
-    <section id="propiedades" style={{ padding: 'var(--pad-x-lg) var(--pad-x)', borderTop: `1px solid ${p.line}` }}>
+    <section id="comunidades" style={{ padding: 'var(--pad-x-lg) var(--pad-x)', borderTop: `1px solid ${p.line}` }}>
       <div style={{ maxWidth: 1400, margin: '0 auto' }}>
-        <SectionHead eyebrow="Seis propiedades · Un código postal" title="Cada dirección que administramos, todo en Alvin." lead="Desde el insignia Kings Haven en South 2nd Street hasta los townhomes en Jackson, seis comunidades, un equipo local." />
+        <SectionHead eyebrow="Seis comunidades · Un código postal" title="Cada dirección que administramos, todo en Alvin." lead="Desde el insignia Kings Haven en South 2nd Street hasta los townhomes en Jackson, seis comunidades, un equipo local." />
         <div className="ys-prop-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
-          {PROPERTIES.map((prop, i) => <PropertyCard key={i} prop={prop} idx={i} />)}
+          {COMMUNITIES.map((prop, i) => <CommunityCard key={i} prop={prop} idx={i} />)}
         </div>
       </div>
     </section>
@@ -225,6 +235,28 @@ function Contact() {
             ))}
           </div>
         </div>
+
+        {/* Lead Inquiry Form */}
+        <div style={{ marginTop: 64, paddingTop: 48, borderTop: `1px solid ${p.line}` }}>
+          <div className="ys-contact-grid" style={{ display: 'grid', gridTemplateColumns: '1.1fr 1fr', gap: 80, alignItems: 'start' }}>
+            <div>
+              <div style={{ fontSize: 12, letterSpacing: '0.18em', textTransform: 'uppercase', color: p.accent, fontWeight: 600, marginBottom: 16 }}>Consulta general</div>
+              <h3 style={{ fontFamily: `'${displayFont}', serif`, fontSize: 'clamp(28px, 3.4vw, 44px)', lineHeight: 1.05, letterSpacing: '-0.02em', margin: 0, fontWeight: 400, color: p.ink }}>¿Aún no listo para reservar un tour?</h3>
+              <p style={{ fontSize: 17, lineHeight: 1.6, color: p.inkSoft, maxWidth: '44ch', marginTop: 16 }}>Envíenos un mensaje rápido y nos comunicaremos con usted con disponibilidad, precios y siguientes pasos.</p>
+              <div style={{ marginTop: 28, display: 'flex', gap: 14, flexWrap: 'wrap' }}>
+                <a href="tel:8322103968" style={{ padding: '12px 20px', background: p.ink, color: p.paper, textDecoration: 'none', fontWeight: 600, fontSize: 14, borderRadius: 4, display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 2.5a2 2 0 012-2h1.5l1 2.5-1.5 1a7 7 0 004 4l1-1.5 2.5 1V10a2 2 0 01-2 2h-.5A7.5 7.5 0 012.5 4.5V4a2 2 0 012-1.5z" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round"/></svg>
+                  Llamar (832) 210-3968
+                </a>
+                <a href="sms:+18322103968?body=Hola%20Yellowstone%2C%20estoy%20interesado%20en%20una%20unidad." style={{ padding: '12px 20px', background: 'transparent', color: p.ink, textDecoration: 'none', fontWeight: 600, fontSize: 14, border: `1px solid ${p.ink}`, borderRadius: 4, display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+                  <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7c0 3.5 2.5 6 6 6h2.5a1.5 1.5 0 001.5-1.5V10a1 1 0 00-1-1h-1a1 1 0 00-1 1v.5h-1C5.5 10.5 3.5 8.5 3.5 6H4a1 1 0 001-1V4a1 1 0 00-1-1h-.5A1.5 1.5 0 002 4.5V7z" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round"/></svg>
+                  Envíenos un mensaje
+                </a>
+              </div>
+            </div>
+            <LeadForm p={p} displayFont={displayFont} />
+          </div>
+        </div>
       </div>
     </section>
   );
@@ -270,7 +302,7 @@ function Availability() {
   const [filter, setFilter] = useState('all');
   const filtered = AVAILABILITY.filter((a) => {
     if (filter === 'all') return true;
-    if (filter === 'now') return a.ready.includes('ahora');
+    if (filter === 'now') return a.ready.includes('Disponible ahora');
     if (filter === '1br') return a.type.startsWith('1 Rec');
     if (filter === '2br') return a.type.startsWith('2 Rec');
     if (filter === '3br') return a.type.startsWith('3 Rec');
@@ -306,10 +338,14 @@ function Availability() {
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', paddingTop: 14, borderTop: `1px solid ${p.line}`, marginTop: 'auto' }}>
                 <div>
-                  <div style={{ fontFamily: `'${displayFont}', serif`, fontSize: 28, color: p.primary, fontWeight: 400 }}>${u.price.toLocaleString()}<span style={{ fontSize: 13, color: p.inkSoft, fontFamily: 'Inter, sans-serif' }}>/mes</span></div>
-                  <div style={{ fontSize: 11, color: u.ready.includes('ahora') ? '#16a34a' : p.inkSoft, marginTop: 2, fontWeight: 500 }}>{u.ready}</div>
+                  <div style={{ fontFamily: `'${displayFont}', serif`, fontSize: 28, color: u.ready.includes('Próximamente') ? p.inkSoft : p.primary, fontWeight: 400 }}>${u.price.toLocaleString()}<span style={{ fontSize: 13, color: p.inkSoft, fontFamily: 'Inter, sans-serif' }}>/mes</span></div>
+                  <div style={{ fontSize: 11, color: u.ready.includes('ahora') ? '#16a34a' : u.ready.includes('Próximamente') ? p.accent : p.inkSoft, marginTop: 2, fontWeight: 500 }}>{u.ready}</div>
                 </div>
-                <button onClick={() => { if (typeof window !== 'undefined' && (window as any).__openBooking) { const idMap: Record<string,string> = { 'Kings Haven': 'kings-haven', 'Kings Manor': 'kings-manor', 'Kings Haven (100)': 'kings-haven-100', 'French Quarter': 'french-quarter', 'Royal Oaks': 'royal-oaks', 'White House': 'white-house' }; (window as any).__openBooking(idMap[u.property] || ''); } }} style={{ fontSize: 12, fontWeight: 600, color: p.ink, textDecoration: 'none', padding: '8px 12px', border: `1px solid ${p.ink}`, borderRadius: 999, background: 'transparent', cursor: 'pointer', fontFamily: 'inherit' }}>Tour</button>
+                {u.ready.includes('Próximamente') ? (
+                  <span style={{ fontSize: 12, fontWeight: 600, color: p.inkSoft }}>Próximamente</span>
+                ) : (
+                  <button onClick={() => { if (typeof window !== 'undefined' && (window as any).__openBooking) { const idMap: Record<string,string> = { 'Kings Haven': 'kings-haven', 'Kings Manor': 'kings-manor', 'Kings Haven (100)': 'kings-haven-100', 'French Quarter': 'french-quarter', 'Royal Oaks': 'royal-oaks', 'White House': 'white-house' }; (window as any).__openBooking(idMap[u.property] || ''); } }} style={{ fontSize: 12, fontWeight: 600, color: p.ink, textDecoration: 'none', padding: '8px 12px', border: `1px solid ${p.ink}`, borderRadius: 999, background: 'transparent', cursor: 'pointer', fontFamily: 'inherit' }}>Tour</button>
+                )}
               </div>
             </div>
           ))}
@@ -336,18 +372,47 @@ function Apply() {
   };
 
   const STEPS = [{ id: 'applicant', label: 'Sobre usted' }, { id: 'household', label: 'Hogar' }, { id: 'income', label: 'Empleo e ingresos' }, { id: 'history', label: 'Historial de renta' }, { id: 'preferences', label: 'Preferencias de unidad' }, { id: 'review', label: 'Revisar y enviar' }];
-  const PROPERTY_OPTIONS = ['Kings Haven Apartments, 410 S 2nd St', 'Kings Manor Townhomes, 328 S 2nd St', 'Kings Haven Apartments, 100 S 2nd St', 'French Quarter Residency, 2550 S Bypass 35', 'The Royal Oaks Townhomes, 418 S Jackson St', 'The White House Apartments, 1606 W Sealy St', 'Sin preferencia, recomiéndame una'];
+  const PROPERTY_OPTIONS = ['Kings Haven Apartments, 410 S 2nd St', 'Kings Manor Townhomes, 328 S 2nd St', 'Kings Haven Apartments, 100 S 2nd St', 'French Quarter Residency, 2550 S Bypass 35', 'The White House Apartments, 1606 W Sealy St', 'The Royal Oaks Townhomes, 418 S Jackson St', 'Sin preferencia, recomiéndame una'];
   const UNIT_TYPES = ['1 Rec · 1 Baño', '2 Rec · 1 Baño', '2 Rec · 2 Baños', '3 Rec · 2 Baños', '3 Rec · 2.5 Baños'];
 
   async function handleSubmit() {
     if (!canAdvance()) return;
+
+    // Final validation before submit
+    if (!data.firstName.trim() || !data.lastName.trim() || !data.email.trim() || !data.phone.trim()) {
+      setError('Por favor complete todos los campos requeridos en el Paso 1 (Sobre usted).');
+      setSubmitting(false);
+      return;
+    }
+    if (!data.employer.trim() || !data.income.trim()) {
+      setError('Por favor complete todos los campos requeridos en el Paso 3 (Empleo e ingresos).');
+      setSubmitting(false);
+      return;
+    }
+    if (!data.property || !data.unitType || !data.moveIn) {
+      setError('Por favor complete todos los campos requeridos en el Paso 5 (Preferencias de unidad).');
+      setSubmitting(false);
+      return;
+    }
+
     setSubmitting(true); setError('');
+    console.log('[Apply ES] Submitting application...');
+
     try {
-      const res = await fetch('/api/leads', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...data, type: 'apply' }) });
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...data,
+          formType: 'Apply',
+          pageUrl: typeof window !== 'undefined' ? window.location.href : ''
+        })
+      });
       const json = await res.json();
-      if (!res.ok) { setError(json.error || 'Something went wrong.'); setSubmitting(false); return; }
+      console.log('[Apply ES] Response:', json);
+      if (!res.ok) { setError(json.message || json.error || 'Algo salió mal.'); setSubmitting(false); return; }
       setSubmitted(true);
-    } catch { setError('Network error. Please try again or call us.'); setSubmitting(false); }
+    } catch { setError('Error de red. Intente de nuevo o llámenos.'); setSubmitting(false); }
   }
 
   const txt = { padding: '12px 14px', fontSize: 15, background: p.bg, border: `1px solid ${p.line}`, borderRadius: 4, color: p.ink, fontFamily: 'inherit', outline: 'none', transition: 'border-color 160ms ease', width: '100%' };
@@ -431,7 +496,7 @@ function Apply() {
               )}
               {step === 4 && (
                 <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }} className="ys-form-grid">
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: 8, gridColumn: 'span 2' }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Propiedad preferida <span style={{ color: p.accent }}>*</span></span><select style={txt} value={data.property} onChange={(e) => update('property', e.target.value)}><option value="">Elija una propiedad…</option>{PROPERTY_OPTIONS.map(o => <option key={o}>{o}</option>)}</select></label>
+                  <label style={{ display: 'flex', flexDirection: 'column', gap: 8, gridColumn: 'span 2' }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Comunidad preferida <span style={{ color: p.accent }}>*</span></span><select style={txt} value={data.property} onChange={(e) => update('property', e.target.value)}><option value="">Elija una comunidad…</option>{PROPERTY_OPTIONS.map(o => <option key={o}>{o}</option>)}</select></label>
                   <label style={{ display: 'flex', flexDirection: 'column', gap: 8 }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Tipo de unidad <span style={{ color: p.accent }}>*</span></span><select style={txt} value={data.unitType} onChange={(e) => update('unitType', e.target.value)}><option value="">Seleccionar…</option>{UNIT_TYPES.map(o => <option key={o}>{o}</option>)}</select></label>
                   <label style={{ display: 'flex', flexDirection: 'column', gap: 8 }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Mudanza más temprana <span style={{ color: p.accent }}>*</span></span><input type="date" style={txt} value={data.moveIn} onChange={(e) => update('moveIn', e.target.value)} /></label>
                   <label style={{ display: 'flex', flexDirection: 'column', gap: 8 }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Presupuesto mensual</span><div style={{ position: 'relative' }}><span style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: p.inkSoft, fontSize: 15 }}>$</span><input style={{ ...txt, paddingLeft: 28 }} value={data.budget} onChange={(e) => update('budget', e.target.value)} placeholder="1,200" /></div></label>
@@ -448,7 +513,7 @@ function Apply() {
                         ['Contacto', data.email && data.phone ? `${data.email} · ${data.phone}` : '—'],
                         ['Mascotas', data.pets === 'no' ? 'Ninguna' : data.petDesc || data.pets],
                         ['Ingresos', data.income ? `$${data.income}/mes` : '—'],
-                        ['Propiedad', data.property || '—'],
+                        ['Comunidad', data.property || '—'],
                         ['Tipo de unidad', data.unitType || '—'],
                         ['Mudanza', data.moveIn || '—'],
                       ].map(([k, v]) => (
@@ -490,13 +555,32 @@ function SellProperty() {
 
   async function submit(e: React.FormEvent) {
     e.preventDefault();
+
+    // Validation
+    if (!form.name.trim()) { setError('Por favor ingrese su nombre.'); return; }
+    if (!form.phone.trim()) { setError('Por favor ingrese su número de teléfono.'); return; }
+    if (!form.email.trim()) { setError('Por favor ingrese su correo electrónico.'); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(form.email.trim())) { setError('Por favor ingrese un correo electrónico válido.'); return; }
+    if (!form.addr.trim()) { setError('Por favor ingrese la dirección de la propiedad.'); return; }
+
     setSubmitting(true); setError('');
+    console.log('[SellProperty ES] Submitting sell inquiry...');
+
     try {
-      const res = await fetch('/api/leads', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ ...form, type: 'sell' }) });
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          ...form,
+          formType: 'Sell',
+          pageUrl: typeof window !== 'undefined' ? window.location.href : ''
+        })
+      });
       const data = await res.json();
-      if (!res.ok) { setError(data.error || 'Something went wrong.'); setSubmitting(false); return; }
+      console.log('[SellProperty ES] Response:', data);
+      if (!res.ok) { setError(data.message || data.error || 'Algo salió mal.'); setSubmitting(false); return; }
       setSent(true);
-    } catch { setError('Network error. Please try again or call us.'); setSubmitting(false); }
+    } catch { setError('Error de red. Intente de nuevo o llámenos.'); setSubmitting(false); }
   }
 
   const fieldStyle = { width: '100%', padding: '12px 14px', background: p.bg, border: `1px solid ${p.line}`, color: p.ink, fontSize: 15, fontFamily: 'inherit', borderRadius: 3, outline: 'none', transition: 'border-color 160ms ease' };
@@ -611,7 +695,7 @@ export default function Home() {
         <a href="#aplicar" style={{ color: p.accent, fontWeight: 600, textDecoration: 'none' }}>Comenzar aplicación →</a>
       </div>
       <Availability />
-      <Properties />
+      <Communities />
       <div id="mapa" />
       <AlvinMap p={p} displayFont={displayFont} />
       <Floorplans />

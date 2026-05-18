@@ -32,8 +32,8 @@ const BOOKING_PROPERTIES = [
   { id: 'kings-manor', name: 'Kings Manor', addr: '328 S 2nd St', bed: '3BR · 2.5BA', price: '$1,595' },
   { id: 'kings-haven-100', name: 'Kings Haven (100)', addr: '100 S 2nd St', bed: '1BR · 1BA', price: '$850' },
   { id: 'french-quarter', name: 'French Quarter', addr: '2550 S Bypass 35', bed: '2BR · 1BA', price: '$950' },
-  { id: 'royal-oaks', name: 'Royal Oaks', addr: '418 S Jackson', bed: '2BR · 2BA', price: '$1,395' },
   { id: 'white-house', name: 'White House', addr: '1606 W Sealy', bed: '2BR · 1BA', price: '$925' },
+  { id: 'royal-oaks', name: 'Royal Oaks', addr: '418 S Jackson', bed: '2BR · 2BA', price: '$1,395', comingSoon: true },
   { id: 'any', name: "I'm not sure yet", addr: "We'll show you a few options", bed: 'Mixed', price: '—' },
 ];
 
@@ -59,6 +59,7 @@ export default function TourBooking({
   const [email, setEmail] = useState('');
   const [moveBy, setMoveBy] = useState('');
   const [notes, setNotes] = useState('');
+  const [website, setWebsite] = useState(''); // honeypot
   const [submitted, setSubmitted] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
@@ -76,6 +77,7 @@ export default function TourBooking({
       setEmail('');
       setMoveBy('');
       setNotes('');
+      setWebsite('');
       setPropId(initialPropertyId || '');
     }
   }, [open, initialPropertyId]);
@@ -101,12 +103,32 @@ export default function TourBooking({
   const selectedProp = BOOKING_PROPERTIES.find((b) => b.id === propId);
   const canNext1 = !!propId;
   const canNext2 = !!date && !!time;
-  const canSubmit = !!name && (!!phone || !!email);
+  const canSubmit = !!name.trim() && !!phone.trim() && !!email.trim();
+
+  function validateInputs(): string | null {
+    const trimmedName = name.trim();
+    const trimmedPhone = phone.trim();
+    const trimmedEmail = email.trim();
+    if (!trimmedName) return 'Please enter your name.';
+    if (!trimmedPhone) return 'Please enter your phone number.';
+    if (!trimmedEmail) return 'Please enter your email address.';
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(trimmedEmail)) return 'Please enter a valid email address.';
+    if (trimmedPhone && !/^[0-9\s\-\(\)\+\.]+$/.test(trimmedPhone)) return 'Please enter a valid phone number.';
+    return null;
+  }
 
   async function handleSubmit() {
     if (!selectedProp || !date || !time) return;
+    const validationError = validateInputs();
+    if (validationError) {
+      setError(validationError);
+      return;
+    }
     setSubmitting(true);
     setError('');
+
+    console.log('[TourBooking] Submitting tour request...');
+
     try {
       const res = await fetch('/api/leads', {
         method: 'POST',
@@ -116,16 +138,19 @@ export default function TourBooking({
           property: selectedProp.name,
           date: isoDate(date),
           time,
-          name,
-          phone,
-          email,
-          moveBy,
-          notes,
+          name: name.trim(),
+          phone: phone.trim() || undefined,
+          email: email.trim() || undefined,
+          moveBy: moveBy.trim() || undefined,
+          notes: notes.trim() || undefined,
+          website,
         }),
       });
       const data = await res.json();
+      console.log('[TourBooking] Response:', data);
+
       if (!res.ok) {
-        setError(data.error || 'Something went wrong.');
+        setError(data.message || 'Something went wrong. Please try again.');
         setSubmitting(false);
         return;
       }
@@ -205,7 +230,7 @@ export default function TourBooking({
               {submitted
                 ? 'Tour request submitted'
                 : step === 1
-                ? 'Pick a property'
+                ? 'Pick a community'
                 : step === 2
                 ? 'Pick a date & time'
                 : 'How do we reach you?'}
@@ -282,8 +307,7 @@ export default function TourBooking({
                 We&apos;ll be in touch within 24 hours.
               </h3>
               <p style={{ color: p.inkSoft, maxWidth: '44ch', margin: '0 auto', lineHeight: 1.55 }}>
-                A confirmation email has been queued. We respond same-day on weekdays before 4pm; otherwise the next
-                morning.
+                Thank you. Your tour request has been received. A member of the leasing team will contact you shortly to confirm availability.
               </p>
               <div
                 style={{
@@ -359,9 +383,17 @@ export default function TourBooking({
                         fontSize: 19,
                         color: p.ink,
                         lineHeight: 1.2,
+                        display: 'flex',
+                        alignItems: 'center',
+                        gap: 10,
                       }}
                     >
                       {b.name}
+                      {(b as any).comingSoon && (
+                        <span style={{ fontSize: 10, letterSpacing: '0.12em', textTransform: 'uppercase', color: p.accent, fontWeight: 600, fontFamily: 'Inter, sans-serif' }}>
+                          Coming Soon
+                        </span>
+                      )}
                     </div>
                     <div style={{ fontSize: 12, color: p.inkSoft, marginTop: 2 }}>
                       {b.addr} · {b.bed}
@@ -371,11 +403,11 @@ export default function TourBooking({
                     style={{
                       fontFamily: `'${displayFont}', serif`,
                       fontSize: 18,
-                      color: p.primary,
+                      color: (b as any).comingSoon ? p.inkSoft : p.primary,
                       fontStyle: 'italic',
                     }}
                   >
-                    {b.price}
+                    {(b as any).comingSoon ? '—' : b.price}
                   </div>
                 </button>
               ))}
@@ -486,13 +518,28 @@ export default function TourBooking({
 
           {!submitted && step === 3 && (
             <div style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
-              <Field label="Your name *" value={name} onChange={setName} placeholder="Maria Garcia" p={p} />
+              {/* Honeypot */}
+              <div style={{ position: 'absolute', left: '-9999px', opacity: 0 }} aria-hidden="true">
+                <label>
+                  <span>Website</span>
+                  <input
+                    type="text"
+                    name="website"
+                    tabIndex={-1}
+                    autoComplete="off"
+                    value={website}
+                    onChange={(e) => setWebsite(e.target.value)}
+                  />
+                </label>
+              </div>
+
+              <Field label="Your name *" value={name} onChange={setName} placeholder="Maria Garcia" p={p} required />
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }} className="ys-book-row">
-                <Field label="Phone" value={phone} onChange={setPhone} placeholder="(832) 210-3968" type="tel" p={p} />
-                <Field label="Email" value={email} onChange={setEmail} placeholder="you@email.com" type="email" p={p} />
+                <Field label="Phone *" value={phone} onChange={setPhone} placeholder="(832) 210-3968" type="tel" p={p} required />
+                <Field label="Email *" value={email} onChange={setEmail} placeholder="you@email.com" type="email" p={p} required />
               </div>
               <div style={{ fontSize: 11, color: p.inkSoft, marginTop: -8 }}>
-                Phone or email — at least one so we can confirm.
+                All fields required so we can confirm your tour.
               </div>
               <Field
                 label="Looking to move by"
@@ -613,6 +660,7 @@ function Field({
   type = 'text',
   textarea,
   p,
+  required,
 }: {
   label: string;
   value: string;
@@ -621,6 +669,7 @@ function Field({
   type?: string;
   textarea?: boolean;
   p: typeof import('@/lib/data').PALETTES.forest;
+  required?: boolean;
 }) {
   return (
     <label style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
@@ -641,6 +690,7 @@ function Field({
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
           rows={3}
+          required={required}
           style={{
             padding: '12px 14px',
             border: `1px solid ${p.line}`,
@@ -657,6 +707,7 @@ function Field({
           value={value}
           onChange={(e) => onChange(e.target.value)}
           placeholder={placeholder}
+          required={required}
           style={{
             padding: '12px 14px',
             border: `1px solid ${p.line}`,

@@ -20,12 +20,12 @@ export async function POST(req: NextRequest) {
     }
 
     const body = await req.json();
-    const { property, date, time, name, email, phone, moveBy, notes } = body;
+    const { property, date, time, name, email, phone, moveBy, notes, website } = body;
 
     const source = req.headers.get('referer') || 'Website';
     const result = await processLead(
       { type: 'tour', property, date, time, name, email, phone, moveBy, notes },
-      { source, ip }
+      { source, ip, honeypot: website }
     );
 
     if (!result.success) {

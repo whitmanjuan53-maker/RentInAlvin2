@@ -50,13 +50,13 @@ export default function Footer({
           </div>
           <div>
             <div style={{ color: p.paper, fontWeight: 600, fontSize: 13, marginBottom: 14 }}>
-              {isEs ? 'Propiedades' : 'Properties'}
+              {isEs ? 'Comunidades' : 'Communities'}
             </div>
             {['Kings Haven', 'Kings Manor', 'French Quarter', 'Royal Oaks', 'White House'].map(
               (n) => (
                 <a
                   key={n}
-                  href={isEs ? '/es#propiedades' : '/#properties'}
+                  href={isEs ? '/es#comunidades' : '/#communities'}
                   style={{
                     display: 'block',
                     fontSize: 13,

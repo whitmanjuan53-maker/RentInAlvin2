@@ -20,12 +20,12 @@ export async function POST(req: NextRequest) {
     }
 
     const body = await req.json();
-    const { name, email, phone, property, message } = body;
+    const { name, email, phone, property, message, moveBy, bedrooms, website } = body;
 
     const source = req.headers.get('referer') || 'Website';
     const result = await processLead(
-      { type: 'contact', name, email, phone, property, message },
-      { source, ip }
+      { type: 'contact', name, email, phone, property, message, moveBy, bedrooms },
+      { source, ip, honeypot: website }
     );
 
     if (!result.success) {

@@ -4,7 +4,7 @@ import './globals.css';
 export const metadata: Metadata = {
   title: 'RentInAlvin.com | Apartments & Townhomes for Rent in Alvin, TX',
   description:
-    'Managed by Yellowstone Asset Management. 150+ apartments and townhomes across 6 properties in Alvin, Texas. Rents from $890. Local family-run team. Apply online today.',
+    'Managed by Yellowstone Asset Management. 150+ apartments and townhomes across 6 communities in Alvin, Texas. Rents from $890. Local family-run team. Apply online today.',
   keywords:
     'apartments in Alvin TX, rentals in Alvin TX, rent in Alvin, Alvin Texas apartments, Yellowstone Management, Kings Haven, townhomes Alvin TX',
   authors: [{ name: 'Yellowstone Asset Management' }],
@@ -21,13 +21,13 @@ export const metadata: Metadata = {
     url: 'https://rentinalvin.com',
     title: 'RentInAlvin.com | Apartments & Townhomes in Alvin, TX',
     description:
-      '150+ apartments and townhomes across 6 properties in Alvin, Texas. Family-run, locally maintained, rents from $890.',
+      '150+ apartments and townhomes across 6 communities in Alvin, Texas. Family-run, locally maintained, rents from $890.',
     locale: 'en_US',
   },
   twitter: {
     card: 'summary_large_image',
     title: 'RentInAlvin.com | Apartments & Townhomes in Alvin, TX',
-    description: '150+ apartments and townhomes across 6 properties in Alvin, Texas. Family-run, locally maintained.',
+    description: '150+ apartments and townhomes across 6 communities in Alvin, Texas. Family-run, locally maintained.',
   },
   other: {
     'geo.region': 'US-TX',

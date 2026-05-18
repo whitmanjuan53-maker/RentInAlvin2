@@ -22,7 +22,7 @@ export default function VivirEnAlvinPage() {
         <div style={{ textAlign: 'center', maxWidth: 600 }}>
           <h1 style={{ fontFamily: "'Instrument Serif', serif", fontSize: 'clamp(36px, 5vw, 56px)', margin: 0, color: '#1A1815' }}>Vivir en Alvin</h1>
           <p style={{ color: '#5C5750', marginTop: 16, fontSize: 17, lineHeight: 1.6 }}>
-            Esta página estará disponible pronto. Mientras tanto, explore nuestras propiedades en la{' '}
+            Esta página estará disponible pronto. Mientras tanto, explore nuestras comunidades en la{' '}
             <a href="/es" style={{ color: '#1F3A2E', fontWeight: 600, textDecoration: 'none' }}>página principal</a>.
           </p>
         </div>
