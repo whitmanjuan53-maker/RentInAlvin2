@@ -1,6 +1,12 @@
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+function getResend() {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    throw new Error('RESEND_API_KEY is not configured');
+  }
+  return new Resend(apiKey);
+}
 
 export async function POST(req) {
   try {
@@ -106,7 +112,7 @@ export async function POST(req) {
     htmlContent += `<p><strong>Page Source:</strong> ${pageUrl || 'N/A'}</p>`;
     htmlContent += `<p><strong>Submitted:</strong> ${new Date().toLocaleString()}</p>`;
 
-    const { data, error } = await resend.emails.send({
+    const { data, error } = await getResend().emails.send({
       from: process.env.EMAIL_FROM,
       to: [process.env.EMAIL_TO],
       cc: process.env.EMAIL_CC.split(','),

@@ -68,7 +68,11 @@ export default function AlvinMap({
   const [mapReady, setMapReady] = useState(false);
 
   useEffect(() => {
-    setMapReady(true);
+    // Defer mount to the next tick so React Strict Mode's
+    // double-invoke (mount → unmount → remount) finishes
+    // before Leaflet tries to initialize the map container.
+    const timer = setTimeout(() => setMapReady(true), 0);
+    return () => clearTimeout(timer);
   }, []);
 
   return (

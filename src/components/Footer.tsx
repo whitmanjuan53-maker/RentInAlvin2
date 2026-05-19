@@ -27,7 +27,6 @@ export default function Footer({
             gridTemplateColumns: '2fr 1fr 1fr 1fr',
             gap: 60,
             paddingBottom: 40,
-            borderBottom: `1px solid color-mix(in oklab, ${p.paper} 15%, transparent)`,
           }}
         >
           <div>

@@ -39,8 +39,80 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
+        <script
+          dangerouslySetInnerHTML={{
+            __html: `
+              (function() {
+                var extRe = /^(__processed_|bis_)/;
+
+                /* 1. Block extensions from adding attributes */
+                var origSetAttribute = Element.prototype.setAttribute;
+                Element.prototype.setAttribute = function(name, value) {
+                  if (extRe.test(name)) return;
+                  return origSetAttribute.call(this, name, value);
+                };
+                if (Element.prototype.setAttributeNS) {
+                  var origSetAttributeNS = Element.prototype.setAttributeNS;
+                  Element.prototype.setAttributeNS = function(ns, name, value) {
+                    if (extRe.test(name)) return;
+                    return origSetAttributeNS.call(this, ns, name, value);
+                  };
+                }
+
+                /* 2. Strip any attributes already injected */
+                function clean(el) {
+                  if (!el || !el.attributes) return;
+                  var attrs = el.attributes;
+                  for (var i = attrs.length - 1; i >= 0; i--) {
+                    if (extRe.test(attrs[i].name)) el.removeAttribute(attrs[i].name);
+                  }
+                }
+                var all = document.getElementsByTagName('*');
+                for (var i = 0; i < all.length; i++) clean(all[i]);
+                if (typeof MutationObserver !== 'undefined') {
+                  new MutationObserver(function(list) {
+                    for (var i = 0; i < list.length; i++) {
+                      var rec = list[i];
+                      if (rec.type === 'attributes') clean(rec.target);
+                      else if (rec.type === 'childList') {
+                        for (var j = 0; j < rec.addedNodes.length; j++) {
+                          var n = rec.addedNodes[j];
+                          if (n.nodeType === 1) {
+                            clean(n);
+                            var c = n.getElementsByTagName ? n.getElementsByTagName('*') : [];
+                            for (var k = 0; k < c.length; k++) clean(c[k]);
+                          }
+                        }
+                      }
+                    }
+                  }).observe(document.documentElement, {
+                    attributes: true,
+                    childList: true,
+                    subtree: true,
+                  });
+                }
+
+                /* 3. Suppress extension-caused hydration console noise */
+                var origError = console.error;
+                console.error = function() {
+                  var args = Array.prototype.slice.call(arguments);
+                  var fullMsg = args.map(function(a) {
+                    if (typeof a === 'string') return a;
+                    if (a instanceof Error) return a.message || a.toString() || '';
+                    try { return JSON.stringify(a); } catch(e) { return ''; }
+                  }).join(' ');
+                  if ((/hydrat|Hydrat|server rendered HTML|did not match|Tree.*hydrated/i).test(fullMsg) &&
+                      (/bis_|__processed_|extension|inpage/i).test(fullMsg)) {
+                    return;
+                  }
+                  origError.apply(console, args);
+                };
+              })();
+            `,
+          }}
+        />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link
@@ -96,7 +168,9 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           }}
         />
       </head>
-      <body>{children}</body>
+      <body>
+        {children}
+      </body>
     </html>
   );
 }

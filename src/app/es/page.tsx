@@ -38,8 +38,7 @@ function Hero() {
   return (
     <section id="top" className="ys-hero" style={{ position: 'relative', padding: '180px var(--pad-x) 80px', minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
       <div style={{ maxWidth: 1400, margin: '0 auto', width: '100%' }}>
-        <div style={{ display: 'flex', alignItems: 'center', gap: 12, fontSize: 12, letterSpacing: '0.18em', textTransform: 'uppercase', color: p.inkSoft, marginBottom: 32, fontWeight: 500 }}>
-          <span style={{ width: 32, height: 1, background: p.inkSoft }}></span>
+        <div style={{ fontSize: 12, letterSpacing: '0.18em', textTransform: 'uppercase', color: p.inkSoft, marginBottom: 32, fontWeight: 500 }}>
           Administrado por Yellowstone Asset Management
         </div>
         <h1 style={{ fontFamily: `'${displayFont}', serif`, fontSize: 'clamp(56px, 8vw, 132px)', lineHeight: 0.95, letterSpacing: '-0.02em', margin: 0, color: p.ink, fontWeight: 400, maxWidth: '13ch' }}>
@@ -62,9 +61,9 @@ function Hero() {
           </div>
         </div>
       </div>
-      <div style={{ maxWidth: 1400, margin: '0 auto', width: '100%', marginTop: 80, display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', borderTop: `1px solid ${p.line}`, paddingTop: 28 }} className="ys-hero-stats">
+      <div style={{ maxWidth: 1400, margin: '0 auto', width: '100%', marginTop: 80, display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', paddingTop: 28 }} className="ys-hero-stats">
         {[['150+', 'unidades administradas'], ['6', 'comunidades en Alvin'], ['$899', 'renta inicial'], ['Local', 'equipo familiar']].map(([n, label], i) => (
-          <div key={i} style={{ borderLeft: i === 0 ? 'none' : `1px solid ${p.line}`, paddingLeft: i === 0 ? 0 : 28 }}>
+          <div key={i} style={{ paddingLeft: i === 0 ? 0 : 28 }}>
             <div style={{ fontFamily: `'${displayFont}', serif`, fontSize: 56, lineHeight: 1, color: p.ink, letterSpacing: '-0.02em' }}>{n}</div>
             <div style={{ fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', color: p.inkSoft, marginTop: 10, fontWeight: 500 }}>{label}</div>
           </div>
@@ -116,7 +115,7 @@ function CommunityCard({ prop, idx }: { prop: (typeof COMMUNITIES)[0]; idx: numb
 
 function Communities() {
   return (
-    <section id="comunidades" style={{ padding: 'var(--pad-x-lg) var(--pad-x)', borderTop: `1px solid ${p.line}` }}>
+    <section id="comunidades" style={{ padding: 'var(--pad-x-lg) var(--pad-x)' }}>
       <div style={{ maxWidth: 1400, margin: '0 auto' }}>
         <SectionHead eyebrow="Seis comunidades · Un código postal" title="Cada dirección que administramos, todo en Alvin." lead="Desde el insignia Kings Haven en South 2nd Street hasta los townhomes en Jackson, seis comunidades, un equipo local." />
         <div className="ys-prop-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
@@ -176,7 +175,7 @@ function About() {
     { n: '03', title: 'Mantenimiento, resuelto', body: 'Envíe una solicitud y un técnico que conocemos personalmente es enviado. La mayoría de los problemas no urgentes se resuelven en 48 horas.' },
   ];
   return (
-    <section id="nosotros" style={{ padding: 'var(--pad-x-lg) var(--pad-x)', borderTop: `1px solid ${p.line}` }}>
+    <section id="nosotros" style={{ padding: 'var(--pad-x-lg) var(--pad-x)' }}>
       <div style={{ maxWidth: 1400, margin: '0 auto' }}>
         <SectionHead eyebrow="Por qué Yellowstone" title="Construido alrededor de cómo Alvin realmente vive." lead="No somos un arrendador corporativo con un portafolio disperso en cinco estados. Cada propiedad que administramos está a diez minutos de nuestra oficina, y esa proximidad es el punto clave." />
         <div className="ys-about-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 32, marginTop: 24 }}>
@@ -201,7 +200,7 @@ function Contact() {
     { key: 'email', eyebrow: 'Respondemos en un día hábil', label: 'office@yellowstone-am.com', detail: 'Ideal para documentos y preguntas de arrendamiento.', action: 'Escribir correo', href: 'mailto:office@yellowstone-am.com' },
   ];
   return (
-    <section id="contacto" style={{ padding: 'var(--pad-x-lg) var(--pad-x)', background: p.paper, borderTop: `1px solid ${p.line}` }}>
+    <section id="contacto" style={{ padding: 'var(--pad-x-lg) var(--pad-x)', background: p.paper }}>
       <div style={{ maxWidth: 1400, margin: '0 auto' }}>
         <div className="ys-contact-grid" style={{ display: 'grid', gridTemplateColumns: '1.1fr 1fr', gap: 80 }}>
           <div>
@@ -265,7 +264,7 @@ function Contact() {
 function FAQ() {
   const [open, setOpen] = useState(0);
   return (
-    <section id="preguntas" style={{ padding: 'var(--pad-x-lg) var(--pad-x)', borderTop: `1px solid ${p.line}`, background: p.bg }}>
+    <section id="preguntas" style={{ padding: 'var(--pad-x-lg) var(--pad-x)', background: p.bg }}>
       <div style={{ maxWidth: 1400, margin: '0 auto' }}>
         <div className="ys-faq-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 60, alignItems: 'start' }}>
           <div>
@@ -310,7 +309,7 @@ function Availability() {
   });
   const filters = [['all', 'Todas las unidades'], ['now', 'Mudanza inmediata'], ['1br', '1 Rec'], ['2br', '2 Rec'], ['3br', '3 Rec']];
   return (
-    <section id="disponibilidad" style={{ padding: 'var(--pad-x-lg) var(--pad-x)', background: p.paper, borderTop: `1px solid ${p.line}`, borderBottom: `1px solid ${p.line}` }}>
+    <section id="disponibilidad" style={{ padding: 'var(--pad-x-lg) var(--pad-x)', background: p.paper }}>
       <div style={{ maxWidth: 1400, margin: '0 auto' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 36, gap: 32, flexWrap: 'wrap' }}>
           <div>
@@ -419,7 +418,7 @@ function Apply() {
 
   if (submitted) {
     return (
-      <section id="aplicar" style={{ padding: 'var(--pad-x-lg) var(--pad-x)', background: p.primary, color: p.paper, borderTop: `1px solid ${p.line}` }}>
+      <section id="aplicar" style={{ padding: 'var(--pad-x-lg) var(--pad-x)', background: p.primary, color: p.paper }}>
         <div style={{ maxWidth: 720, margin: '0 auto', textAlign: 'center' }}>
           <div style={{ width: 64, height: 64, borderRadius: '50%', background: p.accent, color: p.paper, display: 'grid', placeItems: 'center', margin: '0 auto', fontSize: 28 }}>✓</div>
           <h2 style={{ fontFamily: `'${displayFont}', serif`, fontSize: 'clamp(40px, 5.5vw, 72px)', lineHeight: 1.02, margin: '32px 0 0', fontWeight: 400, letterSpacing: '-0.02em' }}>Aplicación recibida.</h2>
@@ -434,7 +433,7 @@ function Apply() {
   }
 
   return (
-    <section id="aplicar" style={{ padding: 'var(--pad-x-lg) var(--pad-x)', background: p.bg, borderTop: `1px solid ${p.line}` }}>
+    <section id="aplicar" style={{ padding: 'var(--pad-x-lg) var(--pad-x)', background: p.bg }}>
       <div style={{ maxWidth: 1400, margin: '0 auto' }}>
         <div className="ys-section-head" style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 60, alignItems: 'start', marginBottom: 56 }}>
           <div style={{ fontSize: 12, letterSpacing: '0.18em', textTransform: 'uppercase', color: p.accent, fontWeight: 600, paddingTop: 14 }}>Aplique en línea · 5 minutos</div>
@@ -465,7 +464,7 @@ function Apply() {
                   <label style={{ display: 'flex', flexDirection: 'column', gap: 8 }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Nombre <span style={{ color: p.accent }}>*</span></span><input style={txt} value={data.firstName} onChange={(e) => update('firstName', e.target.value)} /></label>
                   <label style={{ display: 'flex', flexDirection: 'column', gap: 8 }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Apellido <span style={{ color: p.accent }}>*</span></span><input style={txt} value={data.lastName} onChange={(e) => update('lastName', e.target.value)} /></label>
                   <label style={{ display: 'flex', flexDirection: 'column', gap: 8 }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Correo <span style={{ color: p.accent }}>*</span></span><input type="email" style={txt} value={data.email} onChange={(e) => update('email', e.target.value)} /></label>
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: 8 }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Teléfono <span style={{ color: p.accent }}>*</span></span><input type="tel" style={txt} value={data.phone} onChange={(e) => update('phone', e.target.value)} placeholder="(___) ___-____" /></label>
+                  <label style={{ display: 'flex', flexDirection: 'column', gap: 8 }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Teléfono <span style={{ color: p.accent }}>*</span></span><input type="tel" style={txt} value={data.phone} onChange={(e) => update('phone', e.target.value)} placeholder="(832) 210-3968" /></label>
                   <label style={{ display: 'flex', flexDirection: 'column', gap: 8 }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Fecha de nacimiento</span><input type="date" style={txt} value={data.dob} onChange={(e) => update('dob', e.target.value)} /></label>
                   <label style={{ display: 'flex', flexDirection: 'column', gap: 8, gridColumn: 'span 2' }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Dirección actual</span><input style={txt} value={data.currentAddress} onChange={(e) => update('currentAddress', e.target.value)} placeholder="Calle, ciudad, estado, zip" /></label>
                 </div>
@@ -587,12 +586,12 @@ function SellProperty() {
   const labelStyle = { fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 500, marginBottom: 8, display: 'block' };
 
   return (
-    <section id="vender" style={{ padding: 'var(--pad-x-lg) var(--pad-x)', borderTop: `1px solid ${p.line}`, background: p.ink, color: p.paper }}>
+    <section id="vender" style={{ padding: 'var(--pad-x-lg) var(--pad-x)', background: p.ink, color: p.paper }}>
       <div style={{ maxWidth: 1400, margin: '0 auto' }}>
         <div className="ys-sell-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'start' }}>
           <div>
-            <div style={{ fontSize: 12, letterSpacing: '0.18em', textTransform: 'uppercase', color: p.accent, fontWeight: 600, marginBottom: 24, display: 'flex', alignItems: 'center', gap: 10 }}>
-              <span style={{ width: 32, height: 1, background: p.accent }}></span>Para propietarios
+            <div style={{ fontSize: 12, letterSpacing: '0.18em', textTransform: 'uppercase', color: p.accent, fontWeight: 600, marginBottom: 24 }}>
+              Para propietarios
             </div>
             <h2 style={{ fontFamily: `'${displayFont}', serif`, fontSize: 'clamp(40px, 6vw, 88px)', lineHeight: 0.98, letterSpacing: '-0.02em', margin: 0, fontWeight: 400, color: p.paper }}>Omita el agente. <em style={{ color: p.accent }}>Venda directo.</em></h2>
             <p style={{ fontSize: 18, lineHeight: 1.55, color: `color-mix(in oklab, ${p.paper} 80%, transparent)`, maxWidth: '50ch', marginTop: 28 }}>
@@ -604,14 +603,14 @@ function SellProperty() {
                 ['Oferta honesta', 'Hacemos una oferta justa y transparente. Sin engaños.'],
                 ['Cierre a su manera', '30 días, 90 días, o cuando funcione, usted decide.'],
               ].map(([t, d], i) => (
-                <div key={i} style={{ paddingTop: 18, borderTop: `1px solid color-mix(in oklab, ${p.paper} 25%, transparent)` }}>
+                <div key={i} style={{ paddingTop: 18 }}>
                   <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11, color: p.accent, fontWeight: 600, letterSpacing: '0.1em', marginBottom: 10 }}>0{i + 1}</div>
                   <div style={{ fontFamily: `'${displayFont}', serif`, fontSize: 22, lineHeight: 1.1, color: p.paper, fontWeight: 400, letterSpacing: '-0.01em' }}>{t}</div>
                   <div style={{ fontSize: 13, lineHeight: 1.55, color: `color-mix(in oklab, ${p.paper} 65%, transparent)`, marginTop: 8 }}>{d}</div>
                 </div>
               ))}
             </div>
-            <div style={{ marginTop: 40, padding: 24, background: `color-mix(in oklab, ${p.paper} 6%, transparent)`, border: `1px solid color-mix(in oklab, ${p.paper} 18%, transparent)`, display: 'flex', gap: 16, alignItems: 'center' }}>
+            <div style={{ marginTop: 40, padding: 24, background: `color-mix(in oklab, ${p.paper} 6%, transparent)`, display: 'flex', gap: 16, alignItems: 'center' }}>
               <div style={{ width: 44, height: 44, borderRadius: '50%', background: p.accent, color: p.paper, display: 'grid', placeItems: 'center', fontFamily: `'${displayFont}', serif`, fontSize: 22, flexShrink: 0 }}>★</div>
               <div>
                 <div style={{ fontSize: 14, fontWeight: 600, color: p.paper }}>¿Prefiere hablar primero?</div>
@@ -632,7 +631,7 @@ function SellProperty() {
                 {error && <div style={{ padding: 12, background: '#fef2f2', border: '1px solid #fecaca', color: '#991b1b', fontSize: 13, borderRadius: 4, marginTop: 16 }}>{error}</div>}
                 <div className="ys-sell-form-grid-2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginTop: 24 }}>
                   <div><label style={labelStyle}>Su nombre</label><input required style={fieldStyle} value={form.name} onChange={e => update('name', e.target.value)} /></div>
-                  <div><label style={labelStyle}>Teléfono</label><input required type="tel" style={fieldStyle} value={form.phone} onChange={e => update('phone', e.target.value)} placeholder="(___) ___-____" /></div>
+                  <div><label style={labelStyle}>Teléfono</label><input required type="tel" style={fieldStyle} value={form.phone} onChange={e => update('phone', e.target.value)} placeholder="(832) 210-3968" /></div>
                 </div>
                 <div style={{ marginTop: 14 }}><label style={labelStyle}>Correo</label><input required type="email" style={fieldStyle} value={form.email} onChange={e => update('email', e.target.value)} /></div>
                 <div style={{ marginTop: 28, paddingTop: 20, borderTop: `1px solid ${p.line}` }}>
@@ -708,7 +707,16 @@ export default function Home() {
       <TourBooking open={bookingOpen} onClose={() => setBookingOpen(false)} p={p} displayFont={displayFont} initialPropertyId={bookingPropId} />
 
       <div className="ys-fab-stack" aria-label="Acciones rápidas">
-        <a className="ys-fab-text" href="sms:+18322103968?body=Hola%20Yellowstone%2C%20estoy%20interesado%20en%20una%20unidad.">Text Us</a>
+        <a className="ys-fab-guide" href="/vivir-en-alvin">
+          <em>Vivir en Alvin</em>
+          <span>→</span>
+        </a>
+        <a className="ys-fab-text" href="sms:+18322103968?body=Hola%20Yellowstone%2C%20estoy%20interesado%20en%20una%20unidad." aria-label="Envíenos un SMS">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">
+            <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
+          </svg>
+          <span>Mensaje</span>
+        </a>
       </div>
     </div>
   );

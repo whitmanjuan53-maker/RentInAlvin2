@@ -48,10 +48,8 @@ export default function Nav({ p, locale = 'en' }: { p: typeof import('@/lib/data
         zIndex: 1000,
         padding: scrolled ? '14px var(--pad-x)' : '24px var(--pad-x)',
         transition: 'all 220ms ease',
-        background: scrolled ? `color-mix(in oklab, ${p.bg} 88%, transparent)` : 'transparent',
-        backdropFilter: scrolled ? 'blur(10px)' : 'none',
-        WebkitBackdropFilter: scrolled ? 'blur(10px)' : 'none',
-        borderBottom: scrolled ? `1px solid ${p.line}` : '1px solid transparent',
+        background: p.bg,
+        borderBottom: `1px solid ${p.line}`,
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'space-between',
@@ -100,51 +98,6 @@ export default function Nav({ p, locale = 'en' }: { p: typeof import('@/lib/data
             {label}
           </a>
         ))}
-
-        {/* Language toggle — no box, clean text */}
-        <div
-          style={{
-            display: 'flex',
-            alignItems: 'center',
-            gap: 8,
-            fontSize: 13,
-            fontWeight: 600,
-            letterSpacing: '0.02em',
-            marginLeft: 4,
-          }}
-          aria-label="Language"
-          role="group"
-        >
-          <a
-            href="/"
-            hrefLang="en"
-            style={{
-              color: locale === 'en' ? p.primary : p.inkSoft,
-              textDecoration: locale === 'en' ? 'underline' : 'none',
-              textUnderlineOffset: '3px',
-              transition: 'color 180ms ease',
-            }}
-            onMouseOver={(e) => ((e.currentTarget as HTMLElement).style.color = p.primary)}
-            onMouseOut={(e) => ((e.currentTarget as HTMLElement).style.color = locale === 'en' ? p.primary : p.inkSoft)}
-          >
-            EN
-          </a>
-          <span style={{ color: p.inkSoft, opacity: 0.4, fontWeight: 400 }}>·</span>
-          <a
-            href="/es"
-            hrefLang="es"
-            style={{
-              color: locale === 'es' ? p.primary : p.inkSoft,
-              textDecoration: locale === 'es' ? 'underline' : 'none',
-              textUnderlineOffset: '3px',
-              transition: 'color 180ms ease',
-            }}
-            onMouseOver={(e) => ((e.currentTarget as HTMLElement).style.color = p.primary)}
-            onMouseOut={(e) => ((e.currentTarget as HTMLElement).style.color = locale === 'es' ? p.primary : p.inkSoft)}
-          >
-            ES
-          </a>
-        </div>
 
         <a
           href="tel:8322103968"
@@ -246,41 +199,6 @@ export default function Nav({ p, locale = 'en' }: { p: typeof import('@/lib/data
               {label}
             </a>
           ))}
-
-          {/* Mobile language toggle */}
-          <div
-            style={{
-              display: 'flex',
-              alignItems: 'center',
-              gap: 16,
-              padding: '14px 0',
-              fontSize: 16,
-              fontWeight: 600,
-              borderBottom: `1px solid ${p.line}`,
-            }}
-          >
-            <a
-              href="/"
-              style={{
-                color: locale === 'en' ? p.primary : p.inkSoft,
-                textDecoration: locale === 'en' ? 'underline' : 'none',
-                textUnderlineOffset: '3px',
-              }}
-            >
-              English
-            </a>
-            <span style={{ color: p.inkSoft, opacity: 0.4 }}>·</span>
-            <a
-              href="/es"
-              style={{
-                color: locale === 'es' ? p.primary : p.inkSoft,
-                textDecoration: locale === 'es' ? 'underline' : 'none',
-                textUnderlineOffset: '3px',
-              }}
-            >
-              Español
-            </a>
-          </div>
 
           <a
             href="tel:8322103968"
