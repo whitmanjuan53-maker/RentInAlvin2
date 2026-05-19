@@ -713,7 +713,7 @@ export default function Home() {
         </a>
         <div className="ys-fab-pill" role="group" aria-label="Idioma">
           <a href="/" hrefLang="en">EN</a>
-          <span className="ys-fab-sep">�</span>
+          <span className="ys-fab-sep">·</span>
           <a href="/es" hrefLang="es" className="active">ES</a>
         </div>
         <a className="ys-fab-text" href="sms:+18322103968?body=Hola%20Yellowstone%2C%20estoy%20interesado%20en%20una%20unidad." aria-label="Envíenos un SMS">
