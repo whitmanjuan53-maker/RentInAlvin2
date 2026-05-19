@@ -313,23 +313,39 @@ footer.foot a { text-decoration: none; }
 .ys-fab-stack {
   position: fixed; right: 20px; bottom: 20px; z-index: 9999;
   display: flex; flex-direction: column; gap: 10px; align-items: flex-end;
+  font-family: 'Inter', system-ui, sans-serif;
 }
-.ys-fab-stack a, .ys-fab-stack button {
+.ys-fab-stack > a,
+.ys-fab-stack > button,
+.ys-fab-stack > div {
   all: unset; cursor: pointer;
   display: inline-flex; align-items: center; gap: 8px;
   padding: 12px 18px; border-radius: 999px;
-  font-size: 14px; font-weight: 600;
-  box-shadow: 0 6px 24px rgba(26,24,21,0.18);
+  font-size: 14px; font-weight: 600; letter-spacing: 0.01em;
+  box-shadow: 0 6px 24px rgba(26,24,21,0.18), 0 1px 2px rgba(26,24,21,0.08);
   border: 1px solid rgba(26,24,21,0.08);
-  transition: transform 160ms ease;
+  transition: transform 160ms ease, box-shadow 160ms ease;
 }
-.ys-fab-stack a:hover { transform: translateY(-2px); }
+.ys-fab-stack > a:hover,
+.ys-fab-stack > button:hover,
+.ys-fab-stack > div:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 28px rgba(26,24,21,0.22), 0 1px 2px rgba(26,24,21,0.08);
+}
 .ys-fab-text { background: var(--primary); color: var(--paper); }
 .ys-fab-text svg { width: 16px; height: 16px; }
 .ys-fab-pill { background: var(--paper); color: var(--ink); }
 .ys-fab-pill .ys-fab-sep { opacity: 0.25; margin: 0 6px; }
 .ys-fab-pill a.active { color: var(--primary); text-decoration: underline; text-underline-offset: 3px; }
 .ys-fab-pill a:not(.active) { color: var(--inkSoft); }
+.ys-fab-guide { background: var(--paper); color: var(--ink); text-decoration: none; }
+.ys-fab-guide em { font-family: 'Instrument Serif', Georgia, serif; font-style: italic; }
+@media (max-width: 540px) {
+  .ys-fab-stack { right: 12px; bottom: 12px; gap: 8px; }
+  .ys-fab-stack > a,
+  .ys-fab-stack > button,
+  .ys-fab-stack > div { padding: 10px 14px; font-size: 13px; }
+}
 @media print { .ys-fab-stack { display: none; } }
 
 /* === Accessibility & polish === */
@@ -687,6 +703,10 @@ const BODY_HTML = `
 </footer>
 
 <div class="ys-fab-stack" aria-label="Quick actions">
+  <a class="ys-fab-guide" href="/">
+    <em>Home</em>
+    <span>&rarr;</span>
+  </a>
   <div class="ys-fab-pill" role="group" aria-label="Language">
     <a href="/living-in-alvin" class="active" hreflang="en">EN</a>
     <span class="ys-fab-sep">·</span>
