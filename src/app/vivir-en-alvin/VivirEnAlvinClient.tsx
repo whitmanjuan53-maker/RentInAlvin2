@@ -617,15 +617,15 @@ const BODY_HTML = `
 <div class="ys-fab-stack" aria-label="Acciones rápidas">
   <a class="ys-fab-guide" href="/es">
     <em>Inicio</em>
-    <span>&rarr;</span>
+    <span>→</span>
   </a>
   <div class="ys-fab-pill" role="group" aria-label="Idioma">
     <a href="/living-in-alvin" hreflang="en">EN</a>
     <span class="ys-fab-sep">·</span>
-    <a href="/vivir-en-alvin" class="active" hreflang="es">ES</a>
+    <a href="/vivir-en-alvin" hreflang="es" class="active">ES</a>
   </div>
-  <a class="ys-fab-text" href="sms:+18322103968?&amp;body=Hola%2C%20me%20interesa%20una%20unidad." aria-label="Envíenos un SMS">
-    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+  <a class="ys-fab-text" href="sms:+18322103968?body=Hola%20Yellowstone%2C%20estoy%20interesado%20en%20una%20unidad." aria-label="Envíenos un SMS">
+    <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
       <path d="M21 11.5a8.38 8.38 0 0 1-.9 3.8 8.5 8.5 0 0 1-7.6 4.7 8.38 8.38 0 0 1-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 0 1-.9-3.8 8.5 8.5 0 0 1 4.7-7.6 8.38 8.38 0 0 1 3.8-.9h.5a8.48 8.48 0 0 1 8 8v.5z"/>
     </svg>
     <span>Mensaje</span>
