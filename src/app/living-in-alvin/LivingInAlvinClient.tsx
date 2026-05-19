@@ -43,16 +43,17 @@ a { color: inherit; }
   background: var(--paper);
 }
 .topbar .brand {
-  display: flex; align-items: center; gap: 10px; text-decoration: none;
-}
-.topbar .brand-mark {
-  width: 32px; height: 32px; background: var(--primary); color: var(--paper);
-  display: grid; place-items: center;
-  font-family: 'Instrument Serif', Georgia, serif; font-style: italic; font-size: 22px;
-  line-height: 1;
+  display: flex; align-items: center; gap: 12px; text-decoration: none;
 }
 .topbar .brand-name {
-  font-family: 'Instrument Serif', Georgia, serif; font-size: 20px;
+  display: flex; flex-direction: column; line-height: 1.1;
+}
+.topbar .brand-name span:first-child {
+  font-family: 'Instrument Serif', Georgia, serif; font-size: 22px; letter-spacing: -0.01em;
+}
+.topbar .brand-name span:last-child {
+  font-size: 9.5px; letter-spacing: 0.22em; text-transform: uppercase;
+  color: var(--inkSoft); font-weight: 500;
 }
 .topbar nav { display: flex; gap: 28px; align-items: center; font-size: 14px; }
 .topbar nav a { text-decoration: none; color: var(--inkSoft); }
@@ -369,8 +370,10 @@ footer.foot a:hover { transform: translateX(2px); }
 const BODY_HTML = `
 <header class="topbar">
   <a class="brand" href="/">
-    <div class="brand-mark">Y</div>
-    <div class="brand-name">Yellowstone</div>
+    <div class="brand-name">
+      <span>Yellowstone</span>
+      <span>Asset Management</span>
+    </div>
   </a>
   <nav>
     <a href="/#communities" class="hide-sm">Properties</a>
