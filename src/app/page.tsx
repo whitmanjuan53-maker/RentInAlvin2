@@ -5,6 +5,7 @@ import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
 import TourBooking from '@/components/TourBooking';
 import LeadForm from '@/components/LeadForm';
+import PropertyModal from '@/components/PropertyModal';
 import dynamic from 'next/dynamic';
 const AlvinMap = dynamic(() => import('@/components/AlvinMap'), { ssr: false });
 import { PALETTES, COMMUNITIES, FLOORPLANS, FAQS, AVAILABILITY } from '@/lib/data';
@@ -73,17 +74,50 @@ function Hero() {
   );
 }
 
-function CommunityCard({ prop, idx }: { prop: (typeof COMMUNITIES)[0]; idx: number }) {
+function CommunityCard({ prop, idx, onOpen }: { prop: (typeof COMMUNITIES)[0]; idx: number; onOpen?: () => void }) {
   const [hover, setHover] = useState(false);
+  const [slide, setSlide] = useState(0);
+  const gallery = prop.gallery || [];
+
+  useEffect(() => {
+    if (gallery.length <= 1) return;
+    if (hover) return;
+    const interval = setInterval(() => setSlide((s) => (s + 1) % gallery.length), 4000);
+    return () => clearInterval(interval);
+  }, [gallery.length, hover]);
+
   return (
-    <article onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} style={{ background: p.paper, border: `1px solid ${p.line}`, overflow: 'hidden', display: 'flex', flexDirection: 'column', transition: 'transform 240ms ease, box-shadow 240ms ease', transform: hover ? 'translateY(-4px)' : 'translateY(0)', boxShadow: hover ? `0 24px 48px -24px color-mix(in oklab, ${p.ink} 30%, transparent)` : 'none' }}>
+    <article onMouseEnter={() => setHover(true)} onMouseLeave={() => setHover(false)} style={{ background: p.paper, border: `1px solid ${p.line}`, overflow: 'hidden', display: 'flex', flexDirection: 'column', transition: 'transform 240ms ease, box-shadow 240ms ease', transform: hover ? 'translateY(-4px)' : 'translateY(0)', boxShadow: hover ? `0 24px 48px -24px color-mix(in oklab, ${p.ink} 30%, transparent)` : 'none', cursor: onOpen ? 'pointer' : 'default' }} onClick={onOpen}>
       <div style={{ position: 'relative', aspectRatio: '4/3', overflow: 'hidden' }}>
-        <Placeholder label={prop.img} />
-        <div style={{ position: 'absolute', top: 14, left: 14, background: p.paper, padding: '5px 10px', fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.primary, fontWeight: 600, border: `1px solid ${p.line}` }}>
+        {gallery.length > 0 ? (
+          <>
+            <img src={gallery[slide]} alt={prop.name} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block', transition: 'transform 500ms ease, opacity 300ms ease', transform: hover ? 'scale(1.04)' : 'scale(1)' }} />
+            {gallery.length > 1 && hover && (
+              <>
+                <button onClick={(e) => { e.stopPropagation(); setSlide((s) => (s - 1 + gallery.length) % gallery.length); }} style={{ position: 'absolute', left: 8, top: '50%', transform: 'translateY(-50%)', width: 32, height: 32, borderRadius: '50%', background: 'rgba(255,255,255,0.9)', border: 'none', display: 'grid', placeItems: 'center', cursor: 'pointer', color: p.ink, zIndex: 5 }} aria-label="Previous photo">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M15 18l-6-6 6-6"/></svg>
+                </button>
+                <button onClick={(e) => { e.stopPropagation(); setSlide((s) => (s + 1) % gallery.length); }} style={{ position: 'absolute', right: 8, top: '50%', transform: 'translateY(-50%)', width: 32, height: 32, borderRadius: '50%', background: 'rgba(255,255,255,0.9)', border: 'none', display: 'grid', placeItems: 'center', cursor: 'pointer', color: p.ink, zIndex: 5 }} aria-label="Next photo">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6"/></svg>
+                </button>
+              </>
+            )}
+            {gallery.length > 1 && (
+              <div style={{ position: 'absolute', bottom: 10, left: '50%', transform: 'translateX(-50%)', display: 'flex', gap: 5, zIndex: 4 }}>
+                {gallery.map((_, i) => (
+                  <span key={i} style={{ width: 6, height: 6, borderRadius: '50%', background: i === slide ? '#fff' : 'rgba(255,255,255,0.5)', transition: 'background 200ms ease' }} />
+                ))}
+              </div>
+            )}
+          </>
+        ) : (
+          <Placeholder label={prop.img} />
+        )}
+        <div style={{ position: 'absolute', top: 14, left: 14, background: p.paper, padding: '5px 10px', fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.primary, fontWeight: 600, border: `1px solid ${p.line}`, zIndex: 4 }}>
           {String(idx + 1).padStart(2, '0')} · {prop.tag}
         </div>
         {prop.comingSoon && (
-          <div style={{ position: 'absolute', top: 14, right: 14, background: p.accent, color: p.paper, padding: '5px 10px', fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase', fontWeight: 600, border: `1px solid ${p.accent}` }}>
+          <div style={{ position: 'absolute', top: 14, right: 14, background: p.accent, color: p.paper, padding: '5px 10px', fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase', fontWeight: 600, border: `1px solid ${p.accent}`, zIndex: 4 }}>
             Coming Soon
           </div>
         )}
@@ -102,7 +136,7 @@ function CommunityCard({ prop, idx }: { prop: (typeof COMMUNITIES)[0]; idx: numb
           {prop.comingSoon ? (
             <span style={{ fontSize: 13, fontWeight: 600, color: p.inkSoft }}>Coming Soon</span>
           ) : (
-            <a href="#contact" style={{ fontSize: 13, fontWeight: 600, color: p.ink, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+            <a href="#contact" onClick={(e) => e.stopPropagation()} style={{ fontSize: 13, fontWeight: 600, color: p.ink, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
               Inquire
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6h7m0 0L6.5 3m3 3-3 3" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" /></svg>
             </a>
@@ -113,13 +147,13 @@ function CommunityCard({ prop, idx }: { prop: (typeof COMMUNITIES)[0]; idx: numb
   );
 }
 
-function Communities() {
+function Communities({ onOpenProperty }: { onOpenProperty?: (prop: (typeof COMMUNITIES)[0]) => void }) {
   return (
     <section id="communities" style={{ padding: 'var(--pad-x-lg) var(--pad-x)' }}>
       <div style={{ maxWidth: 1400, margin: '0 auto' }}>
         <SectionHead eyebrow="Six communities · One zip code" title="Every address we manage, all within Alvin." lead="From the flagship Kings Haven on South 2nd Street to the townhomes on Jackson, six communities, one local team." />
         <div className="ys-prop-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
-          {COMMUNITIES.map((prop, i) => <CommunityCard key={i} prop={prop} idx={i} />)}
+          {COMMUNITIES.map((prop, i) => <CommunityCard key={i} prop={prop} idx={i} onOpen={prop.gallery ? () => onOpenProperty?.(prop) : undefined} />)}
         </div>
       </div>
     </section>
@@ -659,6 +693,7 @@ function SellProperty() {
 export default function Home() {
   const [bookingOpen, setBookingOpen] = useState(false);
   const [bookingPropId, setBookingPropId] = useState('');
+  const [modalProp, setModalProp] = useState<(typeof COMMUNITIES)[0] | null>(null);
 
   useEffect(() => {
     (window as any).__openBooking = (propId?: string) => { setBookingPropId(propId || ''); setBookingOpen(true); };
@@ -685,7 +720,7 @@ export default function Home() {
         <a href="#apply" style={{ color: p.accent, fontWeight: 600, textDecoration: 'none' }}>Start application →</a>
       </div>
       <Availability />
-      <Communities />
+      <Communities onOpenProperty={setModalProp} />
       <AlvinMap p={p} displayFont={displayFont} />
       <Floorplans />
       <About />
@@ -695,6 +730,7 @@ export default function Home() {
       <Contact />
       <Footer p={p} displayFont={displayFont} />
       <TourBooking open={bookingOpen} onClose={() => setBookingOpen(false)} p={p} displayFont={displayFont} initialPropertyId={bookingPropId} />
+      <PropertyModal open={!!modalProp} onClose={() => setModalProp(null)} property={modalProp} onBookTour={() => { setBookingPropId('kings-manor'); setBookingOpen(true); }} p={p} displayFont={displayFont} locale="en" />
 
       <div className="ys-fab-stack" aria-label="Quick actions">
         <a className="ys-fab-guide" href="/living-in-alvin">
