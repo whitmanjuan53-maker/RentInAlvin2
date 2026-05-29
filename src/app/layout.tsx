@@ -41,6 +41,64 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning>
       <head suppressHydrationWarning>
+        <script
+          suppressHydrationWarning
+          dangerouslySetInnerHTML={{
+            __html: `(function () {
+  var extAttr = /^(bis_|__processed_)/i;
+  function shouldDrop(name) {
+    return !!name && extAttr.test(name);
+  }
+  function clean(el) {
+    if (!el || !el.attributes) return;
+    for (var i = el.attributes.length - 1; i >= 0; i--) {
+      var n = el.attributes[i] && el.attributes[i].name;
+      if (shouldDrop(n)) el.removeAttribute(n);
+    }
+  }
+
+  // Remove already-injected attributes before hydration.
+  clean(document.documentElement);
+  clean(document.body);
+  var all = document.getElementsByTagName('*');
+  for (var j = 0; j < all.length; j++) clean(all[j]);
+
+  // Block future writes by extension scripts.
+  var setAttr = Element.prototype.setAttribute;
+  Element.prototype.setAttribute = function (name, value) {
+    if (shouldDrop(name)) return;
+    return setAttr.call(this, name, value);
+  };
+  if (Element.prototype.setAttributeNS) {
+    var setAttrNS = Element.prototype.setAttributeNS;
+    Element.prototype.setAttributeNS = function (ns, name, value) {
+      if (shouldDrop(name)) return;
+      return setAttrNS.call(this, ns, name, value);
+    };
+  }
+
+  if (typeof MutationObserver !== 'undefined') {
+    new MutationObserver(function (records) {
+      for (var k = 0; k < records.length; k++) {
+        var rec = records[k];
+        if (rec.type === 'attributes') {
+          clean(rec.target);
+          continue;
+        }
+        if (rec.type !== 'childList') continue;
+        for (var m = 0; m < rec.addedNodes.length; m++) {
+          var node = rec.addedNodes[m];
+          if (!node || node.nodeType !== 1) continue;
+          clean(node);
+          var kids = node.getElementsByTagName ? node.getElementsByTagName('*') : [];
+          for (var n = 0; n < kids.length; n++) clean(kids[n]);
+        }
+      }
+    }).observe(document.documentElement, { attributes: true, childList: true, subtree: true });
+  }
+})();`,
+          }}
+        />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link

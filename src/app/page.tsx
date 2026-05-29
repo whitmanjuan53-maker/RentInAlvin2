@@ -694,6 +694,26 @@ export default function Home() {
   const [bookingOpen, setBookingOpen] = useState(false);
   const [bookingPropId, setBookingPropId] = useState('');
   const [modalProp, setModalProp] = useState<(typeof COMMUNITIES)[0] | null>(null);
+  const getBookingIdForCommunity = (prop: (typeof COMMUNITIES)[0] | null) => {
+    if (!prop) return 'any';
+    const key = `${prop.name}|${prop.addr}`;
+    switch (key) {
+      case 'Kings Haven Apartments|410 S 2nd St':
+        return 'kings-haven';
+      case 'Kings Manor Townhomes|328 S 2nd St':
+        return 'kings-manor';
+      case 'Kings Haven Apartments|100 S 2nd St':
+        return 'kings-haven-100';
+      case 'French Quarter Residency|2550 S Bypass 35':
+        return 'french-quarter';
+      case 'The White House Apartments|1606 W Sealy St':
+        return 'white-house';
+      case 'The Royal Oaks Townhomes|418 S Jackson St':
+        return 'royal-oaks';
+      default:
+        return 'any';
+    }
+  };
 
   useEffect(() => {
     (window as any).__openBooking = (propId?: string) => { setBookingPropId(propId || ''); setBookingOpen(true); };
@@ -730,7 +750,7 @@ export default function Home() {
       <Contact />
       <Footer p={p} displayFont={displayFont} />
       <TourBooking open={bookingOpen} onClose={() => setBookingOpen(false)} p={p} displayFont={displayFont} initialPropertyId={bookingPropId} />
-      <PropertyModal open={!!modalProp} onClose={() => setModalProp(null)} property={modalProp} onBookTour={() => { setBookingPropId('kings-manor'); setBookingOpen(true); }} p={p} displayFont={displayFont} locale="en" />
+      <PropertyModal open={!!modalProp} onClose={() => setModalProp(null)} property={modalProp} onBookTour={() => { setBookingPropId(getBookingIdForCommunity(modalProp)); setBookingOpen(true); }} p={p} displayFont={displayFont} locale="en" />
 
       <div className="ys-fab-stack" aria-label="Quick actions">
         <a className="ys-fab-guide" href="/living-in-alvin">
@@ -752,4 +772,3 @@ export default function Home() {
     </div>
   );
 }
-
