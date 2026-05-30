@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import { MapContainer, TileLayer, Marker, Popup, useMap } from 'react-leaflet';
 import L from 'leaflet';
 import 'leaflet/dist/leaflet.css';
@@ -13,6 +13,8 @@ const MAP_PROPS = [
   { id: 4, name: 'White House', addr: '1606 W Sealy St, Alvin, TX 77511', lat: 29.4234731, lng: -95.2600658, office: false },
   { id: 5, name: 'Royal Oaks', addr: '418 S Jackson St, Alvin, TX 77511', lat: 29.4208186, lng: -95.2497543, office: false, comingSoon: true },
 ];
+
+let mapInstanceNonce = 0;
 
 function createPinIcon(color: string, label: string, isActive: boolean) {
   const size = isActive ? 36 : 28;
@@ -66,6 +68,11 @@ export default function AlvinMap({
 }) {
   const [active, setActive] = useState(0);
   const [mapReady, setMapReady] = useState(false);
+  const [mapKey] = useState(() => {
+    mapInstanceNonce += 1;
+    return mapInstanceNonce;
+  });
+  const mapRef = useRef<L.Map | null>(null);
 
   useEffect(() => {
     // Defer mount to the next tick so React Strict Mode's
@@ -73,6 +80,15 @@ export default function AlvinMap({
     // before Leaflet tries to initialize the map container.
     const timer = setTimeout(() => setMapReady(true), 0);
     return () => clearTimeout(timer);
+  }, []);
+
+  useEffect(() => {
+    return () => {
+      if (mapRef.current) {
+        mapRef.current.remove();
+        mapRef.current = null;
+      }
+    };
   }, []);
 
   return (
@@ -223,6 +239,8 @@ export default function AlvinMap({
                 zoom={14}
                 scrollWheelZoom={false}
                 style={{ width: '100%', height: '100%' }}
+                key={mapKey}
+                ref={mapRef}
               >
                 <BoundsFitter />
                 <TileLayer
@@ -235,7 +253,7 @@ export default function AlvinMap({
                     <Marker
                       key={m.id}
                       position={[m.lat, m.lng]}
-                      icon={createPinIcon(m.office ? p.accent : m.comingSoon ? p.inkSoft : p.primary, m.office ? '★' : String(m.id), isActive)}
+                      icon={createPinIcon(m.office ? p.accent : m.comingSoon ? p.inkSoft : p.primary, m.office ? '*' : String(m.id), isActive)}
                       eventHandlers={{
                         mouseover: () => setActive(m.id),
                         click: () => setActive(m.id),
@@ -296,3 +314,4 @@ export default function AlvinMap({
     </section>
   );
 }
+
