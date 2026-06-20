@@ -45,16 +45,16 @@ function Hero() {
         <div style={{ fontSize: 12, letterSpacing: '0.18em', textTransform: 'uppercase', color: p.inkSoft, marginBottom: 32, fontWeight: 500 }}>
           Managed by Yellowstone Asset Management
         </div>
-        <h1 style={{ fontFamily: `'${displayFont}', serif`, fontSize: 'clamp(56px, 8vw, 132px)', lineHeight: 0.95, letterSpacing: '-0.02em', margin: 0, color: p.ink, fontWeight: 400, maxWidth: '13ch' }}>
-          A home in <em style={{ color: p.primary }}>Alvin,</em><br />made simple.
-          <span style={{ display: 'inline-block', marginLeft: 18, verticalAlign: 'middle', fontSize: '0.55em', letterSpacing: 0, transform: 'translateY(-0.15em)', whiteSpace: 'nowrap' }} aria-label="home and love">
+        <h1 style={{ fontFamily: `'${displayFont}', serif`, fontSize: 'clamp(52px, 7.5vw, 120px)', lineHeight: 0.98, letterSpacing: '-0.02em', margin: 0, color: p.ink, fontWeight: 400, maxWidth: '15ch' }}>
+          Apartments for Rent in <em style={{ color: p.primary }}>Alvin,</em> Texas
+          <span style={{ display: 'inline-block', marginLeft: 16, verticalAlign: 'middle', fontSize: '0.5em', letterSpacing: 0, transform: 'translateY(-0.15em)', whiteSpace: 'nowrap' }} aria-label="home and love">
             <span style={{ display: 'inline-block', animation: 'ys-float 3.4s ease-in-out infinite' }}></span>
             <span style={{ display: 'inline-block', marginLeft: 6, color: '#E63946', animation: 'ys-beat 1.8s ease-in-out infinite' }}>♥︎</span>
           </span>
         </h1>
         <div className="ys-hero-row" style={{ display: 'grid', gridTemplateColumns: '1.1fr 1fr', gap: 80, marginTop: 72, alignItems: 'end' }}>
-          <p style={{ fontSize: 19, lineHeight: 1.55, color: p.inkSoft, maxWidth: '44ch', margin: 0 }}>
-            Yellowstone Management cares for over <strong style={{ color: p.ink }}>160 units across six communities</strong> in the city of Alvin, apartments and townhomes priced from $800 to $1,650, leased and maintained by a local team that picks up the phone.
+          <p style={{ fontSize: 19, lineHeight: 1.55, color: p.inkSoft, maxWidth: '46ch', margin: 0 }}>
+            Welcome to <strong style={{ color: p.ink }}>RentInAlvin.com</strong> — apartments and townhomes for rent in Alvin, TX. Yellowstone Asset Management cares for <strong style={{ color: p.ink }}>150+ units across six local communities</strong>, priced from $800 to $1,650 and maintained by a team that picks up the phone. Explore availability, floor plans, amenities, and photos, then schedule a tour or apply online.
           </p>
           <div style={{ display: 'flex', gap: 14, justifyContent: 'flex-end', flexWrap: 'wrap' }}>
             <button onClick={() => { if (typeof window !== 'undefined' && (window as any).__openBooking) (window as any).__openBooking(); }} style={{ padding: '16px 28px', background: p.primary, color: p.paper, textDecoration: 'none', fontSize: 15, fontWeight: 600, borderRadius: 4, letterSpacing: '0.01em', display: 'inline-flex', alignItems: 'center', gap: 10, transition: 'transform 180ms ease, background 180ms ease', cursor: 'pointer', border: 'none', fontFamily: 'inherit' }} onMouseOver={(e) => { const el = e.currentTarget as HTMLElement; el.style.background = p.primarySoft; el.style.transform = 'translateY(-1px)'; }} onMouseOut={(e) => { const el = e.currentTarget as HTMLElement; el.style.background = p.primary; el.style.transform = 'translateY(0)'; }}>

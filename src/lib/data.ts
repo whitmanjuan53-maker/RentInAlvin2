@@ -13,6 +13,32 @@ export const PALETTES = {
 
 export type Palette = typeof PALETTES.forest;
 
+// Canonical business identity — keep identical to Google Business Profile & all citations.
+export const BUSINESS = {
+  name: 'Yellowstone Asset Management',
+  brand: 'RentInAlvin.com',
+  street: '410 S 2nd Street',
+  city: 'Alvin',
+  region: 'TX',
+  zip: '77511',
+  phone: '(832) 210-3968',
+  phoneE164: '+1-832-210-3968',
+  email: 'office@yellowstone-am.com',
+  url: 'https://rentinalvin.com',
+  lat: 29.4208044,
+  lng: -95.2554917,
+};
+
+// Public profiles for schema "sameAs". Add the real URLs as you create/claim them,
+// then they are automatically included in the structured data. Leave blank to omit.
+export const SAME_AS: string[] = [
+  // 'https://www.google.com/maps/place/?q=place_id:YOUR_PLACE_ID',
+  // 'https://www.facebook.com/yourpage',
+  // 'https://www.instagram.com/yourpage',
+  // 'https://www.apartments.com/your-listing',
+  // 'https://www.zillow.com/your-listing',
+];
+
 export const COMMUNITIES = [
   {
     name: 'Kings Haven Apartments',

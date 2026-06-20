@@ -1,3 +1,5 @@
+'use client';
+
 export default function Footer({
   p,
   displayFont,
@@ -147,7 +149,12 @@ export default function Footer({
               <path d="M6 11.5l6-4.5 6 4.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round" />
             </svg>
           </span>
-          <span style={{ fontFamily: "'JetBrains Mono', monospace" }}>ALVIN · TX · 77511</span>
+          <span style={{ display: 'flex', alignItems: 'center', gap: 14, flexWrap: 'wrap' }}>
+            <a href="/privacy" style={{ color: 'inherit', textDecoration: 'none' }}>
+              {isEs ? 'Privacidad' : 'Privacy Policy'}
+            </a>
+            <span style={{ fontFamily: "'JetBrains Mono', monospace" }}>ALVIN · TX · 77511</span>
+          </span>
         </div>
       </div>
     </footer>

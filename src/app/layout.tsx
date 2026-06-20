@@ -1,12 +1,14 @@
 import type { Metadata } from 'next';
 import './globals.css';
+import { SAME_AS } from '@/lib/data';
 
 export const metadata: Metadata = {
-  title: 'RentInAlvin.com | Apartments & Townhomes for Rent in Alvin, TX',
+  metadataBase: new URL('https://rentinalvin.com'),
+  title: 'Apartments for Rent in Alvin, TX | RentInAlvin.com',
   description:
-    'Managed by Yellowstone Asset Management. 150+ apartments and townhomes across 6 communities in Alvin, Texas. Rents from $890. Local family-run team. Apply online today.',
+    'Find apartments and townhomes for rent in Alvin, TX at RentInAlvin.com. View availability, floor plans, amenities, photos, and location details, then contact our local leasing team to schedule a tour or apply online.',
   keywords:
-    'apartments in Alvin TX, rentals in Alvin TX, rent in Alvin, Alvin Texas apartments, Yellowstone Management, Kings Haven, townhomes Alvin TX',
+    'apartments for rent in Alvin TX, rentals in Alvin TX, rent in Alvin, RentInAlvin, Alvin Texas apartments, townhomes Alvin TX, Yellowstone Management, Kings Haven, Kings Manor',
   authors: [{ name: 'Yellowstone Asset Management' }],
   robots: 'index, follow',
   alternates: {
@@ -19,21 +21,24 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     url: 'https://rentinalvin.com',
-    title: 'RentInAlvin.com | Apartments & Townhomes in Alvin, TX',
+    siteName: 'RentInAlvin.com',
+    title: 'Apartments for Rent in Alvin, TX | RentInAlvin.com',
     description:
-      '150+ apartments and townhomes across 6 communities in Alvin, Texas. Family-run, locally maintained, rents from $890.',
+      'Apartments and townhomes for rent in Alvin, TX. View availability, floor plans, amenities, and photos, then schedule a tour or apply online.',
     locale: 'en_US',
+    images: [{ url: '/images/kings-haven/01-001-cmup.jpg', width: 1200, height: 800, alt: 'Apartments for rent in Alvin, TX — RentInAlvin.com' }],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'RentInAlvin.com | Apartments & Townhomes in Alvin, TX',
-    description: '150+ apartments and townhomes across 6 communities in Alvin, Texas. Family-run, locally maintained.',
+    title: 'Apartments for Rent in Alvin, TX | RentInAlvin.com',
+    description: 'Apartments and townhomes for rent in Alvin, TX. Availability, floor plans, amenities, and photos.',
+    images: ['/images/kings-haven/01-001-cmup.jpg'],
   },
   other: {
     'geo.region': 'US-TX',
     'geo.placename': 'Alvin',
-    'geo.position': '29.4238;-95.2438',
-    ICBM: '29.4238, -95.2438',
+    'geo.position': '29.4208044;-95.2554917',
+    ICBM: '29.4208044, -95.2554917',
   },
 };
 
@@ -52,16 +57,21 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               '@context': 'https://schema.org',
-              '@type': 'RealEstateAgent',
+              '@type': ['RealEstateAgent', 'LocalBusiness'],
+              '@id': 'https://rentinalvin.com/#business',
               name: 'Yellowstone Asset Management',
               alternateName: 'RentInAlvin.com',
               url: 'https://rentinalvin.com',
               telephone: '+1-832-210-3968',
               email: 'office@yellowstone-am.com',
-              priceRange: '$890-$1650',
+              priceRange: '$850-$1650',
+              image: 'https://rentinalvin.com/images/kings-haven/01-001-cmup.jpg',
+              logo: 'https://rentinalvin.com/images/kings-haven/01-001-cmup.jpg',
+              hasMap: 'https://maps.google.com/?q=410+S+2nd+St+Alvin+TX+77511',
+              ...(SAME_AS.length ? { sameAs: SAME_AS } : {}),
               address: {
                 '@type': 'PostalAddress',
-                streetAddress: '410 S 2nd St',
+                streetAddress: '410 S 2nd Street',
                 addressLocality: 'Alvin',
                 addressRegion: 'TX',
                 postalCode: '77511',
@@ -69,8 +79,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               },
               geo: {
                 '@type': 'GeoCoordinates',
-                latitude: 29.4238,
-                longitude: -95.2438,
+                latitude: 29.4208044,
+                longitude: -95.2554917,
               },
               openingHoursSpecification: [
                 {
