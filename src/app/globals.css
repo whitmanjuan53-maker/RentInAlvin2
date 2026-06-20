@@ -33,10 +33,34 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Mobile fit: stop any element from forcing horizontal scroll.
+   Invisible on desktop (only engages when content would overflow the
+   viewport); does not change layout, sizing, or placement. */
+html, body {
+  overflow-x: hidden;
+}
+@supports (overflow-x: clip) {
+  html, body {
+    overflow-x: clip;
+  }
+}
+body {
+  overflow-wrap: break-word;
+}
+
 img {
   max-width: 100%;
   height: auto;
   display: block;
+}
+
+/* Keep embedded media within the viewport on small screens (does not enlarge,
+   only caps width). Leaflet's own SVG is excluded to avoid map distortion. */
+video,
+iframe,
+canvas,
+table {
+  max-width: 100%;
 }
 
 button {
