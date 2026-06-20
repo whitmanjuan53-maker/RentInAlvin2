@@ -39,6 +39,9 @@ function Hero() {
   return (
     <section id="top" className="ys-hero" style={{ position: 'relative', padding: '180px var(--pad-x) 80px', minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
       <div style={{ maxWidth: 1400, margin: '0 auto', width: '100%' }}>
+        <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 13, letterSpacing: '0.08em', textTransform: 'uppercase', color: p.primary, marginBottom: 18, fontWeight: 700, border: `1px solid ${p.primary}`, borderRadius: 999, padding: '8px 16px' }}>
+          <span style={{ color: p.accent }}>#1</span> Lugar en Alvin para encontrar tu próxima casa
+        </div>
         <div style={{ fontSize: 12, letterSpacing: '0.18em', textTransform: 'uppercase', color: p.inkSoft, marginBottom: 32, fontWeight: 500 }}>
           Administrado por Yellowstone Asset Management
         </div>
