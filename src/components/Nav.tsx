@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect } from 'react';
+import Logo from './Logo';
 
 export default function Nav({ p, locale = 'en' }: { p: typeof import('@/lib/data').PALETTES.forest; locale?: 'en' | 'es' }) {
   const [scrolled, setScrolled] = useState(false);
@@ -57,24 +58,10 @@ export default function Nav({ p, locale = 'en' }: { p: typeof import('@/lib/data
     >
       <a
         href={isEs ? '/es' : '/'}
-        style={{ display: 'flex', alignItems: 'center', gap: 12, textDecoration: 'none', color: p.ink }}
+        style={{ display: 'flex', alignItems: 'center', textDecoration: 'none', color: p.ink }}
+        aria-label="Rentinalvin.com home"
       >
-        <div style={{ display: 'flex', flexDirection: 'column', lineHeight: 1.1 }}>
-          <span style={{ fontFamily: "'Instrument Serif', serif", fontSize: 22, letterSpacing: '-0.01em' }}>
-            Yellowstone
-          </span>
-          <span
-            style={{
-              fontSize: 9.5,
-              letterSpacing: '0.22em',
-              textTransform: 'uppercase',
-              color: p.inkSoft,
-              fontWeight: 500,
-            }}
-          >
-            Asset Management
-          </span>
-        </div>
+        <Logo p={p} size={scrolled ? 38 : 44} />
       </a>
 
       <nav className="ys-nav-links" style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
