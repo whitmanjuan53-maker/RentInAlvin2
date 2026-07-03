@@ -191,6 +191,30 @@ export async function sendLeadEmail(
   }
 }
 
+// Admin/report email: single recipient, no CC list.
+export async function sendAdminEmail(to: string, subject: string, text: string, html: string) {
+  const from = getFromEmail();
+
+  let provider: string;
+  if (useSmtp) provider = 'smtp';
+  else if (useSendGrid) provider = 'sendgrid';
+  else if (useResend) provider = 'resend';
+  else provider = 'none';
+
+  if (provider === 'none') {
+    console.warn('[EMAIL] No email provider configured. Admin email would have been sent to:', to, '—', subject);
+    return { id: 'simulated', message: 'Email simulated — configure RESEND_API_KEY to send real emails' };
+  }
+
+  if (provider === 'smtp') {
+    return await sendViaSmtp(from, [to], [], from, subject, text, html);
+  }
+  if (provider === 'sendgrid') {
+    return await sendViaSendGrid(from, [to], [], from, subject, text, html);
+  }
+  return await sendViaResend(from, [to], [], from, subject, text, html);
+}
+
 export async function sendUserConfirmationEmail({
   to,
   type,

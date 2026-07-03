@@ -1,4 +1,5 @@
 import { Resend } from 'resend';
+import { saveUnifiedLead, logEmail, attachEmailToLead, recordEvent, normalizeLeadType, hashIp } from '@/lib/analytics';
 
 function getResend() {
   const apiKey = process.env.RESEND_API_KEY;
@@ -6,6 +7,12 @@ function getResend() {
     throw new Error('RESEND_API_KEY is not configured');
   }
   return new Resend(apiKey);
+}
+
+function getClientIp(req) {
+  const forwarded = req.headers.get('x-forwarded-for');
+  if (forwarded) return forwarded.split(',')[0].trim();
+  return req.headers.get('x-real-ip') || 'unknown';
 }
 
 export async function POST(req) {
@@ -112,18 +119,80 @@ export async function POST(req) {
     htmlContent += `<p><strong>Page Source:</strong> ${pageUrl || 'N/A'}</p>`;
     htmlContent += `<p><strong>Submitted:</strong> ${new Date().toLocaleString()}</p>`;
 
-    const { data, error } = await getResend().emails.send({
-      from: process.env.EMAIL_FROM,
-      to: [process.env.EMAIL_TO],
-      cc: process.env.EMAIL_CC.split(','),
-      replyTo: email,
-      subject: subject,
-      html: htmlContent,
+    // Store the lead first so it is captured even if the email fails
+    const leadType = normalizeLeadType(actualFormType);
+    const leadRowId = await saveUnifiedLead({
+      rawType: actualFormType,
+      leadType,
+      name: fullName || 'Unknown',
+      email,
+      phone,
+      property: property || addr,
+      message: message || notes,
+      metadata: {
+        moveInDate: moveInDate || moveBy,
+        bedrooms,
+        tourDate,
+        tourTime,
+        unitType,
+        budget,
+        income: income ? 'provided' : undefined,
+      },
+      sourcePage: pageUrl || req.headers.get('referer') || null,
     });
+
+    await recordEvent({
+      eventType: leadType === 'booking' ? 'booking_submit' : 'form_submit',
+      pagePath: (() => { try { return pageUrl ? new URL(pageUrl).pathname : null; } catch { return pageUrl || null; } })(),
+      ipHash: hashIp(getClientIp(req)),
+      metadata: { leadType, leadRowId },
+    });
+
+    const toEmail = process.env.EMAIL_TO || 'office@yellowstone-am.com';
+    const ccList = (process.env.EMAIL_CC || '').split(',').map((e) => e.trim()).filter(Boolean);
+    const emailType = leadType === 'booking' ? 'booking_notification' : 'lead_notification';
+
+    let data = null;
+    let error = null;
+    try {
+      ({ data, error } = await getResend().emails.send({
+        from: process.env.EMAIL_FROM,
+        to: [toEmail],
+        cc: ccList.length > 0 ? ccList : undefined,
+        replyTo: email,
+        subject: subject,
+        html: htmlContent,
+      }));
+    } catch (sendErr) {
+      error = sendErr;
+    }
 
     if (error) {
       console.error('Resend error:', error);
-      return Response.json({ error: 'Failed to send email' }, { status: 500 });
+      await logEmail({
+        leadId: leadRowId,
+        emailType,
+        toEmail,
+        subject,
+        status: 'failed',
+        errorMessage: error.message || String(error),
+      });
+      await recordEvent({ eventType: 'email_failed', metadata: { emailType, leadId: leadRowId } });
+      // The lead is already saved; only fail the request if it was not stored at all
+      if (!leadRowId) {
+        return Response.json({ error: 'Failed to send email' }, { status: 500 });
+      }
+    } else {
+      await logEmail({
+        resendEmailId: data?.id || null,
+        leadId: leadRowId,
+        emailType,
+        toEmail,
+        subject,
+        status: 'sent',
+      });
+      if (leadRowId && data?.id) await attachEmailToLead(leadRowId, data.id);
+      await recordEvent({ eventType: 'email_sent', metadata: { emailType, leadId: leadRowId, resendEmailId: data?.id } });
     }
 
     // Determine success message
@@ -136,9 +205,10 @@ export async function POST(req) {
       successMessage = 'Thank you. Your request has been received. A member of the leasing team will contact you shortly.';
     }
 
-    return Response.json({ 
-      success: true, 
-      messageId: data.id,
+    return Response.json({
+      success: true,
+      messageId: data?.id || null,
+      leadId: leadRowId,
       message: successMessage
     });
 

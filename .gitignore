@@ -36,4 +36,8 @@ next-env.d.ts
 # database
 *.db
 *.db-journal
+*.db.backup*
 node_modules_old/
+
+# local editor/agent config
+.claude/

@@ -1,5 +1,15 @@
 {
   "framework": "nextjs",
   "buildCommand": "next build",
-  "outputDirectory": ".next"
+  "outputDirectory": ".next",
+  "crons": [
+    {
+      "path": "/api/reports/weekly",
+      "schedule": "0 14 * * 0"
+    },
+    {
+      "path": "/api/reports/monthly",
+      "schedule": "0 14 1 * *"
+    }
+  ]
 }

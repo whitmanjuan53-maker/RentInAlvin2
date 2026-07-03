@@ -8,15 +8,22 @@ datasource db {
 }
 
 model Lead {
-  id        String   @id @default(uuid())
-  type      String   // contact | tour | apply | sell
-  name      String
-  email     String?
-  phone     String?
-  property  String?
-  message   String?
-  metadata  String?  // JSON string for extra fields
-  createdAt DateTime @default(now())
+  id            String   @id @default(uuid())
+  type          String   // contact | tour | apply | sell (raw form type)
+  leadType      String   @default("other") // contact | booking | property_inquiry | application_interest | newsletter | other
+  name          String
+  email         String?
+  phone         String?
+  property      String?
+  message       String?
+  metadata      String?  // JSON string for extra fields
+  sourcePage    String?
+  status        String   @default("new") // new | contacted | booked | closed | spam
+  resendEmailId String?
+  createdAt     DateTime @default(now())
+
+  @@index([leadType, createdAt])
+  @@index([createdAt])
 }
 
 model Tour {
@@ -30,6 +37,56 @@ model Tour {
   moveBy    String?
   notes     String?
   createdAt DateTime @default(now())
+}
+
+model AnalyticsEvent {
+  id        String   @id @default(uuid())
+  eventType String   // page_view | form_submit | booking_submit | email_sent | email_delivered | email_opened | email_clicked | email_bounced | email_failed
+  pagePath  String?
+  referrer  String?
+  userAgent String?
+  ipHash    String?
+  visitorId String?
+  metadata  String?  // JSON string
+  createdAt DateTime @default(now())
+
+  @@index([createdAt])
+  @@index([eventType, createdAt])
+  @@index([pagePath])
+}
+
+model EmailLog {
+  id            String   @id @default(uuid())
+  resendEmailId String?
+  leadId        String?
+  emailType     String   // lead_notification | booking_notification | weekly_report | confirmation
+  toEmail       String
+  subject       String
+  status        String   @default("sent") // sent | delivered | opened | clicked | bounced | failed
+  errorMessage  String?
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([resendEmailId])
+  @@index([createdAt])
+}
+
+model WeeklyReport {
+  id              String    @id @default(uuid())
+  reportType      String    @default("weekly") // weekly | monthly
+  weekStart       DateTime
+  weekEnd         DateTime
+  totalVisits     Int       @default(0)
+  uniqueVisitors  Int       @default(0)
+  totalLeads      Int       @default(0)
+  bookingLeads    Int       @default(0)
+  contactLeads    Int       @default(0)
+  emailsSent      Int       @default(0)
+  emailsDelivered Int       @default(0)
+  emailsOpened    Int       @default(0)
+  reportHtml      String?
+  sentAt          DateTime?
+  createdAt       DateTime  @default(now())
 }
 
 model Application {

@@ -1,6 +1,15 @@
 import { prisma, isDbReady } from './db';
 import { sendLeadEmail, sendUserConfirmationEmail } from './email';
 import { appendLeadToSheet, createTourEvent, checkDoubleBooking } from './google';
+import {
+  saveUnifiedLead,
+  logEmail,
+  extractEmailId,
+  recordEvent,
+  attachEmailToLead,
+  hashIp,
+  normalizeLeadType,
+} from './analytics';
 
 export type LeadType = 'tour' | 'apply' | 'sell' | 'contact';
 
@@ -249,10 +258,15 @@ function getExtraNotes(payload: LeadPayload): string | null {
   return null;
 }
 
-async function saveToDb(payload: LeadPayload, leadId: string) {
+interface SaveResult {
+  dbId: string | null;
+  leadRowId: string | null;
+}
+
+async function saveToDb(payload: LeadPayload, leadId: string, source: string): Promise<SaveResult> {
   if (!isDbReady() || !prisma) {
     console.warn('[LEADS] DB not ready, skipping database save');
-    return null;
+    return { dbId: null, leadRowId: null };
   }
 
   try {
@@ -270,7 +284,18 @@ async function saveToDb(payload: LeadPayload, leadId: string) {
             notes: payload.notes || null,
           },
         });
-        return tour.id;
+        const leadRowId = await saveUnifiedLead({
+          rawType: 'tour',
+          leadType: 'booking',
+          name: payload.name,
+          email: payload.email,
+          phone: payload.phone,
+          property: payload.property,
+          message: payload.notes,
+          metadata: { date: payload.date, time: payload.time, moveBy: payload.moveBy, tourId: tour.id, leadId },
+          sourcePage: source,
+        });
+        return { dbId: tour.id, leadRowId };
       }
       case 'apply': {
         const app = await prisma.application.create({
@@ -299,18 +324,31 @@ async function saveToDb(payload: LeadPayload, leadId: string) {
             notes: payload.notes || null,
           },
         });
-        return app.id;
+        const leadRowId = await saveUnifiedLead({
+          rawType: 'apply',
+          leadType: 'application_interest',
+          name: `${payload.firstName} ${payload.lastName}`,
+          email: payload.email,
+          phone: payload.phone,
+          property: payload.property,
+          message: payload.notes,
+          metadata: { applicationId: app.id, unitType: payload.unitType, moveIn: payload.moveIn, leadId },
+          sourcePage: source,
+        });
+        return { dbId: app.id, leadRowId };
       }
       case 'sell':
       case 'contact': {
         const lead = await prisma.lead.create({
           data: {
             type: payload.type,
+            leadType: normalizeLeadType(payload.type),
             name: payload.name,
             email: payload.email || null,
             phone: payload.phone || null,
             property: payload.type === 'contact' ? payload.property || null : payload.addr,
             message: payload.type === 'contact' ? payload.message || null : payload.notes || null,
+            sourcePage: source,
             metadata:
               payload.type === 'sell'
                 ? JSON.stringify({
@@ -328,12 +366,12 @@ async function saveToDb(payload: LeadPayload, leadId: string) {
                 : null,
           },
         });
-        return lead.id;
+        return { dbId: lead.id, leadRowId: lead.id };
       }
     }
   } catch (err) {
     console.error(`[LEADS] DB save failed for ${payload.type}:`, err);
-    return null;
+    return { dbId: null, leadRowId: null };
   }
 }
 
@@ -464,25 +502,48 @@ function buildEmailBody(payload: LeadPayload, leadId: string, source: string): s
   return lines.join('\n');
 }
 
-async function sendNotification(payload: LeadPayload, leadId: string, source: string) {
+async function sendNotification(payload: LeadPayload, leadId: string, source: string, leadRowId: string | null) {
+  const subject = buildEmailSubject(payload);
+  const toEmail = (process.env.EMAIL_TO || process.env.LEADS_TO_EMAIL || 'office@yellowstone-am.com').trim();
+  const emailType = payload.type === 'tour' ? 'booking_notification' : 'lead_notification';
+
   try {
-    const subject = buildEmailSubject(payload);
     const body = buildEmailBody(payload, leadId, source);
     const replyTo = payload.email || undefined;
-    return await sendLeadEmail(subject, body, { replyTo });
+    const result = await sendLeadEmail(subject, body, { replyTo });
+
+    const resendEmailId = extractEmailId(result);
+    await logEmail({ resendEmailId, leadId: leadRowId, emailType, toEmail, subject, status: 'sent' });
+    if (leadRowId && resendEmailId) await attachEmailToLead(leadRowId, resendEmailId);
+    await recordEvent({
+      eventType: 'email_sent',
+      metadata: { emailType, leadId: leadRowId, resendEmailId },
+    });
+
+    return result;
   } catch (err) {
     console.error('[LEADS] Email notification failed:', err);
+    await logEmail({
+      leadId: leadRowId,
+      emailType,
+      toEmail,
+      subject,
+      status: 'failed',
+      errorMessage: err instanceof Error ? err.message : String(err),
+    });
+    await recordEvent({ eventType: 'email_failed', metadata: { emailType, leadId: leadRowId } });
     return null;
   }
 }
 
-async function sendUserConfirmation(payload: LeadPayload) {
+async function sendUserConfirmation(payload: LeadPayload, leadRowId: string | null) {
   try {
     const email = payload.email;
     if (!email || !email.includes('@')) return null;
 
+    let result = null;
     if (payload.type === 'tour') {
-      return await sendUserConfirmationEmail({
+      result = await sendUserConfirmationEmail({
         to: email,
         type: 'tour',
         name: payload.name,
@@ -490,10 +551,8 @@ async function sendUserConfirmation(payload: LeadPayload) {
         date: payload.date,
         time: payload.time,
       });
-    }
-
-    if (payload.type === 'contact') {
-      return await sendUserConfirmationEmail({
+    } else if (payload.type === 'contact') {
+      result = await sendUserConfirmationEmail({
         to: email,
         type: 'contact',
         name: payload.name,
@@ -501,7 +560,18 @@ async function sendUserConfirmation(payload: LeadPayload) {
       });
     }
 
-    return null;
+    if (result) {
+      await logEmail({
+        resendEmailId: extractEmailId(result),
+        leadId: leadRowId,
+        emailType: 'confirmation',
+        toEmail: email,
+        subject: payload.type === 'tour' ? 'Tour request confirmation' : 'Inquiry confirmation',
+        status: 'sent',
+      });
+    }
+
+    return result;
   } catch (err) {
     console.error('[LEADS] User confirmation email failed:', err);
     return null;
@@ -535,29 +605,37 @@ export async function processLead(
 
   console.log('[LEADS] Generated lead ID:', leadId);
 
-  // 1. Save to DB
+  // 1. Save to DB (detail table + unified lead row for analytics)
   console.log('[LEADS] Saving to database...');
-  const dbId = await saveToDb(payload, leadId);
+  const { dbId, leadRowId } = await saveToDb(payload, leadId, source);
   console.log('[LEADS] DB save result:', dbId || 'skipped/failed');
 
-  // 2. Create calendar event if tour
+  // 2. Record analytics event (best-effort)
+  await recordEvent({
+    eventType: payload.type === 'tour' ? 'booking_submit' : 'form_submit',
+    pagePath: source && source.startsWith('http') ? (() => { try { return new URL(source).pathname; } catch { return source; } })() : source,
+    ipHash: meta.ip ? hashIp(meta.ip) : null,
+    metadata: { leadType: payload.type, leadRowId, leadId },
+  });
+
+  // 3. Create calendar event if tour
   console.log('[LEADS] Checking calendar event...');
   const calendarEventId = await createCalendarEventIfNeeded(payload, leadId, source);
   console.log('[LEADS] Calendar event result:', calendarEventId || 'skipped/failed');
 
-  // 3. Write to Google Sheets
+  // 4. Write to Google Sheets
   console.log('[LEADS] Writing to Google Sheets...');
   const sheetRange = await writeToSheets(payload, leadId, calendarEventId, source);
   console.log('[LEADS] Sheets write result:', sheetRange || 'skipped/failed');
 
-  // 4. Send email notification to team
+  // 5. Send email notification to team
   console.log('[LEADS] Sending team notification...');
-  const emailResult = await sendNotification(payload, leadId, source);
+  const emailResult = await sendNotification(payload, leadId, source, leadRowId);
   console.log('[LEADS] Team notification result:', emailResult ? 'sent' : 'failed');
 
-  // 5. Send user confirmation email (best-effort)
+  // 6. Send user confirmation email (best-effort)
   console.log('[LEADS] Sending user confirmation...');
-  await sendUserConfirmation(payload);
+  await sendUserConfirmation(payload, leadRowId);
 
   return {
     success: true,

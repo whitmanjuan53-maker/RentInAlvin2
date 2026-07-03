@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import './globals.css';
 import { SAME_AS } from '@/lib/data';
+import AnalyticsTracker from '@/components/AnalyticsTracker';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://rentinalvin.com'),
@@ -108,6 +109,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       </head>
       <body suppressHydrationWarning>
         {children}
+        <AnalyticsTracker />
       </body>
     </html>
   );
