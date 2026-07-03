@@ -53,22 +53,34 @@ export default function Footer({
             <div style={{ color: p.paper, fontWeight: 600, fontSize: 13, marginBottom: 14 }}>
               {isEs ? 'Comunidades' : 'Communities'}
             </div>
-            {['Kings Haven', 'Kings Manor', 'French Quarter', 'Royal Oaks', 'White House'].map(
-              (n) => (
-                <a
-                  key={n}
-                  href={isEs ? '/es#comunidades' : '/#communities'}
-                  style={{
-                    display: 'block',
-                    fontSize: 13,
-                    color: 'inherit',
-                    textDecoration: 'none',
-                    padding: '4px 0',
-                  }}
-                >
-                  {n}
-                </a>
-              )
+            {[
+              { n: 'Kings Haven', slug: 'kings-haven-apartments' },
+              { n: 'Kings Manor', slug: 'kings-manor-townhomes' },
+              { n: 'French Quarter', slug: 'french-quarter-residency' },
+              { n: 'Royal Oaks', slug: 'the-royal-oaks-townhomes' },
+              { n: 'White House', slug: 'the-white-house-apartments' },
+            ].map(({ n, slug }) => (
+              <a
+                key={n}
+                href={isEs ? '/es#comunidades' : `/communities/${slug}`}
+                style={{
+                  display: 'block',
+                  fontSize: 13,
+                  color: 'inherit',
+                  textDecoration: 'none',
+                  padding: '4px 0',
+                }}
+              >
+                {n}
+              </a>
+            ))}
+            {!isEs && (
+              <a
+                href="/communities"
+                style={{ display: 'block', fontSize: 13, color: 'inherit', textDecoration: 'none', padding: '4px 0', opacity: 0.85 }}
+              >
+                View all →
+              </a>
             )}
           </div>
           <div>
