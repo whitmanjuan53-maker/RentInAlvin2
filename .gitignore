@@ -41,3 +41,7 @@ node_modules_old/
 
 # local editor/agent config
 .claude/
+
+.vercel
+.env*
+data-export*.json
