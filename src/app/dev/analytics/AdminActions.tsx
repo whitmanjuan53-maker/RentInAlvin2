@@ -67,6 +67,7 @@ export default function AdminActions() {
         </button>
       </div>
       <div style={{ display: 'flex', gap: 14, alignItems: 'center' }}>
+        <a href="/api/reports/emails" style={linkStyle}>Download 7-day email CSV</a>
         <a href="/api/reports/weekly?preview=1" target="_blank" rel="noopener" style={linkStyle}>Preview weekly email</a>
         <a href="/api/reports/monthly?preview=1" target="_blank" rel="noopener" style={linkStyle}>Preview monthly email</a>
         {message && <span style={{ fontSize: 13, color: '#5C5750' }}>{message}</span>}

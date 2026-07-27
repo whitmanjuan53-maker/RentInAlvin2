@@ -45,3 +45,6 @@ node_modules_old/
 .vercel
 .env*
 data-export*.json
+
+# generated report outputs (scripts/generate-report.py)
+/reports/

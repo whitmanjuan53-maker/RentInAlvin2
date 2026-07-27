@@ -74,16 +74,23 @@ export async function getProperties(): Promise<PropertyView[]> {
     const rows = await prisma.property.findMany({ orderBy: { sortOrder: 'asc' } });
     if (rows.length === 0) return STATIC_PROPERTIES;
     return rows.filter((r) => r.published).map(toView);
-  } catch (err) {
-    console.error('[PROPERTIES] DB read failed, using static fallback:', err);
+  } catch {
+    console.warn('[PROPERTIES] DB read unavailable, using built-in property list.');
     return STATIC_PROPERTIES;
   }
 }
 
 // Manager read: every row (including unpublished), for the dashboard.
+// Falls back to the built-in list if the table does not exist yet or the DB is down,
+// so the dashboard is always viewable (saves require the table to exist).
 export async function getAllPropertiesForAdmin(): Promise<PropertyView[]> {
   if (!isDbReady() || !prisma) return STATIC_PROPERTIES;
-  const rows = await prisma.property.findMany({ orderBy: { sortOrder: 'asc' } });
-  if (rows.length === 0) return STATIC_PROPERTIES;
-  return rows.map(toView);
+  try {
+    const rows = await prisma.property.findMany({ orderBy: { sortOrder: 'asc' } });
+    if (rows.length === 0) return STATIC_PROPERTIES;
+    return rows.map(toView);
+  } catch {
+    console.warn('[PROPERTIES] DB read unavailable, using built-in property list.');
+    return STATIC_PROPERTIES;
+  }
 }
