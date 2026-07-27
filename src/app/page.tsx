@@ -150,13 +150,13 @@ function CommunityCard({ prop, idx, onOpen }: { prop: (typeof COMMUNITIES)[0]; i
   );
 }
 
-function Communities({ onOpenProperty }: { onOpenProperty?: (prop: (typeof COMMUNITIES)[0]) => void }) {
+function Communities({ communities = COMMUNITIES, onOpenProperty }: { communities?: typeof COMMUNITIES; onOpenProperty?: (prop: (typeof COMMUNITIES)[0]) => void }) {
   return (
     <section id="communities" style={{ padding: 'var(--pad-x-lg) var(--pad-x)' }}>
       <div style={{ maxWidth: 1400, margin: '0 auto' }}>
         <SectionHead eyebrow="Six communities · One zip code" title="Every address we manage, all within Alvin." lead="From the flagship Kings Haven on South 2nd Street to the townhomes on Jackson, six communities, one local team." />
         <div className="ys-prop-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
-          {COMMUNITIES.map((prop, i) => <CommunityCard key={i} prop={prop} idx={i} onOpen={prop.gallery ? () => onOpenProperty?.(prop) : undefined} />)}
+          {communities.map((prop, i) => <CommunityCard key={i} prop={prop} idx={i} onOpen={prop.gallery && prop.gallery.length ? () => onOpenProperty?.(prop) : undefined} />)}
         </div>
       </div>
     </section>
@@ -697,8 +697,22 @@ export default function Home() {
   const [bookingOpen, setBookingOpen] = useState(false);
   const [bookingPropId, setBookingPropId] = useState('');
   const [modalProp, setModalProp] = useState<(typeof COMMUNITIES)[0] | null>(null);
+  // Property content is served from the database (manager-editable). Starts as the
+  // built-in list so the page renders identically, then swaps in live data on load.
+  const [communities, setCommunities] = useState<typeof COMMUNITIES>(COMMUNITIES);
+  useEffect(() => {
+    let active = true;
+    fetch('/api/properties')
+      .then((r) => r.json())
+      .then((d) => { if (active && Array.isArray(d?.properties) && d.properties.length) setCommunities(d.properties as typeof COMMUNITIES); })
+      .catch(() => {});
+    return () => { active = false; };
+  }, []);
   const getBookingIdForCommunity = (prop: (typeof COMMUNITIES)[0] | null) => {
     if (!prop) return 'any';
+    // DB-served properties carry a stable slug that already matches the booking id.
+    const slug = (prop as { slug?: string }).slug;
+    if (slug) return slug;
     const key = `${prop.name}|${prop.addr}`;
     switch (key) {
       case 'Kings Haven Apartments|410 S 2nd St':
@@ -743,7 +757,7 @@ export default function Home() {
         <a href="#apply" style={{ color: p.accent, fontWeight: 600, textDecoration: 'none' }}>Start application →</a>
       </div>
       <Availability />
-      <Communities onOpenProperty={setModalProp} />
+      <Communities communities={communities} onOpenProperty={setModalProp} />
       <AlvinMap p={p} displayFont={displayFont} />
       <Floorplans />
       <About />

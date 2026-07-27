@@ -89,6 +89,27 @@ model WeeklyReport {
   createdAt       DateTime  @default(now())
 }
 
+model Property {
+  id           String   @id @default(uuid())
+  slug         String   @unique
+  name         String
+  addr         String
+  tag          String   @default("")
+  units        String   @default("")
+  price        String   @default("")
+  description  String   @default("")
+  amenities    String[] @default([])
+  gallery      String[] @default([])
+  availability String   @default("Available now") // Available now | Coming soon | Waitlist | Not listed
+  featured     Boolean  @default(false)
+  published    Boolean  @default(true)
+  sortOrder    Int      @default(0)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+
+  @@index([sortOrder])
+}
+
 model Application {
   id            String   @id @default(uuid())
   firstName     String
