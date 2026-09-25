@@ -1,5 +1,20 @@
 # RentInAlvin.com
 
+### Production content repair — September 25, 2026
+
+The homepage loads manager database records after its initial built-in content.
+Deploying photo files and changing built-in galleries alone does not update those
+records. The September photo galleries and Royal Oaks availability have now been
+applied to production, and the temporary build-time repair hook has been removed.
+
+`scripts/repair-property-content.mjs` retains the guarded repair for reference:
+it changes only the exact recorded legacy galleries and the old Royal Oaks status,
+preserves unrelated fields, and uses a transaction with concurrent-edit checks.
+Normal builds do not run it. Tests: `node --test scripts/repair-property-content.test.mjs`.
+
+For future content releases, update the database as well as built-in data, then
+verify `/api/properties` and the homepage after its database response loads.
+
 ### Property mural photo update
 
 The five mural photos are first in the built-in English and Spanish galleries.
