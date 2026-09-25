@@ -1,3 +1,4 @@
+import kingsHaven100Gallery from './kings-haven-100-gallery.json';
 import frenchQuarterGallery from './french-quarter-gallery.json';
 import royalOaksGallery from './royal-oaks-gallery.json';
 
@@ -105,7 +106,7 @@ export const COMMUNITIES = [
     price: 'from $850',
     note: 'Quiet block near 100 S 2nd; renovated interiors.',
     img: 'garden apartments · oak shade',
-    gallery: ['/images/kings-haven-100/mural-flowers-hummingbirds.jpg'],
+    gallery: kingsHaven100Gallery,
   },
   {
     name: 'French Quarter Residency',

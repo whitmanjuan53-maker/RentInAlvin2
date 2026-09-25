@@ -77,3 +77,19 @@ test('missing property rolls back the batch', async () => {
   await assert.rejects(repairContent(db, true, () => {}), /Missing property/);
   assert.deepEqual(db.rows, before);
 });
+
+test('100 S 2nd interior update changes only its gallery and is repeatable', async () => {
+  const { readFileSync } = await import('node:fs');
+  const selected = JSON.parse(readFileSync(new URL('./kings-haven-100-repair.json', import.meta.url), 'utf8'));
+  const db = database();
+  const row = db.rows.find(r => r.slug === 'kings-haven-100');
+  row.gallery = selected[0].beforeGallery;
+  const before = structuredClone(db.rows);
+  await repairContent(db, true, () => {}, selected);
+  assert.equal(db.writes, 1);
+  assert.equal(db.rows.find(r => r.slug === row.slug).gallery.length, 10);
+  assert.deepEqual(db.rows.filter(r => r.slug !== row.slug), before.filter(r => r.slug !== row.slug));
+  await repairContent(db, true, () => {}, selected);
+  assert.equal(db.writes, 1);
+  for (const path of selected[0].afterGallery) assert.ok(readFileSync(new URL('../public' + path, import.meta.url)).length);
+});

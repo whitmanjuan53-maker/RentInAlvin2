@@ -1,6 +1,6 @@
 {
   "framework": "nextjs",
-  "buildCommand": "next build",
+  "buildCommand": "next build && node scripts/repair-property-content.mjs --production-deploy --kings-haven-100",
   "outputDirectory": ".next",
   "crons": [
     {

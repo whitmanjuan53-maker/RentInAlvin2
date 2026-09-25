@@ -19,9 +19,9 @@ export function repairPatch(property, repair) {
   return data;
 }
 
-export async function repairContent(prisma, apply, log = console.log) {
+export async function repairContent(prisma, apply, log = console.log, selectedRepairs = repairs) {
   await prisma.$transaction(async (tx) => {
-    for (const repair of repairs) {
+    for (const repair of selectedRepairs) {
       const property = await tx.property.findUnique({ where: { slug: repair.slug } });
       if (!property) throw new Error(`Missing property: ${repair.slug}`);
       const data = repairPatch(property, repair);
@@ -51,7 +51,10 @@ async function main() {
   const { PrismaClient } = await import('@prisma/client');
   const prisma = new PrismaClient();
   try {
-    await repairContent(prisma, deployment || process.argv.includes('--apply'));
+    const selectedRepairs = process.argv.includes('--kings-haven-100')
+      ? JSON.parse(readFileSync(new URL('./kings-haven-100-repair.json', import.meta.url), 'utf8'))
+      : repairs;
+    await repairContent(prisma, deployment || process.argv.includes('--apply'), console.log, selectedRepairs);
   } finally {
     await prisma.$disconnect();
   }

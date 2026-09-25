@@ -1,3 +1,4 @@
+import kingsHaven100Gallery from './kings-haven-100-gallery.json';
 import frenchQuarterGallery from './french-quarter-gallery.json';
 import royalOaksGallery from './royal-oaks-gallery.json';
 
@@ -79,7 +80,7 @@ export const COMMUNITIES = [
     price: 'desde $850',
     note: 'Cuadra tranquila cerca de 100 S 2nd; interiores renovados.',
     img: 'apartamentos tipo jardín · sombra de roble',
-    gallery: ['/images/kings-haven-100/mural-flowers-hummingbirds.jpg'],
+    gallery: kingsHaven100Gallery,
   },
   {
     name: 'French Quarter Residency',
