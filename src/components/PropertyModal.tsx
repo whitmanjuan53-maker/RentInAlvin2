@@ -84,7 +84,7 @@ export default function PropertyModal({ open, onClose, property, onBookTour, p, 
         <div style={{ position: 'relative', width: '100%', aspectRatio: '16/9', background: p.bg, overflow: 'hidden' }}>
           {gallery.length > 0 ? (
             <>
-              <img src={gallery[activeIdx]} alt={`${property.name} — ${activeIdx + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover', display: 'block' }} />
+              <img src={gallery[activeIdx]} alt={`${property.name} — ${activeIdx + 1}`} style={{ width: '100%', height: '100%', objectFit: gallery[activeIdx].includes('/mural-') ? 'contain' : 'cover', display: 'block' }} />
               {gallery.length > 1 && (
                 <>
                   <button onClick={goPrev} style={{ position: 'absolute', left: 12, top: '50%', transform: 'translateY(-50%)', width: 44, height: 44, borderRadius: '50%', background: 'rgba(255,255,255,0.9)', border: 'none', display: 'grid', placeItems: 'center', cursor: 'pointer', color: p.ink }} aria-label={t.prev}>

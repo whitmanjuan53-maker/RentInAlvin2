@@ -94,7 +94,7 @@ function CommunityCard({ prop, idx, onOpen }: { prop: (typeof COMMUNITIES)[0]; i
       <div style={{ position: 'relative', aspectRatio: '4/3', overflow: 'hidden' }}>
         {gallery.length > 0 ? (
           <>
-            <img src={gallery[slide]} alt={prop.name} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover', display: 'block', transition: 'transform 500ms ease, opacity 300ms ease', transform: hover ? 'scale(1.04)' : 'scale(1)' }} />
+            <img src={gallery[slide]} alt={prop.name} style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: gallery[slide].includes('/mural-') && !/\/(royal-oaks|french-quarter)\//.test(gallery[slide]) ? 'contain' : 'cover', objectPosition: 'center', display: 'block', transition: 'transform 500ms ease, opacity 300ms ease', transform: hover && !gallery[slide].includes('/mural-') ? 'scale(1.04)' : 'scale(1)' }} />
             {gallery.length > 1 && hover && (
               <>
                 <button onClick={(e) => { e.stopPropagation(); setSlide((s) => (s - 1 + gallery.length) % gallery.length); }} style={{ position: 'absolute', left: 8, top: '50%', transform: 'translateY(-50%)', width: 32, height: 32, borderRadius: '50%', background: 'rgba(255,255,255,0.9)', border: 'none', display: 'grid', placeItems: 'center', cursor: 'pointer', color: p.ink, zIndex: 5 }} aria-label="Foto anterior">
@@ -363,7 +363,7 @@ function Availability() {
           </div>
         </div>
         <div className="ys-avail-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 1, background: p.line, border: `1px solid ${p.line}` }}>
-          {filtered.length === 0 && <div style={{ gridColumn: '1 / -1', padding: 60, textAlign: 'center', background: p.paper, color: p.inkSoft, fontSize: 15 }}>No hay coincidencias, llámenos, podemos tener algo próximamente.</div>}
+          {filtered.length === 0 && <div style={{ gridColumn: '1 / -1', padding: 60, textAlign: 'center', background: p.paper, color: p.inkSoft, fontSize: 15 }}>No hay coincidencias. Llámenos para consultar la disponibilidad.</div>}
           {filtered.map((u, i) => (
             <div key={i} style={{ background: p.paper, padding: 24, display: 'flex', flexDirection: 'column', gap: 14, position: 'relative' }}>
               {u.featured && <div style={{ position: 'absolute', top: 16, right: 16, fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.accent, fontWeight: 600 }}>★ Featured</div>}

@@ -1,3 +1,6 @@
+import frenchQuarterGallery from './french-quarter-gallery.json';
+import royalOaksGallery from './royal-oaks-gallery.json';
+
 export const PALETTES = {
   forest: {
     bg: '#F4EEE4',
@@ -49,6 +52,7 @@ export const COMMUNITIES = [
     note: 'Headquarters of Yellowstone Management. Walkable to downtown Alvin.',
     img: 'apartment exterior · brick + landscaping',
     gallery: [
+      '/images/kings-haven/mural-blue-pineapples.jpg',
       '/images/kings-haven/01-001-cmup.jpg',
       '/images/kings-haven/02-001-dard.jpg',
       '/images/kings-haven/03-001-p00q.jpg',
@@ -101,6 +105,7 @@ export const COMMUNITIES = [
     price: 'from $850',
     note: 'Quiet block near 100 S 2nd; renovated interiors.',
     img: 'garden apartments · oak shade',
+    gallery: ['/images/kings-haven-100/mural-flowers-hummingbirds.jpg'],
   },
   {
     name: 'French Quarter Residency',
@@ -110,16 +115,7 @@ export const COMMUNITIES = [
     price: 'from $950',
     note: 'Larger community along the bypass with ample parking.',
     img: 'courtyard apartments · wrought iron',
-    gallery: [
-      '/images/french-quarter/01-exterior-front.png',
-      '/images/french-quarter/02-exterior-street.png',
-      '/images/french-quarter/03-kitchen-classic.jpg',
-      '/images/french-quarter/04-kitchen-updated.jpg',
-      '/images/french-quarter/05-bathroom.jpg',
-      '/images/french-quarter/06-living-room.jpg',
-      '/images/french-quarter/07-dining-kitchen.jpg',
-      '/images/french-quarter/08-bedroom.jpg',
-    ],
+    gallery: frenchQuarterGallery,
   },
   {
     name: 'The White House Apartments',
@@ -129,6 +125,7 @@ export const COMMUNITIES = [
     price: 'from $900',
     note: 'Classic white-clad apartments on a quiet residential street.',
     img: 'white clapboard apartments',
+    gallery: ['/images/white-house/mural-tropical-garden.jpg'],
   },
   {
     name: 'The Royal Oaks Townhomes',
@@ -138,7 +135,8 @@ export const COMMUNITIES = [
     price: 'from $1,350',
     note: 'Spacious townhomes under mature oak canopy.',
     img: 'townhomes · oak canopy',
-    comingSoon: true,
+    comingSoon: false,
+    gallery: royalOaksGallery,
   },
 ];
 
@@ -156,7 +154,7 @@ export const MAP_PROPS = [
   { id: 2, name: 'Kings Haven (100)', addr: '100 S 2nd St, Alvin, TX 77511', lat: 29.4233620, lng: -95.2557670, office: false },
   { id: 3, name: 'French Quarter', addr: '2550 S Bypass 35, Alvin, TX 77511', lat: 29.40315, lng: -95.23971, office: false },
   { id: 4, name: 'White House', addr: '1606 W Sealy St, Alvin, TX 77511', lat: 29.4234731, lng: -95.2600658, office: false },
-  { id: 5, name: 'Royal Oaks', addr: '418 S Jackson St, Alvin, TX 77511', lat: 29.4208186, lng: -95.2497543, office: false, comingSoon: true },
+  { id: 5, name: 'Royal Oaks', addr: '418 S Jackson St, Alvin, TX 77511', lat: 29.4208186, lng: -95.2497543, office: false, comingSoon: false },
 ];
 
 export const FAQS = [
@@ -192,7 +190,7 @@ export const AVAILABILITY = [
   { property: 'White House', addr: '1606 W Sealy', type: '2 Bed · 1 Bath', sqft: 850, price: 925, ready: 'Available now', featured: true },
   { property: 'Kings Manor', addr: '328 S 2nd', type: '3 Bed · 2.5 Bath', sqft: 1250, price: 1595, ready: 'Available now', featured: false },
   { property: 'Kings Haven (100)', addr: '100 S 2nd', type: '1 Bed · 1 Bath', sqft: 600, price: 850, ready: 'Available now', featured: false },
-  { property: 'Royal Oaks', addr: '418 S Jackson', type: '2 Bed · 2 Bath', sqft: 1150, price: 1395, ready: 'Coming soon', featured: false },
+  { property: 'Royal Oaks', addr: '418 S Jackson', type: '2 Bed · 2 Bath', sqft: 1150, price: 1395, ready: 'Available now', featured: false },
 ];
 
 export const BOOKING_PROPERTIES = [

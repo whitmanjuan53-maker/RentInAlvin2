@@ -1,5 +1,33 @@
 # RentInAlvin.com
 
+### Property mural photo update
+
+The five mural photos are first in the built-in English and Spanish galleries.
+Existing database records need the matching gallery-only update after the new
+image files are deployed. With `DATABASE_URL` set to the intended database, run:
+
+```sh
+node scripts/update-property-murals.mjs          # preview only
+node scripts/update-property-murals.mjs --apply  # update existing galleries
+```
+
+The update preserves existing photos after the mural, skips missing properties,
+and can be repeated without duplicating murals. Kings Manor is unchanged.
+The normal seed script uses the new photos for newly created properties.
+
+Royal Oaks includes 20 selected property photos after its mural, ordered from
+exterior through interiors, outdoor spaces, and aerial views. The English and
+Spanish galleries, seed script, and database update share
+`src/lib/royal-oaks-gallery.json`. The update puts this ordered selection first
+and preserves any additional existing database photos afterward. Originals remain
+in the supplied RAW folder; the website uses resized JPEG copies.
+
+Royal Oaks now uses the normal available status in the built-in listings, map,
+and tour picker. To update an existing database record, preview with
+`node scripts/update-royal-oaks-availability.mjs`, then pass `--apply` to save.
+This only changes Royal Oaks records still carrying the previous upcoming status;
+other availability values and property fields are preserved.
+
 **Managed by Yellowstone Asset Management**  
 Apartments & townhomes for rent in Alvin, Texas.
 
@@ -131,3 +159,10 @@ The following files are **not used** by the Next.js app and are kept for referen
 - `app.jsx`, `sections.jsx`, `apply.jsx`, `booking.jsx`, `sell.jsx`, `tweaks-panel.jsx`, `availability-data.jsx`
 
 If you open these `.html` files directly in a browser, you will see a "Still loading…" screen because they compile React in the browser with Babel. **Use `npm run dev` instead.**
+
+French Quarter includes 16 selected RAW photos after its existing mural, ordered
+from exterior views through living spaces, kitchens, bedrooms, bathrooms, and
+aerials. English, Spanish, the seed script, and the gallery update share
+`src/lib/french-quarter-gallery.json`. Website copies are resized JPEGs; originals
+remain in the supplied RAW folder. Deploy the images and run the gallery update
+above to update existing database records, preserving additional existing photos.

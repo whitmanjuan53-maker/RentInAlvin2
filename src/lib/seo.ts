@@ -179,7 +179,7 @@ const ENRICH: Enrichment[] = [
       { q: 'How much is rent at The White House Apartments?', a: 'Two-bedroom, one-bath apartments at 1606 W Sealy St start from $900/month. Call (832) 210-3968 for current openings.' },
     ],
   },
-  // 5 — The Royal Oaks Townhomes · 418 S Jackson St (coming soon)
+  // 5 — The Royal Oaks Townhomes · 418 S Jackson St
   {
     slug: 'the-royal-oaks-townhomes',
     type: 'Townhomes',
@@ -196,16 +196,15 @@ const ENRICH: Enrichment[] = [
       '2 full bathrooms',
       'Private entry',
       'Assigned parking',
-      'Coming soon',
     ],
     paragraphs: [
-      'The Royal Oaks Townhomes at 418 S Jackson Street are spacious two-story townhomes set under a mature oak canopy in Alvin, Texas. Each two-bedroom, two-bath home offers about 1,150 square feet with a private entry and the room to spread out that a townhome provides. Royal Oaks is coming soon — join the interest list now to be first in line.',
+      'The Royal Oaks Townhomes at 418 S Jackson Street are spacious two-story townhomes set under a mature oak canopy in Alvin, Texas. Each two-bedroom, two-bath home offers about 1,150 square feet with a private entry and the room to spread out that a townhome provides. Contact our local leasing team for current availability and tours.',
       'The South Jackson Street location keeps you close to downtown Alvin, Alvin Community College, and TX-35, with a quick connection toward Pearland and Houston. Shaded streets and a residential setting make it an appealing option for renters who want a quieter, established part of Alvin.',
-      'Royal Oaks will be leased and maintained by Yellowstone Asset Management’s local team and zoned to Alvin ISD, with assigned parking included. Townhomes are expected to start from $1,350/month. To be notified the moment homes are released, call (832) 210-3968 or register your interest online.',
+      'Royal Oaks is leased and maintained by Yellowstone Asset Management’s local team and zoned to Alvin ISD, with assigned parking included. Townhomes start from $1,350/month. Call (832) 210-3968 or schedule a tour online for current availability.',
     ],
     faqs: [
-      { q: 'When will The Royal Oaks Townhomes be available?', a: 'Royal Oaks at 418 S Jackson St is coming soon. Call (832) 210-3968 or register online to join the interest list and be notified the moment homes are released.' },
-      { q: 'How big are the Royal Oaks townhomes?', a: 'Each two-story townhome is about 1,150 square feet with two bedrooms, two full bathrooms, and a private entry, expected to start from $1,350/month.' },
+      { q: 'How can I check availability at The Royal Oaks Townhomes?', a: 'Call (832) 210-3968 or schedule a tour online for current availability at Royal Oaks, 418 S Jackson St.' },
+      { q: 'How big are the Royal Oaks townhomes?', a: 'Each two-story townhome is about 1,150 square feet with two bedrooms, two full bathrooms, and a private entry, starting from $1,350/month.' },
     ],
   },
 ];

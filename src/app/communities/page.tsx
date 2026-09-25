@@ -72,7 +72,7 @@ export default function CommunitiesHub() {
                   decoding="async"
                   width={400}
                   height={260}
-                  style={{ width: '100%', aspectRatio: '16 / 10', objectFit: 'cover', display: 'block' }}
+                  style={{ width: '100%', aspectRatio: '16 / 10', objectFit: prop.gallery[0].includes('/mural-') && !/\/(royal-oaks|french-quarter)\//.test(prop.gallery[0]) ? 'contain' : 'cover', objectPosition: 'center', display: 'block' }}
                 />
               ) : (
                 <div style={{ width: '100%', aspectRatio: '16 / 10', background: `color-mix(in oklab, ${p.primary} 12%, ${p.paper})`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: p.inkSoft, fontSize: 13, fontFamily: "'JetBrains Mono', monospace" }}>

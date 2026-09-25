@@ -184,7 +184,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
                   decoding="async"
                   width={440}
                   height={300}
-                  style={{ width: '100%', aspectRatio: '4 / 3', objectFit: 'cover', borderRadius: 10, border: `1px solid ${p.line}`, background: p.paper }}
+                  style={{ width: '100%', aspectRatio: '4 / 3', objectFit: src.includes('/mural-') ? 'contain' : 'cover', borderRadius: 10, border: `1px solid ${p.line}`, background: p.paper }}
                 />
               ))}
             </div>
