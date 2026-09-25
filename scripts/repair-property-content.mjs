@@ -53,7 +53,9 @@ async function main() {
   try {
     const selectedRepairs = process.argv.includes('--kings-haven-100')
       ? JSON.parse(readFileSync(new URL('./kings-haven-100-repair.json', import.meta.url), 'utf8'))
-      : repairs;
+      : process.argv.includes('--white-house')
+        ? JSON.parse(readFileSync(new URL('./white-house-repair.json', import.meta.url), 'utf8'))
+        : repairs;
     await repairContent(prisma, deployment || process.argv.includes('--apply'), console.log, selectedRepairs);
   } finally {
     await prisma.$disconnect();
