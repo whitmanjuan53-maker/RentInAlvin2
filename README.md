@@ -17,6 +17,15 @@ The dashboard's **Confirmed delivery** percentage uses only emails with a final
 delivery or bounce result. Emails accepted by a provider but still awaiting a
 webhook are shown separately as pending instead of incorrectly lowering the rate.
 
+### Property manager photo workflow
+
+The private `/manager` page shows the same complete photo galleries as the public
+website. Committed website photos are labeled `MAIN` or `SITE` and protected from
+accidental removal. Photos uploaded through the manager are labeled `ADDED`; they
+can be reordered or removed and are published when **Save changes** is pressed.
+Only manager-added photos are stored in the database, preventing duplicated or
+outdated database galleries from overriding the committed website photos.
+
 Production builds automatically create and verify the additive settings table
 before the new deployment goes live. A failure stops the build; the current live
 deployment remains in place. Existing recipients and lead data are preserved.

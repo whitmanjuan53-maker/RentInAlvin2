@@ -68,19 +68,20 @@ function toView(p: {
   };
 }
 
+function withCanonicalGallery(view: PropertyView): PropertyView {
+  const canonical = STATIC_PROPERTIES.find((property) => property.slug === view.slug);
+  return canonical
+    ? { ...view, gallery: mergePublicGallery(canonical.gallery, view.gallery) }
+    : view;
+}
+
 // Public read: database first, static fallback on empty/error. Only published rows.
 export async function getProperties(): Promise<PropertyView[]> {
   if (!isDbReady() || !prisma) return STATIC_PROPERTIES;
   try {
     const rows = await prisma.property.findMany({ orderBy: { sortOrder: 'asc' } });
     if (rows.length === 0) return STATIC_PROPERTIES;
-    return rows.filter((r) => r.published).map((row) => {
-      const view = toView(row);
-      const canonical = STATIC_PROPERTIES.find((property) => property.slug === row.slug);
-      return canonical
-        ? { ...view, gallery: mergePublicGallery(canonical.gallery, view.gallery) }
-        : view;
-    });
+    return rows.filter((r) => r.published).map((row) => withCanonicalGallery(toView(row)));
   } catch {
     console.warn('[PROPERTIES] DB read unavailable, using built-in property list.');
     return STATIC_PROPERTIES;
@@ -95,7 +96,10 @@ export async function getAllPropertiesForAdmin(): Promise<PropertyView[]> {
   try {
     const rows = await prisma.property.findMany({ orderBy: { sortOrder: 'asc' } });
     if (rows.length === 0) return STATIC_PROPERTIES;
-    return rows.map(toView);
+    // The manager must see the same complete gallery as the public site. The
+    // dashboard labels the committed portion as protected and stores only
+    // manager-added photos when saving.
+    return rows.map((row) => withCanonicalGallery(toView(row)));
   } catch {
     console.warn('[PROPERTIES] DB read unavailable, using built-in property list.');
     return STATIC_PROPERTIES;
