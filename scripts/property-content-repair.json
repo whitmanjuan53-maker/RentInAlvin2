@@ -33,7 +33,7 @@
     "slug": "kings-haven-100",
     "beforeGallery": [],
     "afterGallery": [
-      "/images/kings-haven-100/mural-flowers-hummingbirds.jpg"
+      "/images/kings-haven-100/mural-kings-haven-100.png"
     ]
   },
   {
@@ -49,7 +49,7 @@
       "/images/french-quarter/08-bedroom.jpg"
     ],
     "afterGallery": [
-      "/images/french-quarter/mural-butterflies-flowers.jpg",
+      "/images/french-quarter/mural-french-quarter.png",
       "/images/french-quarter/01-exterior-front.jpg",
       "/images/french-quarter/02-exterior-entry.jpg",
       "/images/french-quarter/03-exterior-building.jpg",
@@ -80,14 +80,14 @@
     "slug": "white-house",
     "beforeGallery": [],
     "afterGallery": [
-      "/images/white-house/mural-tropical-garden.jpg"
+      "/images/white-house/mural-white-house.png"
     ]
   },
   {
     "slug": "royal-oaks",
     "beforeGallery": [],
     "afterGallery": [
-      "/images/royal-oaks/mural-oaks-magnolias.jpg",
+      "/images/royal-oaks/mural-royal-oaks.png",
       "/images/royal-oaks/01-exterior-oak-lined-walkway.jpg",
       "/images/royal-oaks/02-exterior-front.jpg",
       "/images/royal-oaks/03-living-room-open-layout.jpg",

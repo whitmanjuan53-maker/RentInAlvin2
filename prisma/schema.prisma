@@ -89,6 +89,12 @@ model WeeklyReport {
   createdAt       DateTime  @default(now())
 }
 
+model ReportSettings {
+  id        String   @id
+  recipient String
+  updatedAt DateTime @updatedAt
+}
+
 model Property {
   id           String   @id @default(uuid())
   slug         String   @unique

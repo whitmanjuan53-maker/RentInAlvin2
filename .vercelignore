@@ -1,0 +1,14 @@
+/.git/
+/.next/
+/.npm-cache/
+/.vercel/
+/node_modules/
+/.env*
+/*.tsbuildinfo
+/_archive/
+/screenshots/
+/temp_images/
+/*.zip
+/check*.png
+/check*.jpg
+/test_copy.jpg

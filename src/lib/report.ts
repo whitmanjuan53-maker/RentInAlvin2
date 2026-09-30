@@ -1,8 +1,13 @@
 import { prisma, isDbReady } from './db';
 import { sendAdminEmail } from './email';
 import { logEmail, extractEmailId } from './analytics';
+import { defaultReportRecipient, getWeeklyReportRecipient } from './report-settings';
 
 export type ReportType = 'weekly' | 'monthly';
+
+function escapeHtml(value: string): string {
+  return value.replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]!));
+}
 
 export interface RangeStats {
   totalVisits: number;
@@ -126,16 +131,16 @@ export function buildReportHtml(
     `<tr><td style="padding:8px 12px;border-bottom:1px solid #e5e0d8;color:#5C5750;">${label}</td><td style="padding:8px 12px;border-bottom:1px solid #e5e0d8;font-weight:600;color:#1A1815;text-align:right;">${value}</td></tr>`;
 
   const pageRows = stats.trafficByPage.slice(0, 10)
-    .map((p) => `<tr><td style="padding:6px 12px;border-bottom:1px solid #eee;color:#1A1815;font-size:13px;">${p.page}</td><td style="padding:6px 12px;border-bottom:1px solid #eee;text-align:right;font-size:13px;">${p.views}</td></tr>`)
+    .map((p) => `<tr><td style="padding:6px 12px;border-bottom:1px solid #eee;color:#1A1815;font-size:13px;">${escapeHtml(p.page)}</td><td style="padding:6px 12px;border-bottom:1px solid #eee;text-align:right;font-size:13px;">${p.views}</td></tr>`)
     .join('');
 
   const leadRows = leads.slice(0, 30)
     .map((l) => `<tr>
       <td style="padding:6px 10px;border-bottom:1px solid #eee;font-size:12px;white-space:nowrap;color:#5C5750;">${fmtDate(l.createdAt)}</td>
       <td style="padding:6px 10px;border-bottom:1px solid #eee;font-size:12px;color:#1A1815;">${leadTypeLabel(l.leadType)}</td>
-      <td style="padding:6px 10px;border-bottom:1px solid #eee;font-size:12px;color:#1A1815;font-weight:600;">${l.name}</td>
-      <td style="padding:6px 10px;border-bottom:1px solid #eee;font-size:12px;color:#1A1815;">${l.email || l.phone || '—'}</td>
-      <td style="padding:6px 10px;border-bottom:1px solid #eee;font-size:12px;color:#5C5750;">${l.property || '—'}</td>
+      <td style="padding:6px 10px;border-bottom:1px solid #eee;font-size:12px;color:#1A1815;font-weight:600;">${escapeHtml(l.name)}</td>
+      <td style="padding:6px 10px;border-bottom:1px solid #eee;font-size:12px;color:#1A1815;">${escapeHtml(l.email || l.phone || '—')}</td>
+      <td style="padding:6px 10px;border-bottom:1px solid #eee;font-size:12px;color:#5C5750;">${escapeHtml(l.property || '—')}</td>
     </tr>`)
     .join('');
 
@@ -242,7 +247,7 @@ export async function runReport(type: ReportType): Promise<RunReportResult> {
   }
 
   const { html, subject, text, stats, periodStart, periodEnd } = await renderReport(type);
-  const reportTo = process.env.ANALYTICS_REPORT_TO || process.env.EMAIL_TO || '';
+  const reportTo = type === 'weekly' ? await getWeeklyReportRecipient() : defaultReportRecipient();
 
   let emailSent = false;
   let sentAt: Date | null = null;
@@ -250,6 +255,12 @@ export async function runReport(type: ReportType): Promise<RunReportResult> {
   if (reportTo) {
     try {
       const result = await sendAdminEmail(reportTo, subject, text, html);
+      if (!result || ('id' in result && result.id === 'simulated')) {
+        throw new Error('No email provider is configured. The report was not sent.');
+      }
+      if ('error' in result && result.error) {
+        throw new Error('The email provider rejected the report.');
+      }
       const resendEmailId = extractEmailId(result);
       emailSent = !!result;
       sentAt = new Date();

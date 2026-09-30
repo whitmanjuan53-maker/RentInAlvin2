@@ -1,5 +1,33 @@
 # RentInAlvin.com
 
+### Analytics report controls
+
+On `/dev/analytics`, an authenticated administrator can save one **weekly report
+recipient**. Both scheduled and manually sent weekly reports read this saved
+address. Until an address is saved, `ANALYTICS_REPORT_TO` (then `EMAIL_TO`) remains
+the default. Monthly reports retain their existing environment recipient.
+
+**Download all leads (Word)** produces a fresh `.docx` containing every row in the
+unified leads table, newest first, without the dashboard or weekly report limits.
+It includes contact details, property, status, messages, and relevant tour/move-in
+details. Download and attach the document to an email whenever needed. Downloading
+does not send an email or change lead records.
+
+Production builds automatically create and verify the additive settings table
+before the new deployment goes live. A failure stops the build; the current live
+deployment remains in place. Existing recipients and lead data are preserved.
+For a separately configured staging database, apply the table explicitly:
+
+```sh
+npx prisma generate
+node scripts/prepare-report-settings.mjs --apply
+```
+
+The SQL only creates `ReportSettings`; it does not change existing tables or data.
+Run it against the intended database using its `DATABASE_URL`. A new database can
+use the existing `prisma db push` workflow. Verification:
+`node --test scripts/report-features.test.cjs` and `npx tsc --noEmit`.
+
 ### Production content repair — September 25, 2026
 
 The homepage loads manager database records after its initial built-in content.
@@ -17,17 +45,20 @@ verify `/api/properties` and the homepage after its database response loads.
 
 ### Property mural photo update
 
-The five mural photos are first in the built-in English and Spanish galleries.
-Existing database records need the matching gallery-only update after the new
-image files are deployed. With `DATABASE_URL` set to the intended database, run:
+The six mural photos are first in the built-in English and Spanish galleries.
+The public API now merges those committed galleries ahead of database photos, so
+a deployment cannot silently restore an empty gallery or a removed mural. Extra
+photos uploaded through the manager remain visible after the committed gallery.
+To also normalize the stored database order, with `DATABASE_URL` set to the
+intended database, run:
 
 ```sh
 node scripts/update-property-murals.mjs          # preview only
 node scripts/update-property-murals.mjs --apply  # update existing galleries
 ```
 
-The update preserves existing photos after the mural, skips missing properties,
-and can be repeated without duplicating murals. Kings Manor is unchanged.
+The optional update preserves existing photos after the mural, skips missing
+properties, and can be repeated without duplicating murals.
 The normal seed script uses the new photos for newly created properties.
 
 Royal Oaks includes 20 selected property photos after its mural, ordered from

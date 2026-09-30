@@ -1,5 +1,6 @@
 import { prisma, isDbReady } from './db';
 import { COMMUNITIES } from './data';
+import { mergePublicGallery } from './property-gallery';
 
 // A property in the shape the public pages already expect (COMMUNITIES-compatible),
 // plus the fields the manager dashboard edits.
@@ -73,7 +74,13 @@ export async function getProperties(): Promise<PropertyView[]> {
   try {
     const rows = await prisma.property.findMany({ orderBy: { sortOrder: 'asc' } });
     if (rows.length === 0) return STATIC_PROPERTIES;
-    return rows.filter((r) => r.published).map(toView);
+    return rows.filter((r) => r.published).map((row) => {
+      const view = toView(row);
+      const canonical = STATIC_PROPERTIES.find((property) => property.slug === row.slug);
+      return canonical
+        ? { ...view, gallery: mergePublicGallery(canonical.gallery, view.gallery) }
+        : view;
+    });
   } catch {
     console.warn('[PROPERTIES] DB read unavailable, using built-in property list.');
     return STATIC_PROPERTIES;
