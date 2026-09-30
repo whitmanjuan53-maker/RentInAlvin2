@@ -18,10 +18,23 @@ function load(file, mocks = {}) {
 }
 
 const documentModule = load('src/lib/lead-document.ts');
+const emailMetrics = load('src/lib/email-metrics.ts');
 const lead = (index) => ({ id: `lead-${index}`, createdAt: new Date('2026-09-26T15:00:00Z'),
   leadType: 'contact', name: `Person ${index}`, email: `person${index}@example.com`,
   phone: '555-0100', property: 'Royal Oaks', status: 'new', message: 'First line\nSecond line',
   sourcePage: '/contact', metadata: '{"moveBy":"November","dob":"private"}' });
+
+test('delivery rate excludes emails still awaiting provider confirmation', () => {
+  assert.deepEqual(emailMetrics.getDeliverySummary({ sent: 3, delivered: 2, bounced: 0 }), {
+    rate: '100%', hint: '2 confirmed · 1 awaiting confirmation', pending: 1,
+  });
+  assert.deepEqual(emailMetrics.getDeliverySummary({ sent: 3, delivered: 2, bounced: 1 }), {
+    rate: '67%', hint: '2 confirmed · 1 bounced', pending: 0,
+  });
+  assert.deepEqual(emailMetrics.getDeliverySummary({ sent: 1, delivered: 0, bounced: 0 }), {
+    rate: 'Pending', hint: '1 awaiting confirmation', pending: 1,
+  });
+});
 
 test('Word export includes all 125 leads, both contact fields, notes and safe metadata', async () => {
   const leads = Array.from({ length: 125 }, (_, i) => lead(i));

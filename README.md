@@ -13,6 +13,10 @@ It includes contact details, property, status, messages, and relevant tour/move-
 details. Download and attach the document to an email whenever needed. Downloading
 does not send an email or change lead records.
 
+The dashboard's **Confirmed delivery** percentage uses only emails with a final
+delivery or bounce result. Emails accepted by a provider but still awaiting a
+webhook are shown separately as pending instead of incorrectly lowering the rate.
+
 Production builds automatically create and verify the additive settings table
 before the new deployment goes live. A failure stops the build; the current live
 deployment remains in place. Existing recipients and lead data are preserved.

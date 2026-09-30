@@ -2,6 +2,7 @@ import type { Metadata } from 'next';
 import { prisma, isDbReady } from '@/lib/db';
 import { isAdminAuthed } from '@/lib/admin-auth';
 import { getRangeStats, getVisitCounts } from '@/lib/report';
+import { getDeliverySummary } from '@/lib/email-metrics';
 import AdminLogin from './AdminLogin';
 import AdminActions from './AdminActions';
 
@@ -237,10 +238,11 @@ export default async function AdminAnalyticsPage() {
 
   const { weekStats, monthly, allTimeVisits, allTimeLeads, recentLeads, recentBookings, recentEmails, reports, weekBuckets } = data;
 
-  const deliveryRate =
-    weekStats.emailsSent > 0
-      ? `${Math.round((weekStats.emailsDelivered / weekStats.emailsSent) * 100)}%`
-      : '—';
+  const delivery = getDeliverySummary({
+    sent: weekStats.emailsSent,
+    delivered: weekStats.emailsDelivered,
+    bounced: weekStats.emailsBounced,
+  });
 
   const leadsByMonth = groupByMonth(recentLeads, (l) => l.createdAt);
   const emailsByMonth = groupByMonth(recentEmails, (e) => e.createdAt);
@@ -272,7 +274,7 @@ export default async function AdminAnalyticsPage() {
           <Card label="Total leads" value={weekStats.totalLeads} />
           <Card label="Booking leads" value={weekStats.bookingLeads} />
           <Card label="Emails sent" value={weekStats.emailsSent} />
-          <Card label="Delivery rate" value={deliveryRate} hint={weekStats.emailsDelivered === 0 && weekStats.emailsSent > 0 ? 'Needs Resend webhook' : undefined} />
+          <Card label="Confirmed delivery" value={delivery.rate} hint={delivery.hint} />
         </div>
 
         <Section id="traffic" title="Traffic by page (7 days)">
