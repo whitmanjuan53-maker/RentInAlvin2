@@ -50,6 +50,7 @@ export const COMMUNITIES = [
     note: 'Townhomes de dos pisos con entradas privadas y 2.5 baños.',
     img: 'fila de townhomes · dos pisos',
     gallery: [
+      '/images/kings-manor/mural-kings-manor.jpg',
       '/images/kings-manor/01-exterior-front.jpg',
       '/images/kings-manor/02-community-grounds.jpg',
       '/images/kings-manor/03-living-room-fireplace.jpg',
@@ -100,7 +101,7 @@ export const COMMUNITIES = [
     price: 'desde $900',
     note: 'Apartamentos clásicos de revestimiento blanco en una calle residencial tranquila.',
     img: 'apartamentos de revestimiento blanco',
-    gallery: ['/images/white-house/mural-tropical-garden.jpg'],
+    gallery: ['/images/white-house/mural-white-house.png'],
   },
   {
     name: 'The Royal Oaks Townhomes',

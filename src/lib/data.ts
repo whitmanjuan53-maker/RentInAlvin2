@@ -76,6 +76,7 @@ export const COMMUNITIES = [
     note: 'Two-story townhomes with private entries and 2.5 baths.',
     img: 'townhome row · two story',
     gallery: [
+      '/images/kings-manor/mural-kings-manor.jpg',
       '/images/kings-manor/01-exterior-front.jpg',
       '/images/kings-manor/02-community-grounds.jpg',
       '/images/kings-manor/03-living-room-fireplace.jpg',
@@ -126,7 +127,7 @@ export const COMMUNITIES = [
     price: 'from $900',
     note: 'Classic white-clad apartments on a quiet residential street.',
     img: 'white clapboard apartments',
-    gallery: ['/images/white-house/mural-tropical-garden.jpg'],
+    gallery: ['/images/white-house/mural-white-house.png'],
   },
   {
     name: 'The Royal Oaks Townhomes',
