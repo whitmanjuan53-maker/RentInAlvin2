@@ -10,7 +10,7 @@ const code = ts.transpileModule(source, {
 }).outputText;
 const moduleUnderTest = { exports: {} };
 new Function('require', 'module', 'exports', code)(require, moduleUnderTest, moduleUnderTest.exports);
-const { mergePublicGallery } = moduleUnderTest.exports;
+const { mergePublicGallery, resolvePropertyGallery } = moduleUnderTest.exports;
 
 test('committed gallery remains first and database extras remain available', () => {
   assert.deepEqual(
@@ -33,5 +33,19 @@ test('removed mural files are not restored by stale database rows', () => {
       ['/images/french-quarter/mural-butterflies-flowers.jpg', '/uploads/manager-photo.jpg'],
     ),
     ['/images/french-quarter/mural-french-quarter.png', '/images/french-quarter/exterior.jpg', '/uploads/manager-photo.jpg'],
+  );
+});
+
+test('a manager-controlled gallery keeps the exact saved order', () => {
+  assert.deepEqual(
+    resolvePropertyGallery(['/site-main.jpg', '/site-two.jpg'], ['/site-two.jpg', '/uploaded.jpg'], true),
+    ['/site-two.jpg', '/uploaded.jpg'],
+  );
+});
+
+test('a manager-controlled row cannot leave a public property without a photo', () => {
+  assert.deepEqual(
+    resolvePropertyGallery(['/site-main.jpg'], [], true),
+    ['/site-main.jpg'],
   );
 });

@@ -14,3 +14,9 @@ export function mergePublicGallery(canonical: string[], database: string[]): str
 
   return [...new Set(combined)];
 }
+
+export function resolvePropertyGallery(canonical: string[], database: string[], managerControlled: boolean): string[] {
+  const managed = [...new Set(database.filter(Boolean))];
+  if (managerControlled && managed.length > 0) return managed;
+  return mergePublicGallery(canonical, database);
+}

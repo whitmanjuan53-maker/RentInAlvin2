@@ -2,13 +2,16 @@ import { readFileSync } from 'node:fs';
 import { pathToFileURL } from 'node:url';
 
 export async function prepareReportSettings(prisma) {
-  // A fixed, additive statement: never drops data or overwrites a recipient.
-  const sql = readFileSync(new URL('../prisma/report-settings.sql', import.meta.url), 'utf8');
+  // Fixed, additive statements: never drop or overwrite existing data.
+  const reportSql = readFileSync(new URL('../prisma/report-settings.sql', import.meta.url), 'utf8');
+  const managerGallerySql = readFileSync(new URL('../prisma/manager-gallery.sql', import.meta.url), 'utf8');
   await prisma.$transaction(async (tx) => {
-    // Serialize concurrent production builds before the idempotent CREATE.
+    // Serialize concurrent production builds before the idempotent changes.
     await tx.$executeRawUnsafe('SELECT pg_advisory_xact_lock(724186301)');
-    await tx.$executeRawUnsafe(sql);
+    await tx.$executeRawUnsafe(reportSql);
+    await tx.$executeRawUnsafe(managerGallerySql);
     await tx.reportSettings.findUnique({ where: { id: 'weekly' } });
+    await tx.property.findFirst({ select: { galleryManaged: true } });
   });
 }
 
@@ -21,7 +24,7 @@ if (process.argv[1] && import.meta.url === pathToFileURL(process.argv[1]).href) 
     const prisma = new PrismaClient();
     try {
       await prepareReportSettings(prisma);
-      console.log('[REPORT SETTINGS] Table verified. Existing recipient preserved.');
+      console.log('[PRODUCTION SCHEMA] Report settings and manager galleries verified. Existing data preserved.');
     } finally {
       await prisma.$disconnect();
     }

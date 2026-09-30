@@ -14,7 +14,8 @@ function str(v: unknown, max = 2000): string | undefined {
 
 function strArray(v: unknown, maxItems = 60, maxLen = 512): string[] | undefined {
   if (!Array.isArray(v)) return undefined;
-  return v.filter((x) => typeof x === 'string').slice(0, maxItems).map((x) => x.slice(0, maxLen));
+  return [...new Set(v.filter((x) => typeof x === 'string').map((x) => x.trim()).filter(Boolean))]
+    .slice(0, maxItems).map((x) => x.slice(0, maxLen));
 }
 
 // Push manager edits to the live site immediately.
@@ -50,7 +51,12 @@ export async function PUT(req: NextRequest) {
   const price = str(body.price, 120); if (price !== undefined) data.price = price;
   const description = str(body.description, 4000); if (description !== undefined) data.description = description;
   const amenities = strArray(body.amenities); if (amenities !== undefined) data.amenities = amenities;
-  const gallery = strArray(body.gallery); if (gallery !== undefined) data.gallery = gallery;
+  const gallery = strArray(body.gallery);
+  if (gallery !== undefined) {
+    if (gallery.length === 0) return NextResponse.json({ error: 'Keep at least one property photo.' }, { status: 400 });
+    data.gallery = gallery;
+    data.galleryManaged = true;
+  }
   if (typeof body.featured === 'boolean') data.featured = body.featured;
   if (typeof body.published === 'boolean') data.published = body.published;
   if (typeof body.sortOrder === 'number') data.sortOrder = Math.trunc(body.sortOrder);

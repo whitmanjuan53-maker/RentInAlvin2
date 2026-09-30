@@ -181,17 +181,20 @@ test('weekly and monthly sends use their saved recipients, simulated email is no
   assert.match(html, /A&amp;B/);
 });
 
-test('production setup locks, creates only the settings table, and verifies its schema', async () => {
+test('production setup applies only additive schema changes and verifies them', async () => {
   const { prepareReportSettings } = await import('./prepare-report-settings.mjs');
   const calls = [];
   await prepareReportSettings({ $transaction: async (callback) => callback({
     $executeRawUnsafe: async (sql) => calls.push(sql),
     reportSettings: { findUnique: async ({ where }) => { assert.equal(where.id, 'weekly'); calls.push('verified'); } },
+    property: { findFirst: async ({ select }) => { assert.deepEqual(select, { galleryManaged: true }); calls.push('property verified'); } },
   }) });
   assert.match(calls[0], /pg_advisory_xact_lock/);
   assert.match(calls[1], /CREATE TABLE IF NOT EXISTS "ReportSettings"/);
-  assert.doesNotMatch(calls[1], /\b(DROP|DELETE|UPDATE|TRUNCATE)\b/i);
-  assert.equal(calls[2], 'verified');
+  assert.match(calls[2], /ADD COLUMN IF NOT EXISTS "galleryManaged"/);
+  assert.doesNotMatch(calls.slice(1, 3).join('\n'), /\b(DROP|DELETE|UPDATE|TRUNCATE)\b/i);
+  assert.equal(calls[3], 'verified');
+  assert.equal(calls[4], 'property verified');
 });
 
 test('updated mail library builds report messages without contacting an email server', async () => {

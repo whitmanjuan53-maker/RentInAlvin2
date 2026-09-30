@@ -1,6 +1,6 @@
 import { prisma, isDbReady } from './db';
 import { COMMUNITIES } from './data';
-import { mergePublicGallery } from './property-gallery';
+import { resolvePropertyGallery } from './property-gallery';
 
 // A property in the shape the public pages already expect (COMMUNITIES-compatible),
 // plus the fields the manager dashboard edits.
@@ -14,6 +14,7 @@ export interface PropertyView {
   price: string;
   note: string;          // description (kept as `note` for public-page compatibility)
   gallery: string[];
+  galleryManaged: boolean;
   amenities: string[];
   availability: string;  // Available now | Coming soon | Waitlist | Not listed
   featured: boolean;
@@ -37,6 +38,7 @@ export const STATIC_PROPERTIES: PropertyView[] = COMMUNITIES.map((c, i) => ({
   price: c.price || '',
   note: c.note || '',
   gallery: c.gallery || [],
+  galleryManaged: false,
   amenities: [],
   availability: c.comingSoon ? 'Coming soon' : 'Available now',
   featured: !c.comingSoon && i < 3,
@@ -47,7 +49,7 @@ export const STATIC_PROPERTIES: PropertyView[] = COMMUNITIES.map((c, i) => ({
 
 function toView(p: {
   id: string; slug: string; name: string; addr: string; tag: string; units: string;
-  price: string; description: string; gallery: string[]; amenities: string[];
+  price: string; description: string; gallery: string[]; galleryManaged: boolean; amenities: string[];
   availability: string; featured: boolean; published: boolean;
 }): PropertyView {
   return {
@@ -60,6 +62,7 @@ function toView(p: {
     price: p.price,
     note: p.description,
     gallery: p.gallery,
+    galleryManaged: p.galleryManaged,
     amenities: p.amenities,
     availability: p.availability,
     featured: p.featured,
@@ -71,7 +74,7 @@ function toView(p: {
 function withCanonicalGallery(view: PropertyView): PropertyView {
   const canonical = STATIC_PROPERTIES.find((property) => property.slug === view.slug);
   return canonical
-    ? { ...view, gallery: mergePublicGallery(canonical.gallery, view.gallery) }
+    ? { ...view, gallery: resolvePropertyGallery(canonical.gallery, view.gallery, view.galleryManaged) }
     : view;
 }
 
@@ -96,9 +99,9 @@ export async function getAllPropertiesForAdmin(): Promise<PropertyView[]> {
   try {
     const rows = await prisma.property.findMany({ orderBy: { sortOrder: 'asc' } });
     if (rows.length === 0) return STATIC_PROPERTIES;
-    // The manager must see the same complete gallery as the public site. The
-    // dashboard labels the committed portion as protected and stores only
-    // manager-added photos when saving.
+    // The manager sees the same effective gallery as the public site. Legacy
+    // rows receive the committed baseline; manager-controlled rows retain the
+    // exact saved order.
     return rows.map((row) => withCanonicalGallery(toView(row)));
   } catch {
     console.warn('[PROPERTIES] DB read unavailable, using built-in property list.');

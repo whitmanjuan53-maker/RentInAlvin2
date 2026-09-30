@@ -13,11 +13,11 @@ interface Property {
   price: string;
   note: string;
   gallery: string[];
+  galleryManaged: boolean;
   amenities: string[];
   availability: string;
   featured: boolean;
   published: boolean;
-  protectedGallery: string[];
 }
 
 const AVAILABILITY_OPTIONS = ['Available now', 'Coming soon', 'Waitlist', 'Not listed'];
@@ -103,8 +103,6 @@ function PropertyCard({ property, blobConfigured }: { property: Property; blobCo
   const [uploading, setUploading] = useState(false);
   const [newAmenity, setNewAmenity] = useState('');
   const fileRef = useRef<HTMLInputElement>(null);
-  const protectedPhotos = new Set(property.protectedGallery);
-  const protectedCount = property.protectedGallery.length;
   const dirty = JSON.stringify(form) !== JSON.stringify(savedForm);
 
   function set<K extends keyof Property>(key: K, value: Property[K]) {
@@ -114,15 +112,29 @@ function PropertyCard({ property, blobConfigured }: { property: Property; blobCo
 
   function movePhoto(i: number, dir: -1 | 1) {
     const j = i + dir;
-    if (protectedPhotos.has(form.gallery[i]) || j < protectedCount || j >= form.gallery.length) return;
+    if (j < 0 || j >= form.gallery.length) return;
     const g = [...form.gallery];
     [g[i], g[j]] = [g[j], g[i]];
     set('gallery', g);
   }
 
   function removePhoto(i: number) {
-    if (protectedPhotos.has(form.gallery[i])) return;
+    if (form.gallery.length <= 1) {
+      setMsg({ text: 'Keep at least one photo so the website listing is not blank.', ok: false });
+      return;
+    }
     set('gallery', form.gallery.filter((_, idx) => idx !== i));
+  }
+
+  function makeMainPhoto(i: number) {
+    if (i === 0) return;
+    set('gallery', [form.gallery[i], ...form.gallery.filter((_, idx) => idx !== i)]);
+  }
+
+  function undoChanges() {
+    setForm(savedForm);
+    setNewAmenity('');
+    setMsg({ text: 'Unsaved changes were undone.', ok: true });
   }
 
   async function handleUpload(e: React.ChangeEvent<HTMLInputElement>) {
@@ -171,7 +183,7 @@ function PropertyCard({ property, blobConfigured }: { property: Property; blobCo
           id: form.id, name: form.name, addr: form.addr, tag: form.tag, units: form.units,
           price: form.price, description: form.note, availability: form.availability,
           featured: form.featured, published: form.published, amenities: form.amenities,
-          gallery: form.gallery.filter((url) => !protectedPhotos.has(url)),
+          gallery: form.gallery,
         }),
       });
       const data = await res.json();
@@ -274,25 +286,24 @@ function PropertyCard({ property, blobConfigured }: { property: Property; blobCo
             <label style={label}>Website photos ({form.gallery.length})</label>
             <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(120px, 1fr))', gap: 10 }}>
               {form.gallery.map((url, i) => {
-                const isProtected = protectedPhotos.has(url);
-                const cannotMoveLeft = isProtected || i <= protectedCount;
                 return (
                   <div key={url} style={{ position: 'relative', borderRadius: 8, overflow: 'hidden', border: `1px solid ${c.line}`, aspectRatio: '4/3', background: '#eee' }}>
                     <img src={url} alt={`${form.name} photo ${i + 1}`} style={{ width: '100%', height: '100%', objectFit: 'cover' }} />
-                    <span style={{ position: 'absolute', top: 6, left: 6, fontSize: 10, fontWeight: 700, background: i === 0 ? c.green : isProtected ? c.accent : '#444', color: '#fff', padding: '2px 6px', borderRadius: 4 }}>
-                      {i === 0 ? 'MAIN' : isProtected ? 'SITE' : 'ADDED'}
+                    <span style={{ position: 'absolute', top: 6, left: 6, fontSize: 10, fontWeight: 700, background: i === 0 ? c.green : '#444', color: '#fff', padding: '2px 6px', borderRadius: 4 }}>
+                      {i === 0 ? 'MAIN' : `PHOTO ${i + 1}`}
                     </span>
-                    {isProtected ? (
-                      <span style={{ position: 'absolute', bottom: 5, left: 5, right: 5, padding: '4px 6px', borderRadius: 4, background: 'rgba(26,24,21,0.72)', color: '#fff', fontSize: 10, textAlign: 'center' }}>Protected website photo</span>
-                    ) : (
-                      <div style={{ position: 'absolute', bottom: 4, left: 4, right: 4, display: 'flex', justifyContent: 'space-between', gap: 4 }}>
-                        <div style={{ display: 'flex', gap: 4 }}>
-                          <button type="button" aria-label="Move photo left" onClick={() => movePhoto(i, -1)} disabled={cannotMoveLeft} style={photoBtn(cannotMoveLeft)}>◀</button>
-                          <button type="button" aria-label="Move photo right" onClick={() => movePhoto(i, 1)} disabled={i === form.gallery.length - 1} style={photoBtn(i === form.gallery.length - 1)}>▶</button>
-                        </div>
-                        <button type="button" aria-label="Remove photo" onClick={() => removePhoto(i)} style={{ ...photoBtn(false), background: 'rgba(160,40,40,0.85)' }}>×</button>
-                      </div>
+                    {i > 0 && (
+                      <button type="button" onClick={() => makeMainPhoto(i)} style={{ position: 'absolute', top: 5, right: 5, border: 'none', borderRadius: 4, padding: '3px 6px', background: 'rgba(255,255,255,0.92)', color: c.green, fontSize: 10, fontWeight: 700, cursor: 'pointer' }}>
+                        Make main
+                      </button>
                     )}
+                    <div style={{ position: 'absolute', bottom: 4, left: 4, right: 4, display: 'flex', justifyContent: 'space-between', gap: 4 }}>
+                      <div style={{ display: 'flex', gap: 4 }}>
+                        <button type="button" aria-label="Move photo left" onClick={() => movePhoto(i, -1)} disabled={i === 0} style={photoBtn(i === 0)}>◀</button>
+                        <button type="button" aria-label="Move photo right" onClick={() => movePhoto(i, 1)} disabled={i === form.gallery.length - 1} style={photoBtn(i === form.gallery.length - 1)}>▶</button>
+                      </div>
+                      <button type="button" aria-label="Remove photo" onClick={() => removePhoto(i)} disabled={form.gallery.length <= 1} style={{ ...photoBtn(form.gallery.length <= 1), background: 'rgba(160,40,40,0.85)' }}>×</button>
+                    </div>
                   </div>
                 );
               })}
@@ -302,7 +313,7 @@ function PropertyCard({ property, blobConfigured }: { property: Property; blobCo
               </label>
             </div>
             <p style={{ fontSize: 12, color: c.soft, margin: '8px 0 0', lineHeight: 1.5 }}>
-              MAIN and SITE photos are connected to the website and protected from accidental removal. Photos you upload are marked ADDED and can be reordered or removed. Press Save changes to publish uploads.
+              The first photo is the MAIN listing image. Use “Make main,” the arrows, or × to arrange the gallery. At least one photo must remain. Nothing goes live until you press Save changes.
             </p>
           </div>
 
@@ -318,6 +329,11 @@ function PropertyCard({ property, blobConfigured }: { property: Property; blobCo
             </label>
             <div style={{ flex: 1 }} />
             {msg && <span style={{ fontSize: 13, fontWeight: 500, color: msg.ok ? c.green : '#a33' }}>{msg.text}</span>}
+            {dirty && (
+              <button type="button" onClick={undoChanges} disabled={saving} style={{ padding: '10px 16px', fontSize: 14, fontWeight: 600, background: 'transparent', color: c.soft, border: `1px solid ${c.line}`, borderRadius: 6, cursor: saving ? 'default' : 'pointer', fontFamily: 'inherit' }}>
+                Undo changes
+              </button>
+            )}
             <button type="button" onClick={save} disabled={saving || !dirty} style={{ padding: '11px 22px', fontSize: 15, fontWeight: 600, background: c.green, color: '#fff', border: 'none', borderRadius: 6, cursor: saving || !dirty ? 'default' : 'pointer', opacity: saving || !dirty ? 0.55 : 1, fontFamily: 'inherit' }}>
               {saving ? 'Saving…' : dirty ? 'Save changes' : 'Saved'}
             </button>
