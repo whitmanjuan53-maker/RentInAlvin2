@@ -1,14 +1,14 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { isAdminRequest } from '@/lib/admin-auth';
 import { prisma } from '@/lib/db';
-import { getWeeklyReportRecipient, reportRecipientSchema } from '@/lib/report-settings';
+import { getReportRecipients, reportRecipientsSchema } from '@/lib/report-settings';
 
 export const dynamic = 'force-dynamic';
 
 export async function GET(req: NextRequest) {
   if (!isAdminRequest(req)) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
   try {
-    return NextResponse.json({ recipient: await getWeeklyReportRecipient() }, { headers: { 'Cache-Control': 'private, no-store' } });
+    return NextResponse.json(await getReportRecipients(), { headers: { 'Cache-Control': 'private, no-store' } });
   } catch {
     return NextResponse.json({ error: 'Could not load report settings. Please retry.' }, { status: 503 });
   }
@@ -29,14 +29,21 @@ export async function PUT(req: NextRequest) {
       return NextResponse.json({ error: 'Invalid origin' }, { status: 403 });
     }
   }
-  const parsed = reportRecipientSchema.safeParse(await req.json().catch(() => null));
-  if (!parsed.success) return NextResponse.json({ error: 'Enter one valid email address.' }, { status: 400 });
+  const parsed = reportRecipientsSchema.safeParse(await req.json().catch(() => null));
+  if (!parsed.success) return NextResponse.json({ error: 'Enter one valid email address for each report.' }, { status: 400 });
   if (!prisma) return NextResponse.json({ error: 'Database not available' }, { status: 503 });
   try {
-    await prisma.reportSettings.upsert({
-      where: { id: 'weekly' },
-      create: { id: 'weekly', recipient: parsed.data.recipient },
-      update: { recipient: parsed.data.recipient },
+    await prisma.$transaction(async (tx) => {
+      await tx.reportSettings.upsert({
+        where: { id: 'weekly' },
+        create: { id: 'weekly', recipient: parsed.data.weeklyRecipient },
+        update: { recipient: parsed.data.weeklyRecipient },
+      });
+      await tx.reportSettings.upsert({
+        where: { id: 'monthly' },
+        create: { id: 'monthly', recipient: parsed.data.monthlyRecipient },
+        update: { recipient: parsed.data.monthlyRecipient },
+      });
     });
     return NextResponse.json(parsed.data, { headers: { 'Cache-Control': 'private, no-store' } });
   } catch {

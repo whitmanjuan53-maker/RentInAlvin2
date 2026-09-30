@@ -2,10 +2,10 @@
 
 ### Analytics report controls
 
-On `/dev/analytics`, an authenticated administrator can save one **weekly report
-recipient**. Both scheduled and manually sent weekly reports read this saved
-address. Until an address is saved, `ANALYTICS_REPORT_TO` (then `EMAIL_TO`) remains
-the default. Monthly reports retain their existing environment recipient.
+On `/dev/analytics`, an authenticated administrator can save separate **weekly**
+and **monthly report recipients**. Scheduled and manually sent reports use the
+saved address for their report type. Until an address is saved,
+`ANALYTICS_REPORT_TO` (then `EMAIL_TO`) remains the default.
 
 **Download all leads (Word)** produces a fresh `.docx` containing every row in the
 unified leads table, newest first, without the dashboard or weekly report limits.

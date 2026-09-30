@@ -1,7 +1,7 @@
 import { prisma, isDbReady } from './db';
 import { sendAdminEmail } from './email';
 import { logEmail, extractEmailId } from './analytics';
-import { defaultReportRecipient, getWeeklyReportRecipient } from './report-settings';
+import { getReportRecipient } from './report-settings';
 
 export type ReportType = 'weekly' | 'monthly';
 
@@ -247,7 +247,7 @@ export async function runReport(type: ReportType): Promise<RunReportResult> {
   }
 
   const { html, subject, text, stats, periodStart, periodEnd } = await renderReport(type);
-  const reportTo = type === 'weekly' ? await getWeeklyReportRecipient() : defaultReportRecipient();
+  const reportTo = await getReportRecipient(type);
 
   let emailSent = false;
   let sentAt: Date | null = null;

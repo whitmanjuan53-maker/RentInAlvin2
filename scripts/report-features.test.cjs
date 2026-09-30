@@ -46,39 +46,48 @@ test('empty Word export explains that there are no saved leads', async () => {
 });
 
 test('recipient settings persist, trim email, reject invalid input, and require admin access', async () => {
-  let saved;
+  const saved = {};
   let authed = true;
-  const prisma = { reportSettings: {
-    findUnique: async () => saved,
-    upsert: async ({ create, update }) => { saved = saved ? { ...saved, ...update } : create; },
-  } };
+  const prisma = {
+    reportSettings: {
+      findUnique: async ({ where }) => saved[where.id],
+      upsert: async ({ where, create, update }) => {
+        saved[where.id] = saved[where.id] ? { ...saved[where.id], ...update } : create;
+      },
+    },
+    $transaction: async (callback) => callback(prisma),
+  };
   const settings = load('src/lib/report-settings.ts', { './db': { prisma } });
   const route = load('src/app/api/reports/settings/route.ts', {
     '@/lib/admin-auth': { isAdminRequest: () => authed }, '@/lib/db': { prisma },
     '@/lib/report-settings': settings,
   });
-  const put = (recipient, origin = 'http://localhost') => new NextRequest('http://localhost/api/reports/settings', {
-    method: 'PUT', headers: { 'Content-Type': 'application/json', origin }, body: JSON.stringify({ recipient }),
+  const put = (weeklyRecipient, monthlyRecipient = 'monthly@example.com', origin = 'http://localhost') => new NextRequest('http://localhost/api/reports/settings', {
+    method: 'PUT', headers: { 'Content-Type': 'application/json', origin }, body: JSON.stringify({ weeklyRecipient, monthlyRecipient }),
   });
   assert.equal((await route.PUT(put('bad'))).status, 400);
   assert.equal((await route.PUT(put('one@example.com,two@example.com'))).status, 400);
   assert.equal((await route.PUT(put('one@example.com\r\nBcc: other@example.com'))).status, 400);
-  assert.equal((await route.PUT(put('one@example.com', 'http://other-site.test'))).status, 403);
-  assert.equal((await route.PUT(put('one@example.com', 'null'))).status, 403);
-  assert.equal(saved, undefined);
-  assert.equal((await route.PUT(put('  one@example.com  '))).status, 200);
-  assert.equal(await settings.getWeeklyReportRecipient(), 'one@example.com');
-  assert.equal((await route.PUT(put('two@example.com'))).status, 200);
+  assert.equal((await route.PUT(put('one@example.com', 'monthly@example.com', 'http://other-site.test'))).status, 403);
+  assert.equal((await route.PUT(put('one@example.com', 'monthly@example.com', 'null'))).status, 403);
+  assert.deepEqual(saved, {});
+  assert.equal((await route.PUT(put('  one@example.com  ', '  month@example.com  '))).status, 200);
+  assert.equal(await settings.getReportRecipient('weekly'), 'one@example.com');
+  assert.equal(await settings.getReportRecipient('monthly'), 'month@example.com');
+  assert.equal((await route.PUT(put('two@example.com', 'monthly-two@example.com'))).status, 200);
   const proxied = new NextRequest('http://internal-host/api/reports/settings', {
     method: 'PUT', headers: { 'Content-Type': 'application/json', origin: 'https://www.rentinalvin.com', host: 'www.rentinalvin.com' },
-    body: JSON.stringify({ recipient: 'two@example.com' }),
+    body: JSON.stringify({ weeklyRecipient: 'two@example.com', monthlyRecipient: 'monthly-two@example.com' }),
   });
   assert.equal((await route.PUT(proxied)).status, 200);
-  assert.equal((await (await route.GET(new NextRequest('http://localhost'))).json()).recipient, 'two@example.com');
+  assert.deepEqual(await (await route.GET(new NextRequest('http://localhost'))).json(), {
+    weeklyRecipient: 'two@example.com', monthlyRecipient: 'monthly-two@example.com',
+  });
   authed = false;
   assert.equal((await route.PUT(put('intruder@example.com'))).status, 401);
   assert.equal((await route.GET(new NextRequest('http://localhost'))).status, 401);
-  assert.equal(saved.recipient, 'two@example.com');
+  assert.equal(saved.weekly.recipient, 'two@example.com');
+  assert.equal(saved.monthly.recipient, 'monthly-two@example.com');
 });
 
 test('missing settings fall back to environment, but database outages do not silently reroute', async () => {
@@ -89,11 +98,12 @@ test('missing settings fall back to environment, but database outages do not sil
     const settings = load('src/lib/report-settings.ts', { './db': { prisma: {
       reportSettings: { findUnique: () => behavior() },
     } } });
-    assert.equal(await settings.getWeeklyReportRecipient(), 'original@example.com');
+    assert.equal(await settings.getReportRecipient('weekly'), 'original@example.com');
+    assert.equal(await settings.getReportRecipient('monthly'), 'original@example.com');
     behavior = async () => { throw { code: 'P2021' }; };
-    assert.equal(await settings.getWeeklyReportRecipient(), 'original@example.com');
+    assert.equal(await settings.getReportRecipient('weekly'), 'original@example.com');
     behavior = async () => { throw new Error('Database offline'); };
-    await assert.rejects(settings.getWeeklyReportRecipient(), /Database offline/);
+    await assert.rejects(settings.getReportRecipient('monthly'), /Database offline/);
   } finally {
     if (before === undefined) delete process.env.ANALYTICS_REPORT_TO;
     else process.env.ANALYTICS_REPORT_TO = before;
@@ -123,7 +133,7 @@ test('lead download requires admin and queries all dates without a row limit', a
   assert.ok((await res.arrayBuffer()).byteLength > 1000);
 });
 
-test('weekly sends use saved recipient, monthly retains default, simulated email is not marked sent', async () => {
+test('weekly and monthly sends use their saved recipients, simulated email is not marked sent', async () => {
   const recipients = [];
   const reports = [];
   let simulated = false;
@@ -136,13 +146,13 @@ test('weekly sends use saved recipient, monthly retains default, simulated email
   };
   const report = load('src/lib/report.ts', {
     './db': { prisma, isDbReady: () => true },
-    './report-settings': { getWeeklyReportRecipient: async () => 'saved@example.com', defaultReportRecipient: () => 'default@example.com' },
+    './report-settings': { getReportRecipient: async (type) => `${type}@example.com` },
     './analytics': { logEmail: async () => {}, extractEmailId: (result) => result.id },
     './email': { sendAdminEmail: async (to) => { recipients.push(to); return rejected ? { error: { message: 'Rejected' }, data: null } : { id: simulated ? 'simulated' : 'sent' }; } },
   });
   assert.equal((await report.runReport('weekly')).emailSent, true);
   assert.equal((await report.runReport('monthly')).emailSent, true);
-  assert.deepEqual(recipients, ['saved@example.com', 'default@example.com']);
+  assert.deepEqual(recipients, ['weekly@example.com', 'monthly@example.com']);
   simulated = true;
   assert.equal((await report.runReport('weekly')).emailSent, false);
   assert.equal(reports[2].sentAt, null);

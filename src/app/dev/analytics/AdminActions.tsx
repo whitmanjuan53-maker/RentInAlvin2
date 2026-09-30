@@ -24,12 +24,16 @@ export default function AdminActions() {
   const router = useRouter();
   const [sending, setSending] = useState<'weekly' | 'monthly' | null>(null);
   const [message, setMessage] = useState('');
-  const [recipient, setRecipient] = useState('');
-  const [savedRecipient, setSavedRecipient] = useState<string | null>(null);
+  const [weeklyRecipient, setWeeklyRecipient] = useState('');
+  const [monthlyRecipient, setMonthlyRecipient] = useState('');
+  const [savedRecipients, setSavedRecipients] = useState<{ weeklyRecipient: string; monthlyRecipient: string } | null>(null);
   const [settingsError, setSettingsError] = useState('');
   const [saving, setSaving] = useState(false);
   const [exporting, setExporting] = useState(false);
-  const unsaved = savedRecipient !== null && recipient.trim() !== savedRecipient;
+  const unsaved = savedRecipients !== null && (
+    weeklyRecipient.trim() !== savedRecipients.weeklyRecipient ||
+    monthlyRecipient.trim() !== savedRecipients.monthlyRecipient
+  );
 
   async function loadSettings() {
     setSettingsError('');
@@ -37,8 +41,9 @@ export default function AdminActions() {
       const res = await fetch('/api/reports/settings', { cache: 'no-store' });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Could not load settings.');
-      setRecipient(data.recipient);
-      setSavedRecipient(data.recipient);
+      setWeeklyRecipient(data.weeklyRecipient);
+      setMonthlyRecipient(data.monthlyRecipient);
+      setSavedRecipients(data);
     } catch (error) {
       setSettingsError(error instanceof Error ? error.message : 'Could not load settings.');
     }
@@ -54,13 +59,17 @@ export default function AdminActions() {
     try {
       const res = await fetch('/api/reports/settings', {
         method: 'PUT', headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ recipient: recipient.trim() }),
+        body: JSON.stringify({
+          weeklyRecipient: weeklyRecipient.trim(),
+          monthlyRecipient: monthlyRecipient.trim(),
+        }),
       });
       const data = await res.json();
       if (!res.ok) throw new Error(data.error || 'Could not save the recipient.');
-      setRecipient(data.recipient);
-      setSavedRecipient(data.recipient);
-      setMessage('Weekly report recipient saved. Future weekly reports will go to this address.');
+      setWeeklyRecipient(data.weeklyRecipient);
+      setMonthlyRecipient(data.monthlyRecipient);
+      setSavedRecipients(data);
+      setMessage('Weekly and monthly report recipients saved.');
     } catch (error) {
       setMessage(error instanceof Error ? error.message : 'Could not save the recipient.');
     } finally { setSaving(false); }
@@ -91,8 +100,9 @@ export default function AdminActions() {
   }
 
   async function sendReport(type: 'weekly' | 'monthly') {
-    if (sending || saving || (type === 'weekly' && (unsaved || savedRecipient === null || !savedRecipient))) return;
-    if (!confirm(type === 'weekly' ? `Send the weekly report to ${savedRecipient} now?` : 'Send the monthly report email now?')) return;
+    const recipient = savedRecipients?.[type === 'weekly' ? 'weeklyRecipient' : 'monthlyRecipient'];
+    if (sending || saving || unsaved || !recipient) return;
+    if (!confirm(`Send the ${type} report to ${recipient} now?`)) return;
     setSending(type);
     setMessage('');
     try {
@@ -118,26 +128,35 @@ export default function AdminActions() {
   return (
     <div style={{ display: 'flex', flexDirection: 'column', gap: 8, alignItems: 'flex-end', maxWidth: '100%', minWidth: 0 }}>
       <form onSubmit={saveRecipient} style={{ width: '100%', maxWidth: 620 }}>
-        <label htmlFor="weekly-recipient" style={{ display: 'block', fontSize: 13, fontWeight: 600, marginBottom: 6 }}>Weekly report recipient</label>
-        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
-          <input id="weekly-recipient" type="email" required maxLength={254} value={recipient}
-            onChange={(event) => setRecipient(event.target.value)} disabled={savedRecipient === null || saving || !!sending}
-            placeholder="name@example.com" aria-describedby="recipient-help"
-            style={{ minWidth: 180, flex: 1, padding: '9px 12px', border: '1px solid #b5b0a8', borderRadius: 4, font: 'inherit', fontSize: 14 }} />
-          <button type="submit" disabled={saving || !!sending || savedRecipient === null || !unsaved || !recipient.trim()} style={{ ...btnStyle, background: '#fff', color: '#1F3A2E' }}>
-            {saving ? 'Saving…' : 'Save recipient'}
-          </button>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 12 }}>
+          <label htmlFor="weekly-recipient" style={{ display: 'grid', gap: 6, fontSize: 13, fontWeight: 600 }}>
+            Weekly report recipient
+            <input id="weekly-recipient" type="email" required maxLength={254} value={weeklyRecipient}
+              onChange={(event) => setWeeklyRecipient(event.target.value)} disabled={savedRecipients === null || saving || !!sending}
+              placeholder="weekly@example.com" aria-describedby="recipient-help"
+              style={{ minWidth: 0, padding: '9px 12px', border: '1px solid #b5b0a8', borderRadius: 4, font: 'inherit', fontSize: 14 }} />
+          </label>
+          <label htmlFor="monthly-recipient" style={{ display: 'grid', gap: 6, fontSize: 13, fontWeight: 600 }}>
+            Monthly report recipient
+            <input id="monthly-recipient" type="email" required maxLength={254} value={monthlyRecipient}
+              onChange={(event) => setMonthlyRecipient(event.target.value)} disabled={savedRecipients === null || saving || !!sending}
+              placeholder="monthly@example.com" aria-describedby="recipient-help"
+              style={{ minWidth: 0, padding: '9px 12px', border: '1px solid #b5b0a8', borderRadius: 4, font: 'inherit', fontSize: 14 }} />
+          </label>
         </div>
         <p id="recipient-help" style={{ fontSize: 12, color: '#5C5750', margin: '6px 0' }}>
-          {unsaved ? 'Save your change before sending a weekly report.' : 'Used for scheduled and manually sent weekly reports. Monthly reports keep their existing recipient.'}
+          {unsaved ? 'Save your changes before sending either report.' : 'Used for both scheduled and manually sent reports.'}
         </p>
+        <button type="submit" disabled={saving || !!sending || savedRecipients === null || !unsaved || !weeklyRecipient.trim() || !monthlyRecipient.trim()} style={{ ...btnStyle, background: '#fff', color: '#1F3A2E' }}>
+          {saving ? 'Saving…' : 'Save report recipients'}
+        </button>
         {settingsError && <p role="alert" style={{ fontSize: 13, color: '#a12b2b' }}>{settingsError} <button type="button" onClick={loadSettings}>Retry</button></p>}
       </form>
       <div style={{ display: 'flex', gap: 10, flexWrap: 'wrap', alignItems: 'center' }}>
-        <button onClick={() => sendReport('weekly')} disabled={!!sending || saving || unsaved || !savedRecipient} style={{ ...btnStyle, background: '#1F3A2E', color: '#fff', opacity: sending ? 0.6 : 1 }}>
+        <button onClick={() => sendReport('weekly')} disabled={!!sending || saving || unsaved || !savedRecipients?.weeklyRecipient} style={{ ...btnStyle, background: '#1F3A2E', color: '#fff', opacity: sending ? 0.6 : 1 }}>
           {sending === 'weekly' ? 'Sending…' : 'Send weekly report'}
         </button>
-        <button onClick={() => sendReport('monthly')} disabled={!!sending || saving} style={{ ...btnStyle, background: '#1F3A2E', color: '#fff', opacity: sending ? 0.6 : 1 }}>
+        <button onClick={() => sendReport('monthly')} disabled={!!sending || saving || unsaved || !savedRecipients?.monthlyRecipient} style={{ ...btnStyle, background: '#1F3A2E', color: '#fff', opacity: sending ? 0.6 : 1 }}>
           {sending === 'monthly' ? 'Sending…' : 'Send monthly report'}
         </button>
         <button onClick={() => router.refresh()} style={{ ...btnStyle, background: 'transparent', color: '#1F3A2E' }}>
