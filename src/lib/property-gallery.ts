@@ -15,8 +15,15 @@ export function mergePublicGallery(canonical: string[], database: string[]): str
   return [...new Set(combined)];
 }
 
-export function resolvePropertyGallery(canonical: string[], database: string[], managerControlled: boolean): string[] {
+export function resolvePropertyGallery(
+  canonical: string[],
+  database: string[],
+  managerControlled: boolean,
+  legacyManagedGallery: string[] = [],
+): string[] {
   const managed = [...new Set(database.filter(Boolean))];
-  if (managerControlled && managed.length > 0) return managed;
+  const isLegacyManagedGallery = legacyManagedGallery.length > 0 &&
+    JSON.stringify(managed) === JSON.stringify(legacyManagedGallery);
+  if (managerControlled && managed.length > 0 && !isLegacyManagedGallery) return managed;
   return mergePublicGallery(canonical, database);
 }

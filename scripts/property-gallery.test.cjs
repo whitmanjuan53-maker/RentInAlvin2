@@ -51,6 +51,30 @@ test('a manager-controlled gallery keeps the exact saved order', () => {
   );
 });
 
+test('the legacy managed White House mural yields to the new committed gallery', () => {
+  assert.deepEqual(
+    resolvePropertyGallery(
+      ['/images/white-house/01-exterior-sealy-street.jpg', '/images/white-house/02-living-dining-open-layout.jpg'],
+      ['/images/white-house/mural-white-house.png'],
+      true,
+      ['/images/white-house/mural-white-house.png'],
+    ),
+    ['/images/white-house/01-exterior-sealy-street.jpg', '/images/white-house/02-living-dining-open-layout.jpg'],
+  );
+});
+
+test('a later manager-controlled White House gallery is still preserved', () => {
+  assert.deepEqual(
+    resolvePropertyGallery(
+      ['/images/white-house/01-exterior-sealy-street.jpg'],
+      ['/uploads/white-house-custom.jpg'],
+      true,
+      ['/images/white-house/mural-white-house.png'],
+    ),
+    ['/uploads/white-house-custom.jpg'],
+  );
+});
+
 test('a manager-controlled row cannot leave a public property without a photo', () => {
   assert.deepEqual(
     resolvePropertyGallery(['/site-main.jpg'], [], true),

@@ -1,5 +1,6 @@
 import { prisma, isDbReady } from './db';
 import { COMMUNITIES } from './data';
+import { orderCommunities } from './community-order';
 import { resolvePropertyGallery } from './property-gallery';
 
 // A property in the shape the public pages already expect (COMMUNITIES-compatible),
@@ -84,8 +85,19 @@ function toView(p: {
 
 function withCanonicalGallery(view: PropertyView): PropertyView {
   const canonical = STATIC_PROPERTIES.find((property) => property.slug === view.slug);
+  const legacyManagedGallery = view.slug === 'white-house'
+    ? ['/images/white-house/mural-white-house.png']
+    : [];
   return canonical
-    ? { ...view, gallery: resolvePropertyGallery(canonical.gallery, view.gallery, view.galleryManaged) }
+    ? {
+        ...view,
+        gallery: resolvePropertyGallery(
+          canonical.gallery,
+          view.gallery,
+          view.galleryManaged,
+          legacyManagedGallery,
+        ),
+      }
     : view;
 }
 
@@ -95,7 +107,9 @@ export async function getProperties(): Promise<PropertyView[]> {
   try {
     const rows = await prisma.property.findMany({ orderBy: { sortOrder: 'asc' } });
     if (rows.length === 0) return STATIC_PROPERTIES;
-    return rows.filter((r) => r.published).map((row) => withCanonicalGallery(toView(row)));
+    return orderCommunities(
+      rows.filter((r) => r.published).map((row) => withCanonicalGallery(toView(row))),
+    );
   } catch {
     console.warn('[PROPERTIES] DB read unavailable, using built-in property list.');
     return STATIC_PROPERTIES;
