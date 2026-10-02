@@ -27,10 +27,10 @@ test('committed gallery remains first and database extras remain available', () 
   );
 });
 
-test('an empty database gallery cannot hide the committed White House cover photo', () => {
+test('an empty database gallery cannot hide the committed White House mural', () => {
   assert.deepEqual(
-    mergePublicGallery(['/images/white-house/01-exterior-sealy-street.jpg'], []),
-    ['/images/white-house/01-exterior-sealy-street.jpg'],
+    mergePublicGallery(['/images/white-house/mural-white-house.png'], []),
+    ['/images/white-house/mural-white-house.png'],
   );
 });
 
@@ -54,12 +54,12 @@ test('a manager-controlled gallery keeps the exact saved order', () => {
 test('the legacy managed White House mural yields to the new committed gallery', () => {
   assert.deepEqual(
     resolvePropertyGallery(
-      ['/images/white-house/01-exterior-sealy-street.jpg', '/images/white-house/02-living-dining-open-layout.jpg'],
+      ['/images/white-house/mural-white-house.png', '/images/white-house/01-exterior-sealy-street.jpg'],
       ['/images/white-house/mural-white-house.png'],
       true,
       ['/images/white-house/mural-white-house.png'],
     ),
-    ['/images/white-house/01-exterior-sealy-street.jpg', '/images/white-house/02-living-dining-open-layout.jpg'],
+    ['/images/white-house/mural-white-house.png', '/images/white-house/01-exterior-sealy-street.jpg'],
   );
 });
 
