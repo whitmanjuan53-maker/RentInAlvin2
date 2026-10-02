@@ -1,6 +1,8 @@
 import kingsHaven100Gallery from './kings-haven-100-gallery.json';
 import frenchQuarterGallery from './french-quarter-gallery.json';
 import royalOaksGallery from './royal-oaks-gallery.json';
+import whiteHouseGallery from './white-house-gallery.json';
+import { orderCommunities } from './community-order';
 
 export const PALETTES = {
   forest: {
@@ -43,7 +45,7 @@ export const SAME_AS: string[] = [
   // 'https://www.zillow.com/your-listing',
 ];
 
-export const COMMUNITIES = [
+export const COMMUNITIES = orderCommunities([
   {
     name: 'Kings Haven Apartments',
     addr: '410 S 2nd St',
@@ -53,7 +55,7 @@ export const COMMUNITIES = [
     note: 'Headquarters of Yellowstone Management. Walkable to downtown Alvin.',
     img: 'apartment exterior · brick + landscaping',
     gallery: [
-      '/images/kings-haven/mural-blue-pineapples.jpg',
+      '/images/kings-haven/mural-kings-haven-410.png',
       '/images/kings-haven/01-001-cmup.jpg',
       '/images/kings-haven/02-001-dard.jpg',
       '/images/kings-haven/03-001-p00q.jpg',
@@ -76,6 +78,7 @@ export const COMMUNITIES = [
     note: 'Two-story townhomes with private entries and 2.5 baths.',
     img: 'townhome row · two story',
     gallery: [
+      // Awaiting an approved Kings Manor mural source image; keep the current photo until supplied.
       '/images/kings-manor/mural-kings-manor.jpg',
       '/images/kings-manor/01-exterior-front.jpg',
       '/images/kings-manor/02-community-grounds.jpg',
@@ -127,7 +130,7 @@ export const COMMUNITIES = [
     price: 'from $900',
     note: 'Classic white-clad apartments on a quiet residential street.',
     img: 'white clapboard apartments',
-    gallery: ['/images/white-house/mural-white-house.png'],
+    gallery: whiteHouseGallery,
   },
   {
     name: 'The Royal Oaks Townhomes',
@@ -140,7 +143,7 @@ export const COMMUNITIES = [
     comingSoon: false,
     gallery: royalOaksGallery,
   },
-];
+]);
 
 export const FLOORPLANS = [
   { type: '1 Bed · 1 Bath', sqft: '600 sq ft', price: '$850 – $999', available: 2 },

@@ -7,13 +7,14 @@ import { COMMUNITIES, BUSINESS } from './data';
 // listing facts (name, address, price, gallery). This file *enriches* each
 // community with the extra fields a dedicated, crawlable property page needs:
 // a stable URL slug, geo coordinates, numeric beds/baths/sqft for schema, and
-// unique long-form local content. The two arrays are merged by position, so
-// keep ENRICH in the same order as COMMUNITIES.
+// unique long-form local content. Communities are matched by name + address so
+// display-order changes cannot attach the wrong URL or facts to a property.
 // ---------------------------------------------------------------------------
 
 export type PropertyType = 'Apartments' | 'Townhomes';
 
 type Enrichment = {
+  communityKey: string;
   slug: string;
   type: PropertyType;
   lat: number;
@@ -29,10 +30,10 @@ type Enrichment = {
   faqs: { q: string; a: string }[];
 };
 
-// Same order as COMMUNITIES in data.ts.
 const ENRICH: Enrichment[] = [
   // 0 — Kings Haven Apartments · 410 S 2nd St (flagship / office)
   {
+    communityKey: 'Kings Haven Apartments|410 S 2nd St',
     slug: 'kings-haven-apartments',
     type: 'Apartments',
     lat: 29.4208044,
@@ -63,6 +64,7 @@ const ENRICH: Enrichment[] = [
   },
   // 1 — Kings Manor Townhomes · 328 S 2nd St
   {
+    communityKey: 'Kings Manor Townhomes|328 S 2nd St',
     slug: 'kings-manor-townhomes',
     type: 'Townhomes',
     lat: 29.4213292,
@@ -93,6 +95,7 @@ const ENRICH: Enrichment[] = [
   },
   // 2 — Kings Haven Apartments · 100 S 2nd St (disambiguated)
   {
+    communityKey: 'Kings Haven Apartments|100 S 2nd St',
     slug: 'kings-haven-100-s-2nd-st',
     type: 'Apartments',
     lat: 29.423362,
@@ -122,6 +125,7 @@ const ENRICH: Enrichment[] = [
   },
   // 3 — French Quarter Residency · 2550 S Bypass 35
   {
+    communityKey: 'French Quarter Residency|2550 S Bypass 35',
     slug: 'french-quarter-residency',
     type: 'Apartments',
     lat: 29.40315,
@@ -152,6 +156,7 @@ const ENRICH: Enrichment[] = [
   },
   // 4 — The White House Apartments · 1606 W Sealy St
   {
+    communityKey: 'The White House Apartments|1606 W Sealy St',
     slug: 'the-white-house-apartments',
     type: 'Apartments',
     lat: 29.4234731,
@@ -181,6 +186,7 @@ const ENRICH: Enrichment[] = [
   },
   // 5 — The Royal Oaks Townhomes · 418 S Jackson St
   {
+    communityKey: 'The Royal Oaks Townhomes|418 S Jackson St',
     slug: 'the-royal-oaks-townhomes',
     type: 'Townhomes',
     lat: 29.4208186,
@@ -211,10 +217,14 @@ const ENRICH: Enrichment[] = [
 
 export type Property = (typeof COMMUNITIES)[number] & Enrichment;
 
-export const PROPERTIES: Property[] = COMMUNITIES.map((c, i) => ({
-  ...c,
-  ...ENRICH[i],
-}));
+const enrichmentByCommunity = new Map(ENRICH.map((entry) => [entry.communityKey, entry]));
+
+export const PROPERTIES: Property[] = COMMUNITIES.map((community) => {
+  const communityKey = `${community.name}|${community.addr}`;
+  const enrichment = enrichmentByCommunity.get(communityKey);
+  if (!enrichment) throw new Error(`Missing SEO enrichment for ${communityKey}`);
+  return { ...community, ...enrichment };
+});
 
 export function getPropertyBySlug(slug: string): Property | undefined {
   return PROPERTIES.find((p) => p.slug === slug);

@@ -23,29 +23,40 @@ export interface PropertyView {
   img?: string;
 }
 
-// Stable slugs matching the booking form ids where possible.
-const SLUGS = ['kings-haven', 'kings-manor', 'kings-haven-100', 'french-quarter', 'white-house', 'royal-oaks'];
+// Stable slugs matching the booking form ids where possible. Key by property
+// identity so changing the public display order never changes a property's URL.
+const SLUGS = new Map([
+  ['Kings Haven Apartments|410 S 2nd St', 'kings-haven'],
+  ['Kings Manor Townhomes|328 S 2nd St', 'kings-manor'],
+  ['Kings Haven Apartments|100 S 2nd St', 'kings-haven-100'],
+  ['French Quarter Residency|2550 S Bypass 35', 'french-quarter'],
+  ['The White House Apartments|1606 W Sealy St', 'white-house'],
+  ['The Royal Oaks Townhomes|418 S Jackson St', 'royal-oaks'],
+]);
 
 // Fallback data derived from the hardcoded COMMUNITIES. Used whenever the database
 // is empty or unreachable, so the public site never breaks.
-export const STATIC_PROPERTIES: PropertyView[] = COMMUNITIES.map((c, i) => ({
-  id: SLUGS[i] || `property-${i}`,
-  slug: SLUGS[i] || `property-${i}`,
-  name: c.name,
-  addr: c.addr,
-  tag: c.tag || '',
-  units: c.units || '',
-  price: c.price || '',
-  note: c.note || '',
-  gallery: c.gallery || [],
-  galleryManaged: false,
-  amenities: [],
-  availability: c.comingSoon ? 'Coming soon' : 'Available now',
-  featured: !c.comingSoon && i < 3,
-  published: true,
-  comingSoon: !!c.comingSoon,
-  img: c.img,
-}));
+export const STATIC_PROPERTIES: PropertyView[] = COMMUNITIES.map((c, i) => {
+  const slug = SLUGS.get(`${c.name}|${c.addr}`) || `property-${i}`;
+  return {
+    id: slug,
+    slug,
+    name: c.name,
+    addr: c.addr,
+    tag: c.tag || '',
+    units: c.units || '',
+    price: c.price || '',
+    note: c.note || '',
+    gallery: c.gallery || [],
+    galleryManaged: false,
+    amenities: [],
+    availability: c.comingSoon ? 'Coming soon' : 'Available now',
+    featured: !c.comingSoon && i < 3,
+    published: true,
+    comingSoon: !!c.comingSoon,
+    img: c.img,
+  };
+});
 
 function toView(p: {
   id: string; slug: string; name: string; addr: string; tag: string; units: string;
