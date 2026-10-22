@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import { formatCurrency, parsePricingSummary } from '@/lib/property-pricing';
 
 interface PropertyModalProps {
   open: boolean;
@@ -33,6 +34,7 @@ interface PropertyModalProps {
 export default function PropertyModal({ open, onClose, property, onBookTour, p, displayFont, locale = 'en' }: PropertyModalProps) {
   const [activeIdx, setActiveIdx] = useState(0);
   const gallery = property?.gallery || [];
+  const pricing = property ? parsePricingSummary(property.price) : undefined;
 
   const goNext = useCallback(() => {
     setActiveIdx((i) => (i + 1) % gallery.length);
@@ -124,7 +126,15 @@ export default function PropertyModal({ open, onClose, property, onBookTour, p, 
 
           <div style={{ display: 'flex', alignItems: 'baseline', gap: 24, flexWrap: 'wrap', marginBottom: 16 }}>
             <div style={{ fontSize: 15, color: p.inkSoft }}>{property.addr} · Alvin, TX</div>
-            <div style={{ fontFamily: `'${displayFont}', serif`, fontSize: 24, color: p.primary, fontWeight: 400 }}>{property.price}</div>
+            {pricing ? (
+              <div>
+                <div style={{ fontFamily: `'${displayFont}', serif`, fontSize: 24, color: p.primary, fontWeight: 400 }}>{formatCurrency(pricing.baseRent)} base rent</div>
+                <div style={{ fontSize: 12, color: p.inkSoft, marginTop: 3 }}>+ {formatCurrency(pricing.monthlyFees)} monthly fees · {formatCurrency(pricing.totalCharges)} total listed charges</div>
+                <div style={{ fontSize: 11.5, color: p.inkSoft, marginTop: 3 }}>Fees cover {pricing.feeIncludes.toLowerCase()}.</div>
+              </div>
+            ) : (
+              <div style={{ fontFamily: `'${displayFont}', serif`, fontSize: 24, color: p.primary, fontWeight: 400 }}>{property.price}</div>
+            )}
           </div>
 
           <p style={{ fontSize: 15, lineHeight: 1.6, color: p.inkSoft, margin: 0, maxWidth: '60ch' }}>{property.note}</p>

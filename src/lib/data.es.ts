@@ -25,7 +25,7 @@ export const COMMUNITIES = orderCommunities([
     addr: '410 S 2nd St',
     tag: 'Insignia · Oficina en sitio',
     units: '2 Rec · 1 Baño · 850 ft²',
-    price: 'desde $890',
+    price: '$1,050 renta base + $160 cuotas · $1,210 total',
     note: 'Sede de Yellowstone Management. A pie del centro de Alvin.',
     img: 'exterior de apartamentos · ladrillo + jardinería',
     gallery: [
@@ -91,7 +91,7 @@ export const COMMUNITIES = orderCommunities([
     addr: '2550 S Bypass 35',
     tag: 'Apartamentos',
     units: '2 Rec · 1 Baño · 850 ft²',
-    price: 'desde $950',
+    price: '$1,079 renta base + $110 cuotas · $1,189 total',
     note: 'Comunidad más grande a lo largo de la autopista con amplio estacionamiento.',
     img: 'apartamentos con patio · hierro forjado',
     gallery: frenchQuarterGallery,
@@ -111,7 +111,7 @@ export const COMMUNITIES = orderCommunities([
     addr: '418 S Jackson St',
     tag: 'Townhome',
     units: '2 Rec · 2 Baño · 1,150 ft²',
-    price: 'desde $1,350',
+    price: '$1,350 renta base + $160 cuotas · $1,510 total',
     note: 'Townhomes espaciosos bajo dosel de robles maduros.',
     img: 'townhomes · dosel de roble',
     comingSoon: false,
@@ -164,20 +164,20 @@ export const FAQS = [
 ];
 
 export const AVAILABILITY = [
-  { property: 'Kings Haven', addr: '410 S 2nd', type: '2 Rec · 1 Baño', sqft: 850, price: 925, ready: 'Disponible ahora', featured: true },
-  { property: 'French Quarter', addr: '2550 S Bypass 35', type: '2 Rec · 1 Baño', sqft: 850, price: 950, ready: 'Disponible ahora', featured: true },
+  { property: 'Kings Haven', addr: '410 S 2nd', type: '2 Rec · 1 Baño', sqft: 850, price: 1050, ready: 'Disponible ahora', featured: true },
+  { property: 'French Quarter', addr: '2550 S Bypass 35', type: '2 Rec · 1 Baño', sqft: 850, price: 1079, ready: 'Disponible ahora', featured: true },
   { property: 'White House', addr: '1606 W Sealy', type: '2 Rec · 1 Baño', sqft: 850, price: 925, ready: 'Disponible ahora', featured: true },
   { property: 'Kings Manor', addr: '328 S 2nd', type: '3 Rec · 2.5 Baños', sqft: 1250, price: 1595, ready: 'Disponible ahora', featured: false },
   { property: 'Kings Haven (100)', addr: '100 S 2nd', type: '1 Rec · 1 Baño', sqft: 600, price: 850, ready: 'Disponible ahora', featured: false },
-  { property: 'Royal Oaks', addr: '418 S Jackson', type: '2 Rec · 2 Baños', sqft: 1150, price: 1395, ready: 'Disponible ahora', featured: false },
+  { property: 'Royal Oaks', addr: '418 S Jackson', type: '2 Rec · 2 Baños', sqft: 1150, price: 1350, ready: 'Disponible ahora', featured: false },
 ];
 
 export const BOOKING_PROPERTIES = [
-  { id: 'kings-haven', name: 'Kings Haven', addr: '410 S 2nd St', bed: '2 Rec · 1 Baño', price: '$925' },
+  { id: 'kings-haven', name: 'Kings Haven', addr: '410 S 2nd St', bed: '2 Rec · 1 Baño', price: '$1,050' },
   { id: 'kings-manor', name: 'Kings Manor', addr: '328 S 2nd St', bed: '3 Rec · 2.5 Baños', price: '$1,595' },
   { id: 'kings-haven-100', name: 'Kings Haven (100)', addr: '100 S 2nd St', bed: '1 Rec · 1 Baño', price: '$850' },
-  { id: 'french-quarter', name: 'French Quarter', addr: '2550 S Bypass 35', bed: '2 Rec · 1 Baño', price: '$950' },
+  { id: 'french-quarter', name: 'French Quarter', addr: '2550 S Bypass 35', bed: '2 Rec · 1 Baño', price: '$1,079' },
   { id: 'white-house', name: 'White House', addr: '1606 W Sealy', bed: '2 Rec · 1 Baño', price: '$925' },
-  { id: 'royal-oaks', name: 'Royal Oaks', addr: '418 S Jackson', bed: '2 Rec · 2 Baños', price: '$1,395' },
+  { id: 'royal-oaks', name: 'Royal Oaks', addr: '418 S Jackson', bed: '2 Rec · 2 Baños', price: '$1,350' },
   { id: 'any', name: 'No estoy seguro todavía', addr: 'Le mostraremos algunas opciones', bed: 'Mixto', price: '—' },
 ];

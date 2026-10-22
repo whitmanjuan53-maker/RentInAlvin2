@@ -9,6 +9,7 @@ import PropertyModal from '@/components/PropertyModal';
 import dynamic from 'next/dynamic';
 const AlvinMap = dynamic(() => import('@/components/AlvinMap'), { ssr: false });
 import { PALETTES, COMMUNITIES, FLOORPLANS, FAQS, AVAILABILITY } from '@/lib/data';
+import { formatCurrency, getPropertyPricing, parsePricingSummary } from '@/lib/property-pricing';
 
 const p = PALETTES.forest;
 const displayFont = 'Instrument Serif';
@@ -81,6 +82,7 @@ function CommunityCard({ prop, idx, onOpen }: { prop: (typeof COMMUNITIES)[0]; i
   const [hover, setHover] = useState(false);
   const [slide, setSlide] = useState(0);
   const gallery = prop.gallery || [];
+  const pricing = parsePricingSummary(prop.price);
 
   useEffect(() => {
     if (gallery.length <= 1) return;
@@ -134,7 +136,14 @@ function CommunityCard({ prop, idx, onOpen }: { prop: (typeof COMMUNITIES)[0]; i
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', paddingTop: 14, borderTop: `1px solid ${p.line}` }}>
           <div>
             <div style={{ fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 500 }}>{prop.units}</div>
-            <div style={{ fontFamily: "'Instrument Serif', serif", fontSize: 22, color: p.primary, marginTop: 2 }}>{prop.price}</div>
+            {pricing ? (
+              <div style={{ marginTop: 5 }}>
+                <div style={{ fontFamily: "'Instrument Serif', serif", fontSize: 22, color: p.primary }}>{formatCurrency(pricing.baseRent)} base rent</div>
+                <div style={{ fontSize: 11.5, color: p.inkSoft, marginTop: 2 }}>+ {formatCurrency(pricing.monthlyFees)} fees · {formatCurrency(pricing.totalCharges)} total listed charges</div>
+              </div>
+            ) : (
+              <div style={{ fontFamily: "'Instrument Serif', serif", fontSize: 22, color: p.primary, marginTop: 2 }}>{prop.price}</div>
+            )}
           </div>
           {prop.comingSoon ? (
             <span style={{ fontSize: 13, fontWeight: 600, color: p.inkSoft }}>Coming Soon</span>
@@ -374,7 +383,17 @@ function Availability() {
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', paddingTop: 14, borderTop: `1px solid ${p.line}`, marginTop: 'auto' }}>
                 <div>
-                  <div style={{ fontFamily: `'${displayFont}', serif`, fontSize: 28, color: u.ready.includes('Coming soon') ? p.inkSoft : p.primary, fontWeight: 400 }}>${u.price.toLocaleString()}<span style={{ fontSize: 13, color: p.inkSoft, fontFamily: 'Inter, sans-serif' }}>/mo</span></div>
+                  {(() => {
+                    const pricing = getPropertyPricing({ property: u.property });
+                    return pricing ? (
+                      <>
+                        <div style={{ fontFamily: `'${displayFont}', serif`, fontSize: 28, color: u.ready.includes('Coming soon') ? p.inkSoft : p.primary, fontWeight: 400 }}>{formatCurrency(pricing.baseRent)}<span style={{ fontSize: 13, color: p.inkSoft, fontFamily: 'Inter, sans-serif' }}> base rent</span></div>
+                        <div style={{ fontSize: 11, color: p.inkSoft, marginTop: 2 }}>+ {formatCurrency(pricing.monthlyFees)} monthly fees · {formatCurrency(pricing.totalCharges)} total</div>
+                      </>
+                    ) : (
+                      <div style={{ fontFamily: `'${displayFont}', serif`, fontSize: 28, color: u.ready.includes('Coming soon') ? p.inkSoft : p.primary, fontWeight: 400 }}>${u.price.toLocaleString()}<span style={{ fontSize: 13, color: p.inkSoft, fontFamily: 'Inter, sans-serif' }}>/mo</span></div>
+                    );
+                  })()}
                   <div style={{ fontSize: 11, color: u.ready.includes('now') ? '#16a34a' : u.ready.includes('Coming soon') ? p.accent : p.inkSoft, marginTop: 2, fontWeight: 500 }}>{u.ready}</div>
                 </div>
                 {u.ready.includes('Coming soon') ? (

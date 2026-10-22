@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
+import { formatCurrency, getPropertyPricing } from '@/lib/property-pricing';
 
 const TIME_SLOTS = ['9:00 AM', '10:00 AM', '11:00 AM', '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM'];
 
@@ -28,12 +29,12 @@ function isoDate(d: Date) {
 }
 
 const BOOKING_PROPERTIES = [
-  { id: 'kings-haven', name: 'Kings Haven', addr: '410 S 2nd St', bed: '2BR · 1BA', price: '$925' },
+  { id: 'kings-haven', name: 'Kings Haven', addr: '410 S 2nd St', bed: '2BR · 1BA', price: '$1,050' },
   { id: 'kings-manor', name: 'Kings Manor', addr: '328 S 2nd St', bed: '3BR · 2.5BA', price: '$1,595' },
   { id: 'kings-haven-100', name: 'Kings Haven (100)', addr: '100 S 2nd St', bed: '1BR · 1BA', price: '$850' },
-  { id: 'french-quarter', name: 'French Quarter', addr: '2550 S Bypass 35', bed: '2BR · 1BA', price: '$950' },
+  { id: 'french-quarter', name: 'French Quarter', addr: '2550 S Bypass 35', bed: '2BR · 1BA', price: '$1,079' },
   { id: 'white-house', name: 'White House', addr: '1606 W Sealy', bed: '2BR · 1BA', price: '$925' },
-  { id: 'royal-oaks', name: 'Royal Oaks', addr: '418 S Jackson', bed: '2BR · 2BA', price: '$1,395', comingSoon: false },
+  { id: 'royal-oaks', name: 'Royal Oaks', addr: '418 S Jackson', bed: '2BR · 2BA', price: '$1,350', comingSoon: false },
   { id: 'any', name: "I'm not sure yet", addr: "We'll show you a few options", bed: 'Mixed', price: '—' },
 ];
 
@@ -398,6 +399,11 @@ export default function TourBooking({
                     <div style={{ fontSize: 12, color: p.inkSoft, marginTop: 2 }}>
                       {b.addr} · {b.bed}
                     </div>
+                    {getPropertyPricing({ name: b.name }) && (
+                      <div style={{ fontSize: 10.5, color: p.inkSoft, marginTop: 3 }}>
+                        + {formatCurrency(getPropertyPricing({ name: b.name })!.monthlyFees)} fees · {formatCurrency(getPropertyPricing({ name: b.name })!.totalCharges)} total listed charges
+                      </div>
+                    )}
                   </div>
                   <div
                     style={{
@@ -407,7 +413,7 @@ export default function TourBooking({
                       fontStyle: 'italic',
                     }}
                   >
-                    {(b as any).comingSoon ? '—' : b.price}
+                    {(b as any).comingSoon ? '—' : `${b.price} base`}
                   </div>
                 </button>
               ))}

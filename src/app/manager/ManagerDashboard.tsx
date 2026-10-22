@@ -2,6 +2,7 @@
 
 import { useState, useRef } from 'react';
 import { useRouter } from 'next/navigation';
+import { PROPERTY_ANNOUNCEMENTS } from '@/lib/announcements';
 
 interface Property {
   id: string;
@@ -75,6 +76,41 @@ export default function ManagerDashboard({
             Photo uploads aren&apos;t turned on yet. You can still reorder and remove existing photos and edit everything else. To enable uploading new photos, a Blob store needs to be created in Vercel.
           </div>
         )}
+
+        <section aria-labelledby="promotions-heading" style={{ background: c.card, border: `1px solid ${c.line}`, borderRadius: 10, padding: '18px', marginTop: 18 }}>
+          <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: 16, flexWrap: 'wrap' }}>
+            <div>
+              <div style={{ fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: c.accent, fontWeight: 700 }}>Website content</div>
+              <h2 id="promotions-heading" style={{ fontSize: 19, color: c.green, margin: '4px 0 0' }}>Promotions &amp; Announcements</h2>
+            </div>
+            <span style={{ fontSize: 11, fontWeight: 700, color: '#7a4a1e', background: '#fff7ec', border: `1px solid ${c.accent}`, borderRadius: 999, padding: '5px 9px' }}>READ-ONLY</span>
+          </div>
+          <p style={{ fontSize: 13, lineHeight: 1.55, color: c.soft, margin: '10px 0 14px' }}>
+            The current website database has no compatible announcement storage. These live promotions can be previewed here, but editing, publishing, or deleting them would require a separately approved data-model and API change.
+          </p>
+          <div style={{ display: 'grid', gap: 10 }}>
+            {PROPERTY_ANNOUNCEMENTS.map((announcement) => (
+              <div key={announcement.id} style={{ border: `1px solid ${c.line}`, borderRadius: 8, padding: '12px 14px', background: c.field }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', gap: 12, alignItems: 'flex-start', flexWrap: 'wrap' }}>
+                  <div style={{ minWidth: 0 }}>
+                    <div style={{ fontSize: 11, textTransform: 'uppercase', letterSpacing: '0.08em', color: c.accent, fontWeight: 700 }}>{announcement.type.replace('-', ' ')}</div>
+                    <div style={{ fontSize: 14, fontWeight: 700, color: c.ink, marginTop: 3 }}>{announcement.title}</div>
+                    <div style={{ fontSize: 12, color: c.soft, marginTop: 5 }}>
+                      {announcement.propertySlugs.map((slug) => properties.find((property) => property.slug === slug.replace('-apartments', '').replace('the-', '').replace('-townhomes', '').replace('-residency', ''))?.name || slug).join(' · ')}
+                    </div>
+                    {(announcement.dateLabel || announcement.timeLabel) && (
+                      <div style={{ fontSize: 12, color: c.green, fontWeight: 600, marginTop: 5 }}>{[announcement.dateLabel, announcement.timeLabel].filter(Boolean).join(' · ')}</div>
+                    )}
+                    {announcement.endsAt && <div style={{ fontSize: 11.5, color: c.soft, marginTop: 4 }}>Automatically hidden after the scheduled end time.</div>}
+                  </div>
+                  <a href={`/communities/${announcement.propertySlugs[0]}`} target="_blank" rel="noopener" style={{ padding: '7px 10px', fontSize: 12, fontWeight: 600, color: c.green, border: `1px solid ${c.line}`, borderRadius: 6, textDecoration: 'none', background: '#fff' }}>
+                    Preview ↗
+                  </a>
+                </div>
+              </div>
+            ))}
+          </div>
+        </section>
 
         <nav aria-label="Jump to a property" style={{ display: 'flex', gap: 8, flexWrap: 'wrap', marginTop: 18 }}>
           {properties.map((property) => (
@@ -233,8 +269,9 @@ function PropertyCard({ property, blobConfigured }: { property: Property; blobCo
               <input style={input} value={form.addr} onChange={(e) => set('addr', e.target.value)} />
             </div>
             <div>
-              <label style={label}>Starting price</label>
-              <input style={input} value={form.price} onChange={(e) => set('price', e.target.value)} placeholder="from $890" />
+              <label style={label}>Pricing summary</label>
+              <input style={input} value={form.price} onChange={(e) => set('price', e.target.value)} placeholder="$1,050 base rent + $160 monthly fees · $1,210 total listed charges" />
+              <div style={{ fontSize: 11, color: c.soft, marginTop: 5, lineHeight: 1.4 }}>For fee-based listings, keep base rent, monthly fees, and total listed charges separate.</div>
             </div>
             <div>
               <label style={label}>Availability</label>

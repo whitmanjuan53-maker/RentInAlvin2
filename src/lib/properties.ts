@@ -2,6 +2,7 @@ import { prisma, isDbReady } from './db';
 import { COMMUNITIES } from './data';
 import { orderCommunities } from './community-order';
 import { resolvePropertyGallery } from './property-gallery';
+import { formatPricingSummary, getPropertyPricing } from './property-pricing';
 
 // A property in the shape the public pages already expect (COMMUNITIES-compatible),
 // plus the fields the manager dashboard edits.
@@ -101,6 +102,19 @@ function withCanonicalGallery(view: PropertyView): PropertyView {
     : view;
 }
 
+const LEGACY_PRICES: Record<string, string[]> = {
+  'kings-haven': ['from $890', 'from $925', '$925', 'from $1,050', '$1,050'],
+  'royal-oaks': ['from $1,350', 'from $1,395', '$1,395', '$1,350'],
+  'french-quarter': ['from $950', '$950', 'from $1,079', '$1,079'],
+};
+
+function withCurrentPricing(view: PropertyView): PropertyView {
+  const pricing = getPropertyPricing({ name: view.name, addr: view.addr });
+  const legacy = LEGACY_PRICES[view.slug];
+  if (!pricing || !legacy?.includes(view.price.trim())) return view;
+  return { ...view, price: formatPricingSummary(pricing) };
+}
+
 // Public read: database first, static fallback on empty/error. Only published rows.
 export async function getProperties(): Promise<PropertyView[]> {
   if (!isDbReady() || !prisma) return STATIC_PROPERTIES;
@@ -108,7 +122,7 @@ export async function getProperties(): Promise<PropertyView[]> {
     const rows = await prisma.property.findMany({ orderBy: { sortOrder: 'asc' } });
     if (rows.length === 0) return STATIC_PROPERTIES;
     return orderCommunities(
-      rows.filter((r) => r.published).map((row) => withCanonicalGallery(toView(row))),
+      rows.filter((r) => r.published).map((row) => withCurrentPricing(withCanonicalGallery(toView(row)))),
     );
   } catch {
     console.warn('[PROPERTIES] DB read unavailable, using built-in property list.');
@@ -127,7 +141,7 @@ export async function getAllPropertiesForAdmin(): Promise<PropertyView[]> {
     // The manager sees the same effective gallery as the public site. Legacy
     // rows receive the committed baseline; manager-controlled rows retain the
     // exact saved order.
-    return rows.map((row) => withCanonicalGallery(toView(row)));
+    return rows.map((row) => withCurrentPricing(withCanonicalGallery(toView(row))));
   } catch {
     console.warn('[PROPERTIES] DB read unavailable, using built-in property list.');
     return STATIC_PROPERTIES;

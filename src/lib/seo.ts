@@ -41,7 +41,7 @@ const ENRICH: Enrichment[] = [
     beds: 2,
     baths: 1,
     sqft: 850,
-    priceFrom: 890,
+    priceFrom: 1050,
     neighborhood: 'Downtown Alvin',
     amenities: [
       'On-site leasing office',
@@ -54,10 +54,10 @@ const ENRICH: Enrichment[] = [
     paragraphs: [
       'Kings Haven Apartments at 410 S 2nd Street is the flagship community of Yellowstone Asset Management and home to our on-site leasing office in Alvin, Texas. Each two-bedroom, one-bath apartment offers roughly 850 square feet of comfortable, move-in-ready living space with renovated interiors and at least one assigned parking spot. Because our office is right here, maintenance and leasing questions are answered by a local team that knows the building.',
       'The location is one of the most walkable in Alvin. You are just a couple of blocks from downtown Alvin, City Hall, the Alvin Farmers Market, and the shops and restaurants along Gordon Street, with quick access to TX-35 and Highway 6 for the commute toward Pearland, the Texas Medical Center, and the NASA / Clear Lake area. Alvin Community College is a short drive away, making this a practical home base for students and staff.',
-      'Kings Haven apartments are zoned to Alvin ISD. Rent starts from $890/month and availability is updated weekly. Water and trash are billed separately, and most units welcome cats and dogs under 50 lbs. To see a unit, call our office at (832) 210-3968 or schedule a tour online — we typically decide applications within 48 hours.',
+      'Kings Haven apartments are zoned to Alvin ISD. Base rent starts at $1,050/month, plus $160 in monthly fees covering water, trash, sewer, and pest control, for $1,210 in total listed monthly charges. Most units welcome cats and dogs under 50 lbs. To see a unit, call our office at (832) 210-3968 or schedule a tour online — we typically decide applications within 48 hours.',
     ],
     faqs: [
-      { q: 'How much is rent at Kings Haven Apartments in Alvin?', a: 'Two-bedroom, one-bath apartments at 410 S 2nd St start from $890/month. Pricing depends on the specific unit and current availability — call (832) 210-3968 for today’s openings.' },
+      { q: 'How much is rent at Kings Haven Apartments in Alvin?', a: 'Base rent for a two-bedroom, one-bath apartment at 410 S 2nd St starts at $1,050/month. Monthly fees are $160 and cover water, trash, sewer, and pest control, for $1,210 in total listed monthly charges.' },
       { q: 'Is the leasing office at Kings Haven?', a: 'Yes. 410 S 2nd Street is our flagship community and the on-site home of Yellowstone Asset Management’s leasing office, so tours and applications are handled right here.' },
       { q: 'Is Kings Haven close to downtown Alvin?', a: 'Yes — it sits a couple of blocks from downtown Alvin and is walkable to City Hall, local shops, and the farmers market, with fast access to TX-35 and Hwy 6.' },
     ],
@@ -133,7 +133,7 @@ const ENRICH: Enrichment[] = [
     beds: 2,
     baths: 1,
     sqft: 850,
-    priceFrom: 950,
+    priceFrom: 1079,
     neighborhood: 'South Bypass 35',
     amenities: [
       'On-site laundry',
@@ -144,13 +144,13 @@ const ENRICH: Enrichment[] = [
       'Quick TX-35 access',
     ],
     paragraphs: [
-      'French Quarter Residency at 2550 S Bypass 35 is one of our larger Alvin communities, set along the South Bypass 35 corridor with ample parking and quick highway access. Two-bedroom, one-bath apartments offer about 850 square feet of updated living space from $950/month, with both classic and renovated kitchen finishes available.',
+      'French Quarter Residency at 2550 S Bypass 35 is one of our larger Alvin communities, set along the South Bypass 35 corridor with ample parking and quick highway access. Two-bedroom, one-bath apartments offer about 850 square feet of updated living space with base rent from $1,079/month, plus $110 in monthly fees covering water, trash, sewer, and pest control, for $1,189 in total listed monthly charges.',
       'This community is built for convenience. It includes on-site laundry plus a shared BBQ and picnic area, and its position right on Bypass 35 makes the drive toward Pearland, Manvel, and Houston straightforward. Everyday shopping, groceries, and dining along the bypass are just minutes away, and Alvin Community College and downtown Alvin are a short drive north.',
       'French Quarter is managed by Yellowstone Asset Management’s local team and zoned to Alvin ISD. Assigned parking is included with every unit, water and trash are billed separately, and most homes welcome cats and dogs under 50 lbs. Call (832) 210-3968 or schedule a tour online to see what’s available now.',
     ],
     faqs: [
       { q: 'Does French Quarter Residency have on-site laundry?', a: 'Yes. French Quarter includes on-site laundry along with a shared BBQ and picnic area, plus ample parking — it’s one of our larger Alvin communities.' },
-      { q: 'How much is rent at French Quarter in Alvin?', a: 'Two-bedroom, one-bath apartments at 2550 S Bypass 35 start from $950/month. Call (832) 210-3968 for current availability.' },
+      { q: 'How much is rent at French Quarter in Alvin?', a: 'Base rent for a two-bedroom, one-bath apartment at 2550 S Bypass 35 starts at $1,079/month. Monthly fees are $110 and cover water, trash, sewer, and pest control, for $1,189 in total listed monthly charges.' },
       { q: 'Is French Quarter easy to reach from the highway?', a: 'Yes — it sits directly on South Bypass 35 with ample parking, making the commute toward Pearland, Manvel, and Houston quick and simple.' },
     ],
   },
@@ -206,11 +206,11 @@ const ENRICH: Enrichment[] = [
     paragraphs: [
       'The Royal Oaks Townhomes at 418 S Jackson Street are spacious two-story townhomes set under a mature oak canopy in Alvin, Texas. Each two-bedroom, two-bath home offers about 1,150 square feet with a private entry and the room to spread out that a townhome provides. Contact our local leasing team for current availability and tours.',
       'The South Jackson Street location keeps you close to downtown Alvin, Alvin Community College, and TX-35, with a quick connection toward Pearland and Houston. Shaded streets and a residential setting make it an appealing option for renters who want a quieter, established part of Alvin.',
-      'Royal Oaks is leased and maintained by Yellowstone Asset Management’s local team and zoned to Alvin ISD, with assigned parking included. Townhomes start from $1,350/month. Call (832) 210-3968 or schedule a tour online for current availability.',
+      'Royal Oaks is leased and maintained by Yellowstone Asset Management’s local team and zoned to Alvin ISD, with assigned parking included. Base rent starts at $1,350/month, plus $160 in monthly fees covering water, trash, sewer, and pest control, for $1,510 in total listed monthly charges. Call (832) 210-3968 or schedule a tour online for current availability.',
     ],
     faqs: [
       { q: 'How can I check availability at The Royal Oaks Townhomes?', a: 'Call (832) 210-3968 or schedule a tour online for current availability at Royal Oaks, 418 S Jackson St.' },
-      { q: 'How big are the Royal Oaks townhomes?', a: 'Each two-story townhome is about 1,150 square feet with two bedrooms, two full bathrooms, and a private entry, starting from $1,350/month.' },
+      { q: 'How big are the Royal Oaks townhomes?', a: 'Each two-story townhome is about 1,150 square feet with two bedrooms, two full bathrooms, and a private entry. Base rent starts at $1,350/month, plus $160 in monthly fees, for $1,510 in total listed monthly charges.' },
     ],
   },
 ];

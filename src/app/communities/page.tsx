@@ -3,6 +3,7 @@ import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
 import { PALETTES } from '@/lib/data';
 import { PROPERTIES, altFromImage } from '@/lib/seo';
+import { formatCurrency, parsePricingSummary } from '@/lib/property-pricing';
 
 const p = PALETTES.forest;
 const displayFont = 'Instrument Serif';
@@ -85,7 +86,18 @@ export default function CommunitiesHub() {
                 </span>
                 <div style={{ fontFamily: `'${displayFont}', serif`, fontSize: 24, color: p.ink, lineHeight: 1.1, marginTop: 4 }}>{prop.name}</div>
                 <div style={{ fontSize: 13.5, color: p.inkSoft, marginTop: 6 }}>{prop.addr}, Alvin, TX 77511</div>
-                <div style={{ fontSize: 14, color: p.ink, marginTop: 8, fontWeight: 600 }}>{prop.units} · {prop.price}</div>
+                <div style={{ fontSize: 14, color: p.ink, marginTop: 8, fontWeight: 600 }}>{prop.units}</div>
+                {(() => {
+                  const pricing = parsePricingSummary(prop.price);
+                  return pricing ? (
+                    <div style={{ fontSize: 13, color: p.inkSoft, marginTop: 5, lineHeight: 1.45 }}>
+                      <strong style={{ color: p.primary }}>{formatCurrency(pricing.baseRent)} base rent</strong><br />
+                      + {formatCurrency(pricing.monthlyFees)} monthly fees · {formatCurrency(pricing.totalCharges)} total listed charges
+                    </div>
+                  ) : (
+                    <div style={{ fontSize: 14, color: p.ink, marginTop: 5, fontWeight: 600 }}>{prop.price}</div>
+                  );
+                })()}
               </div>
             </a>
           ))}

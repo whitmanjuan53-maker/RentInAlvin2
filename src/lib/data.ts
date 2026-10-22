@@ -51,7 +51,7 @@ export const COMMUNITIES = orderCommunities([
     addr: '410 S 2nd St',
     tag: 'Flagship · Office on-site',
     units: '2BR · 1BA · 850 sq ft',
-    price: 'from $890',
+    price: '$1,050 base rent + $160 monthly fees · $1,210 total listed charges',
     note: 'Headquarters of Yellowstone Management. Walkable to downtown Alvin.',
     img: 'apartment exterior · brick + landscaping',
     gallery: [
@@ -117,7 +117,7 @@ export const COMMUNITIES = orderCommunities([
     addr: '2550 S Bypass 35',
     tag: 'Apartments',
     units: '2BR · 1BA · 850 sq ft',
-    price: 'from $950',
+    price: '$1,079 base rent + $110 monthly fees · $1,189 total listed charges',
     note: 'Larger community along the bypass with ample parking.',
     img: 'courtyard apartments · wrought iron',
     gallery: frenchQuarterGallery,
@@ -137,7 +137,7 @@ export const COMMUNITIES = orderCommunities([
     addr: '418 S Jackson St',
     tag: 'Townhome',
     units: '2BR · 2BA · 1,150 sq ft',
-    price: 'from $1,350',
+    price: '$1,350 base rent + $160 monthly fees · $1,510 total listed charges',
     note: 'Spacious townhomes under mature oak canopy.',
     img: 'townhomes · oak canopy',
     comingSoon: false,
@@ -147,7 +147,7 @@ export const COMMUNITIES = orderCommunities([
 
 export const FLOORPLANS = [
   { type: '1 Bed · 1 Bath', sqft: '600 sq ft', price: '$850 – $999', available: 2 },
-  { type: '2 Bed · 1 Bath', sqft: '850 sq ft', price: '$900 – $975', available: 4 },
+  { type: '2 Bed · 1 Bath', sqft: '850 sq ft', price: '$900 – $1,079', available: 4 },
   { type: '2 Bed · 2 Bath', sqft: '1,150 sq ft', price: '$1,250 – $1,395', available: 3 },
   { type: '2 Bed · 2.5 Bath', sqft: '1,250 sq ft (townhome)', price: '$1,295 – $1,450', available: 2 },
   { type: '3 Bed · 2.5 Bath', sqft: '1,250 sq ft (townhome)', price: '$1,495 – $1,650', available: 1 },
@@ -190,20 +190,20 @@ export const FAQS = [
 ];
 
 export const AVAILABILITY = [
-  { property: 'Kings Haven', addr: '410 S 2nd', type: '2 Bed · 1 Bath', sqft: 850, price: 925, ready: 'Available now', featured: true },
-  { property: 'French Quarter', addr: '2550 S Bypass 35', type: '2 Bed · 1 Bath', sqft: 850, price: 950, ready: 'Available now', featured: true },
+  { property: 'Kings Haven', addr: '410 S 2nd', type: '2 Bed · 1 Bath', sqft: 850, price: 1050, ready: 'Available now', featured: true },
+  { property: 'French Quarter', addr: '2550 S Bypass 35', type: '2 Bed · 1 Bath', sqft: 850, price: 1079, ready: 'Available now', featured: true },
   { property: 'White House', addr: '1606 W Sealy', type: '2 Bed · 1 Bath', sqft: 850, price: 925, ready: 'Available now', featured: true },
   { property: 'Kings Manor', addr: '328 S 2nd', type: '3 Bed · 2.5 Bath', sqft: 1250, price: 1595, ready: 'Available now', featured: false },
   { property: 'Kings Haven (100)', addr: '100 S 2nd', type: '1 Bed · 1 Bath', sqft: 600, price: 850, ready: 'Available now', featured: false },
-  { property: 'Royal Oaks', addr: '418 S Jackson', type: '2 Bed · 2 Bath', sqft: 1150, price: 1395, ready: 'Available now', featured: false },
+  { property: 'Royal Oaks', addr: '418 S Jackson', type: '2 Bed · 2 Bath', sqft: 1150, price: 1350, ready: 'Available now', featured: false },
 ];
 
 export const BOOKING_PROPERTIES = [
-  { id: 'kings-haven', name: 'Kings Haven', addr: '410 S 2nd St', bed: '2BR · 1BA', price: '$925' },
+  { id: 'kings-haven', name: 'Kings Haven', addr: '410 S 2nd St', bed: '2BR · 1BA', price: '$1,050' },
   { id: 'kings-manor', name: 'Kings Manor', addr: '328 S 2nd St', bed: '3BR · 2.5BA', price: '$1,595' },
   { id: 'kings-haven-100', name: 'Kings Haven (100)', addr: '100 S 2nd St', bed: '1BR · 1BA', price: '$850' },
-  { id: 'french-quarter', name: 'French Quarter', addr: '2550 S Bypass 35', bed: '2BR · 1BA', price: '$950' },
+  { id: 'french-quarter', name: 'French Quarter', addr: '2550 S Bypass 35', bed: '2BR · 1BA', price: '$1,079' },
   { id: 'white-house', name: 'White House', addr: '1606 W Sealy', bed: '2BR · 1BA', price: '$925' },
-  { id: 'royal-oaks', name: 'Royal Oaks', addr: '418 S Jackson', bed: '2BR · 2BA', price: '$1,395' },
+  { id: 'royal-oaks', name: 'Royal Oaks', addr: '418 S Jackson', bed: '2BR · 2BA', price: '$1,350' },
   { id: 'any', name: "I'm not sure yet", addr: "We'll show you a few options", bed: 'Mixed', price: '—' },
 ];

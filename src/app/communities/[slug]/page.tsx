@@ -2,8 +2,11 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
+import PropertyAnnouncements from '@/components/PropertyAnnouncements';
 import { PALETTES, BUSINESS } from '@/lib/data';
 import { PROPERTIES, getPropertyBySlug, fullAddress, altFromImage, type Property } from '@/lib/seo';
+import { getAnnouncementsForProperty } from '@/lib/announcements';
+import { formatCurrency, getPropertyPricing } from '@/lib/property-pricing';
 
 const p = PALETTES.forest;
 const displayFont = 'Instrument Serif';
@@ -122,6 +125,8 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
   const para: React.CSSProperties = { fontSize: 16.5, lineHeight: 1.75, color: p.inkSoft, marginBottom: 16 };
   const h2: React.CSSProperties = { fontFamily: `'${displayFont}', serif`, fontSize: 'clamp(26px, 3.5vw, 34px)', color: p.ink, fontWeight: 400, margin: '44px 0 16px' };
   const mapsHref = `https://maps.google.com/?q=${encodeURIComponent(fullAddress(prop))}`;
+  const pricing = getPropertyPricing({ name: prop.name, addr: prop.addr });
+  const announcements = getAnnouncementsForProperty(slug);
 
   return (
     <div style={{ background: p.bg, minHeight: '100vh' }}>
@@ -153,13 +158,19 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
           </a>
         </p>
 
+        <PropertyAnnouncements announcements={announcements} />
+
         {/* Fast-facts summary block (AI / featured-snippet friendly) */}
         <dl style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: 1, background: p.line, border: `1px solid ${p.line}`, borderRadius: 12, overflow: 'hidden', margin: '28px 0 8px' }}>
           {[
             ['Type', prop.type],
             ['Layout', `${prop.beds} bd · ${prop.baths} ba`],
             ['Size', `~${prop.sqft.toLocaleString()} sq ft`],
-            ['Rent', prop.comingSoon ? 'Coming soon' : `from $${prop.priceFrom.toLocaleString()}`],
+            ['Base rent', prop.comingSoon ? 'Coming soon' : pricing ? formatCurrency(pricing.baseRent) : `from $${prop.priceFrom.toLocaleString()}`],
+            ...(pricing ? [
+              ['Monthly fees', formatCurrency(pricing.monthlyFees)],
+              ['Total listed charges', formatCurrency(pricing.totalCharges)],
+            ] : []),
             ['Area', prop.neighborhood],
           ].map(([k, v]) => (
             <div key={k} style={{ background: p.paper, padding: '14px 16px' }}>
@@ -168,6 +179,11 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
             </div>
           ))}
         </dl>
+        {pricing && (
+          <p style={{ fontSize: 12.5, color: p.inkSoft, lineHeight: 1.55, margin: '10px 2px 0' }}>
+            Monthly fees cover {pricing.feeIncludes.toLowerCase()}. Other usage-based or optional charges may apply; ask the leasing team for details.
+          </p>
+        )}
 
         {/* Gallery */}
         {prop.gallery && prop.gallery.length > 0 && (
