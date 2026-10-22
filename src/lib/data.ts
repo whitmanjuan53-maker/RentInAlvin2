@@ -173,7 +173,7 @@ export const FAQS = [
   },
   {
     q: "What's included in rent?",
-    a: 'Water and trash are not included at all six communities. Electric and internet are billed by the resident directly.',
+    a: 'At Kings Haven (410 S 2nd), French Quarter, and Royal Oaks, the listed monthly fees cover water, trash, sewer, and pest control. Electric, internet, optional services, and any other applicable charges are separate. Ask the leasing team for the complete charges for your selected home.',
   },
   {
     q: 'How do I submit a maintenance request?',

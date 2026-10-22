@@ -2,10 +2,8 @@ import type { Metadata } from 'next';
 import { notFound } from 'next/navigation';
 import Nav from '@/components/Nav';
 import Footer from '@/components/Footer';
-import PropertyAnnouncements from '@/components/PropertyAnnouncements';
 import { PALETTES, BUSINESS } from '@/lib/data';
 import { PROPERTIES, getPropertyBySlug, fullAddress, altFromImage, type Property } from '@/lib/seo';
-import { getAnnouncementsForProperty } from '@/lib/announcements';
 import { formatCurrency, getPropertyPricing } from '@/lib/property-pricing';
 
 const p = PALETTES.forest;
@@ -126,7 +124,6 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
   const h2: React.CSSProperties = { fontFamily: `'${displayFont}', serif`, fontSize: 'clamp(26px, 3.5vw, 34px)', color: p.ink, fontWeight: 400, margin: '44px 0 16px' };
   const mapsHref = `https://maps.google.com/?q=${encodeURIComponent(fullAddress(prop))}`;
   const pricing = getPropertyPricing({ name: prop.name, addr: prop.addr });
-  const announcements = getAnnouncementsForProperty(slug);
 
   return (
     <div style={{ background: p.bg, minHeight: '100vh' }}>
@@ -157,8 +154,6 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
             {fullAddress(prop)}
           </a>
         </p>
-
-        <PropertyAnnouncements announcements={announcements} />
 
         {/* Fast-facts summary block (AI / featured-snippet friendly) */}
         <dl style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(130px, 1fr))', gap: 1, background: p.line, border: `1px solid ${p.line}`, borderRadius: 12, overflow: 'hidden', margin: '28px 0 8px' }}>

@@ -340,3 +340,8 @@ textarea:focus {
 body.modal-open {
   overflow: hidden;
 }
+@media (min-width: 901px) {
+  .ys-promo-copy {
+    padding-right: 150px;
+  }
+}

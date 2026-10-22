@@ -9,6 +9,7 @@ import PropertyModal from '@/components/PropertyModal';
 import dynamic from 'next/dynamic';
 const AlvinMap = dynamic(() => import('@/components/AlvinMap'), { ssr: false });
 import { PALETTES, COMMUNITIES, FLOORPLANS, FAQS, AVAILABILITY } from '@/lib/data';
+import { PROPERTY_ANNOUNCEMENTS, isAnnouncementActive, type PropertyAnnouncement } from '@/lib/announcements';
 import { formatCurrency, getPropertyPricing, parsePricingSummary } from '@/lib/property-pricing';
 
 const p = PALETTES.forest;
@@ -75,6 +76,101 @@ function Hero() {
         ))}
       </div>
     </section>
+  );
+}
+
+function Promotions() {
+  const [announcements, setAnnouncements] = useState<PropertyAnnouncement[]>([]);
+
+  useEffect(() => {
+    const refresh = () => setAnnouncements(PROPERTY_ANNOUNCEMENTS.filter((announcement) => isAnnouncementActive(announcement)));
+    refresh();
+    const timer = window.setInterval(refresh, 60_000);
+    return () => window.clearInterval(timer);
+  }, []);
+
+  if (announcements.length === 0) return null;
+
+  return (
+    <section id="promotions" style={{ padding: 'var(--pad-x-lg) var(--pad-x)', background: p.paper, scrollMarginTop: 84 }}>
+      <div style={{ maxWidth: 1400, margin: '0 auto' }}>
+        <SectionHead
+          eyebrow="Promotions · Announcements"
+          title="A good time to find your next home."
+          lead="Current leasing events and offers from Yellowstone Asset Management, all in one place."
+        />
+        <div style={{ borderBottom: `1px solid ${p.line}` }}>
+          {announcements.map((announcement) => {
+            const openHouse = announcement.type === 'open-house';
+            return (
+              <article key={announcement.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 28, padding: '30px 0', borderTop: `1px solid ${p.line}` }}>
+                <div className="ys-promo-copy" style={{ flex: '1 1 580px', minWidth: 0 }}>
+                  <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.accent, fontWeight: 600, marginBottom: 10 }}>
+                    {openHouse ? 'Open house · Kings Haven' : 'Move-in special · Select communities'}
+                  </div>
+                  <h3 style={{ fontFamily: `'${displayFont}', serif`, fontSize: 'clamp(27px, 3.4vw, 42px)', lineHeight: 1.08, letterSpacing: '-0.01em', color: p.ink, fontWeight: 400, margin: 0 }}>
+                    {announcement.title}
+                  </h3>
+                  {(announcement.dateLabel || announcement.timeLabel) && (
+                    <div style={{ fontSize: 15, color: p.primary, fontWeight: 700, marginTop: 10 }}>
+                      {[announcement.dateLabel, announcement.timeLabel].filter(Boolean).join(' · ')}
+                    </div>
+                  )}
+                  <p style={{ maxWidth: '70ch', fontSize: 14.5, color: p.inkSoft, lineHeight: 1.6, margin: '10px 0 0' }}>
+                    {announcement.message}
+                    {!openHouse && ' Available at Kings Haven, French Quarter, and Royal Oaks.'}
+                  </p>
+                </div>
+                <div style={{ display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap', flex: '1 1 100%' }}>
+                  {openHouse && (
+                    <a href="/communities/kings-haven-apartments" style={{ padding: '12px 18px', color: p.ink, border: `1px solid ${p.ink}`, borderRadius: 4, textDecoration: 'none', fontSize: 13, fontWeight: 600 }}>
+                      View Kings Haven
+                    </a>
+                  )}
+                  <button
+                    type="button"
+                    onClick={() => {
+                      if (openHouse && typeof window !== 'undefined' && (window as any).__openBooking) {
+                        (window as any).__openBooking('kings-haven');
+                        return;
+                      }
+                      document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
+                    }}
+                    style={{ padding: '13px 20px', background: p.primary, color: p.paper, border: 'none', borderRadius: 4, fontFamily: 'inherit', fontSize: 13, fontWeight: 700, cursor: 'pointer' }}
+                  >
+                    {announcement.ctaLabel || 'Contact leasing'} →
+                  </button>
+                </div>
+              </article>
+            );
+          })}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+function PromotionStrip() {
+  const [featured, setFeatured] = useState<PropertyAnnouncement | null>(null);
+
+  useEffect(() => {
+    const refresh = () => setFeatured(PROPERTY_ANNOUNCEMENTS.find((announcement) => isAnnouncementActive(announcement)) || null);
+    refresh();
+    const timer = window.setInterval(refresh, 60_000);
+    return () => window.clearInterval(timer);
+  }, []);
+
+  if (!featured) return null;
+  const openHouse = featured.type === 'open-house';
+
+  return (
+    <div style={{ padding: '20px var(--pad-x)', background: p.ink, color: p.paper, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16, flexWrap: 'wrap', fontSize: 14 }}>
+      <span style={{ opacity: 0.85 }}>
+        <strong style={{ color: p.paper }}>{openHouse ? 'Open House this Saturday' : '$300 deposit + $700 off second month’s rent'}</strong>
+        {openHouse ? ' · 1:00–4:00 PM at Kings Haven' : ' · Select communities'}
+      </span>
+      <a href="#promotions" style={{ color: p.accent, fontWeight: 600, textDecoration: 'none' }}>View current promotions ↓</a>
+    </div>
   );
 }
 
@@ -771,10 +867,8 @@ export default function Home() {
     <div style={{ background: p.bg, color: p.ink, minHeight: '100vh' }}>
       <Nav p={p} locale="en" />
       <Hero />
-      <div style={{ padding: '20px var(--pad-x)', background: p.ink, color: p.paper, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16, flexWrap: 'wrap', fontSize: 14 }}>
-        <span style={{ opacity: 0.85 }}>Ready to move? Apply online in 5 minutes.</span>
-        <a href="#apply" style={{ color: p.accent, fontWeight: 600, textDecoration: 'none' }}>Start application →</a>
-      </div>
+      <PromotionStrip />
+      <Promotions />
       <Availability />
       <Communities communities={communities} onOpenProperty={setModalProp} />
       <AlvinMap p={p} displayFont={displayFont} />

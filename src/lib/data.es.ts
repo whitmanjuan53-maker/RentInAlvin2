@@ -147,7 +147,7 @@ export const FAQS = [
   },
   {
     q: '¿Qué está incluido en la renta?',
-    a: 'El agua y la basura NO están incluidas en las seis comunidades. La electricidad e internet son pagados directamente por el residente.',
+    a: 'En Kings Haven (410 S 2nd), French Quarter y Royal Oaks, las cuotas mensuales indicadas cubren agua, basura, alcantarillado y control de plagas. La electricidad, el internet, los servicios opcionales y cualquier otro cargo aplicable se cobran por separado. Consulte al equipo de arrendamiento para conocer todos los cargos de la vivienda elegida.',
   },
   {
     q: '¿Cómo envío una solicitud de mantenimiento?',
