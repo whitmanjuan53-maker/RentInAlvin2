@@ -106,7 +106,7 @@ function Promotions() {
               <article key={announcement.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 28, padding: '30px 0', borderTop: `1px solid ${p.line}` }}>
                 <div className="ys-promo-copy" style={{ flex: '1 1 580px', minWidth: 0 }}>
                   <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.accent, fontWeight: 600, marginBottom: 10 }}>
-                    {openHouse ? 'Open house · Kings Haven' : 'Move-in special · Select communities'}
+                    {openHouse ? `Open house · ${announcement.locationName || 'Royal Oaks'}` : 'Move-in special · Select communities'}
                   </div>
                   <h3 style={{ fontFamily: `'${displayFont}', serif`, fontSize: 'clamp(27px, 3.4vw, 42px)', lineHeight: 1.08, letterSpacing: '-0.01em', color: p.ink, fontWeight: 400, margin: 0 }}>
                     {announcement.title}
@@ -120,20 +120,21 @@ function Promotions() {
                     {announcement.message}
                     {!openHouse && ' Available at Kings Haven, French Quarter, and Royal Oaks.'}
                   </p>
+                  {openHouse && announcement.locationAddress && (
+                    <a href={announcement.locationHref} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-block', marginTop: 8, color: p.primary, fontSize: 14, fontWeight: 600, textDecoration: 'underline', textUnderlineOffset: 3 }}>
+                      {announcement.locationAddress} ↗
+                    </a>
+                  )}
                 </div>
                 <div style={{ display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap', flex: '1 1 100%' }}>
-                  {openHouse && (
-                    <a href="/communities/kings-haven-apartments" style={{ padding: '12px 18px', color: p.ink, border: `1px solid ${p.ink}`, borderRadius: 4, textDecoration: 'none', fontSize: 13, fontWeight: 600 }}>
-                      View Kings Haven
+                  {openHouse && announcement.locationHref && (
+                    <a href={announcement.locationHref} target="_blank" rel="noopener noreferrer" style={{ padding: '12px 18px', color: p.ink, border: `1px solid ${p.ink}`, borderRadius: 4, textDecoration: 'none', fontSize: 13, fontWeight: 600 }}>
+                      Get Directions ↗
                     </a>
                   )}
                   <button
                     type="button"
                     onClick={() => {
-                      if (openHouse && typeof window !== 'undefined' && (window as any).__openBooking) {
-                        (window as any).__openBooking('kings-haven');
-                        return;
-                      }
                       document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
                     }}
                     style={{ padding: '13px 20px', background: p.primary, color: p.paper, border: 'none', borderRadius: 4, fontFamily: 'inherit', fontSize: 13, fontWeight: 700, cursor: 'pointer' }}
@@ -167,7 +168,7 @@ function PromotionStrip() {
     <div style={{ padding: '20px var(--pad-x)', background: p.ink, color: p.paper, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16, flexWrap: 'wrap', fontSize: 14 }}>
       <span style={{ opacity: 0.85 }}>
         <strong style={{ color: p.paper }}>{openHouse ? 'Open House this Saturday' : '$300 deposit + $700 off second month’s rent'}</strong>
-        {openHouse ? ' · 1:00–4:00 PM at Kings Haven' : ' · Select communities'}
+        {openHouse ? ` · 1:00–4:00 PM at ${featured.locationName || 'Royal Oaks'}` : ' · Select communities'}
       </span>
       <a href="#promotions" style={{ color: p.accent, fontWeight: 600, textDecoration: 'none' }}>View current promotions ↓</a>
     </div>

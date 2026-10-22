@@ -10,6 +10,9 @@ export interface PropertyAnnouncement {
   endsAt?: string;
   dateLabel?: string;
   timeLabel?: string;
+  locationName?: string;
+  locationAddress?: string;
+  locationHref?: string;
   ctaLabel?: string;
   ctaHref?: string;
   enabled: boolean;
@@ -22,15 +25,18 @@ export interface PropertyAnnouncement {
 // frontend content source rather than a new table or API contract.
 export const PROPERTY_ANNOUNCEMENTS: PropertyAnnouncement[] = [
   {
-    id: 'kings-haven-open-house-2026-10-24',
+    id: 'royal-oaks-707-open-house-2026-10-24',
     title: 'OPEN HOUSE THIS SATURDAY',
-    message: 'Stop by Kings Haven and meet our local leasing team. Tour an available home, ask questions, and see whether it feels like the right fit.',
+    message: 'Join us at Royal Oaks 707 to tour an available home, meet our local leasing team, and ask questions.',
     type: 'open-house',
-    propertySlugs: ['kings-haven-apartments'],
+    propertySlugs: ['the-royal-oaks-townhomes'],
     startsAt: '2026-10-01T00:00:00-05:00',
     endsAt: '2026-10-24T16:00:00-05:00',
     dateLabel: 'Saturday, October 24, 2026',
     timeLabel: '1:00 PM–4:00 PM',
+    locationName: 'Royal Oaks 707',
+    locationAddress: '707 W. Lang St., Alvin, TX 77511',
+    locationHref: 'https://www.google.com/maps/search/707+W.+Lang+St.+Alvin,+Tx+77511?entry=gmail&source=g',
     ctaLabel: 'Come Tour Your New Home',
     ctaHref: '/#contact',
     enabled: true,

@@ -101,6 +101,11 @@ export default function ManagerDashboard({
                     {(announcement.dateLabel || announcement.timeLabel) && (
                       <div style={{ fontSize: 12, color: c.green, fontWeight: 600, marginTop: 5 }}>{[announcement.dateLabel, announcement.timeLabel].filter(Boolean).join(' · ')}</div>
                     )}
+                    {announcement.locationAddress && (
+                      <div style={{ fontSize: 12, color: c.soft, marginTop: 5 }}>
+                        {announcement.locationName ? `${announcement.locationName} · ` : ''}{announcement.locationAddress}
+                      </div>
+                    )}
                     {announcement.endsAt && <div style={{ fontSize: 11.5, color: c.soft, marginTop: 4 }}>Automatically hidden after the scheduled end time.</div>}
                   </div>
                   <a href={`/communities/${announcement.propertySlugs[0]}`} target="_blank" rel="noopener" style={{ padding: '7px 10px', fontSize: 12, fontWeight: 600, color: c.green, border: `1px solid ${c.line}`, borderRadius: 6, textDecoration: 'none', background: '#fff' }}>
