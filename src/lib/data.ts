@@ -51,7 +51,7 @@ export const COMMUNITIES = orderCommunities([
     addr: '410 S 2nd St',
     tag: 'Flagship · Office on-site',
     units: '2BR · 1BA · 850 sq ft',
-    price: '$1,050 base rent + $160 monthly fees · $1,210 total listed charges',
+    price: '$1,050/mo',
     note: 'Headquarters of Yellowstone Management. Walkable to downtown Alvin.',
     img: 'apartment exterior · brick + landscaping',
     gallery: [
@@ -117,7 +117,7 @@ export const COMMUNITIES = orderCommunities([
     addr: '2550 S Bypass 35',
     tag: 'Apartments',
     units: '2BR · 1BA · 850 sq ft',
-    price: '$1,079 base rent + $110 monthly fees · $1,189 total listed charges',
+    price: '$1,079/mo',
     note: 'Larger community along the bypass with ample parking.',
     img: 'courtyard apartments · wrought iron',
     gallery: frenchQuarterGallery,
@@ -137,7 +137,7 @@ export const COMMUNITIES = orderCommunities([
     addr: '418 S Jackson St',
     tag: 'Townhome',
     units: '2BR · 2BA · 1,150 sq ft',
-    price: '$1,350 base rent + $160 monthly fees · $1,510 total listed charges',
+    price: '$1,350/mo',
     note: 'Spacious townhomes under mature oak canopy.',
     img: 'townhomes · oak canopy',
     comingSoon: false,
@@ -169,11 +169,11 @@ export const FAQS = [
   },
   {
     q: 'Are pets allowed?',
-    a: 'Yes, most communities accept cats and dogs under 50 lbs with a $300 pet deposit (one-time) and $25/month pet rent. Breed restrictions apply at some buildings. Just ask when you tour.',
+    a: 'Most communities accept cats and dogs under 50 lbs. Pet policies and breed restrictions vary by building. Ask the leasing team for the terms for your selected home.',
   },
   {
     q: "What's included in rent?",
-    a: 'At Kings Haven (410 S 2nd), French Quarter, and Royal Oaks, the listed monthly fees cover water, trash, sewer, and pest control. Electric, internet, optional services, and any other applicable charges are separate. Ask the leasing team for the complete charges for your selected home.',
+    a: 'Utility arrangements vary by community and home. Contact the leasing team to confirm what is included and review the complete lease terms for your selected home.',
   },
   {
     q: 'How do I submit a maintenance request?',

@@ -48,7 +48,7 @@ function Hero() {
           Managed by Yellowstone Asset Management
         </div>
         <h1 style={{ fontFamily: `'${displayFont}', serif`, fontSize: 'clamp(52px, 7.5vw, 120px)', lineHeight: 0.98, letterSpacing: '-0.02em', margin: 0, color: p.ink, fontWeight: 400, maxWidth: '15ch' }}>
-          Apartments for Rent in <em style={{ color: p.primary }}>Alvin,</em> Texas
+          Townhomes and Apartments for Rent in <em style={{ color: p.primary }}>Alvin,</em> Texas
           <span style={{ display: 'inline-block', marginLeft: 16, verticalAlign: 'middle', fontSize: '0.5em', letterSpacing: 0, transform: 'translateY(-0.15em)', whiteSpace: 'nowrap' }} aria-label="home and love">
             <span style={{ display: 'inline-block', animation: 'ys-float 3.4s ease-in-out infinite' }}></span>
             <span style={{ display: 'inline-block', marginLeft: 6, color: '#E63946', animation: 'ys-beat 1.8s ease-in-out infinite' }}>♥︎</span>
@@ -235,8 +235,7 @@ function CommunityCard({ prop, idx, onOpen }: { prop: (typeof COMMUNITIES)[0]; i
             <div style={{ fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 500 }}>{prop.units}</div>
             {pricing ? (
               <div style={{ marginTop: 5 }}>
-                <div style={{ fontFamily: "'Instrument Serif', serif", fontSize: 22, color: p.primary }}>{formatCurrency(pricing.baseRent)} base rent</div>
-                <div style={{ fontSize: 11.5, color: p.inkSoft, marginTop: 2 }}>+ {formatCurrency(pricing.monthlyFees)} fees · {formatCurrency(pricing.totalCharges)} total listed charges</div>
+                <div style={{ fontFamily: "'Instrument Serif', serif", fontSize: 22, color: p.primary }}>{formatCurrency(pricing.baseRent)}/mo</div>
               </div>
             ) : (
               <div style={{ fontFamily: "'Instrument Serif', serif", fontSize: 22, color: p.primary, marginTop: 2 }}>{prop.price}</div>
@@ -278,7 +277,7 @@ function Floorplans() {
           <div style={{ fontSize: 12, letterSpacing: '0.18em', textTransform: 'uppercase', color: p.accent, fontWeight: 600, paddingTop: 14 }}>Floor plans · $800 to $1,650</div>
           <div>
             <h2 style={{ fontFamily: `'${displayFont}', serif`, fontSize: 'clamp(36px, 4.6vw, 60px)', lineHeight: 1.02, letterSpacing: '-0.02em', margin: 0, fontWeight: 400, maxWidth: '16ch', color: p.paper }}>Five layouts, honestly priced.</h2>
-            <p style={{ fontSize: 17, lineHeight: 1.6, color: `color-mix(in oklab, ${p.paper} 75%, transparent)`, maxWidth: '55ch', marginTop: 24 }}>Rents are listed up-front with no surprise fees. Availability changes weekly, call us to confirm what&apos;s open today.</p>
+            <p style={{ fontSize: 17, lineHeight: 1.6, color: `color-mix(in oklab, ${p.paper} 75%, transparent)`, maxWidth: '55ch', marginTop: 24 }}>Monthly rents are listed up-front. Contact our leasing team for complete lease details. Availability changes weekly, call us to confirm what&apos;s open today.</p>
           </div>
         </div>
         <div className="ys-floor-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 60, alignItems: 'start' }}>
@@ -314,7 +313,7 @@ function Floorplans() {
 function About() {
   const items = [
     { n: '01', title: 'Local & responsive', body: 'Our office sits at 410 S 2nd St, the same building as Kings Haven. When you call, you reach the team that manages your home, not a national call center.' },
-    { n: '02', title: 'Honest leasing', body: 'Rents are published on this page. No application bait-and-switch, no surprise admin fees. What you see is what you sign.' },
+    { n: '02', title: 'Honest leasing', body: 'Monthly rents are published on this page. Our local leasing team can explain the lease terms for your selected home.' },
     { n: '03', title: 'Maintenance, handled', body: 'Submit a request and a technician we know personally is dispatched. Most non-emergency issues are closed within 48 hours.' },
   ];
   return (
@@ -484,8 +483,7 @@ function Availability() {
                     const pricing = getPropertyPricing({ property: u.property });
                     return pricing ? (
                       <>
-                        <div style={{ fontFamily: `'${displayFont}', serif`, fontSize: 28, color: u.ready.includes('Coming soon') ? p.inkSoft : p.primary, fontWeight: 400 }}>{formatCurrency(pricing.baseRent)}<span style={{ fontSize: 13, color: p.inkSoft, fontFamily: 'Inter, sans-serif' }}> base rent</span></div>
-                        <div style={{ fontSize: 11, color: p.inkSoft, marginTop: 2 }}>+ {formatCurrency(pricing.monthlyFees)} monthly fees · {formatCurrency(pricing.totalCharges)} total</div>
+                        <div style={{ fontFamily: `'${displayFont}', serif`, fontSize: 28, color: u.ready.includes('Coming soon') ? p.inkSoft : p.primary, fontWeight: 400 }}>{formatCurrency(pricing.baseRent)}<span style={{ fontSize: 13, color: p.inkSoft, fontFamily: 'Inter, sans-serif' }}>/mo</span></div>
                       </>
                     ) : (
                       <div style={{ fontFamily: `'${displayFont}', serif`, fontSize: 28, color: u.ready.includes('Coming soon') ? p.inkSoft : p.primary, fontWeight: 400 }}>${u.price.toLocaleString()}<span style={{ fontSize: 13, color: p.inkSoft, fontFamily: 'Inter, sans-serif' }}>/mo</span></div>

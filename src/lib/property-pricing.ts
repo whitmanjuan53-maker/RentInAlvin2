@@ -60,7 +60,7 @@ export function formatCurrency(amount: number): string {
 }
 
 export function formatPricingSummary(pricing: PropertyPricing): string {
-  return `${formatCurrency(pricing.baseRent)} base rent + ${formatCurrency(pricing.monthlyFees)} monthly fees · ${formatCurrency(pricing.totalCharges)} total listed charges`;
+  return `${formatCurrency(pricing.baseRent)}/mo`;
 }
 
 export function parsePricingSummary(summary: string): PropertyPricing | undefined {

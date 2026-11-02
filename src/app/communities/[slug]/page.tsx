@@ -159,11 +159,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
             ['Type', prop.type],
             ['Layout', `${prop.beds} bd · ${prop.baths} ba`],
             ['Size', `~${prop.sqft.toLocaleString()} sq ft`],
-            ['Base rent', prop.comingSoon ? 'Coming soon' : pricing ? formatCurrency(pricing.baseRent) : `from $${prop.priceFrom.toLocaleString()}`],
-            ...(pricing ? [
-              ['Monthly fees', formatCurrency(pricing.monthlyFees)],
-              ['Total listed charges', formatCurrency(pricing.totalCharges)],
-            ] : []),
+            ['Monthly rent', prop.comingSoon ? 'Coming soon' : pricing ? formatCurrency(pricing.baseRent) : `from $${prop.priceFrom.toLocaleString()}`],
             ['Area', prop.neighborhood],
           ].map(([k, v]) => (
             <div key={k} style={{ background: p.paper, padding: '14px 16px' }}>
@@ -172,11 +168,6 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
             </div>
           ))}
         </dl>
-        {pricing && (
-          <p style={{ fontSize: 12.5, color: p.inkSoft, lineHeight: 1.55, margin: '10px 2px 0' }}>
-            Monthly fees cover {pricing.feeIncludes.toLowerCase()}. Other usage-based or optional charges may apply; ask the leasing team for details.
-          </p>
-        )}
 
         {/* Gallery */}
         {prop.gallery && prop.gallery.length > 0 && (

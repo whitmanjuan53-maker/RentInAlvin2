@@ -9,9 +9,9 @@ const p = PALETTES.forest;
 const displayFont = 'Instrument Serif';
 
 export const metadata: Metadata = {
-  title: 'Apartment Availability and Rental Questions in Alvin, TX | RentInAlvin.com',
+  title: 'Townhomes and Apartments: Availability and Rental Questions in Alvin, TX | RentInAlvin.com',
   description:
-    'Explore Alvin apartment and townhome communities, listed rent and monthly fees, and answers about availability, tours and applications. Confirm openings with our local leasing team.',
+    'Explore Alvin apartment and townhome communities, listed monthly rent, and answers about availability, tours and applications. Confirm openings with our local leasing team.',
   robots: 'index, follow',
   alternates: { canonical: 'https://rentinalvin.com/apartments-available-now-alvin-tx' },
 };
@@ -22,7 +22,7 @@ export default function AvailableNowPage() {
   const heading: React.CSSProperties = { fontFamily: `'${displayFont}', serif`, fontSize: 'clamp(26px, 4vw, 36px)', lineHeight: 1.2, fontWeight: 400, color: p.ink, margin: '36px 0 16px' };
   const faqs = [
     { q: 'How can I find apartments available now in Alvin, TX?', a: `Check the availability section on RentInAlvin.com, then call ${BUSINESS.phone} to confirm the specific home, move-in date and full charges. An available apartment can be leased at any time; a website listing does not reserve a home.` },
-    { q: 'Are monthly fees separate from base rent?', a: 'At Kings Haven at 410 S 2nd St, Royal Oaks and French Quarter, the listed monthly fees cover water, trash, sewer and pest control. Ask the leasing team for all charges for your selected home, including any deposits, optional services or usage-based charges.' },
+    { q: 'How can I confirm the lease details?', a: 'Contact our local leasing team for current rent, utility arrangements and the complete lease terms for your selected home.' },
     { q: 'How do I arrange an apartment tour or apply?', a: `Use the tour booking or application form on the homepage, or call ${BUSINESS.phone}. Tell the team which community interests you and when you want to move. Submitting an application does not guarantee approval or availability.` },
     { q: 'Are pets, parking or laundry available?', a: 'Features and pet policies vary by property and unit. Review the individual community page, then confirm pet restrictions, parking, laundry arrangements and any related fees with the leasing team before applying.' },
     { q: 'Who manages these Alvin rental communities?', a: `${BUSINESS.brand} is managed by ${BUSINESS.name}. The leasing office is at ${BUSINESS.street}, ${BUSINESS.city}, ${BUSINESS.region} ${BUSINESS.zip}. Call ${BUSINESS.phone} or email ${BUSINESS.email}.` },
@@ -39,7 +39,7 @@ export default function AvailableNowPage() {
       <Nav p={p} locale="en" />
       <main style={{ maxWidth: 820, margin: '0 auto', padding: '160px var(--pad-x) 80px' }}>
         <h1 style={{ fontFamily: `'${displayFont}', serif`, fontSize: 'clamp(40px, 6vw, 64px)', lineHeight: 1.05, color: p.ink, fontWeight: 400, margin: 0 }}>
-          Find Your Next Apartment in Alvin, TX
+          Find Your Next Home: Townhomes and Apartments in Alvin, TX
         </h1>
         <p style={{ ...para, marginTop: 24 }}>
           Looking for apartments for rent in Alvin, Texas? Compare our apartment and townhome communities,
@@ -66,18 +66,18 @@ export default function AvailableNowPage() {
           ))}
         </div>
 
-        <h2 style={heading}>Listed rent and monthly fees</h2>
-        <p style={para}>These are the listed starting costs for the following communities. Confirm current pricing and all applicable charges with the leasing team.</p>
+        <h2 style={heading}>Listed monthly rent</h2>
+        <p style={para}>These are the listed starting monthly rents for the following communities. Confirm current pricing and all applicable charges with the leasing team.</p>
         <div style={{ overflowX: 'auto' }}>
           <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 15, lineHeight: 1.6, textAlign: 'left' }}>
             <caption style={{ textAlign: 'left', marginBottom: 12, color: p.inkSoft }}>Monthly pricing for selected Alvin communities</caption>
-            <thead><tr>{['Community', 'Base rent', 'Monthly fees', 'Total listed charges'].map((label) => (
+            <thead><tr>{['Community', 'Monthly rent'].map((label) => (
               <th key={label} scope="col" style={{ padding: 12, borderBottom: `2px solid ${p.line}` }}>{label}</th>
             ))}</tr></thead>
             <tbody>{PROPERTY_PRICING.map((pricing) => (
               <tr key={pricing.address}>
                 <th scope="row" style={{ padding: 12, borderBottom: `1px solid ${p.line}`, fontWeight: 500 }}>{pricing.propertyName}<br /><span style={{ fontSize: 13, color: p.inkSoft }}>{pricing.address}</span></th>
-                {[pricing.baseRent, pricing.monthlyFees, pricing.totalCharges].map((amount, index) => (
+                {[pricing.baseRent].map((amount, index) => (
                   <td key={index} style={{ padding: 12, borderBottom: `1px solid ${p.line}`, whiteSpace: 'nowrap' }}>{formatCurrency(amount)}</td>
                 ))}
               </tr>

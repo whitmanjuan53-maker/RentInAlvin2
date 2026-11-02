@@ -2,7 +2,7 @@ import { prisma, isDbReady } from './db';
 import { COMMUNITIES } from './data';
 import { orderCommunities } from './community-order';
 import { resolvePropertyGallery } from './property-gallery';
-import { formatPricingSummary, getPropertyPricing } from './property-pricing';
+import { formatPricingSummary, getPropertyPricing, parsePricingSummary } from './property-pricing';
 
 // A property in the shape the public pages already expect (COMMUNITIES-compatible),
 // plus the fields the manager dashboard edits.
@@ -111,6 +111,8 @@ const LEGACY_PRICES: Record<string, string[]> = {
 function withCurrentPricing(view: PropertyView): PropertyView {
   const pricing = getPropertyPricing({ name: view.name, addr: view.addr });
   const legacy = LEGACY_PRICES[view.slug];
+  const storedPricing = parsePricingSummary(view.price.trim());
+  if (storedPricing) return { ...view, price: formatPricingSummary(storedPricing) };
   if (!pricing || !legacy?.includes(view.price.trim())) return view;
   return { ...view, price: formatPricingSummary(pricing) };
 }

@@ -10,7 +10,7 @@ const displayFont = 'Instrument Serif';
 const BASE = 'https://rentinalvin.com';
 
 export const metadata: Metadata = {
-  title: 'Apartments & Townhomes for Rent in Alvin, TX | RentInAlvin.com',
+  title: 'Townhomes and Apartments for Rent in Alvin, TX | RentInAlvin.com',
   description:
     'Browse all six apartment and townhome communities for rent in Alvin, TX from Yellowstone Asset Management. 1–3 bedroom homes from $850. View photos, pricing, and locations, then tour or apply online.',
   robots: 'index, follow',
@@ -19,7 +19,7 @@ export const metadata: Metadata = {
     type: 'website',
     url: `${BASE}/communities`,
     siteName: 'RentInAlvin.com',
-    title: 'Apartments & Townhomes for Rent in Alvin, TX | RentInAlvin.com',
+    title: 'Townhomes and Apartments for Rent in Alvin, TX | RentInAlvin.com',
     description: 'All six apartment and townhome communities for rent in Alvin, TX. 1–3 bedroom homes from $850.',
     images: [{ url: `${BASE}/images/kings-haven/01-001-cmup.jpg`, width: 1200, height: 800, alt: 'Apartments for rent in Alvin, TX' }],
   },
@@ -28,7 +28,7 @@ export const metadata: Metadata = {
 const itemListLd = {
   '@context': 'https://schema.org',
   '@type': 'ItemList',
-  name: 'Apartments & Townhomes for Rent in Alvin, TX',
+  name: 'Townhomes and Apartments for Rent in Alvin, TX',
   itemListElement: PROPERTIES.map((prop, i) => ({
     '@type': 'ListItem',
     position: i + 1,
@@ -47,7 +47,7 @@ export default function CommunitiesHub() {
 
       <main style={{ maxWidth: 1100, margin: '0 auto', padding: '150px var(--pad-x) 80px' }}>
         <h1 style={{ fontFamily: `'${displayFont}', serif`, fontSize: 'clamp(40px, 6vw, 64px)', lineHeight: 1.05, color: p.ink, fontWeight: 400, margin: 0 }}>
-          Apartments &amp; Townhomes for Rent in Alvin, TX
+          Townhomes and Apartments for Rent in Alvin, TX
         </h1>
         <p style={{ ...para, marginTop: 20, maxWidth: '70ch' }}>
           Yellowstone Asset Management owns and operates six rental communities across Alvin, Texas (77511) — from
@@ -91,8 +91,7 @@ export default function CommunitiesHub() {
                   const pricing = parsePricingSummary(prop.price);
                   return pricing ? (
                     <div style={{ fontSize: 13, color: p.inkSoft, marginTop: 5, lineHeight: 1.45 }}>
-                      <strong style={{ color: p.primary }}>{formatCurrency(pricing.baseRent)} base rent</strong><br />
-                      + {formatCurrency(pricing.monthlyFees)} monthly fees · {formatCurrency(pricing.totalCharges)} total listed charges
+                      <strong style={{ color: p.primary }}>{formatCurrency(pricing.baseRent)}/mo</strong><br />
                     </div>
                   ) : (
                     <div style={{ fontSize: 14, color: p.ink, marginTop: 5, fontWeight: 600 }}>{prop.price}</div>

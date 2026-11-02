@@ -25,7 +25,7 @@ export const COMMUNITIES = orderCommunities([
     addr: '410 S 2nd St',
     tag: 'Insignia · Oficina en sitio',
     units: '2 Rec · 1 Baño · 850 ft²',
-    price: '$1,050 renta base + $160 cuotas · $1,210 total',
+    price: '$1,050/mes',
     note: 'Sede de Yellowstone Management. A pie del centro de Alvin.',
     img: 'exterior de apartamentos · ladrillo + jardinería',
     gallery: [
@@ -91,7 +91,7 @@ export const COMMUNITIES = orderCommunities([
     addr: '2550 S Bypass 35',
     tag: 'Apartamentos',
     units: '2 Rec · 1 Baño · 850 ft²',
-    price: '$1,079 renta base + $110 cuotas · $1,189 total',
+    price: '$1,079/mes',
     note: 'Comunidad más grande a lo largo de la autopista con amplio estacionamiento.',
     img: 'apartamentos con patio · hierro forjado',
     gallery: frenchQuarterGallery,
@@ -111,7 +111,7 @@ export const COMMUNITIES = orderCommunities([
     addr: '418 S Jackson St',
     tag: 'Townhome',
     units: '2 Rec · 2 Baño · 1,150 ft²',
-    price: '$1,350 renta base + $160 cuotas · $1,510 total',
+    price: '$1,350/mes',
     note: 'Townhomes espaciosos bajo dosel de robles maduros.',
     img: 'townhomes · dosel de roble',
     comingSoon: false,
@@ -143,11 +143,11 @@ export const FAQS = [
   },
   {
     q: '¿Se permiten mascotas?',
-    a: 'Sí, la mayoría de las comunidades aceptan gatos y perros hasta 50 lbs con un depósito de mascota de $300 (único) y $25/mes de renta por mascota. Aplican restricciones de raza en algunos edificios. Pregunte cuando haga el tour.',
+    a: 'La mayoría de las comunidades aceptan gatos y perros hasta 50 lbs. Las políticas de mascotas y las restricciones de raza varían según el edificio. Consulte al equipo de arrendamiento.',
   },
   {
     q: '¿Qué está incluido en la renta?',
-    a: 'En Kings Haven (410 S 2nd), French Quarter y Royal Oaks, las cuotas mensuales indicadas cubren agua, basura, alcantarillado y control de plagas. La electricidad, el internet, los servicios opcionales y cualquier otro cargo aplicable se cobran por separado. Consulte al equipo de arrendamiento para conocer todos los cargos de la vivienda elegida.',
+    a: 'Los servicios incluidos varían según la comunidad y la vivienda. Consulte al equipo de arrendamiento para confirmar los servicios y revisar los términos completos del contrato.',
   },
   {
     q: '¿Cómo envío una solicitud de mantenimiento?',

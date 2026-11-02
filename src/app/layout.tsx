@@ -5,7 +5,7 @@ import AnalyticsTracker from '@/components/AnalyticsTracker';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://rentinalvin.com'),
-  title: 'Apartments for Rent in Alvin, TX | RentInAlvin.com',
+  title: 'Townhomes and Apartments for Rent in Alvin, TX | RentInAlvin.com',
   description:
     'Find apartments and townhomes for rent in Alvin, TX at RentInAlvin.com. View availability, floor plans, amenities, photos, and location details, then contact our local leasing team to schedule a tour or apply online.',
   keywords:
@@ -23,14 +23,14 @@ export const metadata: Metadata = {
     type: 'website',
     url: 'https://rentinalvin.com',
     siteName: 'RentInAlvin.com',
-    title: 'Apartments for Rent in Alvin, TX | RentInAlvin.com',
+    title: 'Townhomes and Apartments for Rent in Alvin, TX | RentInAlvin.com',
     description:
       'Apartments and townhomes for rent in Alvin, TX. View availability, floor plans, amenities, and photos, then schedule a tour or apply online.',
     locale: 'en_US',
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'Apartments for Rent in Alvin, TX | RentInAlvin.com',
+    title: 'Townhomes and Apartments for Rent in Alvin, TX | RentInAlvin.com',
     description: 'Apartments and townhomes for rent in Alvin, TX. Availability, floor plans, amenities, and photos.',
   },
   other: {

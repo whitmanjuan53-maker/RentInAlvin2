@@ -46,7 +46,7 @@ function Hero() {
           Administrado por Yellowstone Asset Management
         </div>
         <h1 style={{ fontFamily: `'${displayFont}', serif`, fontSize: 'clamp(56px, 8vw, 132px)', lineHeight: 0.95, letterSpacing: '-0.02em', margin: 0, color: p.ink, fontWeight: 400, maxWidth: '13ch' }}>
-          Un hogar en <em style={{ color: p.primary }}>Alvin,</em><br />hecho simple.
+          Townhomes y Apartamentos en <em style={{ color: p.primary }}>Alvin,</em> Texas.
           <span style={{ display: 'inline-block', marginLeft: 18, verticalAlign: 'middle', fontSize: '0.55em', letterSpacing: 0, transform: 'translateY(-0.15em)', whiteSpace: 'nowrap' }} aria-label="casa y amor">
             <span style={{ display: 'inline-block', animation: 'ys-float 3.4s ease-in-out infinite' }}></span>
             <span style={{ display: 'inline-block', marginLeft: 6, color: '#E63946', animation: 'ys-beat 1.8s ease-in-out infinite' }}>♥︎</span>
@@ -172,7 +172,7 @@ function Floorplans() {
           <div style={{ fontSize: 12, letterSpacing: '0.18em', textTransform: 'uppercase', color: p.accent, fontWeight: 600, paddingTop: 14 }}>Planos · $800 a $1,650</div>
           <div>
             <h2 style={{ fontFamily: `'${displayFont}', serif`, fontSize: 'clamp(36px, 4.6vw, 60px)', lineHeight: 1.02, letterSpacing: '-0.02em', margin: 0, fontWeight: 400, maxWidth: '16ch', color: p.paper }}>Cinco diseños, precios honestos.</h2>
-            <p style={{ fontSize: 17, lineHeight: 1.6, color: `color-mix(in oklab, ${p.paper} 75%, transparent)`, maxWidth: '55ch', marginTop: 24 }}>Las rentas se muestran de antemano sin cargos sorpresa. La disponibilidad cambia semanalmente, llámenos para confirmar qué hay disponible hoy.</p>
+            <p style={{ fontSize: 17, lineHeight: 1.6, color: `color-mix(in oklab, ${p.paper} 75%, transparent)`, maxWidth: '55ch', marginTop: 24 }}>Las rentas mensuales se muestran de antemano. Consulte al equipo de arrendamiento para conocer los detalles del contrato. La disponibilidad cambia semanalmente, llámenos para confirmar qué hay disponible hoy.</p>
           </div>
         </div>
         <div className="ys-floor-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 60, alignItems: 'start' }}>
@@ -208,7 +208,7 @@ function Floorplans() {
 function About() {
   const items = [
     { n: '01', title: 'Local y responsivo', body: 'Nuestra oficina está en 410 S 2nd St, el mismo edificio que Kings Haven. Cuando llama, llega al equipo que administra su hogar, no a un call center nacional.' },
-    { n: '02', title: 'Arrendamiento honesto', body: 'Las rentas se publican en esta página. Sin cebo de aplicación, sin cargos administrativos sorpresa. Lo que ve es lo que firma.' },
+    { n: '02', title: 'Arrendamiento honesto', body: 'Las rentas mensuales se publican en esta página. Nuestro equipo local puede explicar los términos del contrato para su vivienda.' },
     { n: '03', title: 'Mantenimiento, resuelto', body: 'Envíe una solicitud y un técnico que conocemos personalmente es enviado. La mayoría de los problemas no urgentes se resuelven en 48 horas.' },
   ];
   return (

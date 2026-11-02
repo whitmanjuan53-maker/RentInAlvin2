@@ -128,9 +128,7 @@ export default function PropertyModal({ open, onClose, property, onBookTour, p, 
             <div style={{ fontSize: 15, color: p.inkSoft }}>{property.addr} · Alvin, TX</div>
             {pricing ? (
               <div>
-                <div style={{ fontFamily: `'${displayFont}', serif`, fontSize: 24, color: p.primary, fontWeight: 400 }}>{formatCurrency(pricing.baseRent)} base rent</div>
-                <div style={{ fontSize: 12, color: p.inkSoft, marginTop: 3 }}>+ {formatCurrency(pricing.monthlyFees)} monthly fees · {formatCurrency(pricing.totalCharges)} total listed charges</div>
-                <div style={{ fontSize: 11.5, color: p.inkSoft, marginTop: 3 }}>Fees cover {pricing.feeIncludes.toLowerCase()}.</div>
+                <div style={{ fontFamily: `'${displayFont}', serif`, fontSize: 24, color: p.primary, fontWeight: 400 }}>{formatCurrency(pricing.baseRent)}/mo</div>
               </div>
             ) : (
               <div style={{ fontFamily: `'${displayFont}', serif`, fontSize: 24, color: p.primary, fontWeight: 400 }}>{property.price}</div>

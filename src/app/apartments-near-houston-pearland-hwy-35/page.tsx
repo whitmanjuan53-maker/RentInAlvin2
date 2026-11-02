@@ -7,7 +7,7 @@ const p = PALETTES.forest;
 const displayFont = 'Instrument Serif';
 
 export const metadata: Metadata = {
-  title: 'Apartments Near Hwy 35, Pearland & Houston in Alvin, TX | RentInAlvin.com',
+  title: 'Townhomes and Apartments Near Hwy 35, Pearland & Houston in Alvin, TX | RentInAlvin.com',
   description:
     'Apartments for rent in Alvin, TX just off Hwy 35 — easy commute to Pearland and Houston. Rents from $850. Tour today.',
   robots: 'index, follow',
@@ -23,7 +23,7 @@ export default function NearHoustonPearlandPage() {
       <Nav p={p} locale="en" />
       <main style={{ maxWidth: 820, margin: '0 auto', padding: '160px var(--pad-x) 80px' }}>
         <h1 style={{ fontFamily: `'${displayFont}', serif`, fontSize: 'clamp(40px, 6vw, 64px)', lineHeight: 1.05, color: p.ink, fontWeight: 400, margin: 0 }}>
-          Apartments Near Hwy 35, Pearland &amp; Houston
+          Alvin Townhomes and Apartments: Locations and Nearby Routes
         </h1>
         <p style={{ ...para, marginTop: 24 }}>
           Alvin sits about 30 miles south of downtown Houston and minutes from Pearland, which makes

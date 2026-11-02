@@ -7,7 +7,7 @@ const p = PALETTES.forest;
 const displayFont = 'Instrument Serif';
 
 export const metadata: Metadata = {
-  title: 'Apartments in Alvin, TX With Parking, Laundry & Quiet Streets | RentInAlvin.com',
+  title: 'Alvin Townhomes and Apartments: Amenities and Community Features | RentInAlvin.com',
   description:
     'Quiet, family-friendly apartments in Alvin, TX with assigned parking and on-site laundry. Well-maintained communities from $850.',
   robots: 'index, follow',
@@ -23,7 +23,7 @@ export default function AmenitiesPage() {
       <Nav p={p} locale="en" />
       <main style={{ maxWidth: 820, margin: '0 auto', padding: '160px var(--pad-x) 80px' }}>
         <h1 style={{ fontFamily: `'${displayFont}', serif`, fontSize: 'clamp(40px, 6vw, 64px)', lineHeight: 1.05, color: p.ink, fontWeight: 400, margin: 0 }}>
-          Quiet, Family-Friendly Apartments in Alvin, TX
+          Townhomes and Apartments: Amenities and Features in Alvin, TX
         </h1>
         <p style={{ ...para, marginTop: 24 }}>
           Our Alvin communities are built for everyday comfort. Every unit comes with at least one

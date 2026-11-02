@@ -46,7 +46,7 @@ export const PROPERTY_ANNOUNCEMENTS: PropertyAnnouncement[] = [
   {
     id: 'fall-2026-move-in-offer',
     title: "SPECIAL MOVE-IN OFFER: $300 DEPOSIT + $700 OFF SECOND MONTH'S RENT",
-    message: 'Ask our leasing team for eligibility and offer details. Standard monthly fees and other applicable charges remain due.',
+    message: 'Ask our leasing team for eligibility, offer details and complete lease terms.',
     type: 'move-in-special',
     propertySlugs: [
       'kings-haven-apartments',

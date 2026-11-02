@@ -1,7 +1,6 @@
 'use client';
 
 import { useState, useEffect, useMemo } from 'react';
-import { formatCurrency, getPropertyPricing } from '@/lib/property-pricing';
 
 const TIME_SLOTS = ['9:00 AM', '10:00 AM', '11:00 AM', '1:00 PM', '2:00 PM', '3:00 PM', '4:00 PM'];
 
@@ -399,11 +398,6 @@ export default function TourBooking({
                     <div style={{ fontSize: 12, color: p.inkSoft, marginTop: 2 }}>
                       {b.addr} · {b.bed}
                     </div>
-                    {getPropertyPricing({ name: b.name }) && (
-                      <div style={{ fontSize: 10.5, color: p.inkSoft, marginTop: 3 }}>
-                        + {formatCurrency(getPropertyPricing({ name: b.name })!.monthlyFees)} fees · {formatCurrency(getPropertyPricing({ name: b.name })!.totalCharges)} total listed charges
-                      </div>
-                    )}
                   </div>
                   <div
                     style={{

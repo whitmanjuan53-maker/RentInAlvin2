@@ -275,8 +275,8 @@ function PropertyCard({ property, blobConfigured }: { property: Property; blobCo
             </div>
             <div>
               <label style={label}>Pricing summary</label>
-              <input style={input} value={form.price} onChange={(e) => set('price', e.target.value)} placeholder="$1,050 base rent + $160 monthly fees · $1,210 total listed charges" />
-              <div style={{ fontSize: 11, color: c.soft, marginTop: 5, lineHeight: 1.4 }}>For fee-based listings, keep base rent, monthly fees, and total listed charges separate.</div>
+              <input style={input} value={form.price} onChange={(e) => set('price', e.target.value)} placeholder="$1,050/mo" />
+              <div style={{ fontSize: 11, color: c.soft, marginTop: 5, lineHeight: 1.4 }}>Display monthly rent only, for example $1,050/mo.</div>
             </div>
             <div>
               <label style={label}>Availability</label>
