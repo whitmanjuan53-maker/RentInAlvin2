@@ -27,13 +27,11 @@ export const metadata: Metadata = {
     description:
       'Apartments and townhomes for rent in Alvin, TX. View availability, floor plans, amenities, and photos, then schedule a tour or apply online.',
     locale: 'en_US',
-    images: [{ url: '/images/kings-haven/01-001-cmup.jpg', width: 1200, height: 800, alt: 'Apartments for rent in Alvin, TX — RentInAlvin.com' }],
   },
   twitter: {
     card: 'summary_large_image',
     title: 'Apartments for Rent in Alvin, TX | RentInAlvin.com',
     description: 'Apartments and townhomes for rent in Alvin, TX. Availability, floor plans, amenities, and photos.',
-    images: ['/images/kings-haven/01-001-cmup.jpg'],
   },
   other: {
     'geo.region': 'US-TX',
@@ -66,8 +64,8 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
               telephone: '+1-832-210-3968',
               email: 'office@yellowstone-am.com',
               priceRange: '$850-$1650',
-              image: 'https://rentinalvin.com/images/kings-haven/01-001-cmup.jpg',
-              logo: 'https://rentinalvin.com/images/kings-haven/01-001-cmup.jpg',
+              image: 'https://rentinalvin.com/opengraph-image',
+              logo: 'https://rentinalvin.com/icon',
               hasMap: 'https://maps.google.com/?q=410+S+2nd+St+Alvin+TX+77511',
               ...(SAME_AS.length ? { sameAs: SAME_AS } : {}),
               address: {
