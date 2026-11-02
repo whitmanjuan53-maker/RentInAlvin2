@@ -7,7 +7,13 @@ export default function robots(): MetadataRoute.Robots {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/api/', '/dev/'],
+        disallow: ['/api/', '/dev/', '/manager'],
+      },
+      {
+        // Search access is separate from GPTBot's model-training controls.
+        userAgent: 'OAI-SearchBot',
+        allow: '/',
+        disallow: ['/api/', '/dev/', '/manager'],
       },
     ],
     sitemap: 'https://rentinalvin.com/sitemap.xml',

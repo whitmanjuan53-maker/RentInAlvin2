@@ -5,7 +5,6 @@ const BASE = 'https://rentinalvin.com';
 
 // Served automatically at https://rentinalvin.com/sitemap.xml
 export default function sitemap(): MetadataRoute.Sitemap {
-  const now = new Date();
   const routes: { path: string; priority: number; changeFrequency: MetadataRoute.Sitemap[number]['changeFrequency'] }[] = [
     { path: '/', priority: 1.0, changeFrequency: 'weekly' },
     { path: '/es', priority: 0.8, changeFrequency: 'weekly' },
@@ -25,7 +24,6 @@ export default function sitemap(): MetadataRoute.Sitemap {
 
   return routes.map((r) => ({
     url: `${BASE}${r.path}`,
-    lastModified: now,
     changeFrequency: r.changeFrequency,
     priority: r.priority,
   }));

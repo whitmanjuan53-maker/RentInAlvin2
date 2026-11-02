@@ -82,6 +82,16 @@ export default function Footer({
                 View all →
               </a>
             )}
+            {!isEs && [
+              ['Rental availability and questions', '/apartments-available-now-alvin-tx'],
+              ['Amenities and features', '/apartments-alvin-tx-amenities'],
+              ['Locations and nearby areas', '/apartments-near-houston-pearland-hwy-35'],
+              ['Living in Alvin', '/living-in-alvin'],
+            ].map(([label, href]) => (
+              <a key={href} href={href} style={{ display: 'block', fontSize: 13, color: 'inherit', textDecoration: 'none', padding: '6px 0', lineHeight: 1.5 }}>
+                {label}
+              </a>
+            ))}
           </div>
           <div>
             <div style={{ color: p.paper, fontWeight: 600, fontSize: 13, marginBottom: 14 }}>

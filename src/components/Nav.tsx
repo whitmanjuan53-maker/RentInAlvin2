@@ -68,7 +68,7 @@ export default function Nav({ p, locale = 'en' }: { p: typeof import('@/lib/data
         {links.map(([label, href]) => (
           <a
             key={href}
-            href={href}
+            href={`${isEs ? '/es' : '/'}${href}`}
             style={{
               color: p.ink,
               textDecoration: 'none',
@@ -162,7 +162,7 @@ export default function Nav({ p, locale = 'en' }: { p: typeof import('@/lib/data
           {links.map(([label, href]) => (
             <a
               key={href}
-              href={href}
+              href={`${isEs ? '/es' : '/'}${href}`}
               onClick={() => setMenuOpen(false)}
               style={{
                 color: p.ink,

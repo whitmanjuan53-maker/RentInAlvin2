@@ -54,7 +54,6 @@ function jsonLd(prop: Property, slug: string) {
     numberOfBathroomsTotal: prop.baths,
     numberOfRooms: prop.beds + 1,
     floorSize: { '@type': 'QuantitativeValue', value: prop.sqft, unitCode: 'FTK' },
-    petsAllowed: true,
     ...(images.length ? { image: images } : {}),
     address: {
       '@type': 'PostalAddress',
@@ -84,7 +83,6 @@ function jsonLd(prop: Property, slug: string) {
             '@type': 'Offer',
             price: prop.priceFrom,
             priceCurrency: 'USD',
-            availability: 'https://schema.org/InStock',
             businessFunction: 'http://purl.org/goodrelations/v1#LeaseOut',
             url,
           },
@@ -128,7 +126,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
   return (
     <div style={{ background: p.bg, minHeight: '100vh' }}>
       {jsonLd(prop, slug).map((block, i) => (
-        <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(block) }} />
+        <script key={i} type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(block).replace(/</g, '\\u003c') }} />
       ))}
       <Nav p={p} locale="en" />
 
