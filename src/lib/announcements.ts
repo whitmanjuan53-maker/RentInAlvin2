@@ -25,14 +25,11 @@ export interface PropertyAnnouncement {
 // frontend content source rather than a new table or API contract.
 export const PROPERTY_ANNOUNCEMENTS: PropertyAnnouncement[] = [
   {
-    id: 'royal-oaks-703-open-house-2026-10-31',
-    title: 'OPEN HOUSE THIS SATURDAY',
+    id: 'royal-oaks-703-open-house',
+    title: 'OPEN HOUSE',
     message: 'Join us at Royal Oaks 703 to tour an available home, meet our local leasing team, and ask questions.',
     type: 'open-house',
     propertySlugs: ['the-royal-oaks-townhomes'],
-    startsAt: '2026-10-01T00:00:00-05:00',
-    endsAt: '2026-10-31T15:00:00-05:00',
-    dateLabel: 'Saturday, October 31, 2026',
     timeLabel: '11:00 AM–3:00 PM',
     locationName: 'Royal Oaks 703',
     locationAddress: '703 W. Lang St., Alvin, TX 77511',
