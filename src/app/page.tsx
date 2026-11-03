@@ -168,7 +168,9 @@ function PromotionStrip() {
     <div style={{ padding: '20px var(--pad-x)', background: p.ink, color: p.paper, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16, flexWrap: 'wrap', fontSize: 14 }}>
       <span style={{ opacity: 0.85 }}>
         <strong style={{ color: p.paper }}>{openHouse ? 'Open House' : '$300 deposit + $700 off second month’s rent'}</strong>
-        {openHouse ? ` · ${featured.timeLabel || '11:00 AM–3:00 PM'} at ${featured.locationName || 'Royal Oaks'}` : ' · Select communities'}
+        {openHouse
+          ? ` · ${[featured.dateLabel, featured.timeLabel || '11:00 AM–3:00 PM'].filter(Boolean).join(' · ')} at ${featured.locationName || 'Royal Oaks'}`
+          : ' · Select communities'}
       </span>
       <a href="#promotions" style={{ color: p.accent, fontWeight: 600, textDecoration: 'none' }}>View current promotions ↓</a>
     </div>
