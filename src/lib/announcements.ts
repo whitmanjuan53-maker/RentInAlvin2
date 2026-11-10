@@ -26,12 +26,12 @@ export interface PropertyAnnouncement {
 export const PROPERTY_ANNOUNCEMENTS: PropertyAnnouncement[] = [
   {
     id: 'royal-oaks-703-open-house',
-    title: 'OPEN HOUSE',
+    title: 'OPEN HOUSE THIS SATURDAY',
     message: 'Join us at Royal Oaks 703 to tour an available home, meet our local leasing team, and ask questions.',
     type: 'open-house',
     propertySlugs: ['the-royal-oaks-townhomes'],
-    endsAt: '2026-11-07T15:00:00-06:00',
-    dateLabel: 'Saturday, November 7, 2026',
+    endsAt: '2026-11-14T15:00:00-06:00',
+    dateLabel: 'Saturday, November 14, 2026',
     timeLabel: '11:00 AM–3:00 PM',
     locationName: 'Royal Oaks 703',
     locationAddress: '703 W. Lang St., Alvin, TX 77511',

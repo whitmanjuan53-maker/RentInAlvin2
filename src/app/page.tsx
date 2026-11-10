@@ -102,45 +102,64 @@ function Promotions() {
         <div style={{ borderBottom: `1px solid ${p.line}` }}>
           {announcements.map((announcement) => {
             const openHouse = announcement.type === 'open-house';
+            const propertyHref = openHouse && announcement.propertySlugs[0]
+              ? `/communities/${announcement.propertySlugs[0]}`
+              : undefined;
+            const propertyImage = openHouse
+              ? COMMUNITIES.find((community) => community.name.includes('Royal Oaks'))?.gallery?.[1]
+              : undefined;
             return (
-              <article key={announcement.id} style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 28, padding: '30px 0', borderTop: `1px solid ${p.line}` }}>
-                <div className="ys-promo-copy" style={{ flex: '1 1 580px', minWidth: 0 }}>
+              <article key={announcement.id} style={{ display: 'flex', alignItems: 'stretch', justifyContent: 'space-between', flexWrap: 'wrap', gap: openHouse ? 0 : 28, margin: openHouse ? '0 0 28px' : 0, padding: openHouse ? 0 : '30px 0', borderTop: `1px solid ${p.line}`, background: openHouse ? p.ink : 'transparent', color: openHouse ? p.paper : p.ink, overflow: 'hidden', borderRadius: openHouse ? 6 : 0, boxShadow: openHouse ? '0 18px 50px rgba(26,24,21,0.16)' : 'none' }}>
+                {openHouse && propertyImage && propertyHref && (
+                  <a href={propertyHref} aria-label="View Royal Oaks property photos" style={{ position: 'relative', flex: '1 1 390px', minHeight: 330, overflow: 'hidden', display: 'block' }}>
+                    <img src={propertyImage} alt="Royal Oaks townhomes exterior" style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', objectFit: 'cover' }} />
+                    <span style={{ position: 'absolute', left: 20, bottom: 20, padding: '10px 14px', background: p.paper, color: p.ink, borderRadius: 3, fontSize: 12, fontWeight: 700, letterSpacing: '0.04em', textTransform: 'uppercase' }}>
+                      View property photos →
+                    </span>
+                  </a>
+                )}
+                <div className="ys-promo-copy" style={{ flex: openHouse ? '1.25 1 520px' : '1 1 580px', minWidth: 0, padding: openHouse ? 'clamp(28px, 4vw, 56px)' : 0 }}>
                   <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.accent, fontWeight: 600, marginBottom: 10 }}>
                     {openHouse ? `Open house · ${announcement.locationName || 'Royal Oaks'}` : 'Move-in special · Select communities'}
                   </div>
-                  <h3 style={{ fontFamily: `'${displayFont}', serif`, fontSize: 'clamp(27px, 3.4vw, 42px)', lineHeight: 1.08, letterSpacing: '-0.01em', color: p.ink, fontWeight: 400, margin: 0 }}>
+                  <h3 style={{ fontFamily: `'${displayFont}', serif`, fontSize: openHouse ? 'clamp(34px, 4.5vw, 58px)' : 'clamp(27px, 3.4vw, 42px)', lineHeight: 1.04, letterSpacing: '-0.01em', color: openHouse ? p.paper : p.ink, fontWeight: 400, margin: 0 }}>
                     {announcement.title}
                   </h3>
                   {(announcement.dateLabel || announcement.timeLabel) && (
-                    <div style={{ fontSize: 15, color: p.primary, fontWeight: 700, marginTop: 10 }}>
+                    <div style={{ fontSize: openHouse ? 17 : 15, color: openHouse ? '#F1B98D' : p.primary, fontWeight: 700, marginTop: 14 }}>
                       {[announcement.dateLabel, announcement.timeLabel].filter(Boolean).join(' · ')}
                     </div>
                   )}
-                  <p style={{ maxWidth: '70ch', fontSize: 14.5, color: p.inkSoft, lineHeight: 1.6, margin: '10px 0 0' }}>
+                  <p style={{ maxWidth: '70ch', fontSize: 14.5, color: openHouse ? 'rgba(251,247,240,0.78)' : p.inkSoft, lineHeight: 1.6, margin: '12px 0 0' }}>
                     {announcement.message}
                     {!openHouse && ' Available at Kings Haven, French Quarter, and Royal Oaks.'}
                   </p>
                   {openHouse && announcement.locationAddress && (
-                    <a href={announcement.locationHref} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-block', marginTop: 8, color: p.primary, fontSize: 14, fontWeight: 600, textDecoration: 'underline', textUnderlineOffset: 3 }}>
+                    <a href={announcement.locationHref} target="_blank" rel="noopener noreferrer" style={{ display: 'inline-block', marginTop: 10, color: p.paper, fontSize: 14, fontWeight: 700, textDecoration: 'underline', textUnderlineOffset: 4 }}>
                       {announcement.locationAddress} ↗
                     </a>
                   )}
-                </div>
-                <div style={{ display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap', flex: '1 1 100%' }}>
-                  {openHouse && announcement.locationHref && (
-                    <a href={announcement.locationHref} target="_blank" rel="noopener noreferrer" style={{ padding: '12px 18px', color: p.ink, border: `1px solid ${p.ink}`, borderRadius: 4, textDecoration: 'none', fontSize: 13, fontWeight: 600 }}>
-                      Get Directions ↗
-                    </a>
-                  )}
-                  <button
-                    type="button"
-                    onClick={() => {
-                      document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
-                    }}
-                    style={{ padding: '13px 20px', background: p.primary, color: p.paper, border: 'none', borderRadius: 4, fontFamily: 'inherit', fontSize: 13, fontWeight: 700, cursor: 'pointer' }}
-                  >
-                    {announcement.ctaLabel || 'Contact leasing'} →
-                  </button>
+                  <div style={{ display: 'flex', gap: 10, alignItems: 'center', flexWrap: 'wrap', marginTop: openHouse ? 24 : 18 }}>
+                    {openHouse && propertyHref && (
+                      <a href={propertyHref} style={{ padding: '13px 18px', color: p.paper, border: `1px solid rgba(251,247,240,0.55)`, borderRadius: 4, textDecoration: 'none', fontSize: 13, fontWeight: 700 }}>
+                        View Property Photos →
+                      </a>
+                    )}
+                    {openHouse && announcement.locationHref && (
+                      <a href={announcement.locationHref} target="_blank" rel="noopener noreferrer" style={{ padding: '14px 20px', color: p.ink, background: '#F1B98D', border: '1px solid #F1B98D', borderRadius: 4, textDecoration: 'none', fontSize: 13, fontWeight: 800 }}>
+                        Get Directions ↗
+                      </a>
+                    )}
+                    <button
+                      type="button"
+                      onClick={() => {
+                        document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' });
+                      }}
+                      style={{ padding: '13px 20px', background: openHouse ? p.paper : p.primary, color: openHouse ? p.ink : p.paper, border: 'none', borderRadius: 4, fontFamily: 'inherit', fontSize: 13, fontWeight: 700, cursor: 'pointer' }}
+                    >
+                      {announcement.ctaLabel || 'Contact leasing'} →
+                    </button>
+                  </div>
                 </div>
               </article>
             );
@@ -167,12 +186,15 @@ function PromotionStrip() {
   return (
     <div style={{ padding: '20px var(--pad-x)', background: p.ink, color: p.paper, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16, flexWrap: 'wrap', fontSize: 14 }}>
       <span style={{ opacity: 0.85 }}>
-        <strong style={{ color: p.paper }}>{openHouse ? 'Open House' : '$300 deposit + $700 off second month’s rent'}</strong>
+        <strong style={{ color: p.paper }}>{openHouse ? 'OPEN HOUSE THIS SATURDAY' : '$300 deposit + $700 off second month’s rent'}</strong>
         {openHouse
           ? ` · ${[featured.dateLabel, featured.timeLabel || '11:00 AM–3:00 PM'].filter(Boolean).join(' · ')} at ${featured.locationName || 'Royal Oaks'}`
           : ' · Select communities'}
       </span>
       <a href="#promotions" style={{ color: p.accent, fontWeight: 600, textDecoration: 'none' }}>View current promotions ↓</a>
+      {openHouse && featured.locationHref && (
+        <a href={featured.locationHref} target="_blank" rel="noopener noreferrer" style={{ padding: '8px 12px', background: p.accent, color: p.paper, borderRadius: 3, fontWeight: 700, textDecoration: 'none' }}>Get Directions ↗</a>
+      )}
     </div>
   );
 }
