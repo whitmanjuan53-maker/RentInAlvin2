@@ -37,7 +37,7 @@ export default function LeasingChat() {
   function ask(question: string) {
     const value = question.trim().slice(0, 500);
     if (!value) return;
-    const answer = answerLeasingQuestion(value, locale, properties);
+    const answer = answerLeasingQuestion(value, locale, properties, messages.filter(message => message.role === 'user').map(message => message.text));
     setMessages(previous => [...previous.slice(-38), { id: nextId.current++, role: 'user', text: value }, { id: nextId.current++, role: 'assistant', ...answer }]);
     setDraft('');
     input.current?.focus();
@@ -53,11 +53,11 @@ export default function LeasingChat() {
           <button type="button" className="leasing-chat-close" onClick={close} aria-label={es ? 'Cerrar chat' : 'Close chat'}>×</button>
         </header>
         <div className="leasing-chat-log" role="log" aria-live="polite" aria-relevant="additions" ref={log}>
-          <div className="leasing-chat-bubble assistant">{es ? '¡Hola! Puedo ayudar con rentas, mascotas, estacionamiento, solicitudes y visitas. ¿Qué le gustaría saber?' : 'Hi! I can help with rent, pets, parking, applications and tours. What would you like to know?'}</div>
+          <div className="leasing-chat-bubble assistant">{es ? '¡Hola! Pregunte por rentas de 1, 2 o 3 habitaciones, mascotas, servicios, solicitudes o visitas. También puede indicar una comunidad.' : 'Hi! Ask me about 1, 2 or 3 bedroom rents, pets, utilities, applications or tours. You can also name a community.'}</div>
           {messages.map(message => <div key={message.id} className={`leasing-chat-bubble ${message.role}`}><span className="leasing-chat-sr">{message.role === 'user' ? (es ? 'Usted: ' : 'You: ') : (es ? 'Asistente: ' : 'Assistant: ')}</span>{message.text}{message.href && <a href={message.href}>{message.label}</a>}</div>)}
         </div>
         <div className="leasing-chat-prompts" aria-label={es ? 'Preguntas frecuentes' : 'Suggested questions'}>
-          {(es ? ['Rentas', 'Mascotas', 'Estacionamiento', 'Solicitar visita', 'Aplicar', 'Horario de oficina'] : ['Rent prices', 'Pets', 'Parking', 'Book a tour', 'Apply', 'Office hours']).map(question => <button key={question} type="button" onClick={() => ask(question)}>{question}</button>)}
+          {(es ? ['Renta de 1 habitación', 'Renta de 2 habitaciones', 'Renta de 3 habitaciones', 'Mascotas', 'Servicios incluidos', 'Solicitar visita', 'Aplicar'] : ['1 bedroom rent', '2 bedroom rent', '3 bedroom rent', 'Pets', 'Utilities included', 'Book a tour', 'Apply']).map(question => <button key={question} type="button" onClick={() => ask(question)}>{question}</button>)}
         </div>
         <form className="leasing-chat-form" onSubmit={submit}>
           <label htmlFor="leasing-chat-question" className="leasing-chat-sr">{es ? 'Su pregunta' : 'Your question'}</label>
