@@ -19,7 +19,7 @@ function Placeholder({ label }: { label: string }) {
   const stripeB = `color-mix(in oklab, ${p.ink} 6%, ${p.paper})`;
   return (
     <div style={{ position: 'absolute', inset: 0, backgroundImage: `repeating-linear-gradient(135deg, ${stripeA} 0 14px, ${stripeB} 14px 28px)`, display: 'flex', alignItems: 'flex-end', padding: 14, color: p.ink, opacity: 0.95 }}>
-      <span style={{ fontFamily: "'JetBrains Mono', ui-monospace, monospace", fontSize: 10, letterSpacing: '0.08em', textTransform: 'uppercase', background: p.paper, padding: '4px 8px', border: `1px solid color-mix(in oklab, ${p.ink} 15%, transparent)`, borderRadius: 2 }}>{label}</span>
+      <span style={{ fontFamily: "'JetBrains Mono', ui-monospace, monospace", fontSize: 'var(--text-caption)', letterSpacing: '0.08em', textTransform: 'uppercase', background: p.paper, padding: '4px 8px', border: `1px solid color-mix(in oklab, ${p.ink} 15%, transparent)`, borderRadius: 2 }}>{label}</span>
     </div>
   );
 }
@@ -27,10 +27,10 @@ function Placeholder({ label }: { label: string }) {
 function SectionHead({ eyebrow, title, lead }: { eyebrow: string; title: string; lead?: string }) {
   return (
     <div className="ys-section-head" style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 60, alignItems: 'start', marginBottom: 56 }}>
-      <div style={{ fontSize: 12, letterSpacing: '0.18em', textTransform: 'uppercase', color: p.accent, fontWeight: 600, paddingTop: 14 }}>{eyebrow}</div>
+      <div style={{ fontSize: 'var(--text-caption)', letterSpacing: '0.08em', textTransform: 'uppercase', color: p.accent, fontWeight: 600, paddingTop: 14 }}>{eyebrow}</div>
       <div>
         <h2 style={{ fontFamily: `'${displayFont}', serif`, fontSize: 'clamp(36px, 4.6vw, 60px)', lineHeight: 1.02, letterSpacing: '-0.02em', margin: 0, color: p.ink, fontWeight: 400, maxWidth: '16ch' }}>{title}</h2>
-        {lead && <p style={{ fontSize: 17, lineHeight: 1.6, color: p.inkSoft, maxWidth: '55ch', marginTop: 24 }}>{lead}</p>}
+        {lead && <p style={{ fontSize: 'var(--text-body)', lineHeight: 1.6, color: p.inkSoft, maxWidth: '55ch', marginTop: 24 }}>{lead}</p>}
       </div>
     </div>
   );
@@ -40,10 +40,10 @@ function Hero() {
   return (
     <section id="top" className="ys-hero" style={{ position: 'relative', padding: '180px var(--pad-x) 80px', minHeight: '100vh', display: 'flex', flexDirection: 'column', justifyContent: 'space-between' }}>
       <div style={{ maxWidth: 1400, margin: '0 auto', width: '100%' }}>
-        <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 13, letterSpacing: '0.08em', textTransform: 'uppercase', color: p.primary, marginBottom: 18, fontWeight: 700, border: `1px solid ${p.primary}`, borderRadius: 999, padding: '8px 16px' }}>
+        <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 'var(--text-small)', letterSpacing: '0.08em', textTransform: 'uppercase', color: p.primary, marginBottom: 18, fontWeight: 700, border: `1px solid ${p.primary}`, borderRadius: 999, padding: '8px 16px' }}>
           <span style={{ color: p.accent }}>#1</span> Lugar en Alvin para encontrar tu próxima casa
         </div>
-        <div style={{ fontSize: 12, letterSpacing: '0.18em', textTransform: 'uppercase', color: p.inkSoft, marginBottom: 32, fontWeight: 500 }}>
+        <div style={{ fontSize: 'var(--text-caption)', letterSpacing: '0.08em', textTransform: 'uppercase', color: p.inkSoft, marginBottom: 32, fontWeight: 500 }}>
           Administrado por Yellowstone Asset Management
         </div>
         <h1 style={{ fontFamily: `'${displayFont}', serif`, fontSize: 'clamp(56px, 8vw, 132px)', lineHeight: 0.95, letterSpacing: '-0.02em', margin: 0, color: p.ink, fontWeight: 400, maxWidth: '13ch' }}>
@@ -54,15 +54,15 @@ function Hero() {
           </span>
         </h1>
         <div className="ys-hero-row" style={{ display: 'grid', gridTemplateColumns: '1.1fr 1fr', gap: 80, marginTop: 72, alignItems: 'end' }}>
-          <p style={{ fontSize: 19, lineHeight: 1.55, color: p.inkSoft, maxWidth: '44ch', margin: 0 }}>
+          <p style={{ fontSize: 'var(--text-lead)', lineHeight: 1.55, color: p.inkSoft, maxWidth: '44ch', margin: 0 }}>
             Yellowstone Management cuida más de <strong style={{ color: p.ink }}>160 unidades en seis comunidades</strong> en la ciudad de Alvin, apartamentos y townhomes con precios desde $800 hasta $1,650, arrendados y mantenidos por un equipo local que contesta el teléfono.
           </p>
           <div style={{ display: 'flex', gap: 14, justifyContent: 'flex-end', flexWrap: 'wrap' }}>
-            <button onClick={() => { if (typeof window !== 'undefined' && (window as any).__openBooking) (window as any).__openBooking(); }} style={{ padding: '16px 28px', background: p.primary, color: p.paper, textDecoration: 'none', fontSize: 15, fontWeight: 600, borderRadius: 4, letterSpacing: '0.01em', display: 'inline-flex', alignItems: 'center', gap: 10, transition: 'transform 180ms ease, background 180ms ease', cursor: 'pointer', border: 'none', fontFamily: 'inherit' }} onMouseOver={(e) => { const el = e.currentTarget as HTMLElement; el.style.background = p.primarySoft; el.style.transform = 'translateY(-1px)'; }} onMouseOut={(e) => { const el = e.currentTarget as HTMLElement; el.style.background = p.primary; el.style.transform = 'translateY(0)'; }}>
+            <button onClick={() => { if (typeof window !== 'undefined' && (window as any).__openBooking) (window as any).__openBooking(); }} style={{ padding: '16px 28px', background: p.primary, color: p.paper, textDecoration: 'none', fontSize: 'var(--text-body)', fontWeight: 600, borderRadius: 4, letterSpacing: '0.01em', display: 'inline-flex', alignItems: 'center', gap: 10, transition: 'transform 180ms ease, background 180ms ease', cursor: 'pointer', border: 'none', fontFamily: 'inherit' }} onMouseOver={(e) => { const el = e.currentTarget as HTMLElement; el.style.background = p.primarySoft; el.style.transform = 'translateY(-1px)'; }} onMouseOut={(e) => { const el = e.currentTarget as HTMLElement; el.style.background = p.primary; el.style.transform = 'translateY(0)'; }}>
               Reservar un tour
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8m0 0L7.5 3.5M11 7l-3.5 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
             </button>
-            <a href="#comunidades" style={{ padding: '16px 28px', background: 'transparent', color: p.ink, textDecoration: 'none', fontSize: 15, fontWeight: 600, borderRadius: 4, border: `1px solid ${p.ink}` }}>Ver comunidades</a>
+            <a href="#comunidades" style={{ padding: '16px 28px', background: 'transparent', color: p.ink, textDecoration: 'none', fontSize: 'var(--text-body)', fontWeight: 600, borderRadius: 4, border: `1px solid ${p.ink}` }}>Ver comunidades</a>
           </div>
         </div>
       </div>
@@ -70,7 +70,7 @@ function Hero() {
         {[['150+', 'unidades administradas'], ['6', 'comunidades en Alvin'], ['$899', 'renta inicial'], ['Local', 'equipo familiar']].map(([n, label], i) => (
           <div key={i} style={{ paddingLeft: i === 0 ? 0 : 28 }}>
             <div style={{ fontFamily: `'${displayFont}', serif`, fontSize: 56, lineHeight: 1, color: p.ink, letterSpacing: '-0.02em' }}>{n}</div>
-            <div style={{ fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', color: p.inkSoft, marginTop: 10, fontWeight: 500 }}>{label}</div>
+            <div style={{ fontSize: 'var(--text-caption)', letterSpacing: '0.12em', textTransform: 'uppercase', color: p.inkSoft, marginTop: 10, fontWeight: 500 }}>{label}</div>
           </div>
         ))}
       </div>
@@ -117,11 +117,11 @@ function CommunityCard({ prop, idx, onOpen }: { prop: (typeof COMMUNITIES)[0]; i
         ) : (
           <Placeholder label={prop.img} />
         )}
-        <div style={{ position: 'absolute', top: 14, left: 14, background: p.paper, padding: '5px 10px', fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.primary, fontWeight: 600, border: `1px solid ${p.line}`, zIndex: 4 }}>
+        <div style={{ position: 'absolute', top: 14, left: 14, background: p.paper, padding: '5px 10px', fontSize: 'var(--text-caption)', letterSpacing: '0.08em', textTransform: 'uppercase', color: p.primary, fontWeight: 600, border: `1px solid ${p.line}`, zIndex: 4 }}>
           {String(idx + 1).padStart(2, '0')} · {prop.tag}
         </div>
         {prop.comingSoon && (
-          <div style={{ position: 'absolute', top: 14, right: 14, background: p.accent, color: p.paper, padding: '5px 10px', fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase', fontWeight: 600, border: `1px solid ${p.accent}`, zIndex: 4 }}>
+          <div style={{ position: 'absolute', top: 14, right: 14, background: p.accent, color: p.paper, padding: '5px 10px', fontSize: 'var(--text-caption)', letterSpacing: '0.08em', textTransform: 'uppercase', fontWeight: 600, border: `1px solid ${p.accent}`, zIndex: 4 }}>
             Próximamente
           </div>
         )}
@@ -129,18 +129,18 @@ function CommunityCard({ prop, idx, onOpen }: { prop: (typeof COMMUNITIES)[0]; i
       <div style={{ padding: 24, display: 'flex', flexDirection: 'column', gap: 14, flex: 1 }}>
         <div>
           <h3 style={{ fontFamily: "'Instrument Serif', serif", fontSize: 28, lineHeight: 1.05, letterSpacing: '-0.01em', margin: 0, color: p.ink, fontWeight: 400 }}>{prop.name}</h3>
-          <div style={{ fontSize: 14, color: p.inkSoft, marginTop: 4 }}>{prop.addr} · Alvin, TX</div>
+          <div style={{ fontSize: 'var(--text-small)', color: p.inkSoft, marginTop: 4 }}>{prop.addr} · Alvin, TX</div>
         </div>
-        <p style={{ fontSize: 14, color: p.inkSoft, lineHeight: 1.55, margin: 0, flex: 1 }}>{prop.note}</p>
+        <p style={{ fontSize: 'var(--text-small)', color: p.inkSoft, lineHeight: 1.55, margin: 0, flex: 1 }}>{prop.note}</p>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', paddingTop: 14, borderTop: `1px solid ${p.line}` }}>
           <div>
-            <div style={{ fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 500 }}>{prop.units}</div>
+            <div style={{ fontSize: 'var(--text-caption)', letterSpacing: '0.12em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 500 }}>{prop.units}</div>
             <div style={{ fontFamily: "'Instrument Serif', serif", fontSize: 22, color: p.primary, marginTop: 2 }}>{prop.price}</div>
           </div>
           {prop.comingSoon ? (
-            <span style={{ fontSize: 13, fontWeight: 600, color: p.inkSoft }}>Próximamente</span>
+            <span style={{ fontSize: 'var(--text-small)', fontWeight: 600, color: p.inkSoft }}>Próximamente</span>
           ) : (
-            <a href="#contacto" onClick={(e) => e.stopPropagation()} style={{ fontSize: 13, fontWeight: 600, color: p.ink, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+            <a href="#contacto" onClick={(e) => e.stopPropagation()} style={{ fontSize: 'var(--text-small)', fontWeight: 600, color: p.ink, textDecoration: 'none', display: 'inline-flex', alignItems: 'center', gap: 6 }}>
               Consultar
               <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6h7m0 0L6.5 3m3 3-3 3" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" /></svg>
             </a>
@@ -170,32 +170,32 @@ function Floorplans() {
     <section id="planes" style={{ padding: 'var(--pad-x-lg) var(--pad-x)', background: p.primary, color: p.paper }}>
       <div style={{ maxWidth: 1400, margin: '0 auto' }}>
         <div className="ys-section-head" style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 60, alignItems: 'start', marginBottom: 56 }}>
-          <div style={{ fontSize: 12, letterSpacing: '0.18em', textTransform: 'uppercase', color: p.accent, fontWeight: 600, paddingTop: 14 }}>Planos · $800 a $1,650</div>
+          <div style={{ fontSize: 'var(--text-caption)', letterSpacing: '0.08em', textTransform: 'uppercase', color: p.accentLight, fontWeight: 600, paddingTop: 14 }}>Planos · $800 a $1,650</div>
           <div>
             <h2 style={{ fontFamily: `'${displayFont}', serif`, fontSize: 'clamp(36px, 4.6vw, 60px)', lineHeight: 1.02, letterSpacing: '-0.02em', margin: 0, fontWeight: 400, maxWidth: '16ch', color: p.paper }}>Cinco diseños, precios honestos.</h2>
-            <p style={{ fontSize: 17, lineHeight: 1.6, color: `color-mix(in oklab, ${p.paper} 75%, transparent)`, maxWidth: '55ch', marginTop: 24 }}>Las rentas mensuales se muestran de antemano. Consulte al equipo de arrendamiento para conocer los detalles del contrato. La disponibilidad cambia semanalmente, llámenos para confirmar qué hay disponible hoy.</p>
+            <p style={{ fontSize: 'var(--text-body)', lineHeight: 1.6, color: `color-mix(in oklab, ${p.paper} 75%, transparent)`, maxWidth: '55ch', marginTop: 24 }}>Las rentas mensuales se muestran de antemano. Consulte al equipo de arrendamiento para conocer los detalles del contrato. La disponibilidad cambia semanalmente, llámenos para confirmar qué hay disponible hoy.</p>
           </div>
         </div>
         <div className="ys-floor-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 60, alignItems: 'start' }}>
           <div style={{ borderTop: `1px solid color-mix(in oklab, ${p.paper} 20%, transparent)` }}>
             {FLOORPLANS.map((f, i) => (
-              <button key={i} onClick={() => setActive(i)} onMouseEnter={() => setActive(i)} style={{ width: '100%', textAlign: 'left', padding: '24px 0', borderBottom: `1px solid color-mix(in oklab, ${p.paper} 20%, transparent)`, background: 'transparent', border: 'none', borderTop: 'none', cursor: 'pointer', display: 'grid', gridTemplateColumns: 'auto 1fr auto', gap: 24, alignItems: 'center', color: p.paper, opacity: active === i ? 1 : 0.55, transition: 'opacity 180ms ease', fontFamily: 'inherit' }}>
-                <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: p.accent }}>0{i + 1}</span>
+              <button className="ys-floor-option" key={i} onClick={() => setActive(i)} onMouseEnter={() => setActive(i)} style={{ width: '100%', textAlign: 'left', padding: '24px 0', borderBottom: `1px solid color-mix(in oklab, ${p.paper} 20%, transparent)`, background: 'transparent', border: 'none', borderTop: 'none', cursor: 'pointer', display: 'grid', gridTemplateColumns: 'auto 1fr auto', gap: 24, alignItems: 'center', color: p.paper, opacity: active === i ? 1 : 0.85, transition: 'opacity 180ms ease', fontFamily: 'inherit' }}>
+                <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 'var(--text-caption)', color: p.accentLight }}>0{i + 1}</span>
                 <span style={{ fontFamily: `'${displayFont}', serif`, fontSize: 32, fontWeight: 400, letterSpacing: '-0.01em' }}>{f.type}</span>
-                <span style={{ fontSize: 14, fontWeight: 500 }}>{f.price}</span>
+                <span style={{ fontSize: 'var(--text-small)', fontWeight: 500 }}>{f.price}</span>
               </button>
             ))}
           </div>
           <div className="ys-floor-detail" style={{ background: `color-mix(in oklab, ${p.paper} 8%, transparent)`, border: `1px solid color-mix(in oklab, ${p.paper} 20%, transparent)`, padding: 40, position: 'sticky', top: 100 }}>
-            <div style={{ fontSize: 11, letterSpacing: '0.18em', textTransform: 'uppercase', color: p.accent, fontWeight: 600 }}>Layout 0{active + 1}</div>
+            <div style={{ fontSize: 'var(--text-caption)', letterSpacing: '0.08em', textTransform: 'uppercase', color: p.accentLight, fontWeight: 600 }}>Layout 0{active + 1}</div>
             <h3 style={{ fontFamily: `'${displayFont}', serif`, fontSize: 56, fontWeight: 400, letterSpacing: '-0.02em', lineHeight: 1, margin: '16px 0 0' }}>{FLOORPLANS[active].type}</h3>
-            <div style={{ marginTop: 32, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
-              <div><div style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', opacity: 0.6, marginBottom: 6 }}>Pies cuadrados</div><div style={{ fontSize: 18 }}>{FLOORPLANS[active].sqft}</div></div>
-              <div><div style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', opacity: 0.6, marginBottom: 6 }}>Renta mensual</div><div style={{ fontSize: 18 }}>{FLOORPLANS[active].price}</div></div>
-              <div><div style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', opacity: 0.6, marginBottom: 6 }}>Disponible ahora</div><div style={{ fontSize: 18 }}>{FLOORPLANS[active].available} unidades</div></div>
-              <div><div style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', opacity: 0.6, marginBottom: 6 }}>Depósito</div><div style={{ fontSize: 18 }}>Un mes de renta</div></div>
+            <div className="ys-floor-facts" style={{ marginTop: 32, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 24 }}>
+              <div><div style={{ fontSize: 'var(--text-caption)', letterSpacing: '0.08em', textTransform: 'uppercase', opacity: 0.9, marginBottom: 6 }}>Pies cuadrados</div><div style={{ fontSize: 'var(--text-lead)' }}>{FLOORPLANS[active].sqft}</div></div>
+              <div><div style={{ fontSize: 'var(--text-caption)', letterSpacing: '0.08em', textTransform: 'uppercase', opacity: 0.9, marginBottom: 6 }}>Renta mensual</div><div style={{ fontSize: 'var(--text-lead)' }}>{FLOORPLANS[active].price}</div></div>
+              <div><div style={{ fontSize: 'var(--text-caption)', letterSpacing: '0.08em', textTransform: 'uppercase', opacity: 0.9, marginBottom: 6 }}>Disponible ahora</div><div style={{ fontSize: 'var(--text-lead)' }}>{FLOORPLANS[active].available} unidades</div></div>
+              <div><div style={{ fontSize: 'var(--text-caption)', letterSpacing: '0.08em', textTransform: 'uppercase', opacity: 0.9, marginBottom: 6 }}>Depósito</div><div style={{ fontSize: 'var(--text-lead)' }}>Un mes de renta</div></div>
             </div>
-            <button onClick={() => { if (typeof window !== 'undefined' && (window as any).__openBooking) (window as any).__openBooking(); }} style={{ marginTop: 32, display: 'inline-flex', alignItems: 'center', gap: 10, padding: '14px 24px', background: p.accent, color: p.paper, textDecoration: 'none', fontWeight: 600, fontSize: 14, cursor: 'pointer', border: 'none', fontFamily: 'inherit' }}>
+            <button onClick={() => { if (typeof window !== 'undefined' && (window as any).__openBooking) (window as any).__openBooking(); }} style={{ marginTop: 32, display: 'inline-flex', alignItems: 'center', gap: 10, padding: '14px 24px', background: p.accent, color: p.paper, textDecoration: 'none', fontWeight: 600, fontSize: 'var(--text-small)', cursor: 'pointer', border: 'none', fontFamily: 'inherit' }}>
               Programar una visita
               <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8m0 0L7.5 3.5M11 7l-3.5 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
             </button>
@@ -219,9 +219,9 @@ function About() {
         <div className="ys-about-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 32, marginTop: 24 }}>
           {items.map((it) => (
             <div key={it.n} style={{ padding: '32px 0', borderTop: `2px solid ${p.ink}` }}>
-              <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: p.accent, fontWeight: 600, letterSpacing: '0.1em', marginBottom: 16 }}>{it.n} / 03</div>
+              <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 'var(--text-caption)', color: p.accent, fontWeight: 600, letterSpacing: '0.1em', marginBottom: 16 }}>{it.n} / 03</div>
               <h3 style={{ fontFamily: `'${displayFont}', serif`, fontSize: 32, fontWeight: 400, letterSpacing: '-0.01em', margin: 0, lineHeight: 1.05, color: p.ink }}>{it.title}</h3>
-              <p style={{ fontSize: 15, lineHeight: 1.6, color: p.inkSoft, marginTop: 16 }}>{it.body}</p>
+              <p style={{ fontSize: 'var(--text-body)', lineHeight: 1.6, color: p.inkSoft, marginTop: 16 }}>{it.body}</p>
             </div>
           ))}
         </div>
@@ -242,17 +242,17 @@ function Contact() {
       <div style={{ maxWidth: 1400, margin: '0 auto' }}>
         <div className="ys-contact-grid" style={{ display: 'grid', gridTemplateColumns: '1.1fr 1fr', gap: 80 }}>
           <div>
-            <div style={{ fontSize: 12, letterSpacing: '0.18em', textTransform: 'uppercase', color: p.accent, fontWeight: 600, marginBottom: 32 }}>Visitar · Llamar · Programar</div>
+            <div style={{ fontSize: 'var(--text-caption)', letterSpacing: '0.08em', textTransform: 'uppercase', color: p.accent, fontWeight: 600, marginBottom: 32 }}>Visitar · Llamar · Programar</div>
             <h2 style={{ fontFamily: `'${displayFont}', serif`, fontSize: 'clamp(40px, 6vw, 88px)', lineHeight: 0.98, letterSpacing: '-0.02em', margin: 0, fontWeight: 400, color: p.ink }}>Pase por la oficina, o elija una hora en línea.</h2>
             <div style={{ marginTop: 48, padding: 32, border: `1px solid ${p.line}`, background: p.bg }}>
-              <div style={{ fontSize: 11, letterSpacing: '0.18em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 500 }}>Oficina de arrendamiento</div>
+              <div style={{ fontSize: 'var(--text-caption)', letterSpacing: '0.08em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 500 }}>Oficina de arrendamiento</div>
               <div style={{ fontFamily: `'${displayFont}', serif`, fontSize: 36, lineHeight: 1.1, color: p.ink, marginTop: 10, fontWeight: 400 }}>410 S 2nd Street<br />Alvin, TX 77511</div>
-              <div style={{ marginTop: 20, display: 'flex', gap: 28, fontSize: 13, color: p.inkSoft, flexWrap: 'wrap' }}>
+              <div style={{ marginTop: 20, display: 'flex', gap: 28, fontSize: 'var(--text-small)', color: p.inkSoft, flexWrap: 'wrap' }}>
                 <div><div style={{ fontWeight: 600, color: p.ink }}>Lun a Vie</div>9:00am a 5:00pm</div>
                 <div><div style={{ fontWeight: 600, color: p.ink }}>Sábado</div>Con cita</div>
                 <div><div style={{ fontWeight: 600, color: p.ink }}>Domingo</div>Cerrado</div>
               </div>
-              <a href="https://maps.google.com/?q=410+S+2nd+St+Alvin+TX+77511" target="_blank" rel="noopener" style={{ marginTop: 24, display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 13, fontWeight: 600, color: p.primary, textDecoration: 'none' }}>
+              <a href="https://maps.google.com/?q=410+S+2nd+St+Alvin+TX+77511" target="_blank" rel="noopener" style={{ marginTop: 24, display: 'inline-flex', alignItems: 'center', gap: 8, fontSize: 'var(--text-small)', fontWeight: 600, color: p.primary, textDecoration: 'none' }}>
                 Cómo llegar
                 <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M2.5 6h7m0 0L6.5 3m3 3-3 3" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round" /></svg>
               </a>
@@ -262,12 +262,12 @@ function Contact() {
             {channels.map((c, i) => (
               <a key={c.key} href={c.href} onClick={c.onClick} onMouseEnter={() => setHovered(c.key)} onMouseLeave={() => setHovered(null)} style={{ display: 'block', padding: '32px 0', borderTop: i === 0 ? `1px solid ${p.line}` : 'none', borderBottom: `1px solid ${p.line}`, textDecoration: 'none', color: p.ink, transition: 'padding 220ms ease', paddingLeft: hovered === c.key ? 16 : 0, position: 'relative' }}>
                 <div style={{ position: 'absolute', left: 0, top: '50%', transform: 'translateY(-50%)', width: hovered === c.key ? 8 : 0, height: hovered === c.key ? 8 : 0, background: p.accent, transition: 'all 220ms ease' }}></div>
-                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 500, marginBottom: 12 }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', fontSize: 'var(--text-caption)', letterSpacing: '0.08em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 500, marginBottom: 12 }}>
                   <span>{c.eyebrow}</span>
                   <span style={{ color: p.accent }}>{c.action} →</span>
                 </div>
                 <div style={{ fontFamily: `'${displayFont}', serif`, fontSize: c.key === 'email' ? 'clamp(22px, 2.6vw, 30px)' : 36, lineHeight: 1.15, fontWeight: 400, letterSpacing: '-0.01em', wordBreak: 'break-word', overflowWrap: 'anywhere' }}>{c.label}</div>
-                <div style={{ fontSize: 14, color: p.inkSoft, marginTop: 12 }}>{c.detail}</div>
+                <div style={{ fontSize: 'var(--text-small)', color: p.inkSoft, marginTop: 12 }}>{c.detail}</div>
               </a>
             ))}
           </div>
@@ -277,15 +277,15 @@ function Contact() {
         <div style={{ marginTop: 64, paddingTop: 48, borderTop: `1px solid ${p.line}` }}>
           <div className="ys-contact-grid" style={{ display: 'grid', gridTemplateColumns: '1.1fr 1fr', gap: 80, alignItems: 'start' }}>
             <div>
-              <div style={{ fontSize: 12, letterSpacing: '0.18em', textTransform: 'uppercase', color: p.accent, fontWeight: 600, marginBottom: 16 }}>Consulta general</div>
+              <div style={{ fontSize: 'var(--text-caption)', letterSpacing: '0.08em', textTransform: 'uppercase', color: p.accent, fontWeight: 600, marginBottom: 16 }}>Consulta general</div>
               <h3 style={{ fontFamily: `'${displayFont}', serif`, fontSize: 'clamp(28px, 3.4vw, 44px)', lineHeight: 1.05, letterSpacing: '-0.02em', margin: 0, fontWeight: 400, color: p.ink }}>¿Aún no listo para reservar un tour?</h3>
-              <p style={{ fontSize: 17, lineHeight: 1.6, color: p.inkSoft, maxWidth: '44ch', marginTop: 16 }}>Envíenos un mensaje rápido y nos comunicaremos con usted con disponibilidad, precios y siguientes pasos.</p>
+              <p style={{ fontSize: 'var(--text-body)', lineHeight: 1.6, color: p.inkSoft, maxWidth: '44ch', marginTop: 16 }}>Envíenos un mensaje rápido y nos comunicaremos con usted con disponibilidad, precios y siguientes pasos.</p>
               <div style={{ marginTop: 28, display: 'flex', gap: 14, flexWrap: 'wrap' }}>
-                <a href="tel:8322103968" style={{ padding: '12px 20px', background: p.ink, color: p.paper, textDecoration: 'none', fontWeight: 600, fontSize: 14, borderRadius: 4, display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+                <a href="tel:8322103968" style={{ padding: '12px 20px', background: p.ink, color: p.paper, textDecoration: 'none', fontWeight: 600, fontSize: 'var(--text-small)', borderRadius: 4, display: 'inline-flex', alignItems: 'center', gap: 8 }}>
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 2.5a2 2 0 012-2h1.5l1 2.5-1.5 1a7 7 0 004 4l1-1.5 2.5 1V10a2 2 0 01-2 2h-.5A7.5 7.5 0 012.5 4.5V4a2 2 0 012-1.5z" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round"/></svg>
                   Llamar (832) 210 3968
                 </a>
-                <a href="sms:+18322103968?body=Hola%20Yellowstone%2C%20estoy%20interesado%20en%20una%20unidad." style={{ padding: '12px 20px', background: 'transparent', color: p.ink, textDecoration: 'none', fontWeight: 600, fontSize: 14, border: `1px solid ${p.ink}`, borderRadius: 4, display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+                <a href="sms:+18322103968?body=Hola%20Yellowstone%2C%20estoy%20interesado%20en%20una%20unidad." style={{ padding: '12px 20px', background: 'transparent', color: p.ink, textDecoration: 'none', fontWeight: 600, fontSize: 'var(--text-small)', border: `1px solid ${p.ink}`, borderRadius: 4, display: 'inline-flex', alignItems: 'center', gap: 8 }}>
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7c0 3.5 2.5 6 6 6h2.5a1.5 1.5 0 001.5-1.5V10a1 1 0 00-1-1h-1a1 1 0 00-1 1v.5h-1C5.5 10.5 3.5 8.5 3.5 6H4a1 1 0 001-1V4a1 1 0 00-1-1h-.5A1.5 1.5 0 002 4.5V7z" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round"/></svg>
                   Envíenos un mensaje
                 </a>
@@ -306,9 +306,9 @@ function FAQ() {
       <div style={{ maxWidth: 1400, margin: '0 auto' }}>
         <div className="ys-faq-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 60, alignItems: 'start' }}>
           <div>
-            <div style={{ fontSize: 12, letterSpacing: '0.18em', textTransform: 'uppercase', color: p.accent, fontWeight: 600, marginBottom: 18 }}>Preguntas frecuentes</div>
+            <div style={{ fontSize: 'var(--text-caption)', letterSpacing: '0.08em', textTransform: 'uppercase', color: p.accent, fontWeight: 600, marginBottom: 18 }}>Preguntas frecuentes</div>
             <h2 style={{ fontFamily: `'${displayFont}', serif`, fontSize: 'clamp(36px, 4.6vw, 60px)', lineHeight: 1.02, letterSpacing: '-0.02em', margin: 0, color: p.ink, fontWeight: 400, maxWidth: '12ch' }}>Lo que los inquilinos suelen preguntar primero.</h2>
-            <p style={{ fontSize: 15, lineHeight: 1.6, color: p.inkSoft, marginTop: 24, maxWidth: '40ch' }}>¿No ve su pregunta? Llame al <a href="tel:8322103968" style={{ color: p.primary, textDecoration: 'none', fontWeight: 600 }}>(832) 210 3968</a>, una persona real contesta.</p>
+            <p style={{ fontSize: 'var(--text-body)', lineHeight: 1.6, color: p.inkSoft, marginTop: 24, maxWidth: '40ch' }}>¿No ve su pregunta? Llame al <a href="tel:8322103968" style={{ color: p.primary, textDecoration: 'none', fontWeight: 600 }}>(832) 210 3968</a>, una persona real contesta.</p>
           </div>
           <div>
             {FAQS.map((f, i) => {
@@ -316,14 +316,14 @@ function FAQ() {
               return (
                 <div key={i} style={{ borderTop: i === 0 ? `1px solid ${p.line}` : 'none', borderBottom: `1px solid ${p.line}` }}>
                   <button onClick={() => setOpen(isOpen ? -1 : i)} style={{ width: '100%', textAlign: 'left', padding: '26px 0', background: 'transparent', border: 'none', cursor: 'pointer', fontFamily: 'inherit', display: 'flex', alignItems: 'center', gap: 20, color: p.ink }}>
-                    <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, color: p.accent, fontWeight: 600, flexShrink: 0, width: 30 }}>{String(i + 1).padStart(2, '0')}</span>
+                    <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 'var(--text-caption)', color: p.accent, fontWeight: 600, flexShrink: 0, width: 30 }}>{String(i + 1).padStart(2, '0')}</span>
                     <span style={{ flex: 1, fontFamily: `'${displayFont}', serif`, fontSize: 'clamp(20px, 2.4vw, 28px)', fontWeight: 400, letterSpacing: '-0.01em', lineHeight: 1.2 }}>{f.q}</span>
                     <span style={{ width: 32, height: 32, borderRadius: '50%', border: `1px solid ${p.line}`, display: 'grid', placeItems: 'center', flexShrink: 0, transform: isOpen ? 'rotate(45deg)' : 'rotate(0deg)', transition: 'transform 220ms ease', background: isOpen ? p.ink : 'transparent', color: isOpen ? p.paper : p.ink }}>
                       <svg width="12" height="12" viewBox="0 0 12 12" fill="none"><path d="M6 1.5v9M1.5 6h9" stroke="currentColor" strokeWidth="1.4" strokeLinecap="round"/></svg>
                     </span>
                   </button>
                   <div style={{ maxHeight: isOpen ? 999 : 0, overflow: 'hidden', transition: 'max-height 320ms ease, padding 320ms ease', paddingBottom: isOpen ? 26 : 0, paddingLeft: 50 }}>
-                    <p style={{ fontSize: 16, lineHeight: 1.65, color: p.inkSoft, margin: 0, maxWidth: '60ch' }}>{f.a}</p>
+                    <p style={{ fontSize: 'var(--text-body)', lineHeight: 1.65, color: p.inkSoft, margin: 0, maxWidth: '60ch' }}>{f.a}</p>
                   </div>
                 </div>
               );
@@ -351,7 +351,7 @@ function Availability() {
       <div style={{ maxWidth: 1400, margin: '0 auto' }}>
         <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', marginBottom: 36, gap: 32, flexWrap: 'wrap' }}>
           <div>
-            <div style={{ fontSize: 12, letterSpacing: '0.18em', textTransform: 'uppercase', color: p.accent, fontWeight: 600, marginBottom: 14, display: 'flex', alignItems: 'center', gap: 10 }}>
+            <div style={{ fontSize: 'var(--text-caption)', letterSpacing: '0.08em', textTransform: 'uppercase', color: p.accent, fontWeight: 600, marginBottom: 14, display: 'flex', alignItems: 'center', gap: 10 }}>
               <span style={{ width: 8, height: 8, borderRadius: '50%', background: '#22c55e', boxShadow: '0 0 0 0 rgba(34,197,94,0.5)', animation: 'ys-pulse 2s infinite' }}></span>
               Abierto esta semana
             </div>
@@ -359,29 +359,29 @@ function Availability() {
           </div>
           <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
             {filters.map(([k, label]) => (
-              <button key={k} onClick={() => setFilter(k)} style={{ padding: '8px 14px', background: filter === k ? p.ink : 'transparent', color: filter === k ? p.paper : p.ink, border: `1px solid ${filter === k ? p.ink : p.line}`, fontSize: 13, fontWeight: 500, cursor: 'pointer', fontFamily: 'inherit', borderRadius: 999, transition: 'all 160ms ease' }}>{label}</button>
+              <button key={k} onClick={() => setFilter(k)} style={{ padding: '8px 14px', background: filter === k ? p.ink : 'transparent', color: filter === k ? p.paper : p.ink, border: `1px solid ${filter === k ? p.ink : p.line}`, fontSize: 'var(--text-small)', fontWeight: 500, cursor: 'pointer', fontFamily: 'inherit', borderRadius: 999, transition: 'all 160ms ease' }}>{label}</button>
             ))}
           </div>
         </div>
         <div className="ys-avail-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 1, background: p.line, border: `1px solid ${p.line}` }}>
-          {filtered.length === 0 && <div style={{ gridColumn: '1 / -1', padding: 60, textAlign: 'center', background: p.paper, color: p.inkSoft, fontSize: 15 }}>No hay coincidencias. Llámenos para consultar la disponibilidad.</div>}
+          {filtered.length === 0 && <div style={{ gridColumn: '1 / -1', padding: 60, textAlign: 'center', background: p.paper, color: p.inkSoft, fontSize: 'var(--text-body)' }}>No hay coincidencias. Llámenos para consultar la disponibilidad.</div>}
           {filtered.map((u, i) => (
             <div key={i} style={{ background: p.paper, padding: 24, display: 'flex', flexDirection: 'column', gap: 14, position: 'relative' }}>
-              {u.featured && <div style={{ position: 'absolute', top: 16, right: 16, fontSize: 10, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.accent, fontWeight: 600 }}>★ Featured</div>}
+              {u.featured && <div style={{ position: 'absolute', top: 16, right: 16, fontSize: 'var(--text-caption)', letterSpacing: '0.08em', textTransform: 'uppercase', color: p.accent, fontWeight: 600 }}>★ Featured</div>}
               <div>
-                <div style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 500 }}>{u.property}</div>
+                <div style={{ fontSize: 'var(--text-caption)', letterSpacing: '0.08em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 500 }}>{u.property}</div>
                 <div style={{ fontFamily: `'${displayFont}', serif`, fontSize: 26, lineHeight: 1.05, color: p.ink, marginTop: 6, fontWeight: 400, letterSpacing: '-0.01em' }}>{u.type}</div>
-                <div style={{ fontSize: 13, color: p.inkSoft, marginTop: 4 }}>{u.addr} · {u.sqft} ft²</div>
+                <div style={{ fontSize: 'var(--text-small)', color: p.inkSoft, marginTop: 4 }}>{u.addr} · {u.sqft} ft²</div>
               </div>
               <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', paddingTop: 14, borderTop: `1px solid ${p.line}`, marginTop: 'auto' }}>
                 <div>
-                  <div style={{ fontFamily: `'${displayFont}', serif`, fontSize: 28, color: u.ready.includes('Próximamente') ? p.inkSoft : p.primary, fontWeight: 400 }}>${u.price.toLocaleString()}<span style={{ fontSize: 13, color: p.inkSoft, fontFamily: 'Inter, sans-serif' }}>/mes</span></div>
-                  <div style={{ fontSize: 11, color: u.ready.includes('ahora') ? '#16a34a' : u.ready.includes('Próximamente') ? p.accent : p.inkSoft, marginTop: 2, fontWeight: 500 }}>{u.ready}</div>
+                  <div style={{ fontFamily: `'${displayFont}', serif`, fontSize: 28, color: u.ready.includes('Próximamente') ? p.inkSoft : p.primary, fontWeight: 400 }}>${u.price.toLocaleString()}<span style={{ fontSize: 'var(--text-small)', color: p.inkSoft, fontFamily: 'Inter, sans-serif' }}>/mes</span></div>
+                  <div style={{ fontSize: 'var(--text-caption)', color: u.ready.includes('ahora') ? '#276b3e' : u.ready.includes('Próximamente') ? p.accent : p.inkSoft, marginTop: 2, fontWeight: 500 }}>{u.ready}</div>
                 </div>
                 {u.ready.includes('Próximamente') ? (
-                  <span style={{ fontSize: 12, fontWeight: 600, color: p.inkSoft }}>Próximamente</span>
+                  <span style={{ fontSize: 'var(--text-caption)', fontWeight: 600, color: p.inkSoft }}>Próximamente</span>
                 ) : (
-                  <button onClick={() => { if (typeof window !== 'undefined' && (window as any).__openBooking) { const idMap: Record<string,string> = { 'Kings Haven': 'kings-haven', 'Kings Manor': 'kings-manor', 'Kings Haven (100)': 'kings-haven-100', 'French Quarter': 'french-quarter', 'Royal Oaks': 'royal-oaks', 'White House': 'white-house' }; (window as any).__openBooking(idMap[u.property] || ''); } }} style={{ fontSize: 12, fontWeight: 600, color: p.ink, textDecoration: 'none', padding: '8px 12px', border: `1px solid ${p.ink}`, borderRadius: 999, background: 'transparent', cursor: 'pointer', fontFamily: 'inherit' }}>Tour</button>
+                  <button onClick={() => { if (typeof window !== 'undefined' && (window as any).__openBooking) { const idMap: Record<string,string> = { 'Kings Haven': 'kings-haven', 'Kings Manor': 'kings-manor', 'Kings Haven (100)': 'kings-haven-100', 'French Quarter': 'french-quarter', 'Royal Oaks': 'royal-oaks', 'White House': 'white-house' }; (window as any).__openBooking(idMap[u.property] || ''); } }} style={{ fontSize: 'var(--text-caption)', fontWeight: 600, color: p.ink, textDecoration: 'none', padding: '8px 12px', border: `1px solid ${p.ink}`, borderRadius: 999, background: 'transparent', cursor: 'pointer', fontFamily: 'inherit' }}>Tour</button>
                 )}
               </div>
             </div>
@@ -429,19 +429,19 @@ function SellProperty() {
     } catch { setError('Error de red. Intente de nuevo o llámenos.'); setSubmitting(false); }
   }
 
-  const fieldStyle = { width: '100%', padding: '12px 14px', background: p.bg, border: `1px solid ${p.line}`, color: p.ink, fontSize: 15, fontFamily: 'inherit', borderRadius: 3, outline: 'none', transition: 'border-color 160ms ease' };
-  const labelStyle = { fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 500, marginBottom: 8, display: 'block' };
+  const fieldStyle = { width: '100%', padding: '12px 14px', background: p.bg, border: `1px solid ${p.line}`, color: p.ink, fontSize: 'var(--text-body)', fontFamily: 'inherit', borderRadius: 3, outline: 'none', transition: 'border-color 160ms ease' };
+  const labelStyle = { fontSize: 'var(--text-caption)', letterSpacing: '0.08em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 500, marginBottom: 8, display: 'block' };
 
   return (
     <section id="vender" style={{ padding: 'var(--pad-x-lg) var(--pad-x)', background: p.ink, color: p.paper }}>
       <div style={{ maxWidth: 1400, margin: '0 auto' }}>
         <div className="ys-sell-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 80, alignItems: 'start' }}>
           <div>
-            <div style={{ fontSize: 12, letterSpacing: '0.18em', textTransform: 'uppercase', color: p.accent, fontWeight: 600, marginBottom: 24 }}>
+            <div style={{ fontSize: 'var(--text-caption)', letterSpacing: '0.08em', textTransform: 'uppercase', color: p.accentLight, fontWeight: 600, marginBottom: 24 }}>
               Para propietarios
             </div>
-            <h2 style={{ fontFamily: `'${displayFont}', serif`, fontSize: 'clamp(40px, 6vw, 88px)', lineHeight: 0.98, letterSpacing: '-0.02em', margin: 0, fontWeight: 400, color: p.paper }}>Omita el agente. <em style={{ color: p.accent }}>Venda directo.</em></h2>
-            <p style={{ fontSize: 18, lineHeight: 1.55, color: `color-mix(in oklab, ${p.paper} 80%, transparent)`, maxWidth: '50ch', marginTop: 28 }}>
+            <h2 style={{ fontFamily: `'${displayFont}', serif`, fontSize: 'clamp(40px, 6vw, 88px)', lineHeight: 0.98, letterSpacing: '-0.02em', margin: 0, fontWeight: 400, color: p.paper }}>Omita el agente. <em style={{ color: p.accentLight }}>Venda directo.</em></h2>
+            <p style={{ fontSize: 'var(--text-lead)', lineHeight: 1.55, color: `color-mix(in oklab, ${p.paper} 80%, transparent)`, maxWidth: '50ch', marginTop: 28 }}>
               Yellowstone está comprando activamente casas unifamiliares, dúplex y propiedades multifamiliares pequeñas en Alvin y el área circundante. Pagamos el valor justo de mercado, cerramos en su timeline, y eliminamos al corredor, para que usted se quede con la comisión.
             </p>
             <div className="ys-sell-features" style={{ marginTop: 40, display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
@@ -451,17 +451,17 @@ function SellProperty() {
                 ['Cierre a su manera', '30 días, 90 días, o cuando funcione, usted decide.'],
               ].map(([t, d], i) => (
                 <div key={i} style={{ paddingTop: 18 }}>
-                  <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11, color: p.accent, fontWeight: 600, letterSpacing: '0.1em', marginBottom: 10 }}>0{i + 1}</div>
+                  <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 'var(--text-caption)', color: p.accentLight, fontWeight: 600, letterSpacing: '0.1em', marginBottom: 10 }}>0{i + 1}</div>
                   <div style={{ fontFamily: `'${displayFont}', serif`, fontSize: 22, lineHeight: 1.1, color: p.paper, fontWeight: 400, letterSpacing: '-0.01em' }}>{t}</div>
-                  <div style={{ fontSize: 13, lineHeight: 1.55, color: `color-mix(in oklab, ${p.paper} 65%, transparent)`, marginTop: 8 }}>{d}</div>
+                  <div style={{ fontSize: 'var(--text-small)', lineHeight: 1.55, color: `color-mix(in oklab, ${p.paper} 65%, transparent)`, marginTop: 8 }}>{d}</div>
                 </div>
               ))}
             </div>
             <div style={{ marginTop: 40, padding: 24, background: `color-mix(in oklab, ${p.paper} 6%, transparent)`, display: 'flex', gap: 16, alignItems: 'center' }}>
               <div style={{ width: 44, height: 44, borderRadius: '50%', background: p.accent, color: p.paper, display: 'grid', placeItems: 'center', fontFamily: `'${displayFont}', serif`, fontSize: 22, flexShrink: 0 }}>★</div>
               <div>
-                <div style={{ fontSize: 14, fontWeight: 600, color: p.paper }}>¿Prefiere hablar primero?</div>
-                <div style={{ fontSize: 13, color: `color-mix(in oklab, ${p.paper} 70%, transparent)`, marginTop: 2 }}>Llame al <a href="tel:8322103968" style={{ color: p.accent, textDecoration: 'none', fontWeight: 600 }}>(832) 210 3968</a>, sin obligación, sin presión.</div>
+                <div style={{ fontSize: 'var(--text-small)', fontWeight: 600, color: p.paper }}>¿Prefiere hablar primero?</div>
+                <div style={{ fontSize: 'var(--text-small)', color: `color-mix(in oklab, ${p.paper} 70%, transparent)`, marginTop: 2 }}>Llame al <a href="tel:8322103968" style={{ color: p.accentLight, textDecoration: 'none', fontWeight: 600 }}>(832) 210 3968</a>, sin obligación, sin presión.</div>
               </div>
             </div>
           </div>
@@ -469,13 +469,13 @@ function SellProperty() {
             {sent ? (
               <div style={{ padding: '40px 0', textAlign: 'center' }}>
                 <div style={{ fontFamily: `'${displayFont}', serif`, fontSize: 36, color: p.primary, lineHeight: 1.05, marginBottom: 16 }}>Gracias, nos pondremos en contacto.</div>
-                <p style={{ fontSize: 15, color: p.inkSoft, lineHeight: 1.6, maxWidth: '32ch', margin: '0 auto' }}>Su consulta ha sido enviada. Típicamente respondemos dentro de un día hábil.</p>
+                <p style={{ fontSize: 'var(--text-body)', color: p.inkSoft, lineHeight: 1.6, maxWidth: '32ch', margin: '0 auto' }}>Su consulta ha sido enviada. Típicamente respondemos dentro de un día hábil.</p>
               </div>
             ) : (
               <form onSubmit={submit}>
-                <div style={{ fontSize: 11, letterSpacing: '0.18em', textTransform: 'uppercase', color: p.accent, fontWeight: 600, marginBottom: 8 }}>Paso 1 de 1 · ~60 segundos</div>
+                <div style={{ fontSize: 'var(--text-caption)', letterSpacing: '0.08em', textTransform: 'uppercase', color: p.accent, fontWeight: 600, marginBottom: 8 }}>Paso 1 de 1 · ~60 segundos</div>
                 <h3 style={{ fontFamily: `'${displayFont}', serif`, fontSize: 32, fontWeight: 400, letterSpacing: '-0.01em', margin: 0, color: p.ink, lineHeight: 1.05 }}>Cuéntenos sobre su propiedad.</h3>
-                {error && <div style={{ padding: 12, background: '#fef2f2', border: '1px solid #fecaca', color: '#991b1b', fontSize: 13, borderRadius: 4, marginTop: 16 }}>{error}</div>}
+                {error && <div style={{ padding: 12, background: '#fef2f2', border: '1px solid #fecaca', color: '#991b1b', fontSize: 'var(--text-small)', borderRadius: 4, marginTop: 16 }}>{error}</div>}
                 <div className="ys-sell-form-grid-2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginTop: 24 }}>
                   <div><label style={labelStyle}>Su nombre</label><input required style={fieldStyle} value={form.name} onChange={e => update('name', e.target.value)} /></div>
                   <div><label style={labelStyle}>Teléfono</label><input required type="tel" style={fieldStyle} value={form.phone} onChange={e => update('phone', e.target.value)} placeholder="(832) 210 3968" /></div>
@@ -497,11 +497,11 @@ function SellProperty() {
                   <label style={labelStyle}>¿Algo más? <span style={{ textTransform: 'none', letterSpacing: 0, color: p.inkSoft }}>(Opcional)</span></label>
                   <textarea rows={3} style={{ ...fieldStyle, resize: 'vertical', minHeight: 80 }} value={form.notes} onChange={e => update('notes', e.target.value)} placeholder="Condición, ocupación, por qué vende…" />
                 </div>
-                <button type="submit" disabled={submitting} style={{ marginTop: 28, width: '100%', padding: '16px 24px', background: p.primary, color: p.paper, border: 'none', fontSize: 15, fontWeight: 600, cursor: submitting ? 'not-allowed' : 'pointer', fontFamily: 'inherit', letterSpacing: '0.01em', borderRadius: 3, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 10, opacity: submitting ? 0.7 : 1 }}>
+                <button type="submit" disabled={submitting} style={{ marginTop: 28, width: '100%', padding: '16px 24px', background: p.primary, color: p.paper, border: 'none', fontSize: 'var(--text-body)', fontWeight: 600, cursor: submitting ? 'not-allowed' : 'pointer', fontFamily: 'inherit', letterSpacing: '0.01em', borderRadius: 3, display: 'inline-flex', alignItems: 'center', justifyContent: 'center', gap: 10, opacity: submitting ? 0.7 : 1 }}>
                   {submitting ? 'Enviando…' : 'Enviar información de mi propiedad'}
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8m0 0L7.5 3.5M11 7l-3.5 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round"/></svg>
                 </button>
-                <p style={{ fontSize: 12, color: p.inkSoft, marginTop: 14, lineHeight: 1.5, textAlign: 'center' }}>Revisaremos y nos comunicaremos dentro de un día hábil. Sin spam, sin presión de listado.</p>
+                <p style={{ fontSize: 'var(--text-caption)', color: p.inkSoft, marginTop: 14, lineHeight: 1.5, textAlign: 'center' }}>Revisaremos y nos comunicaremos dentro de un día hábil. Sin spam, sin presión de listado.</p>
               </form>
             )}
           </div>
@@ -557,7 +557,7 @@ export default function Home() {
     <div style={{ background: p.bg, color: p.ink, minHeight: '100vh' }}>
       <Nav p={p} locale="es" />
       <Hero />
-      <div style={{ padding: '20px var(--pad-x)', background: p.ink, color: p.paper, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16, flexWrap: 'wrap', fontSize: 14 }}>
+      <div style={{ padding: '20px var(--pad-x)', background: p.ink, color: p.paper, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16, flexWrap: 'wrap', fontSize: 'var(--text-small)' }}>
         <span style={{ opacity: 0.85 }}>¿Listo para mudarse? Aplique en línea en 5 minutos.</span>
         <a href="/es/apply" style={{ color: p.accent, fontWeight: 600, textDecoration: 'none' }}>Comenzar aplicación →</a>
       </div>

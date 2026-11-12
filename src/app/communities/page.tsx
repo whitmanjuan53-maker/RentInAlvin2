@@ -38,7 +38,7 @@ const itemListLd = {
 };
 
 export default function CommunitiesHub() {
-  const para: React.CSSProperties = { fontSize: 16.5, lineHeight: 1.75, color: p.inkSoft };
+  const para: React.CSSProperties = { fontSize: 'var(--text-body)', lineHeight: 1.75, color: p.inkSoft };
 
   return (
     <div style={{ background: p.bg, minHeight: '100vh' }}>
@@ -76,25 +76,25 @@ export default function CommunitiesHub() {
                   style={{ width: '100%', aspectRatio: '16 / 10', objectFit: prop.gallery[0].includes('/mural-') && !/\/(royal-oaks|french-quarter)\//.test(prop.gallery[0]) ? 'contain' : 'cover', objectPosition: 'center', display: 'block' }}
                 />
               ) : (
-                <div style={{ width: '100%', aspectRatio: '16 / 10', background: `color-mix(in oklab, ${p.primary} 12%, ${p.paper})`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: p.inkSoft, fontSize: 13, fontFamily: "'JetBrains Mono', monospace" }}>
+                <div style={{ width: '100%', aspectRatio: '16 / 10', background: `color-mix(in oklab, ${p.primary} 12%, ${p.paper})`, display: 'flex', alignItems: 'center', justifyContent: 'center', color: p.inkSoft, fontSize: 'var(--text-small)', fontFamily: "'JetBrains Mono', monospace" }}>
                   {prop.comingSoon ? 'COMING SOON' : 'PHOTOS SOON'}
                 </div>
               )}
               <div style={{ padding: '16px 18px 18px' }}>
-                <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11, letterSpacing: '0.07em', textTransform: 'uppercase', color: p.accent }}>
+                <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 'var(--text-caption)', letterSpacing: '0.07em', textTransform: 'uppercase', color: p.accent }}>
                   {prop.type}{prop.comingSoon ? ' · Coming soon' : ''}
                 </span>
                 <div style={{ fontFamily: `'${displayFont}', serif`, fontSize: 24, color: p.ink, lineHeight: 1.1, marginTop: 4 }}>{prop.name}</div>
-                <div style={{ fontSize: 13.5, color: p.inkSoft, marginTop: 6 }}>{prop.addr}, Alvin, TX 77511</div>
-                <div style={{ fontSize: 14, color: p.ink, marginTop: 8, fontWeight: 600 }}>{prop.units}</div>
+                <div style={{ fontSize: 'var(--text-small)', color: p.inkSoft, marginTop: 6 }}>{prop.addr}, Alvin, TX 77511</div>
+                <div style={{ fontSize: 'var(--text-small)', color: p.ink, marginTop: 8, fontWeight: 600 }}>{prop.units}</div>
                 {(() => {
                   const pricing = parsePricingSummary(prop.price);
                   return pricing ? (
-                    <div style={{ fontSize: 13, color: p.inkSoft, marginTop: 5, lineHeight: 1.45 }}>
+                    <div style={{ fontSize: 'var(--text-small)', color: p.inkSoft, marginTop: 5, lineHeight: 1.45 }}>
                       <strong style={{ color: p.primary }}>{formatCurrency(pricing.baseRent)}/mo</strong><br />
                     </div>
                   ) : (
-                    <div style={{ fontSize: 14, color: p.ink, marginTop: 5, fontWeight: 600 }}>{prop.price}</div>
+                    <div style={{ fontSize: 'var(--text-small)', color: p.ink, marginTop: 5, fontWeight: 600 }}>{prop.price}</div>
                   );
                 })()}
               </div>

@@ -113,8 +113,8 @@ export default function AlvinMap({
         >
           <div
             style={{
-              fontSize: 12,
-              letterSpacing: '0.18em',
+              fontSize: 'var(--text-caption)',
+              letterSpacing: '0.08em',
               textTransform: 'uppercase',
               color: p.accent,
               fontWeight: 600,
@@ -140,7 +140,7 @@ export default function AlvinMap({
             </h2>
             <p
               style={{
-                fontSize: 17,
+                fontSize: 'var(--text-body)',
                 lineHeight: 1.6,
                 color: p.inkSoft,
                 maxWidth: '55ch',
@@ -193,7 +193,7 @@ export default function AlvinMap({
                     color: p.paper,
                     display: 'grid',
                     placeItems: 'center',
-                    fontSize: 12,
+                    fontSize: 'var(--text-caption)',
                     fontWeight: 600,
                     flexShrink: 0,
                   }}
@@ -212,7 +212,7 @@ export default function AlvinMap({
                   >
                     {m.name}
                   </div>
-                  <div style={{ fontSize: 12, color: p.inkSoft, marginTop: 2 }}>
+                  <div style={{ fontSize: 'var(--text-caption)', color: p.inkSoft, marginTop: 2 }}>
                     {m.addr}
                     {m.office ? ' · Leasing office' : ''}
                     {m.comingSoon ? ' · Coming soon' : ''}
@@ -261,10 +261,10 @@ export default function AlvinMap({
                     >
                       <Popup>
                         <div style={{ fontFamily: "'Inter', sans-serif", minWidth: 180 }}>
-                          <div style={{ fontWeight: 600, fontSize: 15, marginBottom: 4 }}>{m.name}</div>
-                          <div style={{ fontSize: 13, color: '#5C5750', marginBottom: 10 }}>{m.addr}</div>
+                          <div style={{ fontWeight: 600, fontSize: 'var(--text-body)', marginBottom: 4 }}>{m.name}</div>
+                          <div style={{ fontSize: 'var(--text-small)', color: '#5C5750', marginBottom: 10 }}>{m.addr}</div>
                           {m.comingSoon && (
-                            <div style={{ fontSize: 11, letterSpacing: '0.12em', textTransform: 'uppercase', color: p.accent, fontWeight: 600, marginBottom: 10 }}>
+                            <div style={{ fontSize: 'var(--text-caption)', letterSpacing: '0.12em', textTransform: 'uppercase', color: p.accent, fontWeight: 600, marginBottom: 10 }}>
                               Coming Soon
                             </div>
                           )}
@@ -276,7 +276,7 @@ export default function AlvinMap({
                               display: 'inline-flex',
                               alignItems: 'center',
                               gap: 6,
-                              fontSize: 13,
+                              fontSize: 'var(--text-small)',
                               fontWeight: 600,
                               color: p.primary,
                               textDecoration: 'none',
@@ -302,7 +302,7 @@ export default function AlvinMap({
                   alignItems: 'center',
                   justifyContent: 'center',
                   color: p.inkSoft,
-                  fontSize: 14,
+                  fontSize: 'var(--text-small)',
                 }}
               >
                 Loading map…

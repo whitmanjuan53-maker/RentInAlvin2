@@ -1,53 +1,68 @@
 .application-page { --application-green: #1f3a2e; background:#f4eee4; min-height:100vh; }
 .application-page-header { display:flex; justify-content:space-between; align-items:center; padding:22px max(24px,calc((100vw - 1200px)/2)); border-bottom:1px solid #d9d8cc; gap:24px; background:#fbf7f0; }
 .application-page-header>a { width:270px; max-width:46%; }
-.application-page-header nav { display:flex; gap:22px; flex-wrap:wrap; font-size:12px; font-weight:600; }
+.application-page-header nav { display:flex; gap:22px; flex-wrap:wrap; font-size: var(--text-caption); font-weight:600; }
 .application-page-header a { text-decoration:none; }
 .application-page main { max-width:1200px; padding:48px 24px 60px; margin:auto; }
 .application-page-intro { max-width:790px; margin-bottom:34px; }
-.application-eyebrow { font-size:11px; text-transform:uppercase; letter-spacing:.13em; color:#946039; font-weight:600; margin:0 0 12px; }
+.application-eyebrow { font-size: var(--text-caption); text-transform:uppercase; letter-spacing:.13em; color:#946039; font-weight:600; margin:0 0 12px; }
 .application-page-intro h1 { font-family:'Instrument Serif',Georgia,serif; font-weight:400; font-size:clamp(46px,6vw,72px); line-height:1.05; color:#1f3a2e; margin:0 0 18px; }
-.application-page-intro>p:not(.application-eyebrow) { color:#5c5750; font-size:16px; line-height:1.7; margin:0; max-width:670px; }
-.application-preparation { display:flex; gap:14px; align-items:baseline; background:#e9eadf; border-radius:10px; padding:14px 18px; margin-top:20px; font-size:12px; line-height:1.6; }
+.application-page-intro>p:not(.application-eyebrow) { color:#49463f; font-size: var(--text-body); line-height:1.7; margin:0; max-width:670px; }
+.application-preparation { display:flex; gap:14px; align-items:baseline; background:#e9eadf; border-radius:10px; padding:14px 18px; margin-top:20px; font-size: var(--text-caption); line-height:1.6; }
 .application-preparation strong { white-space:nowrap; color:#1f3a2e; }
 .application-layout { display:grid; grid-template-columns:235px minmax(0,1fr); gap:38px; align-items:start; }
 .application-sidebar { padding-top:15px; }
 .application-sidebar ol { list-style:none; padding:0; margin:0; }
 .application-sidebar li { margin-bottom:7px; }
-.application-sidebar button { display:flex; gap:12px; align-items:center; width:100%; padding:12px 10px; background:transparent; border:0; text-align:left; color:#5c5750; font-size:13px; cursor:pointer; border-radius:9px; }
-.application-sidebar button span { display:grid; place-items:center; width:28px; height:28px; flex-shrink:0; border:1px solid #c6c7b9; border-radius:50%; font-size:11px; }
+.application-sidebar button { display:flex; gap:12px; align-items:center; width:100%; padding:12px 10px; background:transparent; border:0; text-align:left; color:#49463f; font-size: var(--text-small); cursor:pointer; border-radius:9px; }
+.application-sidebar button span { display:grid; place-items:center; width:28px; height:28px; flex-shrink:0; border:1px solid #c6c7b9; border-radius:50%; font-size: var(--text-caption); }
 .application-sidebar button[aria-current] { background:#e4e9df; color:#1f3a2e; font-weight:600; }
 .application-sidebar button[aria-current] span { background:#1f3a2e; color:#fff; border-color:#1f3a2e; }
 .application-sidebar button:disabled { opacity:.5; cursor:default; }
-.application-help { border-top:1px solid #d9d8cc; margin-top:25px; padding:22px 10px; font-size:12px; line-height:1.6; }
-.application-help p { margin:5px 0 12px; color:#5c5750; }.application-help a { color:#1f3a2e; font-weight:600; }
+.application-help { border-top:1px solid #d9d8cc; margin-top:25px; padding:22px 10px; font-size: var(--text-caption); line-height:1.6; }
+.application-help p { margin:5px 0 12px; color:#49463f; }.application-help a { color:#1f3a2e; font-weight:600; }
 .application-card { background:#fbf7f0; border:1px solid #d9d8cc; border-radius:16px; padding:32px 38px; min-width:0; box-shadow:0 5px 25px #1f3a2e06; }
 .application-card progress { display:block; width:100%; height:5px; accent-color:#1f3a2e; margin:0 0 24px; }
 .application-card h2,.application-success h2 { font-family:'Instrument Serif',Georgia,serif; font-size:38px; font-weight:400; margin:0 0 10px; outline:none; }
-.application-step-note { font-size:12px; color:#5c5750; line-height:1.6; margin:0 0 24px; }
+.application-step-note { font-size: var(--text-caption); color:#49463f; line-height:1.6; margin:0 0 24px; }
 .application-card fieldset { padding:0; margin:0; border:0; min-width:0; }
 .application-fields { display:grid; grid-template-columns:minmax(0,1fr) minmax(0,1fr); gap:22px 20px; }
 .application-field.wide { grid-column:1/-1; }
-.application-field label { display:block; font-size:12px; font-weight:600; margin-bottom:8px; color:#3a443b; }
+.application-field label { display:block; font-size: var(--text-caption); font-weight:600; margin-bottom:8px; color:#3a443b; }
 .application-field label span { color:#946039; }
-.application-field input,.application-field select,.application-field textarea { font:inherit; font-size:15px; color:#1a1815; background:#fffefa; border:1px solid #c7cbbf; border-radius:7px; padding:12px; width:100%; min-width:0; }
+.application-field input,.application-field select,.application-field textarea { font:inherit; font-size: var(--text-body); color:#1a1815; background:#fffefa; border:1px solid #c7cbbf; border-radius:7px; padding:12px; width:100%; min-width:0; }
 .application-field textarea { resize:vertical; }
 .application-field [aria-invalid=true] { border-color:#ad352f; }
-.application-field-error { font-size:12px; color:#a02320; margin:7px 0 0; line-height:1.5; }
-.application-error-banner { background:#fff1ed; border:1px solid #e4b9b0; border-radius:8px; padding:14px; margin-bottom:20px; font-size:13px; color:#882c24; }
+.application-field-error { font-size: var(--text-caption); color:#a02320; margin:7px 0 0; line-height:1.5; }
+.application-error-banner { background:#fff1ed; border:1px solid #e4b9b0; border-radius:8px; padding:14px; margin-bottom:20px; font-size: var(--text-small); color:#882c24; }
 .application-controls { display:flex; justify-content:space-between; align-items:center; gap:15px; border-top:1px solid #dedfd4; padding-top:24px; margin-top:30px; }
-.application-primary { display:inline-flex; justify-content:center; align-items:center; gap:15px; padding:13px 21px; font:inherit; font-size:13px; font-weight:600; border:1px solid #1f3a2e; border-radius:7px; color:#fbf7f0; background:#1f3a2e; text-decoration:none; cursor:pointer; }
-.application-back { font:inherit; font-size:13px; background:transparent; color:#1f3a2e; border:1px solid #c7cbbf; border-radius:7px; padding:13px 20px; cursor:pointer; }
+.application-primary { display:inline-flex; justify-content:center; align-items:center; gap:15px; padding:13px 21px; font:inherit; font-size: var(--text-small); font-weight:600; border:1px solid #1f3a2e; border-radius:7px; color:#fbf7f0; background:#1f3a2e; text-decoration:none; cursor:pointer; }
+.application-back { font:inherit; font-size: var(--text-small); background:transparent; color:#1f3a2e; border:1px solid #c7cbbf; border-radius:7px; padding:13px 20px; cursor:pointer; }
 .application-controls button:disabled { opacity:.5; cursor:default; }
-.application-privacy { font-size:10px; line-height:1.6; color:#6a7167; margin:18px 0 0; }
+.application-privacy { font-size: var(--text-caption); line-height:1.6; color:#4d574a; margin:18px 0 0; }
 .application-review { border:1px solid #dddfd3; border-radius:9px; padding:18px; margin-bottom:15px; }
 .application-review-heading { display:flex; align-items:center; justify-content:space-between; gap:15px; margin-bottom:12px; }
-.application-review h3 { margin:0; font-size:14px; color:#1f3a2e; }.application-review button { font:inherit; font-size:12px; color:#1f3a2e; border:0; background:transparent; text-decoration:underline; cursor:pointer; }
-.application-review dl { margin:0; font-size:12px; }.application-review dl>div { display:grid; grid-template-columns:1fr 1.4fr; gap:14px; padding:7px 0; border-top:1px solid #ecece3; }
-.application-review dt { color:#6a7167; }.application-review dd { margin:0; overflow-wrap:anywhere; white-space:pre-wrap; }
-.application-consent { display:flex; align-items:flex-start; gap:12px; padding:18px 0; font-size:12px; line-height:1.7; color:#5c5750; cursor:pointer; }.application-consent input { margin-top:5px; accent-color:#1f3a2e; }
-.application-success { max-width:720px; margin:30px auto; background:#fbf7f0; border:1px solid #d9d8cc; border-radius:16px; padding:45px; text-align:center; }.application-success p { font-size:15px; line-height:1.7; }.application-success-mark { display:grid; place-items:center; width:60px; height:60px; margin:0 auto 22px; background:#e4e9df; border-radius:50%; color:#1f3a2e; font-size:26px; }
-.application-page-footer { padding:22px 24px; border-top:1px solid #d9d8cc; text-align:center; color:#6a7167; font-size:11px; }
-.application-teaser { max-width:1320px; padding:60px var(--pad-x); margin:0 auto; display:flex; gap:30px; align-items:center; justify-content:space-between; scroll-margin-top:90px; }.application-teaser h2 { font-family:'Instrument Serif',Georgia,serif; font-size:40px; font-weight:400; margin:0 0 14px; color:#1f3a2e; }.application-teaser p:not(.application-eyebrow) { color:#5c5750; font-size:15px; line-height:1.7; max-width:570px; }.application-teaser>a { flex-shrink:0; }
-@media(max-width:760px) { .application-page-header { padding:16px 20px; }.application-page-header>a { width:215px; }.application-page-header nav { gap:12px; font-size:11px; }.application-page-header nav a:first-child { display:none; }.application-page-header nav a:last-child { display:none; }.application-page main { padding:32px 16px 40px; }.application-layout { grid-template-columns:minmax(0,1fr); gap:18px; }.application-sidebar { padding:0; }.application-sidebar>p,.application-help { display:none; }.application-sidebar ol { display:flex; overflow-x:auto; gap:8px; padding-bottom:5px; }.application-sidebar li { flex-shrink:0; }.application-sidebar button { width:auto; padding:8px; font-size:11px; gap:6px; }.application-sidebar button span { width:22px; height:22px; }.application-card { padding:25px 20px; }.application-fields { gap:20px 14px; }.application-field input,.application-field select,.application-field textarea { font-size:16px; }.application-preparation { flex-direction:column; gap:3px; }.application-teaser { flex-direction:column; align-items:flex-start; padding:45px 20px; }.application-card h2 { font-size:33px; } }
+.application-review h3 { margin:0; font-size: var(--text-small); color:#1f3a2e; }.application-review button { font:inherit; font-size: var(--text-caption); color:#1f3a2e; border:0; background:transparent; text-decoration:underline; cursor:pointer; }
+.application-review dl { margin:0; font-size: var(--text-caption); }.application-review dl>div { display:grid; grid-template-columns:1fr 1.4fr; gap:14px; padding:7px 0; border-top:1px solid #ecece3; }
+.application-review dt { color:#4d574a; }.application-review dd { margin:0; overflow-wrap:anywhere; white-space:pre-wrap; }
+.application-consent { display:flex; align-items:flex-start; gap:12px; padding:18px 0; font-size: var(--text-caption); line-height:1.7; color:#49463f; cursor:pointer; }.application-consent input { margin-top:5px; accent-color:#1f3a2e; }
+.application-success { max-width:720px; margin:30px auto; background:#fbf7f0; border:1px solid #d9d8cc; border-radius:16px; padding:45px; text-align:center; }.application-success p { font-size: var(--text-body); line-height:1.7; }.application-success-mark { display:grid; place-items:center; width:60px; height:60px; margin:0 auto 22px; background:#e4e9df; border-radius:50%; color:#1f3a2e; font-size:26px; }
+.application-page-footer { padding:22px 24px; border-top:1px solid #d9d8cc; text-align:center; color:#4d574a; font-size: var(--text-caption); }
+.application-teaser { max-width:1320px; padding:60px var(--pad-x); margin:0 auto; display:flex; gap:30px; align-items:center; justify-content:space-between; scroll-margin-top:90px; }.application-teaser h2 { font-family:'Instrument Serif',Georgia,serif; font-size:40px; font-weight:400; margin:0 0 14px; color:#1f3a2e; }.application-teaser p:not(.application-eyebrow) { color:#49463f; font-size: var(--text-body); line-height:1.7; max-width:570px; }.application-teaser>a { flex-shrink:0; }
+@media(max-width:760px) { .application-page-header { padding:16px 20px; }.application-page-header>a { width:215px; }.application-page-header nav { gap:12px; font-size: var(--text-caption); }.application-page-header nav a:first-child { display:none; }.application-page-header nav a:last-child { display:none; }.application-page main { padding:32px 16px 40px; }.application-layout { grid-template-columns:minmax(0,1fr); gap:18px; }.application-sidebar { padding:0; }.application-sidebar>p,.application-help { display:none; }.application-sidebar ol { display:flex; overflow-x:auto; gap:8px; padding-bottom:5px; }.application-sidebar li { flex-shrink:0; }.application-sidebar button { width:auto; padding:8px; font-size: var(--text-caption); gap:6px; }.application-sidebar button span { width:22px; height:22px; }.application-card { padding:25px 20px; }.application-fields { gap:20px 14px; }.application-field input,.application-field select,.application-field textarea { font-size: var(--text-body); }.application-preparation { flex-direction:column; gap:3px; }.application-teaser { flex-direction:column; align-items:flex-start; padding:45px 20px; }.application-card h2 { font-size:33px; } }
 @media(max-width:440px) { .application-fields { grid-template-columns:minmax(0,1fr); }.application-controls { gap:10px; }.application-controls .application-primary { padding:13px 14px; }.application-review dl>div { grid-template-columns:1fr; gap:3px; } }
+
+.application-page-header nav { font-size: var(--text-small); }
+.application-field label { font-size: var(--text-small); line-height: 1.5; }
+.application-step-note, .application-preparation, .application-consent { font-size: var(--text-small); }
+.application-primary, .application-back, .application-sidebar button { min-height: 48px; }
+.application-review button { min-height: 44px; padding: 8px; }
+.application-page-header nav a { display: inline-flex; align-items: center; min-height: 44px; }
+@media(max-width:760px) {
+  .application-page-header { gap: 16px; flex-wrap: wrap; }
+  .application-page-header > a { max-width: 100%; width: auto; }
+  .application-page-header nav { gap: 16px; }
+  .application-sidebar button { font-size: var(--text-small); padding: 10px; }
+  .application-card { padding: 24px 18px; }
+  .application-fields { grid-template-columns: minmax(0,1fr); }
+}

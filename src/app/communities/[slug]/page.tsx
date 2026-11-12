@@ -118,7 +118,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
   if (!prop) notFound();
 
   const others = PROPERTIES.filter((o) => o.slug !== slug);
-  const para: React.CSSProperties = { fontSize: 16.5, lineHeight: 1.75, color: p.inkSoft, marginBottom: 16 };
+  const para: React.CSSProperties = { fontSize: 'var(--text-body)', lineHeight: 1.75, color: p.inkSoft, marginBottom: 16 };
   const h2: React.CSSProperties = { fontFamily: `'${displayFont}', serif`, fontSize: 'clamp(26px, 3.5vw, 34px)', color: p.ink, fontWeight: 400, margin: '44px 0 16px' };
   const mapsHref = `https://maps.google.com/?q=${encodeURIComponent(fullAddress(prop))}`;
   const pricing = getPropertyPricing({ name: prop.name, addr: prop.addr });
@@ -132,7 +132,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
 
       <main style={{ maxWidth: 980, margin: '0 auto', padding: '150px var(--pad-x) 80px' }}>
         {/* Breadcrumb */}
-        <nav aria-label="Breadcrumb" style={{ fontSize: 13, color: p.inkSoft, marginBottom: 18 }}>
+        <nav aria-label="Breadcrumb" style={{ fontSize: 'var(--text-small)', color: p.inkSoft, marginBottom: 18 }}>
           <a href="/" style={{ color: p.inkSoft, textDecoration: 'none' }}>Home</a>
           <span style={{ margin: '0 8px', opacity: 0.5 }}>/</span>
           <a href="/communities" style={{ color: p.inkSoft, textDecoration: 'none' }}>Communities</a>
@@ -140,13 +140,13 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
           <span style={{ color: p.ink }}>{prop.name}</span>
         </nav>
 
-        <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 12, letterSpacing: '0.08em', textTransform: 'uppercase', color: p.accent }}>
+        <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 'var(--text-caption)', letterSpacing: '0.08em', textTransform: 'uppercase', color: p.accent }}>
           {prop.tag}{prop.comingSoon ? ' · Coming soon' : ''}
         </span>
         <h1 style={{ fontFamily: `'${displayFont}', serif`, fontSize: 'clamp(38px, 6vw, 60px)', lineHeight: 1.05, color: p.ink, fontWeight: 400, margin: '8px 0 0' }}>
           {prop.name} in Alvin, TX
         </h1>
-        <p style={{ fontSize: 18, color: p.inkSoft, marginTop: 10 }}>
+        <p style={{ fontSize: 'var(--text-lead)', color: p.inkSoft, marginTop: 10 }}>
           {prop.type} for rent at{' '}
           <a href={mapsHref} target="_blank" rel="noopener noreferrer" style={{ color: p.primary, fontWeight: 600, textDecoration: 'none' }}>
             {fullAddress(prop)}
@@ -163,8 +163,8 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
             ['Area', prop.neighborhood],
           ].map(([k, v]) => (
             <div key={k} style={{ background: p.paper, padding: '14px 16px' }}>
-              <dt style={{ fontSize: 11, letterSpacing: '0.06em', textTransform: 'uppercase', color: p.inkSoft, marginBottom: 4 }}>{k}</dt>
-              <dd style={{ margin: 0, fontSize: 15, fontWeight: 600, color: p.ink }}>{v}</dd>
+              <dt style={{ fontSize: 'var(--text-caption)', letterSpacing: '0.06em', textTransform: 'uppercase', color: p.inkSoft, marginBottom: 4 }}>{k}</dt>
+              <dd style={{ margin: 0, fontSize: 'var(--text-body)', fontWeight: 600, color: p.ink }}>{v}</dd>
             </div>
           ))}
         </dl>
@@ -201,7 +201,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
         <h2 style={h2}>Amenities &amp; Features</h2>
         <ul style={{ listStyle: 'none', padding: 0, margin: 0, display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 10 }}>
           {prop.amenities.map((a) => (
-            <li key={a} style={{ fontSize: 15.5, color: p.ink, display: 'flex', gap: 10, alignItems: 'center' }}>
+            <li key={a} style={{ fontSize: 'var(--text-body)', color: p.ink, display: 'flex', gap: 10, alignItems: 'center' }}>
               <span aria-hidden style={{ color: p.accent, fontWeight: 700 }}>✓</span>{a}
             </li>
           ))}
@@ -223,7 +223,7 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
         <div>
           {prop.faqs.map((f) => (
             <details key={f.q} style={{ borderBottom: `1px solid ${p.line}`, padding: '14px 0' }}>
-              <summary style={{ cursor: 'pointer', fontSize: 16.5, fontWeight: 600, color: p.ink, listStyle: 'none' }}>{f.q}</summary>
+              <summary style={{ cursor: 'pointer', fontSize: 'var(--text-body)', fontWeight: 600, color: p.ink, listStyle: 'none' }}>{f.q}</summary>
               <p style={{ ...para, marginTop: 10, marginBottom: 0 }}>{f.a}</p>
             </details>
           ))}
@@ -234,14 +234,14 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
           <div style={{ fontFamily: `'${displayFont}', serif`, fontSize: 'clamp(24px, 3.5vw, 32px)', lineHeight: 1.1 }}>
             {prop.comingSoon ? `Join the interest list for ${prop.name}` : `Tour ${prop.name} this week`}
           </div>
-          <p style={{ fontSize: 15.5, lineHeight: 1.6, margin: '12px 0 20px', color: `color-mix(in oklab, ${p.paper} 85%, transparent)` }}>
+          <p style={{ fontSize: 'var(--text-body)', lineHeight: 1.6, margin: '12px 0 20px', color: `color-mix(in oklab, ${p.paper} 85%, transparent)` }}>
             Call our local Alvin office, apply online in about 5 minutes, or schedule a tour, most applications are decided within 48 hours.
           </p>
           <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
-            <a href={`tel:${BUSINESS.phone.replace(/[^0-9]/g, '')}`} style={{ background: p.accent, color: '#fff', padding: '12px 22px', borderRadius: 999, fontWeight: 600, textDecoration: 'none', fontSize: 15 }}>
+            <a href={`tel:${BUSINESS.phone.replace(/[^0-9]/g, '')}`} style={{ background: p.accent, color: '#fff', padding: '12px 22px', borderRadius: 999, fontWeight: 600, textDecoration: 'none', fontSize: 'var(--text-body)' }}>
               Call {BUSINESS.phone}
             </a>
-            <a href="/apply" style={{ background: p.paper, color: p.primary, padding: '12px 22px', borderRadius: 999, fontWeight: 600, textDecoration: 'none', fontSize: 15 }}>
+            <a href="/apply" style={{ background: p.paper, color: p.primary, padding: '12px 22px', borderRadius: 999, fontWeight: 600, textDecoration: 'none', fontSize: 'var(--text-body)' }}>
               Apply online
             </a>
           </div>
@@ -252,8 +252,8 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(240px, 1fr))', gap: 12 }}>
           {others.map((o) => (
             <a key={o.slug} href={`/communities/${o.slug}`} style={{ display: 'block', padding: '16px 18px', background: p.paper, border: `1px solid ${p.line}`, borderRadius: 12, textDecoration: 'none' }}>
-              <div style={{ fontSize: 16, fontWeight: 600, color: p.ink }}>{o.name}</div>
-              <div style={{ fontSize: 13, color: p.inkSoft, marginTop: 4 }}>{o.type} · {o.addr} · {o.price}</div>
+              <div style={{ fontSize: 'var(--text-body)', fontWeight: 600, color: p.ink }}>{o.name}</div>
+              <div style={{ fontSize: 'var(--text-small)', color: p.inkSoft, marginTop: 4 }}>{o.type} · {o.addr} · {o.price}</div>
             </a>
           ))}
         </div>

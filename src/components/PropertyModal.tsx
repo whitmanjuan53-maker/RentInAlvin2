@@ -74,7 +74,7 @@ export default function PropertyModal({ open, onClose, property, onBookTour, p, 
   };
 
   return (
-    <div onClick={onClose} style={{ position: 'fixed', inset: 0, zIndex: 10001, background: 'rgba(26,24,21,0.88)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 'clamp(16px, 4vw, 48px)' }}>
+    <div className="ys-property-overlay" onClick={onClose} style={{ position: 'fixed', inset: 0, zIndex: 10001, background: 'rgba(26,24,21,0.88)', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: 'clamp(16px, 4vw, 48px)' }}>
       <div onClick={(e) => e.stopPropagation()} style={{ background: p.paper, width: '100%', maxWidth: 1100, maxHeight: '92vh', overflow: 'auto', borderRadius: 4, border: `1px solid ${p.line}`, boxShadow: '0 40px 80px -20px rgba(0,0,0,0.35)', position: 'relative' }}>
 
         {/* Close */}
@@ -95,14 +95,14 @@ export default function PropertyModal({ open, onClose, property, onBookTour, p, 
                   <button onClick={goNext} style={{ position: 'absolute', right: 12, top: '50%', transform: 'translateY(-50%)', width: 44, height: 44, borderRadius: '50%', background: 'rgba(255,255,255,0.9)', border: 'none', display: 'grid', placeItems: 'center', cursor: 'pointer', color: p.ink }} aria-label={t.next}>
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6"/></svg>
                   </button>
-                  <div style={{ position: 'absolute', bottom: 14, left: 14, background: 'rgba(26,24,21,0.6)', color: '#fff', padding: '5px 10px', borderRadius: 2, fontSize: 11, letterSpacing: '0.08em', fontFamily: "'JetBrains Mono', ui-monospace, monospace" }}>
+                  <div style={{ position: 'absolute', bottom: 14, left: 14, background: 'rgba(26,24,21,0.6)', color: '#fff', padding: '5px 10px', borderRadius: 2, fontSize: 'var(--text-caption)', letterSpacing: '0.08em', fontFamily: "'JetBrains Mono', ui-monospace, monospace" }}>
                     {activeIdx + 1} / {gallery.length}
                   </div>
                 </>
               )}
             </>
           ) : (
-            <div style={{ width: '100%', height: '100%', display: 'grid', placeItems: 'center', color: p.inkSoft, fontSize: 14 }}>{t.noPhotos}</div>
+            <div style={{ width: '100%', height: '100%', display: 'grid', placeItems: 'center', color: p.inkSoft, fontSize: 'var(--text-small)' }}>{t.noPhotos}</div>
           )}
         </div>
 
@@ -118,14 +118,14 @@ export default function PropertyModal({ open, onClose, property, onBookTour, p, 
         )}
 
         {/* Property info — single column, no sidebar */}
-        <div style={{ padding: '32px 36px' }}>
+        <div className="ys-property-modal-copy" style={{ padding: '32px 36px' }}>
           <div style={{ display: 'flex', alignItems: 'baseline', gap: 16, flexWrap: 'wrap', marginBottom: 8 }}>
             <h2 style={{ fontFamily: `'${displayFont}', serif`, fontSize: 'clamp(28px, 3vw, 40px)', lineHeight: 1.05, margin: 0, color: p.ink, fontWeight: 400, letterSpacing: '-0.01em' }}>{property.name}</h2>
-            <span style={{ fontSize: 11, letterSpacing: '0.18em', textTransform: 'uppercase', color: p.accent, fontWeight: 600 }}>{property.tag}</span>
+            <span style={{ fontSize: 'var(--text-caption)', letterSpacing: '0.08em', textTransform: 'uppercase', color: p.accent, fontWeight: 600 }}>{property.tag}</span>
           </div>
 
           <div style={{ display: 'flex', alignItems: 'baseline', gap: 24, flexWrap: 'wrap', marginBottom: 16 }}>
-            <div style={{ fontSize: 15, color: p.inkSoft }}>{property.addr} · Alvin, TX</div>
+            <div style={{ fontSize: 'var(--text-body)', color: p.inkSoft }}>{property.addr} · Alvin, TX</div>
             {pricing ? (
               <div>
                 <div style={{ fontFamily: `'${displayFont}', serif`, fontSize: 24, color: p.primary, fontWeight: 400 }}>{formatCurrency(pricing.baseRent)}/mo</div>
@@ -135,24 +135,24 @@ export default function PropertyModal({ open, onClose, property, onBookTour, p, 
             )}
           </div>
 
-          <p style={{ fontSize: 15, lineHeight: 1.6, color: p.inkSoft, margin: 0, maxWidth: '60ch' }}>{property.note}</p>
-          <div style={{ marginTop: 12, fontSize: 13, color: p.inkSoft, fontFamily: "'JetBrains Mono', ui-monospace, monospace", letterSpacing: '0.04em' }}>{property.units}</div>
+          <p style={{ fontSize: 'var(--text-body)', lineHeight: 1.6, color: p.inkSoft, margin: 0, maxWidth: '60ch' }}>{property.note}</p>
+          <div style={{ marginTop: 12, fontSize: 'var(--text-small)', color: p.inkSoft, fontFamily: "'JetBrains Mono', ui-monospace, monospace", letterSpacing: '0.04em' }}>{property.units}</div>
 
           {/* Actions */}
           <div style={{ marginTop: 28, paddingTop: 24, borderTop: `1px solid ${p.line}`, display: 'flex', gap: 12, flexWrap: 'wrap' }}>
             {!property.comingSoon && (
               <>
-                <button onClick={() => { onBookTour(); onClose(); }} style={{ padding: '14px 28px', background: p.primary, color: p.paper, border: 'none', fontSize: 14, fontWeight: 600, cursor: 'pointer', borderRadius: 3, fontFamily: 'inherit', display: 'inline-flex', alignItems: 'center', gap: 8, transition: 'background 180ms ease' }} onMouseOver={(e) => { (e.currentTarget as HTMLElement).style.background = p.primarySoft; }} onMouseOut={(e) => { (e.currentTarget as HTMLElement).style.background = p.primary; }}>
+                <button onClick={() => { onBookTour(); onClose(); }} style={{ padding: '14px 28px', background: p.primary, color: p.paper, border: 'none', fontSize: 'var(--text-small)', fontWeight: 600, cursor: 'pointer', borderRadius: 3, fontFamily: 'inherit', display: 'inline-flex', alignItems: 'center', gap: 8, transition: 'background 180ms ease' }} onMouseOver={(e) => { (e.currentTarget as HTMLElement).style.background = p.primarySoft; }} onMouseOut={(e) => { (e.currentTarget as HTMLElement).style.background = p.primary; }}>
                   {t.tour}
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 7h8m0 0L7.5 3.5M11 7l-3.5 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" /></svg>
                 </button>
-                <a href={locale === 'es' ? '#contacto' : '#contact'} onClick={onClose} style={{ padding: '14px 28px', background: 'transparent', color: p.ink, border: `1px solid ${p.ink}`, fontSize: 14, fontWeight: 600, textDecoration: 'none', borderRadius: 3, display: 'inline-flex', alignItems: 'center', gap: 8 }}>
+                <a href={locale === 'es' ? '#contacto' : '#contact'} onClick={onClose} style={{ padding: '14px 28px', background: 'transparent', color: p.ink, border: `1px solid ${p.ink}`, fontSize: 'var(--text-small)', fontWeight: 600, textDecoration: 'none', borderRadius: 3, display: 'inline-flex', alignItems: 'center', gap: 8 }}>
                   {t.inquire}
                 </a>
               </>
             )}
             {property.comingSoon && (
-              <span style={{ fontSize: 14, fontWeight: 600, color: p.accent, padding: '14px 0' }}>{t.soon}</span>
+              <span style={{ fontSize: 'var(--text-small)', fontWeight: 600, color: p.accent, padding: '14px 0' }}>{t.soon}</span>
             )}
           </div>
         </div>

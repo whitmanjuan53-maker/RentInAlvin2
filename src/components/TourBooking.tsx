@@ -179,10 +179,11 @@ export default function TourBooking({
         padding: '60px 20px 20px',
       }}
       role="dialog"
+      className="ys-booking-overlay"
       aria-modal="true"
       aria-label="Schedule a tour"
     >
-      <div
+      <div className="ys-booking-dialog"
         style={{
           background: p.paper,
           width: '100%',
@@ -195,7 +196,7 @@ export default function TourBooking({
         }}
       >
         {/* Header */}
-        <div
+        <div className="ys-booking-header"
           style={{
             padding: '20px 28px',
             borderBottom: `1px solid ${p.line}`,
@@ -209,8 +210,8 @@ export default function TourBooking({
           <div>
             <div
               style={{
-                fontSize: 11,
-                letterSpacing: '0.18em',
+                fontSize: 'var(--text-caption)',
+                letterSpacing: '0.08em',
                 textTransform: 'uppercase',
                 color: p.accent,
                 fontWeight: 600,
@@ -270,7 +271,7 @@ export default function TourBooking({
         )}
 
         {/* Body */}
-        <div
+        <div className="ys-booking-body"
           style={{
             flex: 1,
             overflowY: 'auto',
@@ -316,7 +317,7 @@ export default function TourBooking({
                   background: p.bg,
                   border: `1px solid ${p.line}`,
                   textAlign: 'left',
-                  fontSize: 14,
+                  fontSize: 'var(--text-small)',
                   color: p.inkSoft,
                 }}
               >
@@ -333,7 +334,7 @@ export default function TourBooking({
                   background: p.ink,
                   color: p.paper,
                   border: 'none',
-                  fontSize: 14,
+                  fontSize: 'var(--text-small)',
                   fontWeight: 600,
                   cursor: 'pointer',
                   fontFamily: 'inherit',
@@ -348,6 +349,7 @@ export default function TourBooking({
             <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
               {BOOKING_PROPERTIES.map((b) => (
                 <button
+                  className="ys-booking-property"
                   key={b.id}
                   onClick={() => setPropId(b.id)}
                   style={{
@@ -380,7 +382,7 @@ export default function TourBooking({
                     <div
                       style={{
                         fontFamily: `'${displayFont}', serif`,
-                        fontSize: 19,
+                        fontSize: 'var(--text-lead)',
                         color: p.ink,
                         lineHeight: 1.2,
                         display: 'flex',
@@ -390,24 +392,24 @@ export default function TourBooking({
                     >
                       {b.name}
                       {(b as any).comingSoon && (
-                        <span style={{ fontSize: 10, letterSpacing: '0.12em', textTransform: 'uppercase', color: p.accent, fontWeight: 600, fontFamily: 'Inter, sans-serif' }}>
+                        <span style={{ fontSize: 'var(--text-caption)', letterSpacing: '0.12em', textTransform: 'uppercase', color: p.accent, fontWeight: 600, fontFamily: 'Inter, sans-serif' }}>
                           Coming Soon
                         </span>
                       )}
                     </div>
-                    <div style={{ fontSize: 12, color: p.inkSoft, marginTop: 2 }}>
+                    <div style={{ fontSize: 'var(--text-caption)', color: p.inkSoft, marginTop: 2 }}>
                       {b.addr} · {b.bed}
                     </div>
                   </div>
                   <div
                     style={{
                       fontFamily: `'${displayFont}', serif`,
-                      fontSize: 18,
+                      fontSize: 'var(--text-lead)',
                       color: (b as any).comingSoon ? p.inkSoft : p.primary,
                       fontStyle: 'italic',
                     }}
                   >
-                    {(b as any).comingSoon ? 'Ask us' : `${b.price} base`}
+                    {(b as any).comingSoon ? 'Ask us' : b.price}
                   </div>
                 </button>
               ))}
@@ -418,8 +420,8 @@ export default function TourBooking({
             <div>
               <div
                 style={{
-                  fontSize: 11,
-                  letterSpacing: '0.14em',
+                  fontSize: 'var(--text-caption)',
+                  letterSpacing: '0.08em',
                   textTransform: 'uppercase',
                   color: p.inkSoft,
                   marginBottom: 12,
@@ -458,7 +460,7 @@ export default function TourBooking({
                     >
                       <span
                         style={{
-                          fontSize: 10,
+                          fontSize: 'var(--text-caption)',
                           letterSpacing: '0.1em',
                           textTransform: 'uppercase',
                           opacity: 0.7,
@@ -469,7 +471,7 @@ export default function TourBooking({
                       <span style={{ fontFamily: `'${displayFont}', serif`, fontSize: 22, lineHeight: 1 }}>
                         {d.getDate()}
                       </span>
-                      <span style={{ fontSize: 10, opacity: 0.7 }}>{MONTH_LABELS[d.getMonth()]}</span>
+                      <span style={{ fontSize: 'var(--text-caption)', opacity: 0.7 }}>{MONTH_LABELS[d.getMonth()]}</span>
                     </button>
                   );
                 })}
@@ -477,8 +479,8 @@ export default function TourBooking({
 
               <div
                 style={{
-                  fontSize: 11,
-                  letterSpacing: '0.14em',
+                  fontSize: 'var(--text-caption)',
+                  letterSpacing: '0.08em',
                   textTransform: 'uppercase',
                   color: p.inkSoft,
                   marginBottom: 12,
@@ -505,7 +507,7 @@ export default function TourBooking({
                       border: `1px solid ${time === t ? p.primary : p.line}`,
                       cursor: 'pointer',
                       fontFamily: 'inherit',
-                      fontSize: 14,
+                      fontSize: 'var(--text-small)',
                       transition: 'all 140ms ease',
                     }}
                   >
@@ -538,7 +540,7 @@ export default function TourBooking({
                 <Field label="Phone *" value={phone} onChange={setPhone} placeholder="(832) 210 3968" type="tel" p={p} required />
                 <Field label="Email *" value={email} onChange={setEmail} placeholder="you@email.com" type="email" p={p} required />
               </div>
-              <div style={{ fontSize: 11, color: p.inkSoft, marginTop: -8 }}>
+              <div style={{ fontSize: 'var(--text-caption)', color: p.inkSoft, marginTop: -8 }}>
                 All fields required so we can confirm your tour.
               </div>
               <Field
@@ -558,7 +560,7 @@ export default function TourBooking({
               />
 
               {error && (
-                <div style={{ padding: 12, background: '#fef2f2', border: '1px solid #fecaca', color: '#991b1b', fontSize: 13, borderRadius: 4 }}>
+                <div style={{ padding: 12, background: '#fef2f2', border: '1px solid #fecaca', color: '#991b1b', fontSize: 'var(--text-small)', borderRadius: 4 }}>
                   {error}
                 </div>
               )}
@@ -569,7 +571,7 @@ export default function TourBooking({
                   padding: 14,
                   background: p.bg,
                   border: `1px solid ${p.line}`,
-                  fontSize: 13,
+                  fontSize: 'var(--text-small)',
                   color: p.inkSoft,
                   lineHeight: 1.55,
                 }}
@@ -582,7 +584,7 @@ export default function TourBooking({
 
         {/* Footer / nav */}
         {!submitted && (
-          <div
+          <div className="ys-booking-footer"
             style={{
               padding: '16px 28px',
               borderTop: `1px solid ${p.line}`,
@@ -600,7 +602,7 @@ export default function TourBooking({
                 background: 'transparent',
                 border: 'none',
                 cursor: 'pointer',
-                fontSize: 14,
+                fontSize: 'var(--text-small)',
                 color: p.inkSoft,
                 fontFamily: 'inherit',
                 padding: '10px 0',
@@ -618,7 +620,7 @@ export default function TourBooking({
                   color: p.paper,
                   border: 'none',
                   cursor: (step === 1 ? canNext1 : canNext2) ? 'pointer' : 'not-allowed',
-                  fontSize: 14,
+                  fontSize: 'var(--text-small)',
                   fontWeight: 600,
                   fontFamily: 'inherit',
                   opacity: (step === 1 ? canNext1 : canNext2) ? 1 : 0.5,
@@ -636,7 +638,7 @@ export default function TourBooking({
                   color: p.paper,
                   border: 'none',
                   cursor: canSubmit && !submitting ? 'pointer' : 'not-allowed',
-                  fontSize: 14,
+                  fontSize: 'var(--text-small)',
                   fontWeight: 600,
                   fontFamily: 'inherit',
                   opacity: canSubmit && !submitting ? 1 : 0.5,
@@ -675,8 +677,8 @@ function Field({
     <label style={{ display: 'flex', flexDirection: 'column', gap: 6 }}>
       <span
         style={{
-          fontSize: 11,
-          letterSpacing: '0.14em',
+          fontSize: 'var(--text-caption)',
+          letterSpacing: '0.08em',
           textTransform: 'uppercase',
           color: p.inkSoft,
           fontWeight: 600,
@@ -696,7 +698,7 @@ function Field({
             border: `1px solid ${p.line}`,
             background: p.bg,
             fontFamily: 'inherit',
-            fontSize: 15,
+            fontSize: 'var(--text-body)',
             color: p.ink,
             resize: 'vertical',
           }}
@@ -713,7 +715,7 @@ function Field({
             border: `1px solid ${p.line}`,
             background: p.bg,
             fontFamily: 'inherit',
-            fontSize: 15,
+            fontSize: 'var(--text-body)',
             color: p.ink,
           }}
         />

@@ -15,7 +15,7 @@ export const metadata: Metadata = {
 };
 
 export default function AmenitiesPage() {
-  const para: React.CSSProperties = { fontSize: 16, lineHeight: 1.7, color: p.inkSoft, marginBottom: 14 };
+  const para: React.CSSProperties = { fontSize: 'var(--text-body)', lineHeight: 1.7, color: p.inkSoft, marginBottom: 14 };
   const link: React.CSSProperties = { color: p.primary, fontWeight: 600, textDecoration: 'none' };
 
   return (

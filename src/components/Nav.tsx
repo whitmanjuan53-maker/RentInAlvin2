@@ -64,7 +64,7 @@ export default function Nav({ p, locale = 'en' }: { p: typeof import('@/lib/data
         <Logo p={p} size={scrolled ? 38 : 44} />
       </a>
 
-      <nav className="ys-nav-links" style={{ display: 'flex', alignItems: 'center', gap: 24 }}>
+      <nav className="ys-nav-links" style={{ display: 'flex', alignItems: 'center', gap: 18 }}>
         {links.map(([label, href]) => (
           <a
             key={href}
@@ -72,10 +72,10 @@ export default function Nav({ p, locale = 'en' }: { p: typeof import('@/lib/data
             style={{
               color: p.ink,
               textDecoration: 'none',
-              fontSize: 14,
-              fontWeight: 500,
+              fontSize: 'var(--text-small)',
+              fontWeight: 600,
               letterSpacing: '0.01em',
-              padding: '4px 0',
+              padding: '10px 0',
               borderRadius: 2,
               transition: 'color 180ms ease',
             }}
@@ -91,7 +91,7 @@ export default function Nav({ p, locale = 'en' }: { p: typeof import('@/lib/data
           style={{
             color: p.primary,
             textDecoration: 'none',
-            fontSize: 14,
+            fontSize: 'var(--text-small)',
             fontWeight: 600,
             padding: '8px 16px',
             border: `1px solid ${p.primary}`,
@@ -159,6 +159,10 @@ export default function Nav({ p, locale = 'en' }: { p: typeof import('@/lib/data
             gap: 4,
           }}
         >
+          <div className="ys-nav-languages" aria-label={isEs ? 'Idioma' : 'Language'}>
+            <a href="/" lang="en" aria-current={!isEs ? 'page' : undefined}>English</a>
+            <a href="/es" lang="es" aria-current={isEs ? 'page' : undefined}>Español</a>
+          </div>
           {links.map(([label, href]) => (
             <a
               key={href}
@@ -195,7 +199,7 @@ export default function Nav({ p, locale = 'en' }: { p: typeof import('@/lib/data
               background: p.primary,
               color: p.paper,
               textDecoration: 'none',
-              fontSize: 15,
+              fontSize: 'var(--text-body)',
               fontWeight: 600,
               textAlign: 'center',
               borderRadius: 4,

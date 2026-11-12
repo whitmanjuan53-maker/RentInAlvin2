@@ -13,7 +13,7 @@ export default function Logo({ p, size = 40 }: { p: Palette; size?: number }) {
   const lw = 4; // black grid line weight
 
   return (
-    <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+    <div className="ys-logo" style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
       {/* Mondrian mark */}
       <svg
         width={size}
@@ -69,8 +69,8 @@ export default function Logo({ p, size = 40 }: { p: Palette; size?: number }) {
         </span>
         <span
           style={{
-            fontSize: 9.5,
-            letterSpacing: '0.18em',
+            fontSize: 11,
+            letterSpacing: '0.06em',
             textTransform: 'uppercase',
             color: p.inkSoft,
             fontWeight: 500,

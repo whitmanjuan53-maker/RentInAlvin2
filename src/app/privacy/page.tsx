@@ -23,7 +23,7 @@ export default function PrivacyPage() {
     marginBottom: 12,
     fontWeight: 400,
   };
-  const para: React.CSSProperties = { fontSize: 16, lineHeight: 1.7, color: p.inkSoft, marginBottom: 14 };
+  const para: React.CSSProperties = { fontSize: 'var(--text-body)', lineHeight: 1.7, color: p.inkSoft, marginBottom: 14 };
 
   return (
     <div style={{ background: p.bg, minHeight: '100vh' }}>

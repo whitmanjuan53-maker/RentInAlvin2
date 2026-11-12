@@ -9,10 +9,11 @@ export const PALETTES = {
     bg: '#F4EEE4',
     paper: '#FBF7F0',
     ink: '#1A1815',
-    inkSoft: '#5C5750',
+    inkSoft: '#49463F',
     primary: '#1F3A2E',
     primarySoft: '#2A4A3C',
-    accent: '#B5703D',
+    accent: '#8C4D24',
+    accentLight: '#E5AD7F',
     line: 'rgba(26,24,21,0.12)',
   },
 };

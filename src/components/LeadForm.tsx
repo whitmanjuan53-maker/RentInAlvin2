@@ -41,7 +41,7 @@ export default function LeadForm({
     background: p.bg,
     border: `1px solid ${p.line}`,
     color: p.ink,
-    fontSize: 15,
+    fontSize: 'var(--text-body)',
     fontFamily: 'inherit',
     borderRadius: 3,
     outline: 'none',
@@ -49,8 +49,8 @@ export default function LeadForm({
   } as React.CSSProperties;
 
   const labelStyle = {
-    fontSize: 11,
-    letterSpacing: '0.14em',
+    fontSize: 'var(--text-caption)',
+    letterSpacing: '0.08em',
     textTransform: 'uppercase',
     color: p.inkSoft,
     fontWeight: 600,
@@ -184,7 +184,7 @@ export default function LeadForm({
               background: p.ink,
               color: p.paper,
               border: 'none',
-              fontSize: 14,
+              fontSize: 'var(--text-small)',
               fontWeight: 600,
               cursor: 'pointer',
               fontFamily: 'inherit',
@@ -313,7 +313,7 @@ export default function LeadForm({
             background: '#fef2f2',
             border: '1px solid #fecaca',
             color: '#991b1b',
-            fontSize: 13,
+            fontSize: 'var(--text-small)',
             borderRadius: 4,
             marginTop: 16,
           }}
@@ -332,7 +332,7 @@ export default function LeadForm({
           background: p.primary,
           color: p.paper,
           border: 'none',
-          fontSize: 15,
+          fontSize: 'var(--text-body)',
           fontWeight: 600,
           cursor: submitting ? 'not-allowed' : 'pointer',
           fontFamily: 'inherit',
@@ -350,7 +350,7 @@ export default function LeadForm({
           <path d="M3 7h8m0 0L7.5 3.5M11 7l-3.5 3.5" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" />
         </svg>
       </button>
-      <p style={{ fontSize: 12, color: p.inkSoft, marginTop: 14, lineHeight: 1.5, textAlign: 'center' }}>
+      <p style={{ fontSize: 'var(--text-caption)', color: p.inkSoft, marginTop: 14, lineHeight: 1.5, textAlign: 'center' }}>
         We respect your privacy. No spam, ever.
       </p>
     </form>

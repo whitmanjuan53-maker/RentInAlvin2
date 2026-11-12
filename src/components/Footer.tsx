@@ -26,8 +26,8 @@ export default function Footer({
           className="ys-footer-grid"
           style={{
             display: 'grid',
-            gridTemplateColumns: '2fr 1fr 1fr 1fr',
-            gap: 60,
+            gridTemplateColumns: '1.5fr 1fr 1fr 1.2fr',
+            gap: 32,
             paddingBottom: 40,
           }}
         >
@@ -41,16 +41,16 @@ export default function Footer({
                 letterSpacing: '-0.01em',
               }}
             >
-              Yellowstone <em style={{ color: p.accent }}>Asset Management</em>
+              Yellowstone <em style={{ color: p.accentLight }}>Asset Management</em>
             </div>
-            <p style={{ fontSize: 14, lineHeight: 1.6, marginTop: 16, maxWidth: '42ch' }}>
+            <p style={{ fontSize: 'var(--text-small)', lineHeight: 1.6, marginTop: 16, maxWidth: '42ch' }}>
               {isEs
                 ? 'Administración de propiedades familiar que sirve a Alvin, Texas. Nos importa, escuchamos, aprendemos.'
                 : 'Family run property management serving Alvin, Texas. We care, We listen, We learn.'}
             </p>
           </div>
           <div>
-            <div style={{ color: p.paper, fontWeight: 600, fontSize: 13, marginBottom: 14 }}>
+            <div style={{ color: p.paper, fontWeight: 600, fontSize: 'var(--text-small)', marginBottom: 14 }}>
               {isEs ? 'Comunidades' : 'Communities'}
             </div>
             {[
@@ -65,10 +65,10 @@ export default function Footer({
                 href={isEs ? '/es#comunidades' : `/communities/${slug}`}
                 style={{
                   display: 'block',
-                  fontSize: 13,
+                  fontSize: 'var(--text-small)',
                   color: 'inherit',
                   textDecoration: 'none',
-                  padding: '4px 0',
+                  padding: '8px 0',
                 }}
               >
                 {n}
@@ -77,7 +77,7 @@ export default function Footer({
             {!isEs && (
               <a
                 href="/communities"
-                style={{ display: 'block', fontSize: 13, color: 'inherit', textDecoration: 'none', padding: '4px 0', opacity: 0.85 }}
+                style={{ display: 'block', fontSize: 'var(--text-small)', color: 'inherit', textDecoration: 'none', padding: '4px 0', opacity: 0.85 }}
               >
                 View all →
               </a>
@@ -88,16 +88,16 @@ export default function Footer({
               ['Locations and nearby areas', '/apartments-near-houston-pearland-hwy-35'],
               ['Living in Alvin', '/living-in-alvin'],
             ].map(([label, href]) => (
-              <a key={href} href={href} style={{ display: 'block', fontSize: 13, color: 'inherit', textDecoration: 'none', padding: '6px 0', lineHeight: 1.5 }}>
+              <a key={href} href={href} style={{ display: 'block', fontSize: 'var(--text-small)', color: 'inherit', textDecoration: 'none', padding: '6px 0', lineHeight: 1.5 }}>
                 {label}
               </a>
             ))}
           </div>
           <div>
-            <div style={{ color: p.paper, fontWeight: 600, fontSize: 13, marginBottom: 14 }}>
+            <div style={{ color: p.paper, fontWeight: 600, fontSize: 'var(--text-small)', marginBottom: 14 }}>
               {isEs ? 'Oficina' : 'Office'}
             </div>
-            <div style={{ fontSize: 13, lineHeight: 1.7 }}>
+            <div style={{ fontSize: 'var(--text-small)', lineHeight: 1.7 }}>
               410 S 2nd Street
               <br />
               Alvin, TX 77511
@@ -106,10 +106,10 @@ export default function Footer({
             </div>
           </div>
           <div>
-            <div style={{ color: p.paper, fontWeight: 600, fontSize: 13, marginBottom: 14 }}>
+            <div style={{ color: p.paper, fontWeight: 600, fontSize: 'var(--text-small)', marginBottom: 14 }}>
               {isEs ? 'Contacto' : 'Contact'}
             </div>
-            <div style={{ fontSize: 13, lineHeight: 1.7 }}>
+            <div style={{ fontSize: 'var(--text-small)', lineHeight: 1.7 }}>
               <a
                 href="tel:8322103968"
                 style={{ color: 'inherit', textDecoration: 'none', display: 'block' }}
@@ -131,14 +131,14 @@ export default function Footer({
                   }
                 }}
                 style={{
-                  color: p.accent,
+                  color: p.accentLight,
                   textDecoration: 'none',
                   display: 'block',
                   marginTop: 8,
                   background: 'none',
                   border: 'none',
                   padding: 0,
-                  fontSize: 13,
+                  fontSize: 'var(--text-small)',
                   cursor: 'pointer',
                   fontFamily: 'inherit',
                 }}
@@ -154,8 +154,8 @@ export default function Footer({
             justifyContent: 'space-between',
             alignItems: 'center',
             paddingTop: 24,
-            fontSize: 12,
-            opacity: 0.7,
+            fontSize: 'var(--text-caption)',
+            opacity: 0.9,
             flexWrap: 'wrap',
             gap: 8,
           }}

@@ -66,7 +66,7 @@ export default function LeasingChat() {
         </form>
         <p className="leasing-chat-note">{es ? 'Para confirmar precios y disponibilidad, ' : 'Confirm current rent and availability with '}<a href="tel:8322103968">{es ? 'llame a la oficina' : 'our leasing team'}</a>.</p>
       </section>}
-      <button ref={launcher} type="button" className="leasing-chat-launcher" aria-expanded={open} aria-controls="leasing-chat-panel" onClick={() => open ? close() : setOpen(true)}><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5H8l-5 2 1.5-5A8.5 8.5 0 1 1 21 11.5Z" /></svg>{open ? (es ? 'Cerrar chat' : 'Close chat') : (es ? 'Pregúntenos' : 'Ask about a home')}</button>
+      <button ref={launcher} type="button" className="leasing-chat-launcher" aria-expanded={open} aria-controls="leasing-chat-panel" onClick={() => open ? close() : setOpen(true)}><svg width="19" height="19" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" aria-hidden="true"><path d="M21 11.5a8.5 8.5 0 0 1-8.5 8.5H8l-5 2 1.5-5A8.5 8.5 0 1 1 21 11.5Z" /></svg><span className="leasing-chat-launcher-full">{open ? (es ? 'Cerrar chat' : 'Close chat') : (es ? 'Pregúntenos' : 'Ask about a home')}</span><span className="leasing-chat-launcher-mobile">{open ? (es ? 'Cerrar' : 'Close') : (es ? 'Chat' : 'Chat')}</span></button>
     </aside>
   );
 }

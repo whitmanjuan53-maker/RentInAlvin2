@@ -17,7 +17,7 @@ export const metadata: Metadata = {
 };
 
 export default function AvailableNowPage() {
-  const para: React.CSSProperties = { fontSize: 16, lineHeight: 1.7, color: p.inkSoft, marginBottom: 14 };
+  const para: React.CSSProperties = { fontSize: 'var(--text-body)', lineHeight: 1.7, color: p.inkSoft, marginBottom: 14 };
   const link: React.CSSProperties = { color: p.primary, fontWeight: 600, textDecoration: 'none' };
   const heading: React.CSSProperties = { fontFamily: `'${displayFont}', serif`, fontSize: 'clamp(26px, 4vw, 36px)', lineHeight: 1.2, fontWeight: 400, color: p.ink, margin: '36px 0 16px' };
   const faqs = [
@@ -57,7 +57,7 @@ export default function AvailableNowPage() {
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(min(100%, 245px), 1fr))', gap: 16 }}>
           {PROPERTIES.map((property) => (
             <article key={property.slug} style={{ border: `1px solid ${p.line}`, borderRadius: 12, padding: 20, background: p.paper }}>
-              <h3 style={{ margin: '0 0 10px', fontSize: 19, lineHeight: 1.3 }}>
+              <h3 style={{ margin: '0 0 10px', fontSize: 'var(--text-lead)', lineHeight: 1.3 }}>
                 <a href={`/communities/${property.slug}`} style={link}>{property.name}</a>
               </h3>
               <p style={{ ...para, marginBottom: 8 }}>{property.addr}, Alvin, TX 77511</p>
@@ -69,14 +69,14 @@ export default function AvailableNowPage() {
         <h2 style={heading}>Listed monthly rent</h2>
         <p style={para}>These are the listed starting monthly rents for the following communities. Confirm current pricing and all applicable charges with the leasing team.</p>
         <div style={{ overflowX: 'auto' }}>
-          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 15, lineHeight: 1.6, textAlign: 'left' }}>
+          <table style={{ width: '100%', borderCollapse: 'collapse', fontSize: 'var(--text-body)', lineHeight: 1.6, textAlign: 'left' }}>
             <caption style={{ textAlign: 'left', marginBottom: 12, color: p.inkSoft }}>Monthly pricing for selected Alvin communities</caption>
             <thead><tr>{['Community', 'Monthly rent'].map((label) => (
               <th key={label} scope="col" style={{ padding: 12, borderBottom: `2px solid ${p.line}` }}>{label}</th>
             ))}</tr></thead>
             <tbody>{PROPERTY_PRICING.map((pricing) => (
               <tr key={pricing.address}>
-                <th scope="row" style={{ padding: 12, borderBottom: `1px solid ${p.line}`, fontWeight: 500 }}>{pricing.propertyName}<br /><span style={{ fontSize: 13, color: p.inkSoft }}>{pricing.address}</span></th>
+                <th scope="row" style={{ padding: 12, borderBottom: `1px solid ${p.line}`, fontWeight: 500 }}>{pricing.propertyName}<br /><span style={{ fontSize: 'var(--text-small)', color: p.inkSoft }}>{pricing.address}</span></th>
                 {[pricing.baseRent].map((amount, index) => (
                   <td key={index} style={{ padding: 12, borderBottom: `1px solid ${p.line}`, whiteSpace: 'nowrap' }}>{formatCurrency(amount)}</td>
                 ))}
@@ -88,7 +88,7 @@ export default function AvailableNowPage() {
         <h2 style={heading}>Questions about renting in Alvin</h2>
         {faqs.map(({ q, a }) => (
           <section key={q} style={{ borderBottom: `1px solid ${p.line}`, padding: '16px 0' }}>
-            <h3 style={{ fontSize: 19, lineHeight: 1.4, margin: '0 0 10px' }}>{q}</h3>
+            <h3 style={{ fontSize: 'var(--text-lead)', lineHeight: 1.4, margin: '0 0 10px' }}>{q}</h3>
             <p style={{ ...para, margin: 0 }}>{a}</p>
           </section>
         ))}
