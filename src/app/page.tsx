@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Nav from '@/components/Nav';
+import ApplicationIntro from '@/components/ApplicationIntro';
 import Footer from '@/components/Footer';
 import TourBooking from '@/components/TourBooking';
 import LeadForm from '@/components/LeadForm';
@@ -56,7 +57,7 @@ function Hero() {
         </h1>
         <div className="ys-hero-row" style={{ display: 'grid', gridTemplateColumns: '1.1fr 1fr', gap: 80, marginTop: 72, alignItems: 'end' }}>
           <p style={{ fontSize: 19, lineHeight: 1.55, color: p.inkSoft, maxWidth: '46ch', margin: 0 }}>
-            Welcome to <strong style={{ color: p.ink }}>RentInAlvin.com</strong> — apartments and townhomes for rent in Alvin, TX. Yellowstone Asset Management cares for <strong style={{ color: p.ink }}>150+ units across six local communities</strong>, priced from $800 to $1,650 and maintained by a team that picks up the phone. Explore availability, floor plans, amenities, and photos, then schedule a tour or apply online.
+            Welcome to <strong style={{ color: p.ink }}>RentInAlvin.com</strong>. Find apartments and townhomes for rent in Alvin, TX. Yellowstone Asset Management cares for <strong style={{ color: p.ink }}>150+ units across six local communities</strong>, priced from $800 to $1,650 and maintained by a team that picks up the phone. Explore availability, floor plans, amenities, and photos, then schedule a tour or apply online.
           </p>
           <div style={{ display: 'flex', gap: 14, justifyContent: 'flex-end', flexWrap: 'wrap' }}>
             <button onClick={() => { if (typeof window !== 'undefined' && (window as any).__openBooking) (window as any).__openBooking(); }} style={{ padding: '16px 28px', background: p.primary, color: p.paper, textDecoration: 'none', fontSize: 15, fontWeight: 600, borderRadius: 4, letterSpacing: '0.01em', display: 'inline-flex', alignItems: 'center', gap: 10, transition: 'transform 180ms ease, background 180ms ease', cursor: 'pointer', border: 'none', fontFamily: 'inherit' }} onMouseOver={(e) => { const el = e.currentTarget as HTMLElement; el.style.background = p.primarySoft; el.style.transform = 'translateY(-1px)'; }} onMouseOut={(e) => { const el = e.currentTarget as HTMLElement; el.style.background = p.primary; el.style.transform = 'translateY(0)'; }}>
@@ -68,7 +69,7 @@ function Hero() {
         </div>
       </div>
       <div style={{ maxWidth: 1400, margin: '0 auto', width: '100%', marginTop: 80, display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', paddingTop: 28 }} className="ys-hero-stats">
-        {[['150+', 'units under management'], ['6', 'communities in Alvin'], ['$899', 'starting rent'], ['Local', 'team, family-run']].map(([n, label], i) => (
+        {[['150+', 'units under management'], ['6', 'communities in Alvin'], ['$899', 'starting rent'], ['Local', 'team, family run']].map(([n, label], i) => (
           <div key={i} style={{ paddingLeft: i === 0 ? 0 : 28 }}>
             <div style={{ fontFamily: `'${displayFont}', serif`, fontSize: 56, lineHeight: 1, color: p.ink, letterSpacing: '-0.02em' }}>{n}</div>
             <div style={{ fontSize: 12, letterSpacing: '0.12em', textTransform: 'uppercase', color: p.inkSoft, marginTop: 10, fontWeight: 500 }}>{label}</div>
@@ -120,7 +121,7 @@ function Promotions() {
                 )}
                 <div className="ys-promo-copy" style={{ flex: openHouse ? '1.25 1 520px' : '1 1 580px', minWidth: 0, padding: openHouse ? 'clamp(28px, 4vw, 56px)' : 0 }}>
                   <div style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.accent, fontWeight: 600, marginBottom: 10 }}>
-                    {openHouse ? `Open house · ${announcement.locationName || 'Royal Oaks'}` : 'Move-in special · Select communities'}
+                    {openHouse ? `Open house · ${announcement.locationName || 'Royal Oaks'}` : 'Move in special · Select communities'}
                   </div>
                   <h3 style={{ fontFamily: `'${displayFont}', serif`, fontSize: openHouse ? 'clamp(34px, 4.5vw, 58px)' : 'clamp(27px, 3.4vw, 42px)', lineHeight: 1.04, letterSpacing: '-0.01em', color: openHouse ? p.paper : p.ink, fontWeight: 400, margin: 0 }}>
                     {announcement.title}
@@ -188,7 +189,7 @@ function PromotionStrip() {
       <span style={{ opacity: 0.85 }}>
         <strong style={{ color: p.paper }}>{openHouse ? 'OPEN HOUSE THIS SATURDAY' : '$300 deposit + $700 off second month’s rent'}</strong>
         {openHouse
-          ? ` · ${[featured.dateLabel, featured.timeLabel || '11:00 AM–3:00 PM'].filter(Boolean).join(' · ')} at ${featured.locationName || 'Royal Oaks'}`
+          ? ` · ${[featured.dateLabel, featured.timeLabel || '11:00 AM to 3:00 PM'].filter(Boolean).join(' · ')} at ${featured.locationName || 'Royal Oaks'}`
           : ' · Select communities'}
       </span>
       <a href="#promotions" style={{ color: p.accent, fontWeight: 600, textDecoration: 'none' }}>View current promotions ↓</a>
@@ -301,7 +302,7 @@ function Floorplans() {
           <div style={{ fontSize: 12, letterSpacing: '0.18em', textTransform: 'uppercase', color: p.accent, fontWeight: 600, paddingTop: 14 }}>Floor plans · $800 to $1,650</div>
           <div>
             <h2 style={{ fontFamily: `'${displayFont}', serif`, fontSize: 'clamp(36px, 4.6vw, 60px)', lineHeight: 1.02, letterSpacing: '-0.02em', margin: 0, fontWeight: 400, maxWidth: '16ch', color: p.paper }}>Five layouts, honestly priced.</h2>
-            <p style={{ fontSize: 17, lineHeight: 1.6, color: `color-mix(in oklab, ${p.paper} 75%, transparent)`, maxWidth: '55ch', marginTop: 24 }}>Monthly rents are listed up-front. Contact our leasing team for complete lease details. Availability changes weekly, call us to confirm what&apos;s open today.</p>
+            <p style={{ fontSize: 17, lineHeight: 1.6, color: `color-mix(in oklab, ${p.paper} 75%, transparent)`, maxWidth: '55ch', marginTop: 24 }}>Monthly rents are listed up front. Contact our leasing team for complete lease details. Availability changes weekly, call us to confirm what&apos;s open today.</p>
           </div>
         </div>
         <div className="ys-floor-grid" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 60, alignItems: 'start' }}>
@@ -338,7 +339,7 @@ function About() {
   const items = [
     { n: '01', title: 'Local & responsive', body: 'Our office sits at 410 S 2nd St, the same building as Kings Haven. When you call, you reach the team that manages your home, not a national call center.' },
     { n: '02', title: 'Honest leasing', body: 'Monthly rents are published on this page. Our local leasing team can explain the lease terms for your selected home.' },
-    { n: '03', title: 'Maintenance, handled', body: 'Submit a request and a technician we know personally is dispatched. Most non-emergency issues are closed within 48 hours.' },
+    { n: '03', title: 'Maintenance, handled', body: 'Submit a request and a technician we know personally is dispatched. Most non emergency issues are closed within 48 hours.' },
   ];
   return (
     <section id="about" style={{ padding: 'var(--pad-x-lg) var(--pad-x)' }}>
@@ -361,8 +362,8 @@ function About() {
 function Contact() {
   const [hovered, setHovered] = useState<string | null>(null);
   const channels = [
-    { key: 'book', eyebrow: 'Preferred', label: 'Book a viewing', detail: '30 minutes · in-person or virtual · confirms in 24h', action: 'Schedule a tour', href: '#', onClick: (e: React.MouseEvent) => { e.preventDefault(); if (typeof window !== 'undefined' && (window as any).__openBooking) (window as any).__openBooking(); } },
-    { key: 'call', eyebrow: 'Mon–Fri · 9–5 CT', label: '(832) 210-3968', detail: 'Direct line to the leasing office.', action: 'Call now', href: 'tel:8322103968' },
+    { key: 'book', eyebrow: 'Preferred', label: 'Book a viewing', detail: '30 minutes · in person or virtual · confirms in 24h', action: 'Schedule a tour', href: '#', onClick: (e: React.MouseEvent) => { e.preventDefault(); if (typeof window !== 'undefined' && (window as any).__openBooking) (window as any).__openBooking(); } },
+    { key: 'call', eyebrow: 'Mon to Fri · 9 to 5 CT', label: '(832) 210 3968', detail: 'Direct line to the leasing office.', action: 'Call now', href: 'tel:8322103968' },
     { key: 'email', eyebrow: 'We reply within a business day', label: 'office@yellowstone-am.com', detail: 'Best for documents and lease questions.', action: 'Compose email', href: 'mailto:office@yellowstone-am.com' },
   ];
   return (
@@ -376,7 +377,7 @@ function Contact() {
               <div style={{ fontSize: 11, letterSpacing: '0.18em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 500 }}>Leasing office</div>
               <div style={{ fontFamily: `'${displayFont}', serif`, fontSize: 36, lineHeight: 1.1, color: p.ink, marginTop: 10, fontWeight: 400 }}>410 S 2nd Street<br />Alvin, TX 77511</div>
               <div style={{ marginTop: 20, display: 'flex', gap: 28, fontSize: 13, color: p.inkSoft, flexWrap: 'wrap' }}>
-                <div><div style={{ fontWeight: 600, color: p.ink }}>Mon – Fri</div>9:00am – 5:00pm</div>
+                <div><div style={{ fontWeight: 600, color: p.ink }}>Mon to Fri</div>9:00am to 5:00pm</div>
                 <div><div style={{ fontWeight: 600, color: p.ink }}>Saturday</div>By appointment</div>
                 <div><div style={{ fontWeight: 600, color: p.ink }}>Sunday</div>Closed</div>
               </div>
@@ -411,7 +412,7 @@ function Contact() {
               <div style={{ marginTop: 28, display: 'flex', gap: 14, flexWrap: 'wrap' }}>
                 <a href="tel:8322103968" style={{ padding: '12px 20px', background: p.ink, color: p.paper, textDecoration: 'none', fontWeight: 600, fontSize: 14, borderRadius: 4, display: 'inline-flex', alignItems: 'center', gap: 8 }}>
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 2.5a2 2 0 012-2h1.5l1 2.5-1.5 1a7 7 0 004 4l1-1.5 2.5 1V10a2 2 0 01-2 2h-.5A7.5 7.5 0 012.5 4.5V4a2 2 0 012-1.5z" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round"/></svg>
-                  Call (832) 210-3968
+                  Call (832) 210 3968
                 </a>
                 <a href="sms:+18322103968?body=Hi%20Yellowstone%2C%20I%27m%20interested%20in%20a%20unit." style={{ padding: '12px 20px', background: 'transparent', color: p.ink, textDecoration: 'none', fontWeight: 600, fontSize: 14, border: `1px solid ${p.ink}`, borderRadius: 4, display: 'inline-flex', alignItems: 'center', gap: 8 }}>
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7c0 3.5 2.5 6 6 6h2.5a1.5 1.5 0 001.5-1.5V10a1 1 0 00-1-1h-1a1 1 0 00-1 1v.5h-1C5.5 10.5 3.5 8.5 3.5 6H4a1 1 0 001-1V4a1 1 0 00-1-1h-.5A1.5 1.5 0 002 4.5V7z" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round"/></svg>
@@ -436,7 +437,7 @@ function FAQ() {
           <div>
             <div style={{ fontSize: 12, letterSpacing: '0.18em', textTransform: 'uppercase', color: p.accent, fontWeight: 600, marginBottom: 18 }}>Common questions</div>
             <h2 style={{ fontFamily: `'${displayFont}', serif`, fontSize: 'clamp(36px, 4.6vw, 60px)', lineHeight: 1.02, letterSpacing: '-0.02em', margin: 0, color: p.ink, fontWeight: 400, maxWidth: '12ch' }}>Things renters usually ask first.</h2>
-            <p style={{ fontSize: 15, lineHeight: 1.6, color: p.inkSoft, marginTop: 24, maxWidth: '40ch' }}>Don&apos;t see your question? Call <a href="tel:8322103968" style={{ color: p.primary, textDecoration: 'none', fontWeight: 600 }}>(832) 210-3968</a>, a real person picks up.</p>
+            <p style={{ fontSize: 15, lineHeight: 1.6, color: p.inkSoft, marginTop: 24, maxWidth: '40ch' }}>Don&apos;t see your question? Call <a href="tel:8322103968" style={{ color: p.primary, textDecoration: 'none', fontWeight: 600 }}>(832) 210 3968</a>, a real person picks up.</p>
           </div>
           <div>
             {FAQS.map((f, i) => {
@@ -473,7 +474,7 @@ function Availability() {
     if (filter === '3br') return a.type.startsWith('3 Bed');
     return true;
   });
-  const filters = [['all', 'All open units'], ['now', 'Move-in now'], ['1br', '1 Bed'], ['2br', '2 Bed'], ['3br', '3 Bed']];
+  const filters = [['all', 'All open units'], ['now', 'Move in now'], ['1br', '1 Bed'], ['2br', '2 Bed'], ['3br', '3 Bed']];
   return (
     <section id="availability" style={{ padding: 'var(--pad-x-lg) var(--pad-x)', background: p.paper }}>
       <div style={{ maxWidth: 1400, margin: '0 auto' }}>
@@ -529,199 +530,8 @@ function Availability() {
   );
 }
 
-function Apply() {
-  const [step, setStep] = useState(0);
-  const [submitted, setSubmitted] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
-  const [error, setError] = useState('');
-  const [data, setData] = useState({ firstName: '', lastName: '', email: '', phone: '', dob: '', currentAddress: '', coApplicants: '0', pets: 'no', petDesc: '', vehicles: '1', employer: '', jobTitle: '', income: '', employedSince: '', prevLandlord: '', prevLandlordPhone: '', reasonLeaving: '', property: '', unitType: '', moveIn: '', budget: '', notes: '', consent: false });
-  const update = (k: string, v: string | boolean) => setData((d) => ({ ...d, [k]: v }));
-
-  const canAdvance = () => {
-    if (step === 0) return data.firstName && data.lastName && data.email && data.phone;
-    if (step === 2) return data.employer && data.income;
-    if (step === 4) return data.property && data.unitType && data.moveIn;
-    if (step === 5) return data.consent;
-    return true;
-  };
-
-  const STEPS = [{ id: 'applicant', label: 'About you' }, { id: 'household', label: 'Household' }, { id: 'income', label: 'Employment & income' }, { id: 'history', label: 'Rental history' }, { id: 'preferences', label: 'Unit preferences' }, { id: 'review', label: 'Review & submit' }];
-  const PROPERTY_OPTIONS = ['Kings Haven Apartments, 410 S 2nd St', 'Kings Manor Townhomes, 328 S 2nd St', 'Kings Haven Apartments, 100 S 2nd St', 'French Quarter Residency, 2550 S Bypass 35', 'The White House Apartments, 1606 W Sealy St', 'The Royal Oaks Townhomes, 418 S Jackson St', 'No preference, recommend one for me'];
-  const UNIT_TYPES = ['1 Bed · 1 Bath', '2 Bed · 1 Bath', '2 Bed · 2 Bath', '3 Bed · 2 Bath', '3 Bed · 2.5 Bath'];
-
-  async function handleSubmit() {
-    if (!canAdvance()) return;
-
-    // Final validation before submit
-    if (!data.firstName.trim() || !data.lastName.trim() || !data.email.trim() || !data.phone.trim()) {
-      setError('Please complete all required fields in Step 1 (About you).');
-      setSubmitting(false);
-      return;
-    }
-    if (!data.employer.trim() || !data.income.trim()) {
-      setError('Please complete all required fields in Step 3 (Employment & income).');
-      setSubmitting(false);
-      return;
-    }
-    if (!data.property || !data.unitType || !data.moveIn) {
-      setError('Please complete all required fields in Step 5 (Unit preferences).');
-      setSubmitting(false);
-      return;
-    }
-
-    setSubmitting(true); setError('');
-    console.log('[Apply] Submitting application...');
-
-    try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...data,
-          formType: 'Apply',
-          pageUrl: typeof window !== 'undefined' ? window.location.href : ''
-        })
-      });
-      const json = await res.json();
-      console.log('[Apply] Response:', json);
-      if (!res.ok) { setError(json.message || json.error || 'Something went wrong.'); setSubmitting(false); return; }
-      setSubmitted(true);
-    } catch { setError('Network error. Please try again or call us.'); setSubmitting(false); }
-  }
-
-  const txt = { padding: '12px 14px', fontSize: 15, background: p.bg, border: `1px solid ${p.line}`, borderRadius: 4, color: p.ink, fontFamily: 'inherit', outline: 'none', transition: 'border-color 160ms ease', width: '100%' };
-
-  if (submitted) {
-    return (
-      <section id="apply" style={{ padding: 'var(--pad-x-lg) var(--pad-x)', background: p.primary, color: p.paper }}>
-        <div style={{ maxWidth: 720, margin: '0 auto', textAlign: 'center' }}>
-          <div style={{ width: 64, height: 64, borderRadius: '50%', background: p.accent, color: p.paper, display: 'grid', placeItems: 'center', margin: '0 auto', fontSize: 28 }}>✓</div>
-          <h2 style={{ fontFamily: `'${displayFont}', serif`, fontSize: 'clamp(40px, 5.5vw, 72px)', lineHeight: 1.02, margin: '32px 0 0', fontWeight: 400, letterSpacing: '-0.02em' }}>Application received.</h2>
-          <p style={{ fontSize: 18, lineHeight: 1.6, color: `color-mix(in oklab, ${p.paper} 80%, transparent)`, marginTop: 20 }}>Thanks, {data.firstName || 'there'}. A confirmation will hit <strong>{data.email || 'your inbox'}</strong> within an hour, and someone from the leasing office will follow up by phone within one business day.</p>
-          <div style={{ marginTop: 40, display: 'inline-flex', gap: 14, flexWrap: 'wrap', justifyContent: 'center' }}>
-            <a href="tel:8322103968" style={{ padding: '14px 24px', background: p.paper, color: p.primary, textDecoration: 'none', fontWeight: 600, fontSize: 14, borderRadius: 4 }}>Call (832) 210-3968</a>
-            <a href="mailto:office@yellowstone-am.com" style={{ padding: '14px 24px', background: 'transparent', color: p.paper, textDecoration: 'none', fontWeight: 600, fontSize: 14, border: `1px solid ${p.paper}`, borderRadius: 4 }}>office@yellowstone-am.com</a>
-          </div>
-        </div>
-      </section>
-    );
-  }
-
-  return (
-    <section id="apply" style={{ padding: 'var(--pad-x-lg) var(--pad-x)', background: p.bg }}>
-      <div style={{ maxWidth: 1400, margin: '0 auto' }}>
-        <div className="ys-section-head" style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 60, alignItems: 'start', marginBottom: 56 }}>
-          <div style={{ fontSize: 12, letterSpacing: '0.18em', textTransform: 'uppercase', color: p.accent, fontWeight: 600, paddingTop: 14 }}>Apply online · 5 minutes</div>
-          <div>
-            <h2 style={{ fontFamily: `'${displayFont}', serif`, fontSize: 'clamp(36px, 4.6vw, 60px)', lineHeight: 1.1, letterSpacing: '-0.02em', margin: 0, color: p.ink, fontWeight: 400, maxWidth: '16ch' }}>Start your application from anywhere.</h2>
-            <p style={{ fontSize: 17, lineHeight: 1.6, color: p.inkSoft, maxWidth: '55ch', marginTop: 28 }}>Most applications are decided within 48 hours. Have an ID and a recent pay stub handy, that&apos;s it.</p>
-          </div>
-        </div>
-        <div className="ys-apply-grid" style={{ display: 'grid', gridTemplateColumns: '240px 1fr', gap: 48 }}>
-          <div className="ys-apply-stepper">
-            {STEPS.map((s, i) => {
-              const done = i < step; const active = i === step;
-              return (
-                <button key={s.id} onClick={() => i < step && setStep(i)} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '14px 0', background: 'transparent', border: 'none', borderBottom: `1px solid ${p.line}`, cursor: i <= step ? 'pointer' : 'default', fontFamily: 'inherit', textAlign: 'left', width: '100%', opacity: active ? 1 : done ? 0.85 : 0.45 }}>
-                  <span style={{ width: 28, height: 28, borderRadius: '50%', background: active ? p.ink : done ? p.accent : 'transparent', color: active || done ? p.paper : p.inkSoft, border: active || done ? 'none' : `1px solid ${p.line}`, display: 'grid', placeItems: 'center', fontSize: 12, fontWeight: 600, flexShrink: 0, fontFamily: "'JetBrains Mono', monospace" }}>{done ? '✓' : i + 1}</span>
-                  <span style={{ fontSize: 13, fontWeight: active ? 600 : 500, color: p.ink }}>{s.label}</span>
-                </button>
-              );
-            })}
-          </div>
-          <div className="ys-apply-form" style={{ background: p.paper, border: `1px solid ${p.line}`, padding: '40px 44px', minHeight: 480, display: 'flex', flexDirection: 'column' }}>
-            <div style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.accent, fontWeight: 600 }}>Step {step + 1} of {STEPS.length}</div>
-            <h3 style={{ fontFamily: `'${displayFont}', serif`, fontSize: 36, fontWeight: 400, letterSpacing: '-0.01em', lineHeight: 1.05, margin: '8px 0 32px' }}>{STEPS[step].label}</h3>
-            {error && <div style={{ padding: 12, background: '#fef2f2', border: '1px solid #fecaca', color: '#991b1b', fontSize: 13, borderRadius: 4, marginBottom: 16 }}>{error}</div>}
-            <div style={{ flex: 1 }}>
-              {step === 0 && (
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }} className="ys-form-grid">
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: 8 }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>First name <span style={{ color: p.accent }}>*</span></span><input style={txt} value={data.firstName} onChange={(e) => update('firstName', e.target.value)} /></label>
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: 8 }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Last name <span style={{ color: p.accent }}>*</span></span><input style={txt} value={data.lastName} onChange={(e) => update('lastName', e.target.value)} /></label>
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: 8 }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Email <span style={{ color: p.accent }}>*</span></span><input type="email" style={txt} value={data.email} onChange={(e) => update('email', e.target.value)} /></label>
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: 8 }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Phone <span style={{ color: p.accent }}>*</span></span><input type="tel" style={txt} value={data.phone} onChange={(e) => update('phone', e.target.value)} placeholder="(832) 210-3968" /></label>
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: 8 }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Date of birth</span><input type="date" style={txt} value={data.dob} onChange={(e) => update('dob', e.target.value)} /></label>
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: 8, gridColumn: 'span 2' }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Current address</span><input style={txt} value={data.currentAddress} onChange={(e) => update('currentAddress', e.target.value)} placeholder="Street, city, state, zip" /></label>
-                </div>
-              )}
-              {step === 1 && (
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }} className="ys-form-grid">
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: 8 }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Co-applicants (18+)</span><select style={txt} value={data.coApplicants} onChange={(e) => update('coApplicants', e.target.value)}>{['0','1','2','3','4+'].map(n => <option key={n}>{n}</option>)}</select></label>
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: 8 }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Vehicles</span><select style={txt} value={data.vehicles} onChange={(e) => update('vehicles', e.target.value)}>{['0','1','2','3+'].map(n => <option key={n}>{n}</option>)}</select></label>
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: 8, gridColumn: 'span 2' }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Pets</span><div style={{ display: 'flex', gap: 8 }}>{['no','cat','dog','both'].map(v => <button key={v} type="button" onClick={() => update('pets', v)} style={{ padding: '10px 16px', flex: 1, background: data.pets === v ? p.ink : 'transparent', color: data.pets === v ? p.paper : p.ink, border: `1px solid ${data.pets === v ? p.ink : p.line}`, borderRadius: 4, fontSize: 13, fontWeight: 500, cursor: 'pointer', fontFamily: 'inherit', textTransform: 'capitalize' }}>{v === 'no' ? 'No pets' : v}</button>)}</div></label>
-                  {data.pets !== 'no' && <label style={{ display: 'flex', flexDirection: 'column', gap: 8, gridColumn: 'span 2' }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Pet details (breed, weight, age)</span><input style={txt} value={data.petDesc} onChange={(e) => update('petDesc', e.target.value)} placeholder="e.g. Labrador, 65 lbs, 4 years" /></label>}
-                </div>
-              )}
-              {step === 2 && (
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }} className="ys-form-grid">
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: 8, gridColumn: 'span 2' }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Employer <span style={{ color: p.accent }}>*</span></span><input style={txt} value={data.employer} onChange={(e) => update('employer', e.target.value)} /></label>
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: 8 }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Job title</span><input style={txt} value={data.jobTitle} onChange={(e) => update('jobTitle', e.target.value)} /></label>
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: 8 }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Employed since</span><input type="month" style={txt} value={data.employedSince} onChange={(e) => update('employedSince', e.target.value)} /></label>
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: 8, gridColumn: 'span 2' }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Gross monthly income <span style={{ color: p.accent }}>*</span></span><div style={{ position: 'relative' }}><span style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: p.inkSoft, fontSize: 15 }}>$</span><input style={{ ...txt, paddingLeft: 28 }} value={data.income} onChange={(e) => update('income', e.target.value)} placeholder="3,500" /></div></label>
-                </div>
-              )}
-              {step === 3 && (
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }} className="ys-form-grid">
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: 8 }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Previous landlord (name)</span><input style={txt} value={data.prevLandlord} onChange={(e) => update('prevLandlord', e.target.value)} /></label>
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: 8 }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Landlord phone</span><input type="tel" style={txt} value={data.prevLandlordPhone} onChange={(e) => update('prevLandlordPhone', e.target.value)} /></label>
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: 8, gridColumn: 'span 2' }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Reason for leaving</span><textarea rows={3} style={{ ...txt, resize: 'vertical', fontFamily: 'inherit' }} value={data.reasonLeaving} onChange={(e) => update('reasonLeaving', e.target.value)} /></label>
-                  <div style={{ gridColumn: '1 / -1', fontSize: 13, color: p.inkSoft, lineHeight: 1.5, padding: 14, background: p.bg, border: `1px solid ${p.line}`, borderRadius: 4 }}>First-time renter? Leave these blank, we&apos;ll discuss your situation when we follow up.</div>
-                </div>
-              )}
-              {step === 4 && (
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }} className="ys-form-grid">
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: 8, gridColumn: 'span 2' }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Preferred community <span style={{ color: p.accent }}>*</span></span><select style={txt} value={data.property} onChange={(e) => update('property', e.target.value)}><option value="">Choose a community…</option>{PROPERTY_OPTIONS.map(o => <option key={o}>{o}</option>)}</select></label>
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: 8 }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Unit type <span style={{ color: p.accent }}>*</span></span><select style={txt} value={data.unitType} onChange={(e) => update('unitType', e.target.value)}><option value="">Select…</option>{UNIT_TYPES.map(o => <option key={o}>{o}</option>)}</select></label>
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: 8 }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Earliest move-in <span style={{ color: p.accent }}>*</span></span><input type="date" style={txt} value={data.moveIn} onChange={(e) => update('moveIn', e.target.value)} /></label>
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: 8 }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Monthly budget</span><div style={{ position: 'relative' }}><span style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: p.inkSoft, fontSize: 15 }}>$</span><input style={{ ...txt, paddingLeft: 28 }} value={data.budget} onChange={(e) => update('budget', e.target.value)} placeholder="1,200" /></div></label>
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: 8, gridColumn: 'span 2' }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Anything else we should know?</span><textarea rows={3} style={{ ...txt, resize: 'vertical', fontFamily: 'inherit' }} value={data.notes} onChange={(e) => update('notes', e.target.value)} /></label>
-                </div>
-              )}
-              {step === 5 && (
-                <div>
-                  <div style={{ background: p.bg, border: `1px solid ${p.line}`, padding: 24, borderRadius: 4, marginBottom: 24 }}>
-                    <div style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600, marginBottom: 12 }}>Summary</div>
-                    <dl style={{ display: 'grid', gridTemplateColumns: 'auto 1fr', gap: '10px 24px', margin: 0, fontSize: 14 }}>
-                      {[
-                        ['Applicant', `${data.firstName || ''} ${data.lastName || ''}`.trim() || '—'],
-                        ['Contact', data.email && data.phone ? `${data.email} · ${data.phone}` : '—'],
-                        ['Pets', data.pets === 'no' ? 'None' : data.petDesc || data.pets],
-                        ['Income', data.income ? `$${data.income}/mo` : '—'],
-                        ['Community', data.property || '—'],
-                        ['Unit type', data.unitType || '—'],
-                        ['Move-in', data.moveIn || '—'],
-                      ].map(([k, v]) => (
-                        <div key={k} style={{ display: 'contents' }}>
-                          <dt style={{ color: p.inkSoft, fontWeight: 500 }}>{k}</dt>
-                          <dd style={{ margin: 0, color: p.ink }}>{v}</dd>
-                        </div>
-                      ))}
-                    </dl>
-                  </div>
-                  <label style={{ display: 'flex', alignItems: 'flex-start', gap: 12, padding: 16, border: `1px solid ${p.line}`, borderRadius: 4, cursor: 'pointer', background: data.consent ? p.bg : 'transparent' }}>
-                    <input type="checkbox" checked={data.consent} onChange={(e) => update('consent', e.target.checked)} style={{ marginTop: 2, accentColor: p.primary }} />
-                    <span style={{ fontSize: 13, color: p.inkSoft, lineHeight: 1.55 }}>I authorize Yellowstone Asset Management to verify the information above, including credit history, rental history, employment, and background. I understand the $40 application fee is non-refundable. Equal Housing Opportunity.</span>
-                  </label>
-                </div>
-              )}
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 32, paddingTop: 24, borderTop: `1px solid ${p.line}` }}>
-              <button onClick={() => setStep(s => Math.max(0, s - 1))} disabled={step === 0} style={{ padding: '12px 20px', background: 'transparent', border: `1px solid ${step === 0 ? p.line : p.ink}`, color: step === 0 ? p.inkSoft : p.ink, fontSize: 14, fontWeight: 500, borderRadius: 4, cursor: step === 0 ? 'default' : 'pointer', fontFamily: 'inherit' }}>← Back</button>
-              {step < STEPS.length - 1 ? (
-                <button onClick={() => canAdvance() && setStep(s => s + 1)} disabled={!canAdvance()} style={{ padding: '12px 24px', background: canAdvance() ? p.primary : p.line, color: p.paper, fontSize: 14, fontWeight: 600, border: 'none', borderRadius: 4, cursor: canAdvance() ? 'pointer' : 'default', fontFamily: 'inherit' }}>Continue →</button>
-              ) : (
-                <button onClick={handleSubmit} disabled={!canAdvance() || submitting} style={{ padding: '14px 28px', background: canAdvance() && !submitting ? p.accent : p.line, color: p.paper, fontSize: 14, fontWeight: 600, border: 'none', borderRadius: 4, cursor: canAdvance() && !submitting ? 'pointer' : 'default', fontFamily: 'inherit' }}>{submitting ? 'Submitting…' : 'Submit application'}</button>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function SellProperty() {
-  const [form, setForm] = useState({ name: '', phone: '', email: '', addr: '', type: 'Single-family', beds: '', baths: '', sqft: '', timeline: 'Just exploring', notes: '' });
+  const [form, setForm] = useState({ name: '', phone: '', email: '', addr: '', type: 'Single family', beds: '', baths: '', sqft: '', timeline: 'Just exploring', notes: '' });
   const [sent, setSent] = useState(false);
   const [submitting, setSubmitting] = useState(false);
   const [error, setError] = useState('');
@@ -762,12 +572,12 @@ function SellProperty() {
             </div>
             <h2 style={{ fontFamily: `'${displayFont}', serif`, fontSize: 'clamp(40px, 6vw, 88px)', lineHeight: 0.98, letterSpacing: '-0.02em', margin: 0, fontWeight: 400, color: p.paper }}>Skip the agent. <em style={{ color: p.accent }}>Sell direct.</em></h2>
             <p style={{ fontSize: 18, lineHeight: 1.55, color: `color-mix(in oklab, ${p.paper} 80%, transparent)`, maxWidth: '50ch', marginTop: 28 }}>
-              Yellowstone is actively buying single-family homes, duplexes, and small multifamily properties in Alvin and the surrounding area. We pay fair market value, close on your timeline, and cut the broker out, so you keep the commission.
+              Yellowstone is actively buying single family homes, duplexes, and small multifamily properties in Alvin and the surrounding area. We pay fair market value, close on your timeline, and cut the broker out, so you keep the commission.
             </p>
             <div className="ys-sell-features" style={{ marginTop: 40, display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24 }}>
               {[
                 ['No commissions', 'Sell directly to us, no 6% fee, no listing agent.'],
-                ['Honest offer', 'We make one fair, transparent offer. No bait-and-switch.'],
+                ['Honest offer', 'We make one fair, transparent offer. No bait and switch.'],
                 ['Close on your terms', '30 days, 90 days, or whenever works, your call.'],
               ].map(([t, d], i) => (
                 <div key={i} style={{ paddingTop: 18 }}>
@@ -781,7 +591,7 @@ function SellProperty() {
               <div style={{ width: 44, height: 44, borderRadius: '50%', background: p.accent, color: p.paper, display: 'grid', placeItems: 'center', fontFamily: `'${displayFont}', serif`, fontSize: 22, flexShrink: 0 }}>★</div>
               <div>
                 <div style={{ fontSize: 14, fontWeight: 600, color: p.paper }}>Prefer to talk first?</div>
-                <div style={{ fontSize: 13, color: `color-mix(in oklab, ${p.paper} 70%, transparent)`, marginTop: 2 }}>Call <a href="tel:8322103968" style={{ color: p.accent, textDecoration: 'none', fontWeight: 600 }}>(832) 210-3968</a>, no obligation, no pressure.</div>
+                <div style={{ fontSize: 13, color: `color-mix(in oklab, ${p.paper} 70%, transparent)`, marginTop: 2 }}>Call <a href="tel:8322103968" style={{ color: p.accent, textDecoration: 'none', fontWeight: 600 }}>(832) 210 3968</a>, no obligation, no pressure.</div>
               </div>
             </div>
           </div>
@@ -798,15 +608,15 @@ function SellProperty() {
                 {error && <div style={{ padding: 12, background: '#fef2f2', border: '1px solid #fecaca', color: '#991b1b', fontSize: 13, borderRadius: 4, marginTop: 16 }}>{error}</div>}
                 <div className="ys-sell-form-grid-2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginTop: 24 }}>
                   <div><label style={labelStyle}>Your name</label><input required style={fieldStyle} value={form.name} onChange={e => update('name', e.target.value)} /></div>
-                  <div><label style={labelStyle}>Phone</label><input required type="tel" style={fieldStyle} value={form.phone} onChange={e => update('phone', e.target.value)} placeholder="(832) 210-3968" /></div>
+                  <div><label style={labelStyle}>Phone</label><input required type="tel" style={fieldStyle} value={form.phone} onChange={e => update('phone', e.target.value)} placeholder="(832) 210 3968" /></div>
                 </div>
                 <div style={{ marginTop: 14 }}><label style={labelStyle}>Email</label><input required type="email" style={fieldStyle} value={form.email} onChange={e => update('email', e.target.value)} /></div>
                 <div style={{ marginTop: 28, paddingTop: 20, borderTop: `1px solid ${p.line}` }}>
                   <label style={labelStyle}>Property address</label><input required style={fieldStyle} value={form.addr} onChange={e => update('addr', e.target.value)} placeholder="Street, city, ZIP" />
                 </div>
                 <div className="ys-sell-form-grid-2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginTop: 14 }}>
-                  <div><label style={labelStyle}>Property type</label><select style={fieldStyle} value={form.type} onChange={e => update('type', e.target.value)}>{['Single-family','Duplex','Triplex / Fourplex','Small multifamily (5+)','Townhome / Condo','Land / Lot','Other'].map(t => <option key={t}>{t}</option>)}</select></div>
-                  <div><label style={labelStyle}>Timeline</label><select style={fieldStyle} value={form.timeline} onChange={e => update('timeline', e.target.value)}>{['Just exploring','Within 30 days','1–3 months','3–6 months','6+ months'].map(t => <option key={t}>{t}</option>)}</select></div>
+                  <div><label style={labelStyle}>Property type</label><select style={fieldStyle} value={form.type} onChange={e => update('type', e.target.value)}>{['Single family','Duplex','Triplex / Fourplex','Small multifamily (5+)','Townhome / Condo','Land / Lot','Other'].map(t => <option key={t}>{t}</option>)}</select></div>
+                  <div><label style={labelStyle}>Timeline</label><select style={fieldStyle} value={form.timeline} onChange={e => update('timeline', e.target.value)}>{['Just exploring','Within 30 days','1 to 3 months','3 to 6 months','6+ months'].map(t => <option key={t}>{t}</option>)}</select></div>
                 </div>
                 <div className="ys-sell-form-grid-3" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 14, marginTop: 14 }}>
                   <div><label style={labelStyle}>Beds</label><input style={fieldStyle} value={form.beds} onChange={e => update('beds', e.target.value)} placeholder="3" /></div>
@@ -897,7 +707,7 @@ export default function Home() {
       <AlvinMap p={p} displayFont={displayFont} />
       <Floorplans />
       <About />
-      <Apply />
+      <ApplicationIntro />
       <FAQ />
       <SellProperty />
       <Contact />

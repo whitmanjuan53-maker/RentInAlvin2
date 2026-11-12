@@ -27,7 +27,7 @@ export const BUSINESS = {
   city: 'Alvin',
   region: 'TX',
   zip: '77511',
-  phone: '(832) 210-3968',
+  phone: '(832) 210 3968',
   phoneE164: '+1-832-210-3968',
   email: 'office@yellowstone-am.com',
   url: 'https://rentinalvin.com',
@@ -49,7 +49,7 @@ export const COMMUNITIES = orderCommunities([
   {
     name: 'Kings Haven Apartments',
     addr: '410 S 2nd St',
-    tag: 'Flagship · Office on-site',
+    tag: 'Flagship · Office on site',
     units: '2BR · 1BA · 850 sq ft',
     price: '$1,050/mo',
     note: 'Headquarters of Yellowstone Management. Walkable to downtown Alvin.',
@@ -75,7 +75,7 @@ export const COMMUNITIES = orderCommunities([
     tag: 'Townhome',
     units: '2BR · 2.5BA  ·  3BR · 2.5BA · 1,250 sq ft',
     price: 'from $1,250',
-    note: 'Two-story townhomes with private entries and 2.5 baths.',
+    note: 'Two story townhomes with private entries and 2.5 baths.',
     img: 'townhome row · two story',
     gallery: [
       // Awaiting an approved Kings Manor mural source image; keep the current photo until supplied.
@@ -128,7 +128,7 @@ export const COMMUNITIES = orderCommunities([
     tag: 'Apartments',
     units: '2BR · 1BA · 850 sq ft',
     price: 'from $900',
-    note: 'Classic white-clad apartments on a quiet residential street.',
+    note: 'Classic white clad apartments on a quiet residential street.',
     img: 'white clapboard apartments',
     gallery: whiteHouseGallery,
   },
@@ -146,11 +146,11 @@ export const COMMUNITIES = orderCommunities([
 ]);
 
 export const FLOORPLANS = [
-  { type: '1 Bed · 1 Bath', sqft: '600 sq ft', price: '$850 – $999', available: 2 },
-  { type: '2 Bed · 1 Bath', sqft: '850 sq ft', price: '$900 – $1,079', available: 4 },
-  { type: '2 Bed · 2 Bath', sqft: '1,150 sq ft', price: '$1,250 – $1,395', available: 3 },
-  { type: '2 Bed · 2.5 Bath', sqft: '1,250 sq ft (townhome)', price: '$1,295 – $1,450', available: 2 },
-  { type: '3 Bed · 2.5 Bath', sqft: '1,250 sq ft (townhome)', price: '$1,495 – $1,650', available: 1 },
+  { type: '1 Bed · 1 Bath', sqft: '600 sq ft', price: '$850 to $999', available: 2 },
+  { type: '2 Bed · 1 Bath', sqft: '850 sq ft', price: '$900 to $1,079', available: 4 },
+  { type: '2 Bed · 2 Bath', sqft: '1,150 sq ft', price: '$1,250 to $1,395', available: 3 },
+  { type: '2 Bed · 2.5 Bath', sqft: '1,250 sq ft (townhome)', price: '$1,295 to $1,450', available: 2 },
+  { type: '3 Bed · 2.5 Bath', sqft: '1,250 sq ft (townhome)', price: '$1,495 to $1,650', available: 1 },
 ];
 
 export const MAP_PROPS = [
@@ -165,7 +165,7 @@ export const MAP_PROPS = [
 export const FAQS = [
   {
     q: "What's required to apply?",
-    a: 'A government-issued ID, proof of income (typically 3× monthly rent), and a $40 application fee per adult. We run standard credit and rental-history checks. Most applications are decided within 48 hours.',
+    a: 'A government issued ID, proof of income (typically 3× monthly rent), and a $40 application fee per adult. We run standard credit and rental history checks. Most applications are decided within 48 hours.',
   },
   {
     q: 'Are pets allowed?',
@@ -177,15 +177,15 @@ export const FAQS = [
   },
   {
     q: 'How do I submit a maintenance request?',
-    a: 'Call the office at (832) 210-3968 or email office@yellowstone-am.com. Emergency requests (water leaks, no AC in summer, no heat in winter) are handled within 24 hours; standard requests within 48 hours during business days. We also allow online portal access for requests and online payments.',
+    a: 'Call the office at (832) 210 3968 or email office@yellowstone-am.com. Emergency requests (water leaks, no AC in summer, no heat in winter) are handled within 24 hours; standard requests within 48 hours during business days. We also allow online portal access for requests and online payments.',
   },
   {
-    q: 'Do you offer short-term or month-to-month leases?',
-    a: 'Standard leases are 12 months. We can offer 6-month leases at a slight premium and month-to-month for existing residents on lease renewal. Call to discuss what works.',
+    q: 'Do you offer short term or month to month leases?',
+    a: 'Standard leases are 12 months. We can offer 6 month leases at a slight premium and month to month for existing residents on lease renewal. Call to discuss what works.',
   },
   {
     q: 'Is parking included?',
-    a: 'Yes, every unit comes with at least one assigned spot. Townhomes (Kings Manor, Royal Oaks) include private driveways. Additional/guest parking is free and on a first-come basis. Reserved parking is available for an additional fee.',
+    a: 'Yes, every unit comes with at least one assigned spot. Townhomes (Kings Manor, Royal Oaks) include private driveways. Additional/guest parking is free and on a first come basis. Reserved parking is available for an additional fee.',
   },
 ];
 
@@ -205,5 +205,5 @@ export const BOOKING_PROPERTIES = [
   { id: 'french-quarter', name: 'French Quarter', addr: '2550 S Bypass 35', bed: '2BR · 1BA', price: '$1,079' },
   { id: 'white-house', name: 'White House', addr: '1606 W Sealy', bed: '2BR · 1BA', price: '$925' },
   { id: 'royal-oaks', name: 'Royal Oaks', addr: '418 S Jackson', bed: '2BR · 2BA', price: '$1,350' },
-  { id: 'any', name: "I'm not sure yet", addr: "We'll show you a few options", bed: 'Mixed', price: '—' },
+  { id: 'any', name: "I'm not sure yet", addr: "We'll show you a few options", bed: 'Mixed', price: 'Ask us' },
 ];

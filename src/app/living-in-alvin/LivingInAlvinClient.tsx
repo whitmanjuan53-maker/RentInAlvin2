@@ -385,7 +385,7 @@ const BODY_HTML = `
 
 <section class="hero">
   <div class="eyebrow">Neighborhood Guide</div>
-  <h1>Living in <em>Alvin,</em> Texas — what to expect.</h1>
+  <h1>Living in <em>Alvin,</em> Texas, what to expect.</h1>
   <p class="lede">
     Alvin is a small city about <strong>30 minutes south of downtown Houston</strong>, big enough for an HEB and a Target, small enough that you'll wave at the same neighbors on your morning walk. Here's an honest look at the schools, the commute, the grocery runs, and where people actually spend their weekends.
   </p>
@@ -401,7 +401,7 @@ const BODY_HTML = `
     <div class="lab">to Downtown Houston</div>
   </div>
   <div>
-    <div class="num">A-rated</div>
+    <div class="num">A rated</div>
     <div class="lab">Alvin ISD schools</div>
   </div>
   <div>
@@ -417,7 +417,7 @@ const BODY_HTML = `
       <h2>The basics, <em>within five minutes.</em></h2>
     </div>
     <p>
-      Whatever Yellowstone property you land at, your weekly errands cluster on TX-35 (the Bypass) and Hwy 6. You won't need to drive into Houston for groceries, a Costco run, a doctor's visit, or a Target trip.
+      Whatever Yellowstone property you land at, your weekly errands cluster on TX 35 (the Bypass) and Hwy 6. You won't need to drive into Houston for groceries, a Costco run, a doctor's visit, or a Target trip.
     </p>
   </div>
 
@@ -426,28 +426,28 @@ const BODY_HTML = `
       <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 9l9-6 9 6v11a1 1 0 0 1-1 1h-5v-7h-6v7H4a1 1 0 0 1-1-1V9z"/></svg>
       <div class="eyebrow" style="color: var(--inkSoft);">Grocery</div>
       <h3>HEB, Walmart Supercenter, Kroger</h3>
-      <p>HEB at Hwy 6 is the local favorite. Walmart Supercenter for late-night runs. Kroger nearby in Pearland for variety.</p>
-      <div class="meta">5–10 min from any property</div>
+      <p>HEB at Hwy 6 is the local favorite. Walmart Supercenter for late night runs. Kroger nearby in Pearland for variety.</p>
+      <div class="meta">5 to 10 min from any property</div>
     </div>
     <div class="card">
       <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
       <div class="eyebrow" style="color: var(--inkSoft);">Healthcare</div>
       <h3>HCA Houston Mainland · UTMB Clinic</h3>
-      <p>Full-service hospital in Texas City (15 min). UTMB primary-care clinic on S Bypass 35. Pediatric ER at Memorial Hermann Pearland (12 min).</p>
-      <div class="meta">15-min radius</div>
+      <p>Full service hospital in Texas City (15 min). UTMB primary care clinic on S Bypass 35. Pediatric ER at Memorial Hermann Pearland (12 min).</p>
+      <div class="meta">15 min radius</div>
     </div>
     <div class="card">
       <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M3 7h18M5 7v13h14V7M9 11h6"/></svg>
-      <div class="eyebrow" style="color: var(--inkSoft);">Big-box & home</div>
+      <div class="eyebrow" style="color: var(--inkSoft);">Big box & home</div>
       <h3>Target · Lowe's · Home Depot</h3>
-      <p>Target and Lowe's at Pearland Town Center (15 min). Home Depot on Hwy 6. Pearland's restaurant row is a 15-minute drive for date nights.</p>
+      <p>Target and Lowe's at Pearland Town Center (15 min). Home Depot on Hwy 6. Pearland's restaurant row is a 15 minute drive for date nights.</p>
       <div class="meta">~15 min</div>
     </div>
     <div class="card">
       <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 21v-7h16v7M8 14V8a4 4 0 0 1 8 0v6"/></svg>
       <div class="eyebrow" style="color: var(--inkSoft);">Coffee & local</div>
       <h3>Texas Cafe · Joe's Barbeque · Smith Point Coffee</h3>
-      <p>Joe's BBQ on TX-6 is the local institution. Smith Point Coffee for the morning routine. Texas Cafe for old-school breakfast.</p>
+      <p>Joe's BBQ on TX 6 is the local institution. Smith Point Coffee for the morning routine. Texas Cafe for old school breakfast.</p>
       <div class="meta">In town</div>
     </div>
     <div class="card">
@@ -455,13 +455,13 @@ const BODY_HTML = `
       <div class="eyebrow" style="color: var(--inkSoft);">Parks & rec</div>
       <h3>Briscoe Park · National Oak Park · Froberg's Farm</h3>
       <p>Briscoe Park has the splash pad and trails. Froberg's strawberry farm on Hwy 6 is the family Saturday tradition. Disc golf at National Oak.</p>
-      <div class="meta">Free, year-round</div>
+      <div class="meta">Free, year round</div>
     </div>
     <div class="card">
       <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 6h16v12H4z"/><path d="M4 10h16M9 6v12"/></svg>
       <div class="eyebrow" style="color: var(--inkSoft);">Library & civic</div>
       <h3>Alvin Library · Alvin Community College</h3>
-      <p>The library hosts free kids' programming Saturdays. ACC offers continuing-ed courses, a fitness center open to residents, and a small theatre.</p>
+      <p>The library hosts free kids' programming Saturdays. ACC offers continuing ed courses, a fitness center open to residents, and a small theatre.</p>
       <div class="meta">Walking distance from downtown units</div>
     </div>
   </div>
@@ -474,7 +474,7 @@ const BODY_HTML = `
       <h2>Where Alvin <em>actually puts you.</em></h2>
     </div>
     <p>
-      Alvin sits at the intersection of TX-35 and Hwy 6, which means easy access to Beltway 8, the Sam Houston Tollway, and I-45. Most residents commute to Pearland, the Texas Medical Center, NASA/Clear Lake, or the petrochemical corridor in Texas City.
+      Alvin sits at the intersection of TX 35 and Hwy 6, which means easy access to Beltway 8, the Sam Houston Tollway, and I 45. Most residents commute to Pearland, the Texas Medical Center, NASA/Clear Lake, or the petrochemical corridor in Texas City.
     </p>
   </div>
 
@@ -495,25 +495,25 @@ const BODY_HTML = `
       <div class="dest">NASA / Johnson Space Center</div>
       <div class="miles">22 mi</div>
       <div class="time">28 min</div>
-      <div class="note">Via TX-35 → Beltway 8 East. Common for Clear Lake aerospace workers.</div>
+      <div class="note">Via TX 35 → Beltway 8 East. Common for Clear Lake aerospace workers.</div>
     </div>
     <div class="row">
       <div class="dest">Texas Medical Center</div>
       <div class="miles">26 mi</div>
       <div class="time">35 min</div>
-      <div class="note">Hwy 288 N. Slower at peak — 50 min in rush hour.</div>
+      <div class="note">Hwy 288 N. Slower at peak, 50 min in rush hour.</div>
     </div>
     <div class="row">
       <div class="dest">Downtown Houston</div>
       <div class="miles">28 mi</div>
-      <div class="time">35–55 min</div>
-      <div class="note">Hwy 288 or Beltway 8. Off-peak: easy. Rush hour: plan for 55.</div>
+      <div class="time">35 to 55 min</div>
+      <div class="note">Hwy 288 or Beltway 8. Off peak: easy. Rush hour: plan for 55.</div>
     </div>
     <div class="row">
       <div class="dest">Galveston Beach</div>
       <div class="miles">35 mi</div>
       <div class="time">45 min</div>
-      <div class="note">I-45 South. Sunday day-trip distance.</div>
+      <div class="note">I 45 South. Sunday day trip distance.</div>
     </div>
     <div class="row">
       <div class="dest">Bush Intercontinental (IAH)</div>
@@ -528,10 +528,10 @@ const BODY_HTML = `
   <div class="sec-head">
     <div>
       <div class="eyebrow">Schools</div>
-      <h2>Alvin ISD — <em>and what's nearby.</em></h2>
+      <h2>Alvin ISD, <em>and what's nearby.</em></h2>
     </div>
     <p>
-      All six Yellowstone properties zone to <strong>Alvin Independent School District</strong>, a TEA "A"-rated district with 30,000+ students. Below are the campuses most residents zone to from our Alvin properties; Alvin ISD's site has the official boundary lookup.
+      All six Yellowstone properties zone to <strong>Alvin Independent School District</strong>, a TEA "A" rated district with 30,000+ students. Below are the campuses most residents zone to from our Alvin properties; Alvin ISD's site has the official boundary lookup.
     </p>
   </div>
 
@@ -541,36 +541,36 @@ const BODY_HTML = `
         <strong>Alvin ISD</strong> consistently ranks in the top tier of Brazoria County districts. Students at all six Yellowstone properties typically zone to <strong>Alvin Elementary, Harby Junior High, and Alvin High School</strong>, with magnet options at <strong>Alvin Junior High Academy</strong> and the <strong>Alvin ISD Gifted &amp; Talented program</strong>.
       </p>
       <p>
-        For higher ed, <strong>Alvin Community College</strong> is a 2-year college with strong nursing, welding, and aerospace tracks. <strong>University of Houston-Clear Lake</strong> is 25 minutes east. <strong>Rice University</strong> and <strong>Texas Southern</strong> are 35 minutes via 288.
+        For higher ed, <strong>Alvin Community College</strong> is a 2 year college with strong nursing, welding, and aerospace tracks. <strong>University of Houston Clear Lake</strong> is 25 minutes east. <strong>Rice University</strong> and <strong>Texas Southern</strong> are 35 minutes via 288.
       </p>
       <p>
-        Private options nearby: <strong>St. Helen Catholic School</strong> (PK–8), <strong>Brazos Christian Academy</strong>, and <strong>Logos Preparatory Academy</strong> in Sugar Land for K–12.
+        Private options nearby: <strong>St. Helen Catholic School</strong> (PK to 8), <strong>Brazos Christian Academy</strong>, and <strong>Logos Preparatory Academy</strong> in Sugar Land for K to 12.
       </p>
     </div>
     <div class="schools-list">
       <div class="item">
         <span class="name">Alvin Elementary</span>
-        <span class="grade">PK–4</span>
+        <span class="grade">PK to 4</span>
       </div>
       <div class="item">
         <span class="name">Stevenson Primary</span>
-        <span class="grade">PK–2</span>
+        <span class="grade">PK to 2</span>
       </div>
       <div class="item">
         <span class="name">Harby Junior High</span>
-        <span class="grade">5–8</span>
+        <span class="grade">5 to 8</span>
       </div>
       <div class="item">
         <span class="name">Alvin Junior High Academy</span>
-        <span class="grade">5–8 · magnet</span>
+        <span class="grade">5 to 8 · magnet</span>
       </div>
       <div class="item">
         <span class="name">Alvin High School</span>
-        <span class="grade">9–12</span>
+        <span class="grade">9 to 12</span>
       </div>
       <div class="item">
         <span class="name">Alvin Community College</span>
-        <span class="grade">2-year</span>
+        <span class="grade">2 year</span>
       </div>
     </div>
   </div>
@@ -581,9 +581,9 @@ const BODY_HTML = `
     <div class="mark">"</div>
     <div>
       <blockquote>
-        <em>I lived in The Heights for ten years. Moved here for the schools and the price — what surprised me was how much I liked having an actual yard, knowing the postal worker's name, and being able to bike to a bakery on Saturday morning.</em>
+        <em>I lived in The Heights for ten years. Moved here for the schools and the price, what surprised me was how much I liked having an actual yard, knowing the postal worker's name, and being able to bike to a bakery on Saturday morning.</em>
       </blockquote>
-      <cite>— Sara K., Yellowstone resident since 2022</cite>
+      <cite>, Sara K., Yellowstone resident since 2022</cite>
     </div>
   </div>
 </section>
@@ -595,7 +595,7 @@ const BODY_HTML = `
       <h2>How residents <em>actually spend</em> Saturday.</h2>
     </div>
     <p>
-      A short list of what's on the calendar, year-round. Alvin punches above its weight on small-town events — the rodeo, the strawberry festival, and the Christmas parade are the three you'll hear about most.
+      A short list of what's on the calendar, year round. Alvin punches above its weight on small town events, the rodeo, the strawberry festival, and the Christmas parade are the three you'll hear about most.
     </p>
   </div>
 
@@ -603,7 +603,7 @@ const BODY_HTML = `
     <div class="t">
       <div class="num">01</div>
       <h4>Froberg's Farm</h4>
-      <p>U-pick strawberries Feb–April, pumpkins in October, peach ice cream all summer. The Hwy 6 ritual.</p>
+      <p>U pick strawberries Feb to April, pumpkins in October, peach ice cream all summer. The Hwy 6 ritual.</p>
     </div>
     <div class="t">
       <div class="num">02</div>
@@ -613,11 +613,11 @@ const BODY_HTML = `
     <div class="t">
       <div class="num">03</div>
       <h4>Bayou Wildlife Zoo</h4>
-      <p>Drive-through safari just outside town. Goats stick their heads in your car. 12 minutes from any property.</p>
+      <p>Drive through safari just outside town. Goats stick their heads in your car. 12 minutes from any property.</p>
     </div>
     <div class="t">
       <div class="num">04</div>
-      <h4>Galveston day-trips</h4>
+      <h4>Galveston day trips</h4>
       <p>Pleasure Pier, Strand, beach. Leave at 9, home by dinner. Sunday tradition March through October.</p>
     </div>
     <div class="t">
@@ -633,12 +633,12 @@ const BODY_HTML = `
     <div class="t">
       <div class="num">07</div>
       <h4>National Oak disc golf</h4>
-      <p>18-hole course, free, lit until 9pm. Bring repellent in summer.</p>
+      <p>18 hole course, free, lit until 9pm. Bring repellent in summer.</p>
     </div>
     <div class="t">
       <div class="num">08</div>
       <h4>Christmas parade &amp; tree lighting</h4>
-      <p>First Saturday in December. Downtown closes, marching band, lit-up tractors. Bring a chair.</p>
+      <p>First Saturday in December. Downtown closes, marching band, lit up tractors. Bring a chair.</p>
     </div>
   </div>
 </section>
@@ -650,34 +650,34 @@ const BODY_HTML = `
       <h2><em>Honest answers</em> for new arrivals.</h2>
     </div>
     <p>
-      We get the same questions from every new resident touring from Houston, Pearland, or out of state. Here are the most common — without the brochure spin.
+      We get the same questions from every new resident touring from Houston, Pearland, or out of state. Here are the most common, without the brochure spin.
     </p>
   </div>
 
   <div class="faq-list">
     <div class="faq-item">
       <h4>Is Alvin safe?</h4>
-      <p>Yes. Crime rates are lower than Houston and Pearland. Yellowstone properties cluster in established residential blocks south of downtown — quiet streets, neighbors who know each other. We monitor each property and respond on-call after hours.</p>
+      <p>Yes. Crime rates are lower than Houston and Pearland. Yellowstone properties cluster in established residential blocks south of downtown, quiet streets, neighbors who know each other. We monitor each property and respond on call after hours.</p>
     </div>
     <div class="faq-item">
       <h4>What about flooding?</h4>
-      <p>This is Texas — a fair question. None of our six properties are in a 100-year FEMA flood zone, and none flooded during Harvey (2017), Imelda (2019), or Beryl (2024). We can share the FEMA flood map and our hurricane preparedness checklist on request.</p>
+      <p>This is Texas, a fair question. None of our six properties are in a 100 year FEMA flood zone, and none flooded during Harvey (2017), Imelda (2019), or Beryl (2024). We can share the FEMA flood map and our hurricane preparedness checklist on request.</p>
     </div>
     <div class="faq-item">
       <h4>Do I need a car?</h4>
-      <p>Yes. Alvin is a driving town — no light rail, no Metro bus into Houston. The good news: every Yellowstone unit has at least one assigned spot, and all our properties are 5–10 minutes from grocery, gas, and restaurants.</p>
+      <p>Yes. Alvin is a driving town, no light rail, no Metro bus into Houston. The good news: every Yellowstone unit has at least one assigned spot, and all our properties are 5 to 10 minutes from grocery, gas, and restaurants.</p>
     </div>
     <div class="faq-item">
       <h4>How's the weather?</h4>
-      <p>Hot summers (June–September: highs 90–98, humid). Mild winters (December–February: usually 50s–60s, occasional freezes). Spring and fall are gorgeous. Hurricane season is June–November — we keep residents informed and properties prepared.</p>
+      <p>Hot summers (June to September: highs 90 to 98, humid). Mild winters (December to February: usually 50s to 60s, occasional freezes). Spring and fall are gorgeous. Hurricane season is June to November, we keep residents informed and properties prepared.</p>
     </div>
     <div class="faq-item">
       <h4>What about internet?</h4>
-      <p>Comcast/Xfinity covers all six properties with gigabit fiber. AT&amp;T fiber is available at most. T-Mobile 5G Home Internet is a third option. Residents arrange their own service; no bundled provider.</p>
+      <p>Comcast/Xfinity covers all six properties with gigabit fiber. AT&amp;T fiber is available at most. T Mobile 5G Home Internet is a third option. Residents arrange their own service; no bundled provider.</p>
     </div>
     <div class="faq-item">
-      <h4>Is it kid-friendly?</h4>
-      <p>Very. Alvin ISD is "A"-rated, three of our six properties are within walking distance of an elementary school, and Briscoe Park is the unofficial weekend hub. About 60% of our residents have kids.</p>
+      <h4>Is it kid friendly?</h4>
+      <p>Very. Alvin ISD is "A" rated, three of our six properties are within walking distance of an elementary school, and Briscoe Park is the unofficial weekend hub. About 60% of our residents have kids.</p>
     </div>
   </div>
 </section>
@@ -686,7 +686,7 @@ const BODY_HTML = `
   <div class="cta">
     <div>
       <h3>Ready to <em>see what's open?</em></h3>
-      <p>We have units across all six properties. Tour any of them with the Yellowstone team — we're locally based and respond same-day.</p>
+      <p>We have units across all six properties. Tour any of them with the Yellowstone team, we're locally based and respond same day.</p>
     </div>
     <div class="btns">
       <a class="btn primary" href="/#availability">View availability →</a>
@@ -700,7 +700,7 @@ const BODY_HTML = `
   <div>
     <a href="/">Home</a> ·
     <a href="/es">Español</a> ·
-    <a href="tel:+18322103968">(832) 210-3968</a> ·
+    <a href="tel:+18322103968">(832) 210 3968</a> ·
     <a href="mailto:office@yellowstone-am.com">office@yellowstone-am.com</a>
   </div>
 </footer>

@@ -120,11 +120,11 @@ export const COMMUNITIES = orderCommunities([
 ]);
 
 export const FLOORPLANS = [
-  { type: '1 Rec · 1 Baño', sqft: '600 ft²', price: '$850 – $999', available: 2 },
-  { type: '2 Rec · 1 Baño', sqft: '850 ft²', price: '$900 – $975', available: 4 },
-  { type: '2 Rec · 2 Baños', sqft: '1,150 ft²', price: '$1,250 – $1,395', available: 3 },
-  { type: '2 Rec · 2.5 Baños', sqft: '1,250 ft² (townhome)', price: '$1,295 – $1,450', available: 2 },
-  { type: '3 Rec · 2.5 Baños', sqft: '1,250 ft² (townhome)', price: '$1,495 – $1,650', available: 1 },
+  { type: '1 Rec · 1 Baño', sqft: '600 ft²', price: '$850 a $999', available: 2 },
+  { type: '2 Rec · 1 Baño', sqft: '850 ft²', price: '$900 a $975', available: 4 },
+  { type: '2 Rec · 2 Baños', sqft: '1,150 ft²', price: '$1,250 a $1,395', available: 3 },
+  { type: '2 Rec · 2.5 Baños', sqft: '1,250 ft² (townhome)', price: '$1,295 a $1,450', available: 2 },
+  { type: '3 Rec · 2.5 Baños', sqft: '1,250 ft² (townhome)', price: '$1,495 a $1,650', available: 1 },
 ];
 
 export const MAP_PROPS = [
@@ -151,7 +151,7 @@ export const FAQS = [
   },
   {
     q: '¿Cómo envío una solicitud de mantenimiento?',
-    a: 'Llame a la oficina al (832) 210-3968 o envíe un correo a office@yellowstone-am.com. Las solicitudes de emergencia (fugas de agua, sin AC en verano, sin calefacción en invierno) se atienden dentro de 24 horas; las solicitudes estándar dentro de 48 horas hábiles. También ofrecemos acceso al portal en línea para solicitudes y pagos.',
+    a: 'Llame a la oficina al (832) 210 3968 o envíe un correo a office@yellowstone-am.com. Las solicitudes de emergencia (fugas de agua, sin AC en verano, sin calefacción en invierno) se atienden dentro de 24 horas; las solicitudes estándar dentro de 48 horas hábiles. También ofrecemos acceso al portal en línea para solicitudes y pagos.',
   },
   {
     q: '¿Ofrecen contratos a corto plazo o mes a mes?',
@@ -179,5 +179,5 @@ export const BOOKING_PROPERTIES = [
   { id: 'french-quarter', name: 'French Quarter', addr: '2550 S Bypass 35', bed: '2 Rec · 1 Baño', price: '$1,079' },
   { id: 'white-house', name: 'White House', addr: '1606 W Sealy', bed: '2 Rec · 1 Baño', price: '$925' },
   { id: 'royal-oaks', name: 'Royal Oaks', addr: '418 S Jackson', bed: '2 Rec · 2 Baños', price: '$1,350' },
-  { id: 'any', name: 'No estoy seguro todavía', addr: 'Le mostraremos algunas opciones', bed: 'Mixto', price: '—' },
+  { id: 'any', name: 'No estoy seguro todavía', addr: 'Le mostraremos algunas opciones', bed: 'Mixto', price: 'Consultar' },
 ];

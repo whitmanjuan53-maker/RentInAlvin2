@@ -34,7 +34,7 @@ const BOOKING_PROPERTIES = [
   { id: 'french-quarter', name: 'French Quarter', addr: '2550 S Bypass 35', bed: '2BR · 1BA', price: '$1,079' },
   { id: 'white-house', name: 'White House', addr: '1606 W Sealy', bed: '2BR · 1BA', price: '$925' },
   { id: 'royal-oaks', name: 'Royal Oaks', addr: '418 S Jackson', bed: '2BR · 2BA', price: '$1,350', comingSoon: false },
-  { id: 'any', name: "I'm not sure yet", addr: "We'll show you a few options", bed: 'Mixed', price: '—' },
+  { id: 'any', name: "I'm not sure yet", addr: "We'll show you a few options", bed: 'Mixed', price: 'Ask us' },
 ];
 
 export default function TourBooking({
@@ -407,7 +407,7 @@ export default function TourBooking({
                       fontStyle: 'italic',
                     }}
                   >
-                    {(b as any).comingSoon ? '—' : `${b.price} base`}
+                    {(b as any).comingSoon ? 'Ask us' : `${b.price} base`}
                   </div>
                 </button>
               ))}
@@ -535,7 +535,7 @@ export default function TourBooking({
 
               <Field label="Your name *" value={name} onChange={setName} placeholder="Maria Garcia" p={p} required />
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16 }} className="ys-book-row">
-                <Field label="Phone *" value={phone} onChange={setPhone} placeholder="(832) 210-3968" type="tel" p={p} required />
+                <Field label="Phone *" value={phone} onChange={setPhone} placeholder="(832) 210 3968" type="tel" p={p} required />
                 <Field label="Email *" value={email} onChange={setEmail} placeholder="you@email.com" type="email" p={p} required />
               </div>
               <div style={{ fontSize: 11, color: p.inkSoft, marginTop: -8 }}>
@@ -552,7 +552,7 @@ export default function TourBooking({
                 label="Anything else we should know?"
                 value={notes}
                 onChange={setNotes}
-                placeholder="Pets, parking needs, must-haves…"
+                placeholder="Pets, parking needs, must haves…"
                 textarea
                 p={p}
               />

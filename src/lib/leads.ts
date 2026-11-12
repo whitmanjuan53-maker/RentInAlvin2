@@ -27,6 +27,7 @@ export interface TourLead {
 
 export interface ApplyLead {
   type: 'apply';
+  consent?: boolean;
   firstName: string;
   lastName: string;
   email: string;
@@ -227,6 +228,7 @@ function getExtraNotes(payload: LeadPayload): string | null {
       reasonLeaving: payload.reasonLeaving,
       unitType: payload.unitType,
       budget: payload.budget,
+      consent: payload.consent,
     };
     Object.keys(extra).forEach((k) => {
       if (extra[k] == null || extra[k] === '') delete extra[k];
@@ -332,7 +334,7 @@ async function saveToDb(payload: LeadPayload, leadId: string, source: string): P
           phone: payload.phone,
           property: payload.property,
           message: payload.notes,
-          metadata: { applicationId: app.id, unitType: payload.unitType, moveIn: payload.moveIn, leadId },
+          metadata: { applicationId: app.id, unitType: payload.unitType, moveIn: payload.moveIn, leadId, consent: payload.consent, consentRecordedAt: payload.consent ? new Date().toISOString() : undefined },
           sourcePage: source,
         });
         return { dbId: app.id, leadRowId };
@@ -472,6 +474,14 @@ function buildEmailBody(payload: LeadPayload, leadId: string, source: string): s
     lines.push(`Pets: ${payload.pets === 'no' ? 'None' : payload.petDesc || payload.pets || 'N/A'}`);
     lines.push(`Employer: ${payload.employer || 'N/A'}`);
     lines.push(`Notes: ${payload.notes || 'N/A'}`);
+    for (const [label,value] of [
+      ['Date of Birth',payload.dob], ['Current Address',payload.currentAddress],
+      ['Other Applicants',payload.coApplicants], ['Vehicles',payload.vehicles],
+      ['Job Title',payload.jobTitle], ['Employed Since',payload.employedSince],
+      ['Previous Landlord',payload.prevLandlord], ['Landlord Phone',payload.prevLandlordPhone],
+      ['Reason for Leaving',payload.reasonLeaving], ['Monthly Budget',payload.budget],
+    ]) lines.push(`${label}: ${value || 'Not provided'}`);
+    lines.push(`Verification Authorization: ${payload.consent ? 'Accepted' : 'Not recorded'}`);
   }
 
   if (payload.type === 'sell') {
@@ -511,6 +521,7 @@ async function sendNotification(payload: LeadPayload, leadId: string, source: st
     const body = buildEmailBody(payload, leadId, source);
     const replyTo = payload.email || undefined;
     const result = await sendLeadEmail(subject, body, { replyTo });
+    if (payload.type === 'apply' && (result as {id?:string})?.id === 'simulated') return null;
 
     const resendEmailId = extractEmailId(result);
     await logEmail({ resendEmailId, leadId: leadRowId, emailType, toEmail, subject, status: 'sent' });
@@ -632,6 +643,10 @@ export async function processLead(
   console.log('[LEADS] Sending team notification...');
   const emailResult = await sendNotification(payload, leadId, source, leadRowId);
   console.log('[LEADS] Team notification result:', emailResult ? 'sent' : 'failed');
+
+  if (payload.type === 'apply' && !dbId && !sheetRange && !emailResult) {
+    return { success: false, leadId, dbId, sheetRange, calendarEventId, emailSent: false, error: 'Your application could not be received. Please try again or call the leasing office.' };
+  }
 
   // 6. Send user confirmation email (best-effort)
   console.log('[LEADS] Sending user confirmation...');

@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { processLead } from '@/lib/leads';
 import { checkRateLimit } from '@/lib/rate-limit';
+import { EMPTY_APPLICATION, ApplicationData, validateApplication } from '@/lib/application';
 
 function getClientIp(req: NextRequest): string {
   const forwarded = req.headers.get('x-forwarded-for');
@@ -19,12 +20,17 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const data = await req.json();
+    const body = await req.json();
+    if (!body || typeof body !== 'object' || Array.isArray(body)) return NextResponse.json({success:false,message:'Invalid application.'},{status:400});
+    const data = Object.fromEntries(Object.entries(EMPTY_APPLICATION).map(([key,initial]) => [key, key === 'consent' ? body[key] === true : typeof body[key] === 'string' ? body[key].trim() : initial])) as ApplicationData;
+    const errors = validateApplication(data);
+    if (Object.keys(errors).length) return NextResponse.json({success:false,message:'Please complete the required application details and authorization.',errors},{status:400});
     const source = req.headers.get('referer') || 'Website';
 
     const result = await processLead(
       {
         type: 'apply',
+        consent: data.consent,
         firstName: data.firstName,
         lastName: data.lastName,
         email: data.email,
@@ -54,7 +60,7 @@ export async function POST(req: NextRequest) {
     if (!result.success) {
       return NextResponse.json(
         { success: false, message: result.error || 'Invalid submission.' },
-        { status: 400 }
+        { status: 503 }
       );
     }
 

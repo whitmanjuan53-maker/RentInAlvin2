@@ -20,7 +20,7 @@ export default function Nav({ p, locale = 'en' }: { p: typeof import('@/lib/data
           ['Comunidades', '#comunidades'],
           ['Mapa', '#mapa'],
           ['Planes', '#planes'],
-          ['Aplicar', '#aplicar'],
+          ['Aplicar', '/es/apply'],
           ['Vender', '#vender'],
           ['Preguntas', '#preguntas'],
           ['Contacto', '#contacto'],
@@ -30,7 +30,7 @@ export default function Nav({ p, locale = 'en' }: { p: typeof import('@/lib/data
           ['Communities', '#communities'],
           ['Map', '#map'],
           ['Plans', '#floorplans'],
-          ['Apply', '#apply'],
+          ['Apply', '/apply'],
           ['Sell', '#sell'],
           ['FAQ', '#faq'],
           ['Contact', '#contact'],
@@ -68,7 +68,7 @@ export default function Nav({ p, locale = 'en' }: { p: typeof import('@/lib/data
         {links.map(([label, href]) => (
           <a
             key={href}
-            href={`${isEs ? '/es' : '/'}${href}`}
+            href={href.startsWith('/') ? href : `${isEs ? '/es' : '/'}${href}`}
             style={{
               color: p.ink,
               textDecoration: 'none',
@@ -110,7 +110,7 @@ export default function Nav({ p, locale = 'en' }: { p: typeof import('@/lib/data
             el.style.color = p.primary;
           }}
         >
-          (832) 210-3968
+          (832) 210 3968
         </a>
       </nav>
 
@@ -162,7 +162,7 @@ export default function Nav({ p, locale = 'en' }: { p: typeof import('@/lib/data
           {links.map(([label, href]) => (
             <a
               key={href}
-              href={`${isEs ? '/es' : '/'}${href}`}
+              href={href.startsWith('/') ? href : `${isEs ? '/es' : '/'}${href}`}
               onClick={() => setMenuOpen(false)}
               style={{
                 color: p.ink,
@@ -211,7 +211,7 @@ export default function Nav({ p, locale = 'en' }: { p: typeof import('@/lib/data
               e.currentTarget.style.transform = 'translateY(0)';
             }}
           >
-            {isEs ? 'Llamar (832) 210-3968' : 'Call (832) 210-3968'}
+            {isEs ? 'Llamar (832) 210 3968' : 'Call (832) 210 3968'}
           </a>
         </div>
       )}

@@ -19,8 +19,8 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
   const prop = getPropertyBySlug(slug);
   if (!prop) return {};
   const url = `${BASE}/communities/${slug}`;
-  const title = `${prop.name} — ${prop.type} for Rent at ${prop.addr}, Alvin TX 77511`;
-  const description = `${prop.name} in Alvin, TX. ${prop.units}, ${prop.price}. ${prop.note} Locally managed by Yellowstone Asset Management — tour today, (832) 210-3968.`;
+  const title = `${prop.name}, ${prop.type} for Rent at ${prop.addr}, Alvin TX 77511`;
+  const description = `${prop.name} in Alvin, TX. ${prop.units}, ${prop.price}. ${prop.note} Locally managed by Yellowstone Asset Management, tour today, (832) 210 3968.`;
   const ogImage = prop.gallery?.[0] ? `${BASE}${prop.gallery[0]}` : `${BASE}/images/kings-haven/01-001-cmup.jpg`;
   return {
     title,
@@ -33,7 +33,7 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
       siteName: 'RentInAlvin.com',
       title,
       description,
-      images: [{ url: ogImage, width: 1200, height: 800, alt: `${prop.name} — ${prop.type.toLowerCase()} for rent in Alvin, TX` }],
+      images: [{ url: ogImage, width: 1200, height: 800, alt: `${prop.name}, ${prop.type.toLowerCase()} for rent in Alvin, TX` }],
     },
     twitter: { card: 'summary_large_image', title, description, images: [ogImage] },
   };
@@ -72,7 +72,7 @@ function jsonLd(prop: Property, slug: string) {
     '@context': 'https://schema.org',
     '@type': 'RealEstateListing',
     '@id': `${url}#listing`,
-    name: `${prop.name} — ${prop.type} for Rent in Alvin, TX`,
+    name: `${prop.name}, ${prop.type} for Rent in Alvin, TX`,
     url,
     description: prop.note,
     ...(images.length ? { image: images } : {}),
@@ -211,8 +211,8 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
         <h2 style={h2}>Location &amp; Commute</h2>
         <p style={para}>
           {prop.name} is in the {prop.neighborhood} area of Alvin, Texas (77511), zoned to Alvin ISD and within reach of
-          Alvin Community College, downtown Alvin, and TX-35 / Highway 6. The drive reaches Pearland in roughly 15 minutes
-          and the NASA / Clear Lake and Texas Medical Center areas in about 30–35 minutes.{' '}
+          Alvin Community College, downtown Alvin, and TX 35 / Highway 6. The drive reaches Pearland in roughly 15 minutes
+          and the NASA / Clear Lake and Texas Medical Center areas in about 30 to 35 minutes.{' '}
           <a href={mapsHref} target="_blank" rel="noopener noreferrer" style={{ color: p.primary, fontWeight: 600, textDecoration: 'none' }}>
             View {prop.addr} on Google Maps →
           </a>
@@ -235,13 +235,13 @@ export default async function PropertyPage({ params }: { params: Promise<{ slug:
             {prop.comingSoon ? `Join the interest list for ${prop.name}` : `Tour ${prop.name} this week`}
           </div>
           <p style={{ fontSize: 15.5, lineHeight: 1.6, margin: '12px 0 20px', color: `color-mix(in oklab, ${p.paper} 85%, transparent)` }}>
-            Call our local Alvin office, apply online in about 5 minutes, or schedule a tour — most applications are decided within 48 hours.
+            Call our local Alvin office, apply online in about 5 minutes, or schedule a tour, most applications are decided within 48 hours.
           </p>
           <div style={{ display: 'flex', gap: 12, flexWrap: 'wrap' }}>
             <a href={`tel:${BUSINESS.phone.replace(/[^0-9]/g, '')}`} style={{ background: p.accent, color: '#fff', padding: '12px 22px', borderRadius: 999, fontWeight: 600, textDecoration: 'none', fontSize: 15 }}>
               Call {BUSINESS.phone}
             </a>
-            <a href="/#apply" style={{ background: p.paper, color: p.primary, padding: '12px 22px', borderRadius: 999, fontWeight: 600, textDecoration: 'none', fontSize: 15 }}>
+            <a href="/apply" style={{ background: p.paper, color: p.primary, padding: '12px 22px', borderRadius: 999, fontWeight: 600, textDecoration: 'none', fontSize: 15 }}>
               Apply online
             </a>
           </div>

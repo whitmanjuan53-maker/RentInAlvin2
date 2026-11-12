@@ -46,7 +46,7 @@ export default function Footer({
             <p style={{ fontSize: 14, lineHeight: 1.6, marginTop: 16, maxWidth: '42ch' }}>
               {isEs
                 ? 'Administración de propiedades familiar que sirve a Alvin, Texas. Nos importa, escuchamos, aprendemos.'
-                : 'Family-run property management serving Alvin, Texas. We care, We listen, We learn.'}
+                : 'Family run property management serving Alvin, Texas. We care, We listen, We learn.'}
             </p>
           </div>
           <div>
@@ -102,7 +102,7 @@ export default function Footer({
               <br />
               Alvin, TX 77511
               <br />
-              {isEs ? 'Lun–Vie · 9–5 CT' : 'Mon–Fri · 9–5 CT'}
+              {isEs ? 'Lun a Vie · 9 a 5 CT' : 'Mon to Fri · 9 to 5 CT'}
             </div>
           </div>
           <div>
@@ -114,7 +114,7 @@ export default function Footer({
                 href="tel:8322103968"
                 style={{ color: 'inherit', textDecoration: 'none', display: 'block' }}
               >
-                (832) 210-3968
+                (832) 210 3968
               </a>
               <a
                 href="mailto:office@yellowstone-am.com"

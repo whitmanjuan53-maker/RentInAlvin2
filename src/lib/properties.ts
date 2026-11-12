@@ -1,6 +1,7 @@
 import { prisma, isDbReady } from './db';
 import { COMMUNITIES } from './data';
 import { orderCommunities } from './community-order';
+import { cleanWebsiteText } from './website-copy';
 import { resolvePropertyGallery } from './property-gallery';
 import { formatPricingSummary, getPropertyPricing, parsePricingSummary } from './property-pricing';
 
@@ -124,7 +125,10 @@ export async function getProperties(): Promise<PropertyView[]> {
     const rows = await prisma.property.findMany({ orderBy: { sortOrder: 'asc' } });
     if (rows.length === 0) return STATIC_PROPERTIES;
     return orderCommunities(
-      rows.filter((r) => r.published).map((row) => withCurrentPricing(withCanonicalGallery(toView(row)))),
+      rows.filter((r) => r.published).map((row) => {
+        const property = withCurrentPricing(withCanonicalGallery(toView(row)));
+        return { ...property, name: cleanWebsiteText(property.name), note: cleanWebsiteText(property.note), tag: cleanWebsiteText(property.tag), units: cleanWebsiteText(property.units), price: cleanWebsiteText(property.price), amenities: property.amenities.map(value => cleanWebsiteText(value)) };
+      }),
     );
   } catch {
     console.warn('[PROPERTIES] DB read unavailable, using built-in property list.');

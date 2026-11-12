@@ -9,7 +9,7 @@ const displayFont = 'Instrument Serif';
 export const metadata: Metadata = {
   title: 'Alvin Townhomes and Apartments: Amenities and Community Features | RentInAlvin.com',
   description:
-    'Quiet, family-friendly apartments in Alvin, TX with assigned parking and on-site laundry. Well-maintained communities from $850.',
+    'Quiet, family friendly apartments in Alvin, TX with assigned parking and on site laundry. Well maintained communities from $850.',
   robots: 'index, follow',
   alternates: { canonical: 'https://rentinalvin.com/apartments-alvin-tx-amenities' },
 };
@@ -27,13 +27,13 @@ export default function AmenitiesPage() {
         </h1>
         <p style={{ ...para, marginTop: 24 }}>
           Our Alvin communities are built for everyday comfort. Every unit comes with at least one
-          assigned parking spot &mdash; townhomes add private driveways &mdash; so you never circle for
-          a space. French Quarter Residency includes on-site laundry plus a BBQ and picnic area, and
-          units across the portfolio are renovated and move-in ready. Most of our streets are
-          low-density and residential, the kind of quiet, family-friendly setting renters ask for,
+          assigned parking spot, townhomes add private driveways, so you never circle for
+          a space. French Quarter Residency includes on site laundry plus a BBQ and picnic area, and
+          units across the portfolio are renovated and move in ready. Most of our streets are
+          low density and residential, the kind of quiet, family friendly setting renters ask for,
           with a local team that maintains the properties and answers the phone. Want a specific
-          feature &mdash; washer/dryer hookup, extra parking, a calmer building? Call{' '}
-          <a href="tel:8322103968" style={link}>(832) 210-3968</a> and we&rsquo;ll match you to the
+          feature, washer/dryer hookup, extra parking, a calmer building? Call{' '}
+          <a href="tel:8322103968" style={link}>(832) 210 3968</a> and we&rsquo;ll match you to the
           right unit, or apply online at RentInAlvin.com.
         </p>
       </main>

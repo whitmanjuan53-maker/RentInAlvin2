@@ -2,6 +2,9 @@ import type { Metadata } from 'next';
 import './globals.css';
 import { SAME_AS } from '@/lib/data';
 import AnalyticsTracker from '@/components/AnalyticsTracker';
+import LeasingChat from '@/components/LeasingChat';
+import './leasing-chat.css';
+import './application.css';
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://rentinalvin.com'),
@@ -108,6 +111,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       <body suppressHydrationWarning>
         {children}
         <AnalyticsTracker />
+        <LeasingChat />
       </body>
     </html>
   );

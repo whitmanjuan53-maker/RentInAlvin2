@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from 'react';
 import Nav from '@/components/Nav';
+import ApplicationIntro from '@/components/ApplicationIntro';
 import Footer from '@/components/Footer';
 import TourBooking from '@/components/TourBooking';
 import LeadForm from '@/components/LeadForm';
@@ -233,7 +234,7 @@ function Contact() {
   const [hovered, setHovered] = useState<string | null>(null);
   const channels = [
     { key: 'book', eyebrow: 'Preferido', label: 'Reservar un tour', detail: '30 minutos · en persona o virtual · confirma en 24h', action: 'Programar tour', href: '#', onClick: (e: React.MouseEvent) => { e.preventDefault(); if (typeof window !== 'undefined' && (window as any).__openBooking) (window as any).__openBooking(); } },
-    { key: 'call', eyebrow: 'Lun–Vie · 9–5 CT', label: '(832) 210-3968', detail: 'Línea directa a la oficina de arrendamiento.', action: 'Llamar ahora', href: 'tel:8322103968' },
+    { key: 'call', eyebrow: 'Lun a Vie · 9 a 5 CT', label: '(832) 210 3968', detail: 'Línea directa a la oficina de arrendamiento.', action: 'Llamar ahora', href: 'tel:8322103968' },
     { key: 'email', eyebrow: 'Respondemos en un día hábil', label: 'office@yellowstone-am.com', detail: 'Ideal para documentos y preguntas de arrendamiento.', action: 'Escribir correo', href: 'mailto:office@yellowstone-am.com' },
   ];
   return (
@@ -247,7 +248,7 @@ function Contact() {
               <div style={{ fontSize: 11, letterSpacing: '0.18em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 500 }}>Oficina de arrendamiento</div>
               <div style={{ fontFamily: `'${displayFont}', serif`, fontSize: 36, lineHeight: 1.1, color: p.ink, marginTop: 10, fontWeight: 400 }}>410 S 2nd Street<br />Alvin, TX 77511</div>
               <div style={{ marginTop: 20, display: 'flex', gap: 28, fontSize: 13, color: p.inkSoft, flexWrap: 'wrap' }}>
-                <div><div style={{ fontWeight: 600, color: p.ink }}>Lun – Vie</div>9:00am – 5:00pm</div>
+                <div><div style={{ fontWeight: 600, color: p.ink }}>Lun a Vie</div>9:00am a 5:00pm</div>
                 <div><div style={{ fontWeight: 600, color: p.ink }}>Sábado</div>Con cita</div>
                 <div><div style={{ fontWeight: 600, color: p.ink }}>Domingo</div>Cerrado</div>
               </div>
@@ -282,7 +283,7 @@ function Contact() {
               <div style={{ marginTop: 28, display: 'flex', gap: 14, flexWrap: 'wrap' }}>
                 <a href="tel:8322103968" style={{ padding: '12px 20px', background: p.ink, color: p.paper, textDecoration: 'none', fontWeight: 600, fontSize: 14, borderRadius: 4, display: 'inline-flex', alignItems: 'center', gap: 8 }}>
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M3 2.5a2 2 0 012-2h1.5l1 2.5-1.5 1a7 7 0 004 4l1-1.5 2.5 1V10a2 2 0 01-2 2h-.5A7.5 7.5 0 012.5 4.5V4a2 2 0 012-1.5z" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round"/></svg>
-                  Llamar (832) 210-3968
+                  Llamar (832) 210 3968
                 </a>
                 <a href="sms:+18322103968?body=Hola%20Yellowstone%2C%20estoy%20interesado%20en%20una%20unidad." style={{ padding: '12px 20px', background: 'transparent', color: p.ink, textDecoration: 'none', fontWeight: 600, fontSize: 14, border: `1px solid ${p.ink}`, borderRadius: 4, display: 'inline-flex', alignItems: 'center', gap: 8 }}>
                   <svg width="14" height="14" viewBox="0 0 14 14" fill="none"><path d="M2 7c0 3.5 2.5 6 6 6h2.5a1.5 1.5 0 001.5-1.5V10a1 1 0 00-1-1h-1a1 1 0 00-1 1v.5h-1C5.5 10.5 3.5 8.5 3.5 6H4a1 1 0 001-1V4a1 1 0 00-1-1h-.5A1.5 1.5 0 002 4.5V7z" stroke="currentColor" strokeWidth="1.2" strokeLinejoin="round"/></svg>
@@ -307,7 +308,7 @@ function FAQ() {
           <div>
             <div style={{ fontSize: 12, letterSpacing: '0.18em', textTransform: 'uppercase', color: p.accent, fontWeight: 600, marginBottom: 18 }}>Preguntas frecuentes</div>
             <h2 style={{ fontFamily: `'${displayFont}', serif`, fontSize: 'clamp(36px, 4.6vw, 60px)', lineHeight: 1.02, letterSpacing: '-0.02em', margin: 0, color: p.ink, fontWeight: 400, maxWidth: '12ch' }}>Lo que los inquilinos suelen preguntar primero.</h2>
-            <p style={{ fontSize: 15, lineHeight: 1.6, color: p.inkSoft, marginTop: 24, maxWidth: '40ch' }}>¿No ve su pregunta? Llame al <a href="tel:8322103968" style={{ color: p.primary, textDecoration: 'none', fontWeight: 600 }}>(832) 210-3968</a>, una persona real contesta.</p>
+            <p style={{ fontSize: 15, lineHeight: 1.6, color: p.inkSoft, marginTop: 24, maxWidth: '40ch' }}>¿No ve su pregunta? Llame al <a href="tel:8322103968" style={{ color: p.primary, textDecoration: 'none', fontWeight: 600 }}>(832) 210 3968</a>, una persona real contesta.</p>
           </div>
           <div>
             {FAQS.map((f, i) => {
@@ -391,197 +392,6 @@ function Availability() {
   );
 }
 
-function Apply() {
-  const [step, setStep] = useState(0);
-  const [submitted, setSubmitted] = useState(false);
-  const [submitting, setSubmitting] = useState(false);
-  const [error, setError] = useState('');
-  const [data, setData] = useState({ firstName: '', lastName: '', email: '', phone: '', dob: '', currentAddress: '', coApplicants: '0', pets: 'no', petDesc: '', vehicles: '1', employer: '', jobTitle: '', income: '', employedSince: '', prevLandlord: '', prevLandlordPhone: '', reasonLeaving: '', property: '', unitType: '', moveIn: '', budget: '', notes: '', consent: false });
-  const update = (k: string, v: string | boolean) => setData((d) => ({ ...d, [k]: v }));
-
-  const canAdvance = () => {
-    if (step === 0) return data.firstName && data.lastName && data.email && data.phone;
-    if (step === 2) return data.employer && data.income;
-    if (step === 4) return data.property && data.unitType && data.moveIn;
-    if (step === 5) return data.consent;
-    return true;
-  };
-
-  const STEPS = [{ id: 'applicant', label: 'Sobre usted' }, { id: 'household', label: 'Hogar' }, { id: 'income', label: 'Empleo e ingresos' }, { id: 'history', label: 'Historial de renta' }, { id: 'preferences', label: 'Preferencias de unidad' }, { id: 'review', label: 'Revisar y enviar' }];
-  const PROPERTY_OPTIONS = ['Kings Haven Apartments, 410 S 2nd St', 'Kings Manor Townhomes, 328 S 2nd St', 'Kings Haven Apartments, 100 S 2nd St', 'French Quarter Residency, 2550 S Bypass 35', 'The White House Apartments, 1606 W Sealy St', 'The Royal Oaks Townhomes, 418 S Jackson St', 'Sin preferencia, recomiéndame una'];
-  const UNIT_TYPES = ['1 Rec · 1 Baño', '2 Rec · 1 Baño', '2 Rec · 2 Baños', '3 Rec · 2 Baños', '3 Rec · 2.5 Baños'];
-
-  async function handleSubmit() {
-    if (!canAdvance()) return;
-
-    // Final validation before submit
-    if (!data.firstName.trim() || !data.lastName.trim() || !data.email.trim() || !data.phone.trim()) {
-      setError('Por favor complete todos los campos requeridos en el Paso 1 (Sobre usted).');
-      setSubmitting(false);
-      return;
-    }
-    if (!data.employer.trim() || !data.income.trim()) {
-      setError('Por favor complete todos los campos requeridos en el Paso 3 (Empleo e ingresos).');
-      setSubmitting(false);
-      return;
-    }
-    if (!data.property || !data.unitType || !data.moveIn) {
-      setError('Por favor complete todos los campos requeridos en el Paso 5 (Preferencias de unidad).');
-      setSubmitting(false);
-      return;
-    }
-
-    setSubmitting(true); setError('');
-    console.log('[Apply ES] Submitting application...');
-
-    try {
-      const res = await fetch('/api/contact', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          ...data,
-          formType: 'Apply',
-          pageUrl: typeof window !== 'undefined' ? window.location.href : ''
-        })
-      });
-      const json = await res.json();
-      console.log('[Apply ES] Response:', json);
-      if (!res.ok) { setError(json.message || json.error || 'Algo salió mal.'); setSubmitting(false); return; }
-      setSubmitted(true);
-    } catch { setError('Error de red. Intente de nuevo o llámenos.'); setSubmitting(false); }
-  }
-
-  const txt = { padding: '12px 14px', fontSize: 15, background: p.bg, border: `1px solid ${p.line}`, borderRadius: 4, color: p.ink, fontFamily: 'inherit', outline: 'none', transition: 'border-color 160ms ease', width: '100%' };
-
-  if (submitted) {
-    return (
-      <section id="aplicar" style={{ padding: 'var(--pad-x-lg) var(--pad-x)', background: p.primary, color: p.paper }}>
-        <div style={{ maxWidth: 720, margin: '0 auto', textAlign: 'center' }}>
-          <div style={{ width: 64, height: 64, borderRadius: '50%', background: p.accent, color: p.paper, display: 'grid', placeItems: 'center', margin: '0 auto', fontSize: 28 }}>✓</div>
-          <h2 style={{ fontFamily: `'${displayFont}', serif`, fontSize: 'clamp(40px, 5.5vw, 72px)', lineHeight: 1.02, margin: '32px 0 0', fontWeight: 400, letterSpacing: '-0.02em' }}>Aplicación recibida.</h2>
-          <p style={{ fontSize: 18, lineHeight: 1.6, color: `color-mix(in oklab, ${p.paper} 80%, transparent)`, marginTop: 20 }}>Gracias, {data.firstName || 'amigo'}. Una confirmación llegará a <strong>{data.email || 'su correo'}</strong> dentro de una hora, y alguien de la oficina de arrendamiento hará seguimiento por teléfono dentro de un día hábil.</p>
-          <div style={{ marginTop: 40, display: 'inline-flex', gap: 14, flexWrap: 'wrap', justifyContent: 'center' }}>
-            <a href="tel:8322103968" style={{ padding: '14px 24px', background: p.paper, color: p.primary, textDecoration: 'none', fontWeight: 600, fontSize: 14, borderRadius: 4 }}>Llamar (832) 210-3968</a>
-            <a href="mailto:office@yellowstone-am.com" style={{ padding: '14px 24px', background: 'transparent', color: p.paper, textDecoration: 'none', fontWeight: 600, fontSize: 14, border: `1px solid ${p.paper}`, borderRadius: 4 }}>office@yellowstone-am.com</a>
-          </div>
-        </div>
-      </section>
-    );
-  }
-
-  return (
-    <section id="aplicar" style={{ padding: 'var(--pad-x-lg) var(--pad-x)', background: p.bg }}>
-      <div style={{ maxWidth: 1400, margin: '0 auto' }}>
-        <div className="ys-section-head" style={{ display: 'grid', gridTemplateColumns: '1fr 2fr', gap: 60, alignItems: 'start', marginBottom: 56 }}>
-          <div style={{ fontSize: 12, letterSpacing: '0.18em', textTransform: 'uppercase', color: p.accent, fontWeight: 600, paddingTop: 14 }}>Aplique en línea · 5 minutos</div>
-          <div>
-            <h2 style={{ fontFamily: `'${displayFont}', serif`, fontSize: 'clamp(36px, 4.6vw, 60px)', lineHeight: 1.1, letterSpacing: '-0.02em', margin: 0, color: p.ink, fontWeight: 400, maxWidth: '16ch' }}>Comience su aplicación desde cualquier lugar.</h2>
-            <p style={{ fontSize: 17, lineHeight: 1.6, color: p.inkSoft, maxWidth: '55ch', marginTop: 28 }}>La mayoría de las aplicaciones se deciden en 48 horas. Tenga una identificación y un recibo de pago reciente a la mano, eso es todo.</p>
-          </div>
-        </div>
-        <div className="ys-apply-grid" style={{ display: 'grid', gridTemplateColumns: '240px 1fr', gap: 48 }}>
-          <div className="ys-apply-stepper">
-            {STEPS.map((s, i) => {
-              const done = i < step; const active = i === step;
-              return (
-                <button key={s.id} onClick={() => i < step && setStep(i)} style={{ display: 'flex', alignItems: 'center', gap: 14, padding: '14px 0', background: 'transparent', border: 'none', borderBottom: `1px solid ${p.line}`, cursor: i <= step ? 'pointer' : 'default', fontFamily: 'inherit', textAlign: 'left', width: '100%', opacity: active ? 1 : done ? 0.85 : 0.45 }}>
-                  <span style={{ width: 28, height: 28, borderRadius: '50%', background: active ? p.ink : done ? p.accent : 'transparent', color: active || done ? p.paper : p.inkSoft, border: active || done ? 'none' : `1px solid ${p.line}`, display: 'grid', placeItems: 'center', fontSize: 12, fontWeight: 600, flexShrink: 0, fontFamily: "'JetBrains Mono', monospace" }}>{done ? '✓' : i + 1}</span>
-                  <span style={{ fontSize: 13, fontWeight: active ? 600 : 500, color: p.ink }}>{s.label}</span>
-                </button>
-              );
-            })}
-          </div>
-          <div className="ys-apply-form" style={{ background: p.paper, border: `1px solid ${p.line}`, padding: '40px 44px', minHeight: 480, display: 'flex', flexDirection: 'column' }}>
-            <div style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.accent, fontWeight: 600 }}>Paso {step + 1} de {STEPS.length}</div>
-            <h3 style={{ fontFamily: `'${displayFont}', serif`, fontSize: 36, fontWeight: 400, letterSpacing: '-0.01em', lineHeight: 1.05, margin: '8px 0 32px' }}>{STEPS[step].label}</h3>
-            {error && <div style={{ padding: 12, background: '#fef2f2', border: '1px solid #fecaca', color: '#991b1b', fontSize: 13, borderRadius: 4, marginBottom: 16 }}>{error}</div>}
-            <div style={{ flex: 1 }}>
-              {step === 0 && (
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }} className="ys-form-grid">
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: 8 }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Nombre <span style={{ color: p.accent }}>*</span></span><input style={txt} value={data.firstName} onChange={(e) => update('firstName', e.target.value)} /></label>
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: 8 }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Apellido <span style={{ color: p.accent }}>*</span></span><input style={txt} value={data.lastName} onChange={(e) => update('lastName', e.target.value)} /></label>
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: 8 }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Correo <span style={{ color: p.accent }}>*</span></span><input type="email" style={txt} value={data.email} onChange={(e) => update('email', e.target.value)} /></label>
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: 8 }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Teléfono <span style={{ color: p.accent }}>*</span></span><input type="tel" style={txt} value={data.phone} onChange={(e) => update('phone', e.target.value)} placeholder="(832) 210-3968" /></label>
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: 8 }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Fecha de nacimiento</span><input type="date" style={txt} value={data.dob} onChange={(e) => update('dob', e.target.value)} /></label>
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: 8, gridColumn: 'span 2' }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Dirección actual</span><input style={txt} value={data.currentAddress} onChange={(e) => update('currentAddress', e.target.value)} placeholder="Calle, ciudad, estado, zip" /></label>
-                </div>
-              )}
-              {step === 1 && (
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }} className="ys-form-grid">
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: 8 }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Co-solicitantes (18+)</span><select style={txt} value={data.coApplicants} onChange={(e) => update('coApplicants', e.target.value)}>{['0','1','2','3','4+'].map(n => <option key={n}>{n}</option>)}</select></label>
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: 8 }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Vehículos</span><select style={txt} value={data.vehicles} onChange={(e) => update('vehicles', e.target.value)}>{['0','1','2','3+'].map(n => <option key={n}>{n}</option>)}</select></label>
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: 8, gridColumn: 'span 2' }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Mascotas</span><div style={{ display: 'flex', gap: 8 }}>{['no','cat','dog','both'].map(v => <button key={v} type="button" onClick={() => update('pets', v)} style={{ padding: '10px 16px', flex: 1, background: data.pets === v ? p.ink : 'transparent', color: data.pets === v ? p.paper : p.ink, border: `1px solid ${data.pets === v ? p.ink : p.line}`, borderRadius: 4, fontSize: 13, fontWeight: 500, cursor: 'pointer', fontFamily: 'inherit', textTransform: 'capitalize' }}>{v === 'no' ? 'Sin mascotas' : v === 'cat' ? 'Gato' : v === 'dog' ? 'Perro' : 'Ambos'}</button>)}</div></label>
-                  {data.pets !== 'no' && <label style={{ display: 'flex', flexDirection: 'column', gap: 8, gridColumn: 'span 2' }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Detalles de mascota (raza, peso, edad)</span><input style={txt} value={data.petDesc} onChange={(e) => update('petDesc', e.target.value)} placeholder="ej. Labrador, 65 lbs, 4 años" /></label>}
-                </div>
-              )}
-              {step === 2 && (
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }} className="ys-form-grid">
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: 8, gridColumn: 'span 2' }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Empleador <span style={{ color: p.accent }}>*</span></span><input style={txt} value={data.employer} onChange={(e) => update('employer', e.target.value)} /></label>
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: 8 }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Puesto</span><input style={txt} value={data.jobTitle} onChange={(e) => update('jobTitle', e.target.value)} /></label>
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: 8 }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Empleado desde</span><input type="month" style={txt} value={data.employedSince} onChange={(e) => update('employedSince', e.target.value)} /></label>
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: 8, gridColumn: 'span 2' }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Ingreso mensual bruto <span style={{ color: p.accent }}>*</span></span><div style={{ position: 'relative' }}><span style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: p.inkSoft, fontSize: 15 }}>$</span><input style={{ ...txt, paddingLeft: 28 }} value={data.income} onChange={(e) => update('income', e.target.value)} placeholder="3,500" /></div></label>
-                </div>
-              )}
-              {step === 3 && (
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }} className="ys-form-grid">
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: 8 }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Arrendador anterior (nombre)</span><input style={txt} value={data.prevLandlord} onChange={(e) => update('prevLandlord', e.target.value)} /></label>
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: 8 }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Teléfono del arrendador</span><input type="tel" style={txt} value={data.prevLandlordPhone} onChange={(e) => update('prevLandlordPhone', e.target.value)} /></label>
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: 8, gridColumn: 'span 2' }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Motivo de salida</span><textarea rows={3} style={{ ...txt, resize: 'vertical', fontFamily: 'inherit' }} value={data.reasonLeaving} onChange={(e) => update('reasonLeaving', e.target.value)} /></label>
-                  <div style={{ gridColumn: '1 / -1', fontSize: 13, color: p.inkSoft, lineHeight: 1.5, padding: 14, background: p.bg, border: `1px solid ${p.line}`, borderRadius: 4 }}>¿Primer inquilino? Déjelos en blanco, hablaremos de su situación cuando hagamos seguimiento.</div>
-                </div>
-              )}
-              {step === 4 && (
-                <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 20 }} className="ys-form-grid">
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: 8, gridColumn: 'span 2' }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Comunidad preferida <span style={{ color: p.accent }}>*</span></span><select style={txt} value={data.property} onChange={(e) => update('property', e.target.value)}><option value="">Elija una comunidad…</option>{PROPERTY_OPTIONS.map(o => <option key={o}>{o}</option>)}</select></label>
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: 8 }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Tipo de unidad <span style={{ color: p.accent }}>*</span></span><select style={txt} value={data.unitType} onChange={(e) => update('unitType', e.target.value)}><option value="">Seleccionar…</option>{UNIT_TYPES.map(o => <option key={o}>{o}</option>)}</select></label>
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: 8 }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Mudanza más temprana <span style={{ color: p.accent }}>*</span></span><input type="date" style={txt} value={data.moveIn} onChange={(e) => update('moveIn', e.target.value)} /></label>
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: 8 }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>Presupuesto mensual</span><div style={{ position: 'relative' }}><span style={{ position: 'absolute', left: 14, top: '50%', transform: 'translateY(-50%)', color: p.inkSoft, fontSize: 15 }}>$</span><input style={{ ...txt, paddingLeft: 28 }} value={data.budget} onChange={(e) => update('budget', e.target.value)} placeholder="1,200" /></div></label>
-                  <label style={{ display: 'flex', flexDirection: 'column', gap: 8, gridColumn: 'span 2' }}><span style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600 }}>¿Algo más que debamos saber?</span><textarea rows={3} style={{ ...txt, resize: 'vertical', fontFamily: 'inherit' }} value={data.notes} onChange={(e) => update('notes', e.target.value)} /></label>
-                </div>
-              )}
-              {step === 5 && (
-                <div>
-                  <div style={{ background: p.bg, border: `1px solid ${p.line}`, padding: 24, borderRadius: 4, marginBottom: 24 }}>
-                    <div style={{ fontSize: 11, letterSpacing: '0.14em', textTransform: 'uppercase', color: p.inkSoft, fontWeight: 600, marginBottom: 12 }}>Resumen</div>
-                    <dl style={{ display: 'grid', gridTemplateColumns: 'auto 1fr', gap: '10px 24px', margin: 0, fontSize: 14 }}>
-                      {[
-                        ['Solicitante', `${data.firstName || ''} ${data.lastName || ''}`.trim() || '—'],
-                        ['Contacto', data.email && data.phone ? `${data.email} · ${data.phone}` : '—'],
-                        ['Mascotas', data.pets === 'no' ? 'Ninguna' : data.petDesc || data.pets],
-                        ['Ingresos', data.income ? `$${data.income}/mes` : '—'],
-                        ['Comunidad', data.property || '—'],
-                        ['Tipo de unidad', data.unitType || '—'],
-                        ['Mudanza', data.moveIn || '—'],
-                      ].map(([k, v]) => (
-                        <div key={k} style={{ display: 'contents' }}>
-                          <dt style={{ color: p.inkSoft, fontWeight: 500 }}>{k}</dt>
-                          <dd style={{ margin: 0, color: p.ink }}>{v}</dd>
-                        </div>
-                      ))}
-                    </dl>
-                  </div>
-                  <label style={{ display: 'flex', alignItems: 'flex-start', gap: 12, padding: 16, border: `1px solid ${p.line}`, borderRadius: 4, cursor: 'pointer', background: data.consent ? p.bg : 'transparent' }}>
-                    <input type="checkbox" checked={data.consent} onChange={(e) => update('consent', e.target.checked)} style={{ marginTop: 2, accentColor: p.primary }} />
-                    <span style={{ fontSize: 13, color: p.inkSoft, lineHeight: 1.55 }}>Autorizo a Yellowstone Asset Management a verificar la información anterior, incluyendo historial de crédito, historial de renta, empleo y antecedentes. Entiendo que la cuota de aplicación de $40 no es reembolsable. Igualdad de Oportunidades de Vivienda.</span>
-                  </label>
-                </div>
-              )}
-            </div>
-            <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', marginTop: 32, paddingTop: 24, borderTop: `1px solid ${p.line}` }}>
-              <button onClick={() => setStep(s => Math.max(0, s - 1))} disabled={step === 0} style={{ padding: '12px 20px', background: 'transparent', border: `1px solid ${step === 0 ? p.line : p.ink}`, color: step === 0 ? p.inkSoft : p.ink, fontSize: 14, fontWeight: 500, borderRadius: 4, cursor: step === 0 ? 'default' : 'pointer', fontFamily: 'inherit' }}>← Atrás</button>
-              {step < STEPS.length - 1 ? (
-                <button onClick={() => canAdvance() && setStep(s => s + 1)} disabled={!canAdvance()} style={{ padding: '12px 24px', background: canAdvance() ? p.primary : p.line, color: p.paper, fontSize: 14, fontWeight: 600, border: 'none', borderRadius: 4, cursor: canAdvance() ? 'pointer' : 'default', fontFamily: 'inherit' }}>Continuar →</button>
-              ) : (
-                <button onClick={handleSubmit} disabled={!canAdvance() || submitting} style={{ padding: '14px 28px', background: canAdvance() && !submitting ? p.accent : p.line, color: p.paper, fontSize: 14, fontWeight: 600, border: 'none', borderRadius: 4, cursor: canAdvance() && !submitting ? 'pointer' : 'default', fontFamily: 'inherit' }}>{submitting ? 'Enviando…' : 'Enviar aplicación'}</button>
-              )}
-            </div>
-          </div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
 function SellProperty() {
   const [form, setForm] = useState({ name: '', phone: '', email: '', addr: '', type: 'Unifamiliar', beds: '', baths: '', sqft: '', timeline: 'Solo explorando', notes: '' });
   const [sent, setSent] = useState(false);
@@ -651,7 +461,7 @@ function SellProperty() {
               <div style={{ width: 44, height: 44, borderRadius: '50%', background: p.accent, color: p.paper, display: 'grid', placeItems: 'center', fontFamily: `'${displayFont}', serif`, fontSize: 22, flexShrink: 0 }}>★</div>
               <div>
                 <div style={{ fontSize: 14, fontWeight: 600, color: p.paper }}>¿Prefiere hablar primero?</div>
-                <div style={{ fontSize: 13, color: `color-mix(in oklab, ${p.paper} 70%, transparent)`, marginTop: 2 }}>Llame al <a href="tel:8322103968" style={{ color: p.accent, textDecoration: 'none', fontWeight: 600 }}>(832) 210-3968</a>, sin obligación, sin presión.</div>
+                <div style={{ fontSize: 13, color: `color-mix(in oklab, ${p.paper} 70%, transparent)`, marginTop: 2 }}>Llame al <a href="tel:8322103968" style={{ color: p.accent, textDecoration: 'none', fontWeight: 600 }}>(832) 210 3968</a>, sin obligación, sin presión.</div>
               </div>
             </div>
           </div>
@@ -668,7 +478,7 @@ function SellProperty() {
                 {error && <div style={{ padding: 12, background: '#fef2f2', border: '1px solid #fecaca', color: '#991b1b', fontSize: 13, borderRadius: 4, marginTop: 16 }}>{error}</div>}
                 <div className="ys-sell-form-grid-2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginTop: 24 }}>
                   <div><label style={labelStyle}>Su nombre</label><input required style={fieldStyle} value={form.name} onChange={e => update('name', e.target.value)} /></div>
-                  <div><label style={labelStyle}>Teléfono</label><input required type="tel" style={fieldStyle} value={form.phone} onChange={e => update('phone', e.target.value)} placeholder="(832) 210-3968" /></div>
+                  <div><label style={labelStyle}>Teléfono</label><input required type="tel" style={fieldStyle} value={form.phone} onChange={e => update('phone', e.target.value)} placeholder="(832) 210 3968" /></div>
                 </div>
                 <div style={{ marginTop: 14 }}><label style={labelStyle}>Correo</label><input required type="email" style={fieldStyle} value={form.email} onChange={e => update('email', e.target.value)} /></div>
                 <div style={{ marginTop: 28, paddingTop: 20, borderTop: `1px solid ${p.line}` }}>
@@ -676,7 +486,7 @@ function SellProperty() {
                 </div>
                 <div className="ys-sell-form-grid-2" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 14, marginTop: 14 }}>
                   <div><label style={labelStyle}>Tipo de propiedad</label><select style={fieldStyle} value={form.type} onChange={e => update('type', e.target.value)}>{['Unifamiliar','Dúplex','Tríplex / Cuádruplex','Multifamiliar pequeña (5+)','Townhome / Condo','Terreno','Otro'].map(t => <option key={t}>{t}</option>)}</select></div>
-                  <div><label style={labelStyle}>Timeline</label><select style={fieldStyle} value={form.timeline} onChange={e => update('timeline', e.target.value)}>{['Solo explorando','En 30 días','1–3 meses','3–6 meses','6+ meses'].map(t => <option key={t}>{t}</option>)}</select></div>
+                  <div><label style={labelStyle}>Timeline</label><select style={fieldStyle} value={form.timeline} onChange={e => update('timeline', e.target.value)}>{['Solo explorando','En 30 días','1 a 3 meses','3 a 6 meses','6+ meses'].map(t => <option key={t}>{t}</option>)}</select></div>
                 </div>
                 <div className="ys-sell-form-grid-3" style={{ display: 'grid', gridTemplateColumns: '1fr 1fr 1fr', gap: 14, marginTop: 14 }}>
                   <div><label style={labelStyle}>Recámaras</label><input style={fieldStyle} value={form.beds} onChange={e => update('beds', e.target.value)} placeholder="3" /></div>
@@ -749,7 +559,7 @@ export default function Home() {
       <Hero />
       <div style={{ padding: '20px var(--pad-x)', background: p.ink, color: p.paper, display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 16, flexWrap: 'wrap', fontSize: 14 }}>
         <span style={{ opacity: 0.85 }}>¿Listo para mudarse? Aplique en línea en 5 minutos.</span>
-        <a href="#aplicar" style={{ color: p.accent, fontWeight: 600, textDecoration: 'none' }}>Comenzar aplicación →</a>
+        <a href="/es/apply" style={{ color: p.accent, fontWeight: 600, textDecoration: 'none' }}>Comenzar aplicación →</a>
       </div>
       <Availability />
       <Communities onOpenProperty={setModalProp} />
@@ -757,7 +567,7 @@ export default function Home() {
       <AlvinMap p={p} displayFont={displayFont} />
       <Floorplans />
       <About />
-      <Apply />
+      <ApplicationIntro es />
       <FAQ />
       <SellProperty />
       <Contact />

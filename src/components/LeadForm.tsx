@@ -9,10 +9,10 @@ const PROPERTIES = [
   'French Quarter Residency, 2550 S Bypass 35',
   'The White House Apartments, 1606 W Sealy St',
   'The Royal Oaks Townhomes, 418 S Jackson St',
-  "I'm not sure yet — show me options",
+  "I'm not sure yet, show me options",
 ];
 
-const MOVE_IN_OPTIONS = ['ASAP', 'Within 2 weeks', 'Within 30 days', '1–2 months', '3+ months', 'Flexible'];
+const MOVE_IN_OPTIONS = ['ASAP', 'Within 2 weeks', 'Within 30 days', '1 to 2 months', '3+ months', 'Flexible'];
 
 const BEDROOM_OPTIONS = ['1 Bedroom', '2 Bedrooms', '3 Bedrooms', 'No preference'];
 
@@ -233,7 +233,7 @@ export default function LeadForm({
             style={fieldStyle}
             value={phone}
             onChange={(e) => setPhone(e.target.value)}
-            placeholder="(832) 210-3968"
+            placeholder="(832) 210 3968"
           />
         </div>
         <div>
@@ -263,7 +263,7 @@ export default function LeadForm({
           </select>
         </div>
         <div>
-          <label style={labelStyle}>Move-in timeframe</label>
+          <label style={labelStyle}>Move in timeframe</label>
           <select
             style={fieldStyle}
             value={moveBy}

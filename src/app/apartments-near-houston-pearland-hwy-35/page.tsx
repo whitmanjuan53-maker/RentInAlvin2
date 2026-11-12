@@ -9,7 +9,7 @@ const displayFont = 'Instrument Serif';
 export const metadata: Metadata = {
   title: 'Townhomes and Apartments Near Hwy 35, Pearland & Houston in Alvin, TX | RentInAlvin.com',
   description:
-    'Apartments for rent in Alvin, TX just off Hwy 35 — easy commute to Pearland and Houston. Rents from $850. Tour today.',
+    'Apartments for rent in Alvin, TX just off Hwy 35, easy commute to Pearland and Houston. Rents from $850. Tour today.',
   robots: 'index, follow',
   alternates: { canonical: 'https://rentinalvin.com/apartments-near-houston-pearland-hwy-35' },
 };
@@ -28,11 +28,10 @@ export default function NearHoustonPearlandPage() {
         <p style={{ ...para, marginTop: 24 }}>
           Alvin sits about 30 miles south of downtown Houston and minutes from Pearland, which makes
           our communities a smart base for commuters who want lower rent without leaving the metro.
-          Several of our properties &mdash; including French Quarter Residency on South Bypass 35 &mdash;
-          offer quick access to Highway 35, so you&rsquo;re on the road to Houston or Pearland in
+          Several of our properties, including French Quarter Residency on South Bypass 35, offer quick access to Highway 35, so you&rsquo;re on the road to Houston or Pearland in
           moments. You get Alvin&rsquo;s quieter pace and rents starting at $850, while staying
           connected to Gulf Coast jobs, shopping, and the beaches near Galveston. Call{' '}
-          <a href="tel:8322103968" style={link}>(832) 210-3968</a> to find the community with the
+          <a href="tel:8322103968" style={link}>(832) 210 3968</a> to find the community with the
           commute that fits you, or apply online at RentInAlvin.com.
         </p>
       </main>

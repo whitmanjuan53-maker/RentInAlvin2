@@ -21,7 +21,7 @@ export default function AvailableNowPage() {
   const link: React.CSSProperties = { color: p.primary, fontWeight: 600, textDecoration: 'none' };
   const heading: React.CSSProperties = { fontFamily: `'${displayFont}', serif`, fontSize: 'clamp(26px, 4vw, 36px)', lineHeight: 1.2, fontWeight: 400, color: p.ink, margin: '36px 0 16px' };
   const faqs = [
-    { q: 'How can I find apartments available now in Alvin, TX?', a: `Check the availability section on RentInAlvin.com, then call ${BUSINESS.phone} to confirm the specific home, move-in date and full charges. An available apartment can be leased at any time; a website listing does not reserve a home.` },
+    { q: 'How can I find apartments available now in Alvin, TX?', a: `Check the availability section on RentInAlvin.com, then call ${BUSINESS.phone} to confirm the specific home, move in date and full charges. An available apartment can be leased at any time; a website listing does not reserve a home.` },
     { q: 'How can I confirm the lease details?', a: 'Contact our local leasing team for current rent, utility arrangements and the complete lease terms for your selected home.' },
     { q: 'How do I arrange an apartment tour or apply?', a: `Use the tour booking or application form on the homepage, or call ${BUSINESS.phone}. Tell the team which community interests you and when you want to move. Submitting an application does not guarantee approval or availability.` },
     { q: 'Are pets, parking or laundry available?', a: 'Features and pet policies vary by property and unit. Review the individual community page, then confirm pet restrictions, parking, laundry arrangements and any related fees with the leasing team before applying.' },
@@ -44,13 +44,13 @@ export default function AvailableNowPage() {
         <p style={{ ...para, marginTop: 24 }}>
           Looking for apartments for rent in Alvin, Texas? Compare our apartment and townhome communities,
           review listed costs, and ask our local leasing team about current openings. Availability,
-          move-in dates and charges depend on the home you select. Call{' '}
+          move in dates and charges depend on the home you select. Call{' '}
           <a href="tel:8322103968" style={link}>{BUSINESS.phone}</a> to confirm details before applying.
         </p>
         <p style={para}>
           <a href="/#availability" style={link}>Check rental availability</a>{' · '}
           <a href="/#contact" style={link}>Book a tour</a>{' · '}
-          <a href="/#apply" style={link}>Apply online</a>
+          <a href="/apply" style={link}>Apply online</a>
         </p>
 
         <h2 style={heading}>Compare Alvin rental communities</h2>

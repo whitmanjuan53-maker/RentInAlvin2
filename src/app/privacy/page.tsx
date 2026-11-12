@@ -80,11 +80,11 @@ export default function PrivacyPage() {
 
         <h2 style={h2}>Contact us</h2>
         <p style={para}>
-          Yellowstone Asset Management — RentInAlvin.com
+          Yellowstone Asset Management, RentInAlvin.com
           <br />
           410 S 2nd Street, Alvin, TX 77511
           <br />
-          Phone: <a href="tel:8322103968" style={{ color: p.primary, fontWeight: 600, textDecoration: 'none' }}>(832) 210-3968</a>
+          Phone: <a href="tel:8322103968" style={{ color: p.primary, fontWeight: 600, textDecoration: 'none' }}>(832) 210 3968</a>
           <br />
           Email: <a href="mailto:office@yellowstone-am.com" style={{ color: p.primary, fontWeight: 600, textDecoration: 'none' }}>office@yellowstone-am.com</a>
         </p>

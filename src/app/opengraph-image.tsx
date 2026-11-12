@@ -1,7 +1,7 @@
 import { ImageResponse } from 'next/og';
 import BrandMark from './brand-mark';
 
-export const alt = 'RentInAlvin.com — apartments and townhomes in Alvin, Texas';
+export const alt = 'RentInAlvin.com, apartments and townhomes in Alvin, Texas';
 export const size = { width: 1200, height: 630 };
 export const contentType = 'image/png';
 

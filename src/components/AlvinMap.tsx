@@ -147,7 +147,7 @@ export default function AlvinMap({
                 marginTop: 24,
               }}
             >
-              The furthest community is a seven-minute drive from our office. Tap any pin for the address and
+              The furthest community is a seven minute drive from our office. Tap any pin for the address and
               directions.
             </p>
           </div>

@@ -12,7 +12,7 @@ const BASE = 'https://rentinalvin.com';
 export const metadata: Metadata = {
   title: 'Townhomes and Apartments for Rent in Alvin, TX | RentInAlvin.com',
   description:
-    'Browse all six apartment and townhome communities for rent in Alvin, TX from Yellowstone Asset Management. 1–3 bedroom homes from $850. View photos, pricing, and locations, then tour or apply online.',
+    'Browse all six apartment and townhome communities for rent in Alvin, TX from Yellowstone Asset Management. 1 to 3 bedroom homes from $850. View photos, pricing, and locations, then tour or apply online.',
   robots: 'index, follow',
   alternates: { canonical: `${BASE}/communities` },
   openGraph: {
@@ -20,7 +20,7 @@ export const metadata: Metadata = {
     url: `${BASE}/communities`,
     siteName: 'RentInAlvin.com',
     title: 'Townhomes and Apartments for Rent in Alvin, TX | RentInAlvin.com',
-    description: 'All six apartment and townhome communities for rent in Alvin, TX. 1–3 bedroom homes from $850.',
+    description: 'All six apartment and townhome communities for rent in Alvin, TX. 1 to 3 bedroom homes from $850.',
     images: [{ url: `${BASE}/images/kings-haven/01-001-cmup.jpg`, width: 1200, height: 800, alt: 'Apartments for rent in Alvin, TX' }],
   },
 };
@@ -50,10 +50,10 @@ export default function CommunitiesHub() {
           Townhomes and Apartments for Rent in Alvin, TX
         </h1>
         <p style={{ ...para, marginTop: 20, maxWidth: '70ch' }}>
-          Yellowstone Asset Management owns and operates six rental communities across Alvin, Texas (77511) — from
-          affordable one- and two-bedroom apartments to spacious two-story townhomes. Every home is locally managed and
+          Yellowstone Asset Management owns and operates six rental communities across Alvin, Texas (77511), from
+          affordable one and two bedroom apartments to spacious two story townhomes. Every home is locally managed and
           maintained, with rent starting from $850/month. Browse each community below, then call{' '}
-          <a href="tel:8322103968" style={{ color: p.primary, fontWeight: 600, textDecoration: 'none' }}>(832) 210-3968</a>{' '}
+          <a href="tel:8322103968" style={{ color: p.primary, fontWeight: 600, textDecoration: 'none' }}>(832) 210 3968</a>{' '}
           or apply online.
         </p>
 

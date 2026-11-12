@@ -329,9 +329,9 @@ const BODY_HTML = `
 
 <section class="hero">
   <div class="eyebrow">Guía del vecindario</div>
-  <h1>Vivir en <em>Alvin,</em> Texas — qué esperar.</h1>
+  <h1>Vivir en <em>Alvin,</em> Texas, qué esperar.</h1>
   <p class="lede">
-    Alvin es una pequeña ciudad a unos <strong>30 minutos al sur del centro de Houston</strong> — lo suficientemente grande para tener un HEB y un Target, lo suficientemente pequeña como para que salude a los mismos vecinos en su caminata matutina. Aquí va una mirada honesta a las escuelas, el viaje al trabajo, los mandados, y donde la gente realmente pasa los fines de semana.
+    Alvin es una pequeña ciudad a unos <strong>30 minutos al sur del centro de Houston</strong>, lo suficientemente grande para tener un HEB y un Target, lo suficientemente pequeña como para que salude a los mismos vecinos en su caminata matutina. Aquí va una mirada honesta a las escuelas, el viaje al trabajo, los mandados, y donde la gente realmente pasa los fines de semana.
   </p>
 </section>
 
@@ -349,7 +349,7 @@ const BODY_HTML = `
       <h2>Lo básico, <em>a cinco minutos.</em></h2>
     </div>
     <p>
-      En cualquier propiedad de Yellowstone donde se mude, sus mandados semanales se concentran en TX-35 (el Bypass) y la Hwy 6. No tendrá que manejar a Houston para el supermercado, una visita al doctor, o una vuelta al Target.
+      En cualquier propiedad de Yellowstone donde se mude, sus mandados semanales se concentran en TX 35 (el Bypass) y la Hwy 6. No tendrá que manejar a Houston para el supermercado, una visita al doctor, o una vuelta al Target.
     </p>
   </div>
 
@@ -359,7 +359,7 @@ const BODY_HTML = `
       <div class="eyebrow" style="color: var(--inkSoft);">Supermercados</div>
       <h3>HEB, Walmart Supercenter, Kroger</h3>
       <p>El HEB en la Hwy 6 es el favorito local. Walmart Supercenter para mandados nocturnos. Kroger cerca en Pearland para más variedad.</p>
-      <div class="meta">5–10 min de cualquier propiedad</div>
+      <div class="meta">5 a 10 min de cualquier propiedad</div>
     </div>
     <div class="card">
       <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/></svg>
@@ -379,7 +379,7 @@ const BODY_HTML = `
       <svg class="ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M4 21v-7h16v7M8 14V8a4 4 0 0 1 8 0v6"/></svg>
       <div class="eyebrow" style="color: var(--inkSoft);">Café & locales</div>
       <h3>Texas Cafe · Joe's Barbeque · Smith Point Coffee</h3>
-      <p>Joe's BBQ sobre la TX-6 es la institución local. Smith Point Coffee para la rutina matutina. Texas Cafe para un desayuno tradicional.</p>
+      <p>Joe's BBQ sobre la TX 6 es la institución local. Smith Point Coffee para la rutina matutina. Texas Cafe para un desayuno tradicional.</p>
       <div class="meta">En el centro</div>
     </div>
     <div class="card">
@@ -406,7 +406,7 @@ const BODY_HTML = `
       <h2>Dónde lo coloca <em>realmente Alvin.</em></h2>
     </div>
     <p>
-      Alvin se ubica en la intersección de TX-35 y Hwy 6, lo que da acceso fácil al Beltway 8, Sam Houston Tollway, y la I-45. La mayoría de los residentes va a Pearland, el Texas Medical Center, NASA/Clear Lake, o el corredor petroquímico en Texas City.
+      Alvin se ubica en la intersección de TX 35 y Hwy 6, lo que da acceso fácil al Beltway 8, Sam Houston Tollway, y la I 45. La mayoría de los residentes va a Pearland, el Texas Medical Center, NASA/Clear Lake, o el corredor petroquímico en Texas City.
     </p>
   </div>
 
@@ -427,25 +427,25 @@ const BODY_HTML = `
       <div class="dest">NASA / Johnson Space Center</div>
       <div class="miles">22 mi</div>
       <div class="time">28 min</div>
-      <div class="note">Por TX-35 → Beltway 8 Este. Común para trabajadores aeroespaciales en Clear Lake.</div>
+      <div class="note">Por TX 35 → Beltway 8 Este. Común para trabajadores aeroespaciales en Clear Lake.</div>
     </div>
     <div class="row">
       <div class="dest">Texas Medical Center</div>
       <div class="miles">26 mi</div>
       <div class="time">35 min</div>
-      <div class="note">Hwy 288 N. Más lento en hora pico — 50 min en horas pico.</div>
+      <div class="note">Hwy 288 N. Más lento en hora pico, 50 min en horas pico.</div>
     </div>
     <div class="row">
       <div class="dest">Centro de Houston</div>
       <div class="miles">28 mi</div>
-      <div class="time">35–55 min</div>
+      <div class="time">35 a 55 min</div>
       <div class="note">Hwy 288 o Beltway 8. Fuera de horas pico: fácil. En hora pico: hasta 55.</div>
     </div>
     <div class="row">
       <div class="dest">Playa de Galveston</div>
       <div class="miles">35 mi</div>
       <div class="time">45 min</div>
-      <div class="note">I-45 Sur. Distancia ideal para un domingo de paseo.</div>
+      <div class="note">I 45 Sur. Distancia ideal para un domingo de paseo.</div>
     </div>
     <div class="row">
       <div class="dest">Aeropuerto Bush (IAH)</div>
@@ -460,7 +460,7 @@ const BODY_HTML = `
   <div class="sec-head">
     <div>
       <div class="eyebrow">Escuelas</div>
-      <h2>Alvin ISD — <em>y opciones cercanas.</em></h2>
+      <h2>Alvin ISD, <em>y opciones cercanas.</em></h2>
     </div>
     <p>
       Las seis propiedades de Yellowstone están dentro del distrito escolar <strong>Alvin Independent School District</strong>, calificación "A" por la TEA, con más de 30,000 estudiantes. Abajo están los planteles más comunes para residentes de nuestras propiedades; el sitio de Alvin ISD tiene la búsqueda oficial por dirección.
@@ -473,18 +473,18 @@ const BODY_HTML = `
         <strong>Alvin ISD</strong> está consistentemente entre los mejores distritos del condado de Brazoria. Los estudiantes de las seis propiedades de Yellowstone típicamente asisten a <strong>Alvin Elementary, Harby Junior High, y Alvin High School</strong>, con opciones de programa magnet en <strong>Alvin Junior High Academy</strong> y el programa para estudiantes dotados <strong>Gifted &amp; Talented de Alvin ISD</strong>.
       </p>
       <p>
-        Para educación superior, <strong>Alvin Community College</strong> es un colegio de 2 años con fuertes programas en enfermería, soldadura y aeroespacial. <strong>University of Houston-Clear Lake</strong> está a 25 minutos al este. <strong>Rice University</strong> y <strong>Texas Southern</strong> a 35 minutos por la 288.
+        Para educación superior, <strong>Alvin Community College</strong> es un colegio de 2 años con fuertes programas en enfermería, soldadura y aeroespacial. <strong>University of Houston Clear Lake</strong> está a 25 minutos al este. <strong>Rice University</strong> y <strong>Texas Southern</strong> a 35 minutos por la 288.
       </p>
       <p>
-        Opciones privadas cerca: <strong>St. Helen Catholic School</strong> (PK–8), <strong>Brazos Christian Academy</strong>, y <strong>Logos Preparatory Academy</strong> en Sugar Land para K–12.
+        Opciones privadas cerca: <strong>St. Helen Catholic School</strong> (PK a 8), <strong>Brazos Christian Academy</strong>, y <strong>Logos Preparatory Academy</strong> en Sugar Land para K a 12.
       </p>
     </div>
     <div class="schools-list">
-      <div class="item"><span class="name">Alvin Elementary</span><span class="grade">PK–4</span></div>
-      <div class="item"><span class="name">Stevenson Primary</span><span class="grade">PK–2</span></div>
-      <div class="item"><span class="name">Harby Junior High</span><span class="grade">5–8</span></div>
-      <div class="item"><span class="name">Alvin Junior High Academy</span><span class="grade">5–8 · magnet</span></div>
-      <div class="item"><span class="name">Alvin High School</span><span class="grade">9–12</span></div>
+      <div class="item"><span class="name">Alvin Elementary</span><span class="grade">PK a 4</span></div>
+      <div class="item"><span class="name">Stevenson Primary</span><span class="grade">PK a 2</span></div>
+      <div class="item"><span class="name">Harby Junior High</span><span class="grade">5 a 8</span></div>
+      <div class="item"><span class="name">Alvin Junior High Academy</span><span class="grade">5 a 8 · magnet</span></div>
+      <div class="item"><span class="name">Alvin High School</span><span class="grade">9 a 12</span></div>
       <div class="item"><span class="name">Alvin Community College</span><span class="grade">2 años</span></div>
     </div>
   </div>
@@ -495,9 +495,9 @@ const BODY_HTML = `
     <div class="mark">"</div>
     <div>
       <blockquote>
-        <em>Viví en The Heights diez años. Me mudé aquí por las escuelas y el precio — lo que me sorprendió fue cuánto disfruto tener un patio de verdad, conocer al cartero por su nombre, y poder ir en bici a una panadería el sábado por la mañana.</em>
+        <em>Viví en The Heights diez años. Me mudé aquí por las escuelas y el precio, lo que me sorprendió fue cuánto disfruto tener un patio de verdad, conocer al cartero por su nombre, y poder ir en bici a una panadería el sábado por la mañana.</em>
       </blockquote>
-      <cite>— Sara K., residente de Yellowstone desde 2022</cite>
+      <cite>, Sara K., residente de Yellowstone desde 2022</cite>
     </div>
   </div>
 </section>
@@ -509,7 +509,7 @@ const BODY_HTML = `
       <h2>Cómo pasan <em>realmente</em> el sábado los residentes.</h2>
     </div>
     <p>
-      Una lista corta de lo que hay todo el año. Alvin destaca por sus eventos de pueblo pequeño — el rodeo, el festival de la fresa, y el desfile de Navidad son los tres que más escuchará.
+      Una lista corta de lo que hay todo el año. Alvin destaca por sus eventos de pueblo pequeño, el rodeo, el festival de la fresa, y el desfile de Navidad son los tres que más escuchará.
     </p>
   </div>
 
@@ -517,7 +517,7 @@ const BODY_HTML = `
     <div class="t">
       <div class="num">01</div>
       <h4>Granja Froberg's</h4>
-      <p>Recolección de fresas feb–abril, calabazas en octubre, helado de durazno todo el verano. El ritual de la Hwy 6.</p>
+      <p>Recolección de fresas feb a abril, calabazas en octubre, helado de durazno todo el verano. El ritual de la Hwy 6.</p>
     </div>
     <div class="t">
       <div class="num">02</div>
@@ -564,30 +564,30 @@ const BODY_HTML = `
       <h2><em>Respuestas honestas</em> para los recién llegados.</h2>
     </div>
     <p>
-      Recibimos las mismas preguntas de cada nuevo residente que viene de Houston, Pearland, o de fuera del estado. Aquí están las más comunes — sin retórica de folleto.
+      Recibimos las mismas preguntas de cada nuevo residente que viene de Houston, Pearland, o de fuera del estado. Aquí están las más comunes, sin retórica de folleto.
     </p>
   </div>
 
   <div class="faq-list">
     <div class="faq-item">
       <h4>¿Es seguro Alvin?</h4>
-      <p>Sí. Las tasas de delincuencia son menores que en Houston y Pearland. Las propiedades de Yellowstone están en cuadras residenciales establecidas al sur del centro — calles tranquilas, vecinos que se conocen. Monitoreamos cada propiedad y atendemos llamadas fuera de horario.</p>
+      <p>Sí. Las tasas de delincuencia son menores que en Houston y Pearland. Las propiedades de Yellowstone están en cuadras residenciales establecidas al sur del centro, calles tranquilas, vecinos que se conocen. Monitoreamos cada propiedad y atendemos llamadas fuera de horario.</p>
     </div>
     <div class="faq-item">
       <h4>¿Y las inundaciones?</h4>
-      <p>Esto es Texas — pregunta válida. Ninguna de nuestras seis propiedades está en zona de inundación de 100 años de FEMA, y ninguna se inundó durante Harvey (2017), Imelda (2019) ni Beryl (2024). Le compartimos el mapa de FEMA y nuestra lista de preparación para huracanes a solicitud.</p>
+      <p>Esto es Texas, pregunta válida. Ninguna de nuestras seis propiedades está en zona de inundación de 100 años de FEMA, y ninguna se inundó durante Harvey (2017), Imelda (2019) ni Beryl (2024). Le compartimos el mapa de FEMA y nuestra lista de preparación para huracanes a solicitud.</p>
     </div>
     <div class="faq-item">
       <h4>¿Necesito carro?</h4>
-      <p>Sí. Alvin es una ciudad para manejar — sin tren ligero, sin autobús Metro a Houston. Lo bueno: cada unidad de Yellowstone tiene al menos un espacio asignado, y todas las propiedades están a 5–10 minutos de supermercado, gasolinera y restaurantes.</p>
+      <p>Sí. Alvin es una ciudad para manejar, sin tren ligero, sin autobús Metro a Houston. Lo bueno: cada unidad de Yellowstone tiene al menos un espacio asignado, y todas las propiedades están a 5 a 10 minutos de supermercado, gasolinera y restaurantes.</p>
     </div>
     <div class="faq-item">
       <h4>¿Cómo es el clima?</h4>
-      <p>Veranos calurosos (junio–septiembre: máximas 90–98°F, húmedo). Inviernos templados (diciembre–febrero: usualmente 50s–60s°F, congelaciones ocasionales). Primavera y otoño son hermosos. Temporada de huracanes junio–noviembre — mantenemos a los residentes informados y las propiedades preparadas.</p>
+      <p>Veranos calurosos (junio a septiembre: máximas 90 a 98°F, húmedo). Inviernos templados (diciembre a febrero: usualmente 50s a 60s°F, congelaciones ocasionales). Primavera y otoño son hermosos. Temporada de huracanes junio a noviembre, mantenemos a los residentes informados y las propiedades preparadas.</p>
     </div>
     <div class="faq-item">
       <h4>¿Y el internet?</h4>
-      <p>Comcast/Xfinity cubre las seis propiedades con fibra de gigabit. AT&amp;T fiber está disponible en la mayoría. T-Mobile 5G Home Internet es una tercera opción. Los residentes contratan su propio servicio; sin proveedor incluido.</p>
+      <p>Comcast/Xfinity cubre las seis propiedades con fibra de gigabit. AT&amp;T fiber está disponible en la mayoría. T Mobile 5G Home Internet es una tercera opción. Los residentes contratan su propio servicio; sin proveedor incluido.</p>
     </div>
     <div class="faq-item">
       <h4>¿Es bueno para niños?</h4>
@@ -600,7 +600,7 @@ const BODY_HTML = `
   <div class="cta">
     <div>
       <h3>¿Listo para <em>ver lo disponible?</em></h3>
-      <p>Tenemos unidades en las seis propiedades. Visite cualquiera con el equipo de Yellowstone — somos locales y respondemos el mismo día.</p>
+      <p>Tenemos unidades en las seis propiedades. Visite cualquiera con el equipo de Yellowstone, somos locales y respondemos el mismo día.</p>
     </div>
     <div class="btns">
       <a class="btn primary" href="/es#disponibilidad">Ver disponibilidad →</a>
@@ -614,7 +614,7 @@ const BODY_HTML = `
   <div>
     <a href="/es">Inicio</a> ·
     <a href="/living-in-alvin">English</a> ·
-    <a href="tel:+18322103968">(832) 210-3968</a> ·
+    <a href="tel:+18322103968">(832) 210 3968</a> ·
     <a href="mailto:office@yellowstone-am.com">office@yellowstone-am.com</a>
   </div>
 </footer>
