@@ -25,24 +25,6 @@ export interface PropertyAnnouncement {
 // frontend content source rather than a new table or API contract.
 export const PROPERTY_ANNOUNCEMENTS: PropertyAnnouncement[] = [
   {
-    id: 'royal-oaks-703-open-house',
-    title: 'OPEN HOUSE THIS SATURDAY',
-    message: 'Join us at Royal Oaks 703 to tour an available home, meet our local leasing team, and ask questions.',
-    type: 'open-house',
-    propertySlugs: ['the-royal-oaks-townhomes'],
-    endsAt: '2026-11-14T15:00:00-06:00',
-    dateLabel: 'Saturday, November 14, 2026',
-    timeLabel: '11:00 AM to 3:00 PM',
-    locationName: 'Royal Oaks 703',
-    locationAddress: '703 W. Lang St., Alvin, TX 77511',
-    locationHref: 'https://www.google.com/maps/search/703+W.+Lang+St.+Alvin,+Tx+77511?entry=gmail&source=g',
-    ctaLabel: 'Come Tour Your New Home',
-    ctaHref: '/#contact',
-    enabled: true,
-    published: true,
-    displayOrder: 1,
-  },
-  {
     id: 'fall-2026-move-in-offer',
     title: "SPECIAL MOVE IN OFFER: $300 DEPOSIT + $700 OFF SECOND MONTH'S RENT",
     message: 'Ask our leasing team for eligibility, offer details and complete lease terms.',
